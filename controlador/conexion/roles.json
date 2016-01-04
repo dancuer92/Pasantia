@@ -1,0 +1,31 @@
+{
+    "tipo_usuario": [
+        {
+            "tipo": "Administrador",
+            "permisos": [
+                {
+                    "modulo": "usuarios",
+                    "operaciones": [1, 2, 3]
+                },
+                {
+                    "modulo": "formatos",
+                    "operaciones": [1, 2, 3, 4]
+                }
+
+            ]
+        },
+        {
+            "tipo": "Auxiliar",
+            "permisos": [
+                {
+                    "modulo": "usuarios",
+                    "operaciones": [3]
+                },
+                {
+                    "modulo": "formatos",
+                    "operaciones": [4]
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,14 @@
+En el archivo roles.json se encuentran los permisos para cada usuario, asi como a los modulos que tendra acceso.
+Los modulos de la aplicacion son los siguientes:
+
+1. Modulo de gestión de usuarios.
+2. Modulo de gestión de formatos.
+
+Para cada uno de los modulos existen una serie de operaciones que varian segun el tipo de usuario. A continuación
+se le asigna un identificador a cada una de esas operaciones:
+
+1 = Registrar.
+2 = Consultar.
+3 = Modificar.
+4= Diligenciar.
+
