@@ -2,29 +2,31 @@
     <head> 
         <title>Administrador</title>      
         <!--import de la cabecera de la pagina -->
-        <?php include '../home/headHtml.php'; ?>
+        <link href="../../vista/util/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+        <?php // include '../home/headHtml.php'; ?>        
         <!-- Scripts de la pagina -->
         <?php
         include '../home/scripts.php';
         ?>
+        
         <script src="../util/js/jsAdmin.js"></script>
         <script src="../util/js/dragAndDrop.js"></script>
 
     </head>
     <body>
-        <div id="test2" class="row s12"><br>
-            <div class="col l3 hoverable">
+        <div id="test2" class="row s12 "><br>
+            <div class="col l3 hoverable" id="paleta">
                 <form>
                     Entrada de texto
-                    <div class="input-field s12 group" id="input-field" draggable="true" ondragstart="start(event)" ondragend="end(event)">
+                    <div class="input-field s12" id="campo-texto" draggable="true" ondragstart="start(event)" ondragend="end(event)">
                         <input placeholder="Placeholder" id="first_name" type="text" class="validate">
                         <label for="first_name" >First Name</label>
                     </div>
-                    <div class="input-field col s12" draggable="true">
+                    <div id="areaTexto" class="input-field col s12 " draggable="true" ondragstart="start(event)" ondragend="end(event)">
                         <textarea id="textarea1" class="materialize-textarea"></textarea>
                         <label for="textarea1">Textarea</label>
                     </div>
-                    <div class="input-field col s12" draggable="true">
+                    <div id="lista" class="input-field col s12" draggable="true" ondragstart="start(event)" ondragend="end(event)">
                         <select>
                             <option value="" disabled selected>Choose your option</option>
                             <option value="1">Option 1</option>
@@ -33,7 +35,7 @@
                         </select>
                         <label>Materialize Select</label>
                     </div>
-                    <div draggable="true">    
+                    <div id="opcion" draggable="true" ondragstart="start(event)" ondragend="end(event)"> opcion   
                         <p>
                             <input name="group1" type="radio" id="test1" />
                             <label for="test1">Red</label> 
@@ -44,7 +46,7 @@
                         </p>
                     </div>
 
-                    <div draggable="true">
+                    <div id="verificacion" draggable="true" ondragstart="start(event)" ondragend="end(event)">verificacion
                         <p>
                             <input type="checkbox" id="test4" checked="checked" />
                             <label for="test4">Red</label>
@@ -67,10 +69,20 @@
                         </p>                        
                     </div>
                     <div>
-                        <p draggable="true">
+                        <p id="fechas" draggable="true" ondragstart="start(event)" ondragend="end(event)">
                             <input type="date" class="datepicker">
                         </p>
                     </div>
+                    <table id="tabla" draggable="true" ondragstart="start(event)" ondragend="end(event)">
+                        <tr>
+                            <td>columna 1</td>
+                            <td>columna 2</td>
+                        </tr>
+                        <tr>
+                            <td>columna 1</td>
+                            <td>columna 2</td>
+                        </tr>
+                    </table>
                 </form>
             </div>
             <div id="formato" class=" l9 m12 s12 collection">

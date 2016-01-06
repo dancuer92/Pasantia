@@ -12,3 +12,23 @@
 .icon-block .material-icons {
 	font-size: inherit;
 }
+
+#test2{
+    display:-webkit-box;
+}
+
+/*#first_name {
+    width: 10px;
+}*/
+
+#paleta{
+    width: 25%;
+}
+
+#formato{
+    width: 75%;
+}
+
+.campo-texto{
+    size: 200px;
+}

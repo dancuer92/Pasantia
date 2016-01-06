@@ -74,7 +74,7 @@ function drop(e) {
         y = posYCont + tamContY - tamElemY;
     }
 
-    document.getElementById(elementoArrastrado).style.position = "absolute";
+    document.getElementById(elementoArrastrado).style.position = "static";
     document.getElementById(elementoArrastrado).style.left = x + "px";
     document.getElementById(elementoArrastrado).style.top = y + "px";
 }
