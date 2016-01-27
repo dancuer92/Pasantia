@@ -1,0 +1,29 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 26-ene-2016, 16:35:15
+    Author     : pinformatica
+*/
+#formBuilder{
+    size: A4;
+    border: 1px solid;
+    padding: 15px;
+}
+div .formato{
+    display: inline-block;
+    border-style:dashed;
+    border-width: 1px;
+    width: content-box;
+    padding: 10px;
+}
+
+input{
+    width: 150px;
+}
+
+input[type=checkbox]{
+    width: 40px;
+}

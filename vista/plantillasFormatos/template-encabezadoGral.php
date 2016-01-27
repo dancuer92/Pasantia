@@ -1,8 +1,8 @@
 
 
-<div class="row center">
+<div class="">
     <!--<div class="col">-->
-        <table class="bordered">
+        <table class="">
             <tr>
                 <td>
                     <img src="../util/images/corporativo/logo_ceramica.png"/>                                        

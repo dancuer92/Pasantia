@@ -1,32 +1,36 @@
-<html> 
+<html>    
     <head> 
-        <title>Administrador</title>      
-        <!--import de la cabecera de la pagina -->
-        <link href="../../vista/util/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-        <?php // include '../home/headHtml.php'; ?>        
-        <!-- Scripts de la pagina -->
-        <?php
-        include '../home/scripts.php';
-        ?>
-        
-        <script src="../util/js/jsAdmin.js"></script>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+        <title>Crear Formato</title>
+
+        <!-- CSS  -->
+        <link rel="shortcut icon" href="../../vista/util/images/corporativo/icono_ceramica.ico">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+        <!-- Scripts de la pagina -->        
         <script src="../util/js/dragAndDrop.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="../../vista/util/js/jquery-2.1.4.min.js"></script>
+
 
     </head>
     <body>
-        <div id="test2" class="row s12 "><br>
-            <div class="col l3 hoverable" id="paleta">
+        <div><br>
+            <div class="col-lg-3 col-sm-12 col-md-12" id="paleta">
                 <form>
                     Entrada de texto
-                    <div class="input-field s12" id="campo-texto" draggable="true" ondragstart="start(event)" ondragend="end(event)">
+                    <div class="input-field" id="campo-texto" draggable="true" ondragstart="start(event)" ondragend="end(event)">
                         <input placeholder="Placeholder" id="first_name" type="text" class="validate">
                         <label for="first_name" >First Name</label>
                     </div>
-                    <div id="areaTexto" class="input-field col s12 " draggable="true" ondragstart="start(event)" ondragend="end(event)">
+                    <div id="areaTexto" class="input-field" draggable="true" ondragstart="start(event)" ondragend="end(event)">
                         <textarea id="textarea1" class="materialize-textarea"></textarea>
                         <label for="textarea1">Textarea</label>
                     </div>
-                    <div id="lista" class="input-field col s12" draggable="true" ondragstart="start(event)" ondragend="end(event)">
+                    <div id="lista" class="input-field" draggable="true" ondragstart="start(event)" ondragend="end(event)">
                         <select>
                             <option value="" disabled selected>Choose your option</option>
                             <option value="1">Option 1</option>
@@ -85,7 +89,7 @@
                     </table>
                 </form>
             </div>
-            <div id="formato" class=" l9 m12 s12 collection">
+            <div id="formato" class="col-lg-9 col-sm-12 col-md-12 hover collection">
                 <?php include "../plantillasFormatos/template-encabezadoGral.php" ?>
 
 
