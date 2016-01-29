@@ -18,6 +18,7 @@ and open the template in the editor.
         <script type="text/javascript" src="../../vista/util/js/jquery-2.1.4.min.js"></script>
         <script type="text/javascript" src="bootstrap-3.3.6-dist/js/bootstrap.js"></script>
         <script type="text/javascript" src="bootstrap-3.3.6-dist/js/formBuilder.js"></script>
+        <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
 
 

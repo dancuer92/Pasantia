@@ -7,6 +7,11 @@ and open the template in the editor.
     Created on : 26-ene-2016, 16:35:15
     Author     : pinformatica
 */
+
+#master-container{
+    margin-top: 10%;
+}
+
 #formBuilder{
     size: A4;
     border: 1px solid;
@@ -24,6 +29,22 @@ input{
     width: 150px;
 }
 
-input[type=checkbox]{
+input[type=checkbox], input[type=radio]{
     width: 40px;
+}
+
+label{
+    font: normal;
+}
+
+select{
+    width: 170px;
+    height: 22px;
+}
+
+.isSelected {
+    border-style: dashed;
+    border-width: 5px;
+    background-color: #E4E4E4;
+    
 }
