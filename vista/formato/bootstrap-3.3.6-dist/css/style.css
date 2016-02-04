@@ -16,6 +16,8 @@ and open the template in the editor.
     size: A4;
     border: 1px solid;
     padding: 15px;
+    border-color: #e4e4e4;
+    border-radius: 10px;
 }
 div .formato{
     display: inline-block;
@@ -47,4 +49,25 @@ select{
     border-width: 5px;
     background-color: #E4E4E4;
     
+}
+
+#pestañas{
+    border-style: solid;
+    border-color: #E4E4E4;
+    border-width: 1px;
+    border-radius: 10px;
+    display: block;
+}
+
+.tab-content{
+    padding: 10px;
+    overflow-y: auto;
+}
+
+.divMayor{
+    margin-bottom: 15px;
+}
+
+[disabled]{
+    background-color: inherit;
 }

@@ -25,8 +25,8 @@ and open the template in the editor.
     </head>
     <body>
         <div id="master-container" class="container">
-            <div class="col-lg-4 col-sm-12 col-md-12">
-                <div>
+            <div class="col-lg-4 col-sm-12 col-md-12 divMayor">
+                <div id="pestañas">
                     <!-- Nav tabs -->
                     <ul id="myTabs" class="nav nav-tabs" role="tablist">
                         <li role="presentation" class="active"><a href="#elementos" aria-controls="elementos" role="tab" data-toggle="tab">Elementos</a></li>
@@ -34,31 +34,35 @@ and open the template in the editor.
                         <li role="presentation"><a href="#formulario" aria-controls="formulario" role="tab" data-toggle="tab">Formulario</a></li>
                     </ul>
 
+
                     <!-- Tab panes -->
                     <div class="tab-content">
-                        <div role="tabpanel" class="tab-pane active" id="elementos">
-                            <br><br>
+                        <div role="tabpanel" class="tab-pane active" id="elementos">                            
                             <div class="col-sm-6">
-                                <button class="button new-element" data-type="element-text" style="width: 100%;">Single Line Text</button>
-                                <button class="button new-element" data-type="element-paragraph-text" style="width: 100%;">Paragraph Text</button>
-                                <button class="button new-element" data-type="element-multiple-choice" style="width: 100%;">Multiple Choice</button>
-                                <button class="button grey new-element" data-type="element-section-break" style="width: 100%;">Section Break</button>
+                                <button class="btn btn-default  btn-block new-element" data-type="element-text" style="width: 100%;">Single Line Text</button>
+                                <button class="btn btn-default  btn-block new-element" data-type="element-paragraph-text" style="width: 100%;">Paragraph Text</button>
+                                <button class="btn btn-default  btn-block new-element" data-type="element-multiple-choice" style="width: 100%;">Multiple Choice</button>
+                                <button class="btn btn-default  btn-block new-element" data-type="element-section-break" style="width: 100%;">Section Break</button>
                             </div>
                             <div class="col-sm-6">
-                                <button class="button new-element" data-type="element-number" style="width: 100%;">Number</button>
-                                <button class="button new-element" data-type="element-checkboxes" style="width: 100%;">Checkboxes</button>
-                                <button class="button new-element" data-type="element-dropdown" style="width: 100%;">Dropdown</button>
-                                <button class="button new-element" data-type="element-table" style="width: 100%;">Table</button>
-                            </div></div>
+                                <button class="btn btn-default  btn-block new-element" data-type="element-number" style="width: 100%;">Number</button>
+                                <button class="btn btn-default  btn-block new-element" data-type="element-checkboxes" style="width: 100%;">Checkboxes</button>
+                                <button class="btn btn-default  btn-block new-element" data-type="element-dropdown" style="width: 100%;">Dropdown</button>
+                                <button class="btn btn-default  btn-block new-element" data-type="element-table" style="width: 100%;">Table</button>
+                            </div>
+                        </div>
                         <div role="tabpanel" class="tab-pane" id="propiedades">
-                            <br><br>
+                            <br>
                             <div id="titulo">
                                 <label>Título del campo</label>
-                                <input type="text" class="form-control" id="field-label" value="Untitled" />
-                            </div><br>
+                                <input type="text" class="form-control" id="cambiarTitulo" value="" onkeyup="cambiarTitulo();" onblur="limpiarTitulo()"/>
+                            </div>
+                            <br>
                             <div id="requerido">
-                                <label>Este campo será obligatorio</label> <input type="checkbox"/>                                    
-                                
+                                <label>Este campo será obligatorio</label> <input id="obligatorio" type="checkbox"/> 
+                            </div>
+                            <br>
+                            <div id="opciones">                                
                             </div>
                         </div>
                         <div role="tabpanel" class="tab-pane" id="formulario">Formulario</div>
@@ -66,12 +70,25 @@ and open the template in the editor.
 
                 </div>               
             </div>
-            <div class="col-lg-8 col-sm-12 col-md-12" id="formBuilder">
+            <div class="col-lg-8 col-sm-12 col-md-12 divMayor" id="formBuilder">
 
+                <table id="encabezado">
+                    <tr>
+                        <td style="text-align: center"><h2>FORMATO DEL SGC TITULO</h2></td>
+                        <td style="text-align: center"><h3> Codigo: 1234 </h3></td>                    
+                        <td style="text-align: center"><img class="responsive-img" src="../util/images/corporativo/logo_ceramica.png" alt="Cerámica Italia"></td>
+                    </tr>
+                </table>
+
+            </div>
+
+            <div class="col-lg-12 col-sm-12 col-md-12 divMayor" id="guardarFormato">
+                <button class="btn btn-success btn-lg center-block" id="saveFormato" type="button">GUARDAR FORMATO</button>
             </div>
         </div>
         <script>
-
+            
+            
         </script>
 
     </body>
