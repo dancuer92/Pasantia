@@ -1,4 +1,6 @@
-<form class="s12 m4" id="formRegUser" method="post"> 
+<form class="s12 m4" id="formRegUser" method="post">
+    <input id="codigoSesion" name="codigoSesion" type="hidden" value="<?php echo $_SESSION['codigo']; ?>">
+
     <div class="center" >
         <h3><i class="material-icons prefix" style="font-size: 2.92rem">lock_open</i> Cambiar contraseña</h3>
         <div>
@@ -32,11 +34,10 @@
     function cambiarPass() {
         var passNew = $('#passNew').val();
         var passAnt = $('#passAnt').val();
-        var codigo=<?php echo $_SESSION['codigo']; ?> 
-        cambiarPass(codigo);
-        
+        var codigo = $('#codigoSesion').val();
+
         if (passConfirm()) {
-            $.post("../../controlador/sesion/controladorUsuario.php", {codigo:codigo, passAnt:passAnt, passNew: passNew, opcion: "cambiar"},
+            $.post("../../controlador/sesion/controladorUsuario.php", {codigo: codigo, passAnt: passAnt, passNew: passNew, opcion: "cambiar"},
             function (mensaje) {
                 $('#cambiarContraseña').html(mensaje);
                 Materialize.toast(mensaje, 3000, 'rounded');
@@ -69,7 +70,7 @@
             Materialize.toast('Favor escribir contraseña anterior', 3000, 'rounded');
             $('#passAnt').focus();
             return false;
-        }        
+        }
         else {
             return true;
         }

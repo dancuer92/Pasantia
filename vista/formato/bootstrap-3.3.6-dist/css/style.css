@@ -22,13 +22,20 @@ and open the template in the editor.
 div .formato{
     display: inline-block;
     border-style:dashed;
-    border-width: 1px;
-    width: content-box;
+    border-width: 0.5px;
     padding: 10px;
 }
 
 input{
     width: 150px;
+}
+
+textarea{
+    display: block;
+}
+
+p{
+    display:inline;
 }
 
 input[type=checkbox], input[type=radio]{
@@ -70,4 +77,9 @@ select{
 
 [disabled]{
     background-color: inherit;
+}
+
+#opciones input{
+    width:auto;
+    display: inline-block;
 }

@@ -54,8 +54,8 @@ and open the template in the editor.
                         <div role="tabpanel" class="tab-pane" id="propiedades">
                             <br>
                             <div id="titulo">
-                                <label>Título del campo</label>
-                                <input type="text" class="form-control" id="cambiarTitulo" value="" onkeyup="cambiarTitulo();" onblur="limpiarTitulo()"/>
+                                <label>Nombre del campo</label>
+                                <input type="text" class="form-control" id="cambiarTitulo" value="" onkeyup="cambiarTitulo();" onblur="limpiarTitulo();"/>
                             </div>
                             <br>
                             <div id="requerido">
@@ -64,6 +64,10 @@ and open the template in the editor.
                             <br>
                             <div id="opciones">                                
                             </div>
+                            <br>
+                            <div>
+                                <button class="btn btn-danger btn-block" id="eliminar" name="eliminar" onclick="eliminar();">Eliminar elemento</button>
+                            </div>                            
                         </div>
                         <div role="tabpanel" class="tab-pane" id="formulario">Formulario</div>
                     </div>
