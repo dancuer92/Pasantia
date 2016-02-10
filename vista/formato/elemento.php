@@ -79,9 +79,9 @@ function getCheckboxes() {
 
 function getDropdown() {
     $msj = '<div class="formato ui-state-default ">'
-            . '<label>Untitled </label> <br>'
+            . '<label>Untitled </label>'
             . '<select id="select" name="select">'
-            . '<option >option-1</option>'
+            . '<option value="option-1" selected>option-1</option>'
             . '</select>'
             . '</div>';
     echo $msj;
@@ -114,6 +114,9 @@ function getOpcion() {
     }
     elseif ($tipo=="radio"){
         $msj = '<input type="radio" id="'.$id.'"  name="radio" value="Untitled" disabled/><p>Untitled</p>';
+    }
+    else{
+        $msj='<option value="Untitled" selected>option-'.$id.'</option>';
     }
     echo $msj;
 }
