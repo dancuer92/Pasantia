@@ -1,4 +1,4 @@
 # pasantia
 
 
-APlicacion para sistematizar formatos en pdf
+Aplicacion para sistematizar formatos en pdf
