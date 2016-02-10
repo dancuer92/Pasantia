@@ -72,7 +72,7 @@ function getAreaText() {
 function getCheckboxes() {
     $msj = '<div class="formato ui-state-default ">'
             . '<label>Untitled</label> <br>'
-            . '<input id="Untitled-0" type="checkbox" name="Untitled-0" value="untitled" disabled/><p>Untitled-0</p>'
+            . '<input id="Untitled-0" type="checkbox" name="Untitled-0" value="untitled" disabled/><p>Untitled</p>'
             . '</div>';
     echo $msj;
 }
@@ -90,7 +90,7 @@ function getDropdown() {
 function getRadio() {
     $msj = '<div class="formato ui-state-default ">'
             . '<label>Untitled</label><br>'
-            . '<input type="radio" id="Untitled-0" name="radio" value="Untitled" disabled/><p>Untitled-0</p> '
+            . '<input type="radio" id="Untitled-0" name="radio" value="Untitled" disabled/><p>Untitled</p> '
             . '</div>';
     echo $msj;
 }
@@ -110,10 +110,10 @@ function getOpcion() {
     $id = $_POST['id'];    
     $tipo = $_POST['tipo'];    
     if($tipo=="checkbox"){
-        $msj = '<input id="'.$id.'" type="checkbox" name="'.$id.'" value="" disabled/><p>'.$id.'</p>';    
+        $msj = '<input id="'.$id.'" type="checkbox" name="'.$id.'" value="Untitled" disabled/><p>Untitled</p>';    
     }
     elseif ($tipo=="radio"){
-        $msj = '<input type="radio" id="'.$id.'"  name="radio" value="" disabled/><p>'.$id.'</p>';
+        $msj = '<input type="radio" id="'.$id.'"  name="radio" value="Untitled" disabled/><p>Untitled</p>';
     }
     echo $msj;
 }

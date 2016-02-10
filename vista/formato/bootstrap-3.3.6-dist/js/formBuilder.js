@@ -45,6 +45,15 @@ $('crearFormato2').ready(function () {
             alert('No se puede tener menos de una opción');
         }
     });
+    
+    $('#opciones').on('keyup', 'input', function(){
+        var div=$(this);
+        var valor=$(this).val();
+        var pos=div.attr('id').split('-');
+        var opc= $('.isSelected input').eq(pos[1]);
+        opc.attr('value',valor);
+        opc.next('p').text(valor);        
+    }) ;
 
     if (currentlySelected === '') {
         ocultarConfiguraciones();
@@ -81,7 +90,7 @@ function cambiarTitulo() {
             elem.attr('id', titulo);
         }
         else {
-            rename();    
+            rename();
         }
         renameOptions(titulo);
 
@@ -141,7 +150,7 @@ function cargarOpciones(div) {
     var msj = '<label>Configuración de opciones</label><br>\n\
                 <button class="btn btn-default" onclick="adicionar();">Adicionar Opcion</button><br>';
     div.children('input').each(function (i) {
-        msj += '<input id="' + $(this).attr('id') + '" type="text" class="form-control" placeholder="' + $(this).attr('id') + '"/>\n\
+        msj += '<input id="' + $(this).attr('id') + '" type="text" class="form-control" placeholder="' + $(this).attr('value') + '"/>\n\
                 <a class="btn btn-default remover" >Eliminar</a>';
 
     });
@@ -152,7 +161,7 @@ function adicionar() {
     var pos = $('#opciones input').length;
     var div = $('#formBuilder .isSelected input:last').attr('id').split('-');
     var idOpcion = div[0] += "-" + pos;
-    $('#opciones').append('<input id="' + idOpcion + '" type="text" value="" class="form-control" placeholder="' + (idOpcion) + '"/> <a class="btn btn-default remover" >Eliminar</a>');
+    $('#opciones').append('<input id="' + idOpcion + '" type="text" class="form-control" placeholder="Untitled" /> <a class="btn btn-default remover" >Eliminar</a>');
     adicionarOpcion(idOpcion);
 }
 
@@ -184,13 +193,15 @@ function remover(pos) {
 function rename() {
     var div = $('#formBuilder .isSelected');
     var titulo = div.children('label').text();
+    titulo = titulo.replace(/ /g, "-");
+    titulo = titulo.toLowerCase();
     div.children('input').each(function (i) {
         var nombreOpcion = titulo + "-" + i;
         $(this).attr('id', nombreOpcion);
         if ($(this).attr('type') === 'checkbox') {
             $(this).attr('name', nombreOpcion);
         }
-        $(this).next('p').text(nombreOpcion);
+//        $(this).next('p').text(nombreOpcion);
     });
 }
 
@@ -198,7 +209,7 @@ function renameOptions(nombre) {
     $('#opciones input').each(function (i) {
         var opcion = nombre + '-' + i;
         $(this).attr('id', opcion);
-        $(this).attr('placeholder', opcion);
+//        $(this).attr('placeholder', 'Untitled');
     });
 }
 
@@ -208,3 +219,11 @@ function eliminar() {
     ocultarConfiguraciones();
 
 }
+
+
+    
+    
+
+
+
+
