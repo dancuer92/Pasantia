@@ -53,6 +53,18 @@ $('crearFormato2').ready(function () {
         var opc = $('.isSelected input').eq(pos[1]);
         opc.attr('value', valor);
         opc.next('p').text(valor);
+        var opc2 = $('.isSelected option').eq(pos[1]);
+        opc2.attr('value', valor);
+
+    });
+
+    $('#opciones').on('keyup', '.optionSelect', function () {
+        var div = $(this);
+        var valor = $(this).val();
+        var pos = div.index();
+        var opc = $('.isSelected option').eq(pos);
+        opc.attr('value', valor.replace(/ /g, "-"));
+        opc.children('p').html(valor);
     });
 
     if (currentlySelected === '') {
@@ -93,11 +105,12 @@ function cambiarTitulo() {
             rename();
         }
         renameOptions(titulo);
-
         if (elem.is('textarea') || elem.is('select')) {
             elem.attr('id', titulo);
             elem.attr('name', titulo);
         }
+        
+
 
     }
     ;
@@ -135,9 +148,9 @@ function mostrarConfiguraciones(div) {
         //cargar opciones automaticamente.
         cargarOpciones(elemento);
     }
-    else if (elemento.children('select')){
+    else if (elemento.children('select')) {
         $('#opciones').show();
-        cargarOpciones(elemento);
+        cargarOpcionesSelect(elemento);
     }
     else {
         $('#opciones').hide();
@@ -154,14 +167,10 @@ function ocultarConfiguraciones() {
 function cargarOpciones(div) {
     var msj = '<label>Configuración de opciones</label><br>\n\
                 <button class="btn btn-default" onclick="adicionar();">Adicionar Opcion</button><br>';
-    
+
     //manejar como una clase para evitar redundancia y complejidad computacional
-    
+
     div.children('input').each(function (i) {
-        msj += '<input id="' + $(this).attr('id') + '" type="text" class="form-control" placeholder="' + $(this).attr('value') + '"/>\n\
-                <a class="btn btn-default remover" >Eliminar</a>';
-    });
-    div.children('option').each(function (i) {
         msj += '<input id="' + $(this).attr('id') + '" type="text" class="form-control" placeholder="' + $(this).attr('value') + '"/>\n\
                 <a class="btn btn-default remover" >Eliminar</a>';
     });
@@ -170,50 +179,66 @@ function cargarOpciones(div) {
 
 function adicionar() {
     var pos = $('#opciones input').length;
-    var div;
-    var idOpcion;
-    if(pos>0){
-        div= $('#formBuilder .isSelected input:last').attr('id').split('-');
-        idOpcion = div[0] += "-" + pos;
-    }   
-    else{
-        idOpcion='option-'+$('#opciones input').length; 
-    }    
+
+    var div = $('.isSelected input:last').attr('id').split('-');
+    var idOpcion = div[0] += "-" + pos;
+
+
     $('#opciones').append('<input id="' + idOpcion + '" type="text" class="form-control" placeholder="Untitled" /> <a class="btn btn-default remover" >Eliminar</a>');
     adicionarOpcion(idOpcion);
 }
 
 function adicionarOpcion(idOpcion) {
-    var div = $('#formBuilder').find('.isSelected');
+    var div = $('.isSelected');
     var tipo = div.children('input').attr('type');
 //    var pos = div.children('input').length;
 
-    if (tipo === 'checkbox' || tipo === 'radio') {
-        $.post("../formato/elemento.php", {opcion: "element-option", id: idOpcion, tipo: tipo},
-        function (mensaje) {
-            $(div).append(mensaje);
-        });
-    }else{
-        $.post("../formato/elemento.php", {opcion: "element-option", id: idOpcion, tipo: "option"},
-        function (mensaje) {
-            $(div).append(mensaje);
-        });
-    }
+    $.post("../formato/elemento.php", {opcion: "element-option", id: idOpcion, tipo: tipo},
+    function (mensaje) {
+        $(div).append(mensaje);
+    });
 
 }
 
+function cargarOpcionesSelect(div) {
+    var msj = '<label>Configuración de opciones</label><br>\n\
+                <button class="btn btn-default" onclick="adicionarOptionSelect();">Adicionar Opcion</button><br>';
+    div.find('option').each(function (i) {
+        msj += '<input id="opcion-' + i + '" type="text" class="form-control optionSelect" placeholder="' + $(this).attr('value') + '"/>\n\
+                <a class="btn btn-default remover" >Eliminar</a>';
+    });
+    $('#opciones').html(msj);
+}
+
+function adicionarOptionSelect() {
+    var pos = $('#opciones input').length;
+    $('#opciones').append('<input id="opcion-' + pos + '"type="text" class="form-control optionSelect" placeholder="Untitled" /> <a class="btn btn-default remover" >Eliminar</a>');
+    var div = $('.isSelected select');
+    $.post("../formato/elemento.php", {opcion: "element-option", id: "", tipo: "option"},
+    function (mensaje) {
+        $(div).append(mensaje);
+    });
+}
+
+
+
 function remover(pos) {
-    $('#formBuilder .isSelected input').each(function (i) {
+    $('.isSelected input').each(function (i) {
         if (i == pos) {
             $(this).next('p').remove();
             $(this).remove();
             rename();
         }
     });
+    $('.isSelected option').each(function (i) {
+        if (i == pos) {
+            $(this).remove();
+        }
+    });
 }
 
 function rename() {
-    var div = $('#formBuilder .isSelected');
+    var div = $('.isSelected');
     var titulo = div.children('label').text();
     titulo = titulo.replace(/ /g, "-");
     titulo = titulo.toLowerCase();
@@ -236,7 +261,7 @@ function renameOptions(nombre) {
 }
 
 function eliminar() {
-    var div = $('#formBuilder .isSelected');
+    var div = $('.isSelected');
     div.remove();
     ocultarConfiguraciones();
 
