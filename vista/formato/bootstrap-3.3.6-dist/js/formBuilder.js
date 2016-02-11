@@ -58,13 +58,15 @@ $('crearFormato2').ready(function () {
 
     });
 
-    $('#opciones').on('keyup', '.optionSelect', function () {
-        var div = $(this);
+    $('#opciones').on('keyup', 'input', function () {
+        var div = $(this).attr('id').split('-');
         var valor = $(this).val();
-        var pos = div.index();
+        var value=(valor.replace(/ /g, "-"));
+        var pos = div[1];
         var opc = $('.isSelected option').eq(pos);
-        opc.attr('value', valor.replace(/ /g, "-"));
-        opc.children('p').html(valor);
+        console.log(pos);
+        opc.attr('value',value);
+        opc.html(valor);
     });
 
     if (currentlySelected === '') {
@@ -109,7 +111,7 @@ function cambiarTitulo() {
             elem.attr('id', titulo);
             elem.attr('name', titulo);
         }
-        
+
 
 
     }

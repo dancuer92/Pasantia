@@ -81,7 +81,7 @@ function getDropdown() {
     $msj = '<div class="formato ui-state-default ">'
             . '<label>Untitled </label>'
             . '<select id="select" name="select">'
-            . '<option value="opcion-1" selected><p>Option 1</p></option>'
+            . '<option value="opcion-1" selected>Option 1</option>'
             . '</select>'
             . '</div>';
     echo $msj;
@@ -116,7 +116,7 @@ function getOpcion() {
         $msj = '<input type="radio" id="'.$id.'"  name="radio" value="Untitled" disabled/><p>Untitled</p>';
     }
     else{
-        $msj='<option value="opcion-1"><p>opcion 1</p></option>';
+        $msj='<option value="opcion-1">opcion 1</option>';
     }
     echo $msj;
 }
