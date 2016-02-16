@@ -90,10 +90,6 @@ and open the template in the editor.
                 <button class="btn btn-success btn-lg center-block" id="saveFormato" type="button">GUARDAR FORMATO</button>
             </div>
         </div>
-        <script>
-
-
-        </script>
 
     </body>
 

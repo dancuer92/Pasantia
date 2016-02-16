@@ -1,4 +1,3 @@
-<html>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
     <title>Starter Template - Materialize</title>
@@ -9,4 +8,3 @@
     <link href="../../vista/util/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
     <link rel="shortcut icon" href="../../vista/util/images/corporativo/icono_ceramica.ico">
 
-</html>

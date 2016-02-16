@@ -31,6 +31,7 @@
         <div class="collection">
             <div id="miPerfil" class="contenido">
                 <?php include_once '../home/miPerfil.php' ?>
+                
             </div>              
             <div id="cambiarPassword" class="contenido">
                 <?php include_once '../home/cambiarPassword.php' ?>

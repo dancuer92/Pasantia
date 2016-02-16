@@ -87,10 +87,11 @@ function buscar() {
     $sql = "SELECT u.codigo_usuario, u.nombre_usuario, u.apellido_usuario, u.correo_usuario, u.cargo_usuario, "
             . "u.departamento_usuario, u.telefono_usuario, u.rol_usuario, u.estado_usuario, u.fecha_registro "
             . "FROM usuario u WHERE u.codigo_usuario COLLATE latin1_swedish_ci LIKE '%$consultaBusqueda%' "
-            . "OR u.nombre_usuario COLLATE latin1_swedish_ci LIKE '%$consultaBusqueda%'"
-            . "OR u.apellido_usuario COLLATE latin1_swedish_ci LIKE '%$consultaBusqueda%'"
+            . "OR u.nombre_usuario COLLATE latin1_swedish_ci LIKE '%$consultaBusqueda%' "
+            . "OR u.apellido_usuario COLLATE latin1_swedish_ci LIKE '%$consultaBusqueda%' "
             . "OR concat(u.nombre_usuario,' ',u.apellido_usuario) COLLATE latin1_swedish_ci LIKE '%$consultaBusqueda%' "
-            . "LIMIT 6;";
+            . "LIMIT 6;";   
+    
 
     $consulta = mysqli_query($conexion, $sql);
 

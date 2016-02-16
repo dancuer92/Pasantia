@@ -121,6 +121,11 @@ function getOpcion() {
     echo $msj;
 }
 
-
+function getSectionBreak(){
+    $msj='<div class="formato ui-state-default ">'
+            . '<p>Esto es un separador de elementos<p>'
+            . '</div>';
+    echo $msj;
+}
 
 ?>

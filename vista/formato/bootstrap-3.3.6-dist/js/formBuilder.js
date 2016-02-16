@@ -61,11 +61,11 @@ $('crearFormato2').ready(function () {
     $('#opciones').on('keyup', 'input', function () {
         var div = $(this).attr('id').split('-');
         var valor = $(this).val();
-        var value=(valor.replace(/ /g, "-"));
+        var value = (valor.replace(/ /g, "-"));
         var pos = div[1];
         var opc = $('.isSelected option').eq(pos);
         console.log(pos);
-        opc.attr('value',value);
+        opc.attr('value', value);
         opc.html(valor);
     });
 
@@ -144,18 +144,19 @@ function mostrarConfiguraciones(div) {
     $('#requerido').show();
     $('#eliminar').show();
     var elemento = div;
+
     var tipo = elemento.children('input').attr('type');
+    console.log(tipo);
     if (tipo === 'checkbox' || tipo === 'radio') {
         $('#opciones').show();
-        //cargar opciones automaticamente.
         cargarOpciones(elemento);
-    }
-    else if (elemento.children('select')) {
-        $('#opciones').show();
-        cargarOpcionesSelect(elemento);
     }
     else {
         $('#opciones').hide();
+        if (elemento.children('select').html()){
+            cargarOpcionesSelect(elemento);
+            $('#opciones').show();
+        }
     }
 }
 
