@@ -31,7 +31,7 @@ and open the template in the editor.
                     <ul id="myTabs" class="nav nav-tabs" role="tablist">
                         <li role="presentation" class="active"><a href="#elementos" aria-controls="elementos" role="tab" data-toggle="tab">Elementos</a></li>
                         <li role="presentation"><a href="#propiedades" aria-controls="propiedades" role="tab" data-toggle="tab">Propiedades</a></li>
-                        <li role="presentation"><a href="#formulario" aria-controls="formulario" role="tab" data-toggle="tab">Formulario</a></li>
+<!--                        <li role="presentation"><a href="#formulario" aria-controls="formulario" role="tab" data-toggle="tab">Formulario</a></li>-->
                     </ul>
 
 
@@ -59,7 +59,7 @@ and open the template in the editor.
                             </div>
                             <br>
                             <div id="requerido">
-                                <label>Este campo será obligatorio</label> <input id="obligatorio" type="checkbox"/> 
+                                <label>Este campo será obligatorio</label> <input id="obligatorio" value="false" type="checkbox"/> 
                             </div>
                             <br>
                             <div id="opciones">                                

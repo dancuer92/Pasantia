@@ -46,7 +46,7 @@ switch ($opcion) {
 function getInputText() {
     $msj = '<div class="formato form-group ui-state-default ">'
             . '<label >Untitled </label>'
-            . '<input id="untitled" type="text" length="30" required="false" disabled/>'
+            . '<input id="untitled" type="text" length="30" disabled/>'
             . '</div>';
     echo $msj;
 }
@@ -54,7 +54,7 @@ function getInputText() {
 function getInputNumber() {
     $msj = '<div class="formato  form-group ui-state-default ">'
             . '<label>Untitled </label>'
-            . '<input id="untitled" type="number" length="15" required="false" disabled/>'
+            . '<input id="untitled" type="number" length="15" disabled/>'
             . '</label>'
             . '</div>';
     echo $msj;
@@ -63,7 +63,7 @@ function getInputNumber() {
 function getAreaText() {
     $msj = '<div class="formato ui-state-default " >'
             . '<label>Untitled</label>'
-            . '<textarea id="untitled" type="text" required="false" disabled>'
+            . '<textarea id="untitled" type="text" disabled>'
             . '</textarea>'
             . '</div>';
     echo $msj;
@@ -97,11 +97,11 @@ function getRadio() {
 
 function getTable() {
     $msj = '<div class="formato ui-state-default">'
-            . '<table><thead><th>Columna1</th><th>Columna2</th></thead>'
+            . '<table id="tabla" name="tabla"><thead><th><label>Titulo 1</label></th></thead>'
             . '<tbody>'
-            . '<tr><td>i1j1</td><td>i1j2</td></tr>'
-            . '<tr><td>i2j1</td><td>i2j2</td></tr>'
+            . '<tr><td><p>Untitled </p><input id="Untitled" type="text" disabled></td></tr>'
             . '</tbody>'
+            . '</table>'
             . '</div>';
     echo $msj;
 }
@@ -122,8 +122,8 @@ function getOpcion() {
 }
 
 function getSectionBreak(){
-    $msj='<div class="formato ui-state-default ">'
-            . '<p>Esto es un separador de elementos<p>'
+    $msj='<div class="formato ui-state-default" style="width:100%;">'
+            . '<label>Separador</label>'
             . '</div>';
     echo $msj;
 }
