@@ -19,6 +19,7 @@ and open the template in the editor.
         <script type="text/javascript" src="bootstrap-3.3.6-dist/js/bootstrap.js"></script>
         <script type="text/javascript" src="bootstrap-3.3.6-dist/js/formBuilder.js"></script>
         <script type="text/javascript" src="bootstrap-3.3.6-dist/js/jquery-ui.js"></script>
+        <script type="text/javascript" src="bootstrap-3.3.6-dist/js/jquery.tabletojson.js"></script>
 
 
 
@@ -87,8 +88,11 @@ and open the template in the editor.
             </div>
 
             <div class="col-lg-12 col-sm-12 col-md-12 divMayor" id="guardarFormato">
-                <button class="btn btn-success btn-lg center-block" id="saveFormato" type="button">GUARDAR FORMATO</button>
+                <button class="btn btn-success btn-lg center-block" id="saveFormato" onclick="guardarFormato();">GUARDAR FORMATO</button>
             </div>
+        </div>
+        <div id="res1">
+            
         </div>
 
     </body>

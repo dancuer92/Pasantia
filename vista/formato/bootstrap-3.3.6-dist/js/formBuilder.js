@@ -509,7 +509,7 @@ function eliminarColumna() {
     if (cant > 1) {
         //Se recorren todas las filas.
         $('.isSelected table tr').each(function (i) {
-            //El encabezado también se elimina.
+            //El encabezado de la columna también se elimina.
             if (i == 0) {
                 $(this).children('th:last').remove();
             }
@@ -523,9 +523,13 @@ function eliminarColumna() {
     }
 }
 
+/**
+ * Método que se encarga de guradar el html del formato generado en la base de datos.
+ * @returns {undefined}
+ */
+function guardarFormato() {
+    var formato = $('#formBuilder div');            
+    $('#res1').text(formato.eq(3).html());
+    console.log(formato.length);
 
-
-
-
-
-
+}
