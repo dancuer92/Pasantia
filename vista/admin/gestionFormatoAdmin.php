@@ -2,25 +2,25 @@
     <div class="col l3 row hide-on-med-and-down">
         <ul class="collection">
             <li class="collection-item">
-                <a href="#registrarFormato" id="registrarFormat"class=" colorTexto">
+                <a href="#registrarFormato" id="registrarFormato"class=" colorTexto">
                     <i class="material-icons">build</i>
                     Crear o modificar formato
                 </a>
             </li>            
             <li class="collection-item">
-                <a href="#AsignarFormato" id="asignarFormat" class=" colorTexto">
+                <a href="#AsignarFormato" id="asignarFormato" class=" colorTexto">
                     <i class="material-icons">input</i>
                     Asignar formato
                 </a>
             </li>
             <li class="collection-item">
-                <a href="#ConsultarFormato" id="consultarFormat" class=" colorTexto" >
+                <a href="#ConsultarFormato" id="consultarFormato" class=" colorTexto" >
                     <i class="material-icons">search</i>
                     Consultar formato
                 </a>
             </li>
             <li class="collection-item">
-                <a href="#DiligenciarFormato" id="diligenciarFormat" class=" colorTexto" >
+                <a href="#DiligenciarFormato" id="diligenciarFormato" class=" colorTexto" >
                     <i class="material-icons">keyboard</i>
                     Diligenciar formato
                 </a>
@@ -28,22 +28,15 @@
         </ul>               
     </div>
     <div class="col l9 m12 s12">
-        <div class="collection">
-            <div id="miPerfil" class="contenido">
-                <?php include_once '../home/miPerfil.php' ?>
-                
-            </div>              
-            <div id="cambiarPassword" class="contenido">
-                <?php include_once '../home/cambiarPassword.php' ?>
-            </div>
-            <div id="registrarUser" class="contenido">
-                <?php include_once 'registrarUsuario.php' ?>
-            </div>
-            <div id="consultarUser" class="contenido">
-                <?php include_once 'consultarUsuario.php' ?>
-            </div>
-        </div>               
-    </div>
+        <div class="collection">            
+            <?php
+            include_once 'registrarFormato.php';
+            include_once 'registrarFormato.php';
+            include_once 'registrarFormato.php';
+            include_once 'registrarFormato.php';
+            ?>
+        </div>
+    </div>               
 </div>
 
 <div id="mobileFormatos" class="fixed-action-btn hide-on-large-only " style="bottom: 45px; right: 24px;">

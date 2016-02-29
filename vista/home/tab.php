@@ -19,7 +19,7 @@
     }
     if ($tipo === 'operator') {
         include '../operator/gestionUsuarioOper.php';
-        ?><div id="test2" class="col s12">Formatos Oper</div><?php
+        include '../operator/gestionFormatoOper.php';
     }
     ?>        
 </div>

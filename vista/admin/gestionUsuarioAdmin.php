@@ -28,21 +28,14 @@
         </ul>               
     </div>
     <div class="col l9 m12 s12">
-        <div class="collection">
-            <div id="miPerfil" class="contenido">
-                <?php include_once '../home/miPerfil.php' ?>
-            </div>              
-            <div id="cambiarPassword" class="contenido">
-                <?php include_once '../home/cambiarPassword.php' ?>
-            </div>
-            <div id="registrarUser" class="contenido">
-                <?php include_once 'registrarUsuario.php' ?>
-            </div>
-            <div id="consultarUser" class="contenido">
-                <?php include_once 'consultarUsuario.php' ?>
-            </div>
-        </div>               
-    </div>
+        <div class="collection">            
+            <?php 
+            include_once '../home/miPerfil.php';
+            include_once '../home/cambiarPassword.php';
+            include_once 'registrarUsuario.php';
+            include_once 'consultarUsuario.php'; ?>
+        </div>
+    </div>               
 </div>
 
 <div id="mobileUsuarios" class="fixed-action-btn hide-on-large-only" style="bottom: 45px; right: 24px;">
