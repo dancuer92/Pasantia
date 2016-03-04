@@ -5,6 +5,6 @@
     <!-- CSS  -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="../../vista/util/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-    <link href="../../vista/util/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <!--<link href="../../vista/util/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>-->
     <link rel="shortcut icon" href="../../vista/util/images/corporativo/icono_ceramica.ico">
 

@@ -2186,91 +2186,91 @@ footer.page-footer .footer-copyright {
     background-color: rgba(51, 51, 51, 0.08); }
 
 table, th, td {
-  border: none; }
+    border: none; }
 
 table {
-  width: 100%;
-  display: table; }
-  table.bordered > thead > tr, table.bordered > tbody > tr {
+    width: 100%;
+    display: table; }
+table.bordered > thead > tr, table.bordered > tbody > tr {
     border-bottom: 1px solid #d0d0d0; }
-  table.striped > tbody > tr:nth-child(odd) {
+table.striped > tbody > tr:nth-child(odd) {
     background-color: #f2f2f2; }
-  table.striped > tbody > tr > td {
+table.striped > tbody > tr > td {
     border-radius: 0px; }
-  table.highlight > tbody > tr {
+table.highlight > tbody > tr {
     -webkit-transition: background-color .25s ease;
     -moz-transition: background-color .25s ease;
     -o-transition: background-color .25s ease;
     -ms-transition: background-color .25s ease;
     transition: background-color .25s ease; }
-    table.highlight > tbody > tr:hover {
-      background-color: #f2f2f2; }
-  table.centered thead tr th, table.centered tbody tr td {
+table.highlight > tbody > tr:hover {
+    background-color: #f2f2f2; }
+table.centered thead tr th, table.centered tbody tr td {
     text-align: center; }
 
 thead {
-  border-bottom: 1px solid #d0d0d0; }
+    border-bottom: 1px solid #d0d0d0; }
 
 td, th {
-  padding: 15px 5px;
-  display: table-cell;
-  text-align: left;
-  vertical-align: middle;
-  border-radius: 2px; }
+    padding: 15px 5px;
+    display: table-cell;
+    text-align: left;
+    vertical-align: middle;
+    border-radius: 2px; }
 
 @media only screen and (max-width : 992px) {
-  table.responsive-table {
-    width: 100%;
-    border-collapse: collapse;
-    border-spacing: 0;
-    display: block;
-    position: relative;
-    /* sort out borders */ }
+    table.responsive-table {
+        width: 100%;
+        border-collapse: collapse;
+        border-spacing: 0;
+        display: block;
+        position: relative;
+        /* sort out borders */ }
     table.responsive-table th, table.responsive-table td {
-      margin: 0;
-      vertical-align: top; }
+        margin: 0;
+        vertical-align: top; }
     table.responsive-table th {
-      text-align: left; }
+        text-align: left; }
     table.responsive-table thead {
-      display: block;
-      float: left; }
-      table.responsive-table thead tr {
+        display: block;
+        float: left; }
+    table.responsive-table thead tr {
         display: block;
         padding: 0 10px 0 0; }
-        table.responsive-table thead tr th::before {
-          content: "\00a0"; }
+    table.responsive-table thead tr th::before {
+        content: "\00a0"; }
     table.responsive-table tbody {
-      display: block;
-      width: auto;
-      position: relative;
-      overflow-x: auto;
-      white-space: nowrap; }
-      table.responsive-table tbody tr {
+        display: block;
+        width: auto;
+        position: relative;
+        overflow-x: auto;
+        white-space: nowrap; }
+    table.responsive-table tbody tr {
         display: inline-block;
         vertical-align: top; }
     table.responsive-table th {
-      display: block;
-      text-align: right; }
+        display: block;
+        text-align: right; }
     table.responsive-table td {
-      display: block;
-      min-height: 1.25em;
-      text-align: left; }
+        display: block;
+        min-height: 1.25em;
+        text-align: left; }
     table.responsive-table tr {
-      padding: 0 10px; }
+        padding: 0 10px; }
     table.responsive-table thead {
-      border: 0;
-      border-right: 1px solid #d0d0d0; }
+        border: 0;
+        border-right: 1px solid #d0d0d0; }
     table.responsive-table.bordered th {
-      border-bottom: 0;
-      border-left: 0; }
+        border-bottom: 0;
+        border-left: 0; }
     table.responsive-table.bordered td {
-      border-left: 0;
-      border-right: 0;
-      border-bottom: 0; }
+        border-left: 0;
+        border-right: 0;
+        border-bottom: 0; }
     table.responsive-table.bordered tr {
-      border: 0; }
+        border: 0; }
     table.responsive-table.bordered tbody tr {
-      border-right: 1px solid #d0d0d0; } }
+        border-right: 1px solid #d0d0d0; } }
 
 .collection {
     margin: 0.5rem 0 1rem 0;
@@ -5562,7 +5562,7 @@ small {
     background-color: #fff;
     transition: box-shadow .25s;
     border-radius: 2px;
-    }
+}
 .card .card-title {
     color: #fff;
     font-size: 24px;
@@ -5646,7 +5646,7 @@ small {
     height: 100%;
     z-index: 1;
     display: none;
-    }
+}
 .card .card-reveal .card-title {
     cursor: pointer;
     display: block; }
@@ -6252,7 +6252,7 @@ button:focus {
 label {
     font-size: inherit;
     color: #9e9e9e;
-    }
+}
 
 /***************************
    Text Inputs + Textarea
@@ -6287,7 +6287,7 @@ input[type=text], input[type=password], input[type=email], input[type=url], inpu
     -moz-box-sizing: content-box;
     box-sizing: content-box;
     transition: all .3s;
-    }
+}
 input[type=text]:disabled, input[type=text][readonly="readonly"], input[type=password]:disabled, input[type=password][readonly="readonly"], input[type=email]:disabled, input[type=email][readonly="readonly"], input[type=url]:disabled, input[type=url][readonly="readonly"], input[type=time]:disabled, input[type=time][readonly="readonly"], input[type=date]:disabled, input[type=date][readonly="readonly"], input[type=datetime-local]:disabled, input[type=datetime-local][readonly="readonly"], input[type=tel]:disabled, input[type=tel][readonly="readonly"], input[type=number]:disabled, input[type=number][readonly="readonly"], input[type=search]:disabled, input[type=search][readonly="readonly"], textarea.materialize-textarea:disabled, textarea.materialize-textarea[readonly="readonly"] {
     color: rgba(0, 0, 0, 0.26);
     border-bottom: 1px dotted rgba(0, 0, 0, 0.26); }
@@ -8254,7 +8254,7 @@ img.logo_pie{
     font-size: large;    
 }
 
-#navbarUsers{
+#navbarUsers, #footer{
     background-color: #FAFAFA; 
     color: #DE0000; 
     font-size: large;
@@ -8265,3 +8265,15 @@ input{
     color:grey;
     border:none;    
 }
+
+#administrador a{
+    /*color: #ee6e73;*/
+    color: #DE0000;
+}
+
+#administrador p{
+    color:#000;
+}
+
+
+

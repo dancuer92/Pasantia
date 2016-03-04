@@ -10,12 +10,12 @@ and open the template in the editor.
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
-        <title>Starter Template - Materialize</title>
+        <title>Sistema Integrado de Gestión a la calidad de Cerámica Italia S.A.</title>
 
         <!-- CSS  -->
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link href="vista/util/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-        <link href="vista/util/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+        <!--<link href="vista/util/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>-->
         <link rel="shortcut icon" href="vista/util/images/corporativo/icono_ceramica.ico">
 
         <!--  Scripts-->
@@ -30,25 +30,25 @@ and open the template in the editor.
         <?php
         $logo = "vista/util/images/corporativo/logo_ceramica.png";
         $home = "index.php";
-        include 'vista/home/navBar.php';
+        include 'vista/index/navBar.php';
         ?>
 
         <!-- banner inicio de sesion-->
-        <?php include 'vista/home/banner.php'; ?>
+        <?php include 'vista/index/banner.php'; ?>
 
         <!-- modal-fixed-footer, inicio de sesion-->
-        <?php include 'vista/home/modalInicioSesion.php'; ?>
+        <?php include 'vista/index/modalInicioSesion.php'; ?>
 
         <!-- modal-fixed-footer, cambio contraseña-->
-        <?php include 'vista/home/modalCambioPass.php'; ?>
+        <?php include 'vista/index/modalCambioPass.php'; ?>
 
         <!-- container, informacion de la pagina-->
-        <?php include 'vista/home/containerPageInfo.php'; ?>        
+        <?php include 'vista/index/containerPageInfo.php'; ?>        
 
         <!-- Footer de la pagina -->
         <?php
         $ruta = "vista/util/images/corporativo/";
-        include 'vista/home/footer.php';
+        include 'vista/index/footer.php';
         ?>     
 
 
