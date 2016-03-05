@@ -1,5 +1,5 @@
 
-<footer class="page-footer">
+<footer class="page-footer center">
     <div class="container">
         <div class="row">
             <div class="col l2 m4 s12"><a class="waves-effect waves-red " href="http://www.mintic.gov.co"><img class="responsive-img logo_pie" src="<?php echo $ruta ?>mintic.png" alt="MinTIC"></a></div>
