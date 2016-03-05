@@ -12,14 +12,13 @@ and open the template in the editor.
 
         <link rel="shortcut icon" href="../../vista/util/images/corporativo/icono_ceramica.ico">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <link rel="stylesheet" href="bootstrap-3.3.6-dist/css/bootstrap.css" type="text/css">
-        <link rel="stylesheet" href="bootstrap-3.3.6-dist/css/style.css" type="text/css">
+        <link rel="stylesheet" href="../util/css/bootstrap.css" type="text/css">
+        <link rel="stylesheet" href="../util/css/formBuilder.css" type="text/css">
 
-        <script type="text/javascript" src="../../vista/util/js/jquery-2.1.4.min.js"></script>
-        <script type="text/javascript" src="bootstrap-3.3.6-dist/js/bootstrap.js"></script>
-        <script type="text/javascript" src="bootstrap-3.3.6-dist/js/formBuilder.js"></script>
-        <script type="text/javascript" src="bootstrap-3.3.6-dist/js/jquery-ui.js"></script>
-        <script type="text/javascript" src="bootstrap-3.3.6-dist/js/jquery.tabletojson.js"></script>
+        <script type="text/javascript" src="../util/js/jquery-2.1.4.min.js"></script>
+        <script type="text/javascript" src="../util/js/bootstrap.js"></script>
+        <script type="text/javascript" src="../util/js/formBuilder.js"></script>
+        <script type="text/javascript" src="../util/js/jquery-ui.js"></script>
 
 
 

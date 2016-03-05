@@ -75,13 +75,13 @@ try {
             $_SESSION['estado'] = "activo";
             $_SESSION['tipo'] = "admin"; //CREAMOS UNA SESION administrador
             // Retornamos a la página inicial de administrador
-            header('location: ../../vista/admin/homeAdmin.php');
+            header('location: ../../vista/administrador.php');
             
         } else if ($tipo == 0 && $estado == 1) {
             $_SESSION['estado'] = "activo";
             $_SESSION['tipo'] = "operator"; //CREAMOS UNA SESION administrador
             // Retornamos a la página inicial de operario
-            header('location: ../../vista/operator/homeOperator.php');
+            header('location: ../../vista/operario.php');
 //            header('location: ../index.php');
 //            print 'usuario no admin';
             

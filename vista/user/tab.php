@@ -14,12 +14,12 @@
     <?php
     $tipo = $_SESSION['tipo'];
     if ($tipo === 'admin') {
-        include '../admin/gestionUsuarioAdmin.php';
-        include '../admin/gestionFormatoAdmin.php';        
+        include './admin/gestionUsuarioAdmin.php';
+        include './admin/gestionFormatoAdmin.php';        
     }
     if ($tipo === 'operator') {
-        include '../operator/gestionUsuarioOper.php';
-        include '../operator/gestionFormatoOper.php';
+        include './operator/gestionUsuarioOper.php';
+        include './operator/gestionFormatoOper.php';
     }
     ?>        
 </div>

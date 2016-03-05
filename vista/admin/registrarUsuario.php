@@ -80,5 +80,6 @@
                 <i class="material-icons right">cancel</i></a>        
         </div>
     </form>
+    <div id="regUserForm"></div>
+
 </div>
-<div id="regUserForm"></div>

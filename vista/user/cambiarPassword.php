@@ -30,53 +30,6 @@
                 <i class="material-icons right">cancel</i></a>        
         </div>
     </form>
+    <div id="cambiarContraseña"></div>
+
 </div>
-<div id="cambiarContraseña"></div>
-<script>
-    function cambiarPass() {
-        var passNew = $('#passNew').val();
-        var passAnt = $('#passAnt').val();
-        var codigo = $('#codigoSesion').val();
-
-        if (passConfirm()) {
-            $.post("../../controlador/sesion/controladorUsuario.php", {codigo: codigo, passAnt: passAnt, passNew: passNew, opcion: "cambiar"},
-            function (mensaje) {
-                $('#cambiarContraseña').html(mensaje);
-                Materialize.toast(mensaje, 3000, 'rounded');
-                limpiar();
-            });
-        }
-    }
-    ;
-
-    function passConfirm() {
-        var passAnt = $('#passAnt').val();
-        var pass = $('#passNew').val();
-        var confirm = $('#passConfirm').val();
-        if (pass.length === 0 || confirm.length === 0) {
-            Materialize.toast('Favor digitar los campos vacíos', 3000, 'rounded');
-            $('#passNew').focus();
-            return false;
-        }
-        else if (pass !== confirm) {
-            Materialize.toast('Favor verificar la nueva contraseña', 3000, 'rounded');
-            $('#passConfirm').focus();
-            return false;
-        }
-        else if (passAnt === pass) {
-            Materialize.toast('Contraseña igual a la anterior, ¡favor cambiarla!', 3000, 'rounded');
-            $('#passNew').focus();
-            return false;
-        }
-        else if (passAnt === "") {
-            Materialize.toast('Favor escribir contraseña anterior', 3000, 'rounded');
-            $('#passAnt').focus();
-            return false;
-        }
-        else {
-            return true;
-        }
-    }
-    ;
-
-</script>

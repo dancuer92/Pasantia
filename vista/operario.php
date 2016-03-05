@@ -1,11 +1,12 @@
 <?php
-include("../controlador/sesion/seguridadUsuarioAdmin.php");
+include("../controlador/sesion/seguridadUsuarioOperator.php");
+$codigo_sesion = $_SESSION['codigo'];
 ?>
 <html> 
     <head> 
-        <title>Administrador</title>      
+        <title>Operario</title>      
         <!--import de la cabecera de la pagina -->
-        <?php include './user/headHtml.php'; ?>        
+        <?php include './user/headHtml.php'; ?>
         <!-- Scripts de la pagina -->
         <?php
         include './user/scripts.php';
@@ -29,9 +30,8 @@ include("../controlador/sesion/seguridadUsuarioAdmin.php");
             include './user/tab.php';
             ?>
         </main>
-
-        <!-- Footer de la pagina -->
         <footer>
+            <!-- Footer de la pagina -->
             <?php
             include './user/footer.php';
             ?>
@@ -39,4 +39,3 @@ include("../controlador/sesion/seguridadUsuarioAdmin.php");
 
     </body> 
 </html>
-

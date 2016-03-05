@@ -1,6 +1,6 @@
 
 <?php
-
+session_start();
 require_once '../conexion/conexionMySqli.php';
 require_once '../../modelo/usuario.php';
 
@@ -218,7 +218,7 @@ function cargar() {
         die("Error al conectarse a la base de datos");
     }
     $mensaje = "";
-    $cod = $_POST['codigo'];
+    $cod = $_SESSION['codigo'];
 
     $sql = "SELECT u.codigo_usuario, u.nombre_usuario, u.apellido_usuario, u.cedula_usuario, u.correo_usuario, u.cargo_usuario,"
             . "u.departamento_usuario, u.telefono_usuario, u.rol_usuario "
@@ -262,7 +262,7 @@ function editar(){
     $mensaje = "";
     $clave = $_POST['clave'];
     $valor = $_POST['valor'];
-    $cod = $_POST['codigo'];
+    $cod = $_SESSION['codigo'];
 
     $sql = "UPDATE usuario u SET u.".$clave."=? WHERE u.codigo_usuario=? ;";
 

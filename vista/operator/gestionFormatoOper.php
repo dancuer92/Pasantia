@@ -1,4 +1,4 @@
-<div id="formato" class="col s12"><br>    
+<div id="test2" class="col s12"><br>    
     <div class="col l3 row hide-on-med-and-down">
         <ul class="collection">            
             <li class="collection-item">
@@ -17,40 +17,7 @@
     </div>
     <div class="col l9 m12 s12">
         <div class="collection">
-            <?php
-            $seccion = basename($_SERVER['QUERY_STRING']);
-            if (empty($seccion)) {
-                include '../home/miPerfil.php';
-            } else {
-                $imp = 0;
-                switch ($seccion) {                    
-                    case '?ConsultarFormato':
-                        $imp = 1;
-                        include 'registrarUsuario.php';
-                        break;
-                    case '?DiligenciarFormato':
-                        $imp = 1;
-                        include 'consultarUsuario.php';
-                        break;
-                }
-                if ($imp === 0) {
-                    echo $seccion + (': No existe esta sección');
-                }
-            }
-            ?>
-<!--            <div id="miPerfil" class="contenido">
-                <?php // include_once '../home/miPerfil.php' ?>
-                
-            </div>              
-            <div id="cambiarPassword" class="contenido">
-                <?php // include_once '../home/cambiarPassword.php' ?>
-            </div>
-            <div id="registrarUser" class="contenido">
-                <?php // include_once 'registrarUsuario.php' ?>
-            </div>
-            <div id="consultarUser" class="contenido">
-                <?php // include_once 'consultarUsuario.php' ?>
-            </div>-->
+            <h1>Esto es una prueba de formatos para operario</h1>
         </div>               
     </div>
 </div>

@@ -1,4 +1,4 @@
-<div id="usuario" class="col s12"><br>    
+<div id="test1" class="col s12"><br>    
     <div class="col l3 row hide-on-med-and-down">
         <ul class="collection">
             <li class="collection-item">
@@ -16,13 +16,12 @@
         </ul>               
     </div>
     <div class="col l9 m12 s12">
-        <div class="collection">
-            <div id="miPerfil" class="contenido">
-                <?php include_once '../home/miPerfil.php' ?>
-            </div>              
-            <div id="cambiarPassword" class="contenido">
-                <?php include_once '../home/cambiarPassword.php' ?>
-            </div>
+        <div class="collection">            
+            <?php
+            include_once './user/miPerfil.php';
+            include_once './user/cambiarPassword.php';
+            ?>
+
         </div>               
     </div>
 </div>

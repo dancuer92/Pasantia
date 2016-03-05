@@ -8,7 +8,8 @@
             <input type="text" name="busquedaUsuario" id="busquedaUsuario" value="" placeholder="" maxlength="30" autocomplete="off" onKeyUp="buscarUsuario();"/> 
             <label for="busquedaUsuario">Número de identificación o nombre del usuario a buscar</label>                                                      
         </div> 
-    </div>   
+    </div>
+    <div id="resultadoBusquedaUsuario"></div>
 </div>   
 <!--</form>-->
-<div id="resultadoBusquedaUsuario"></div>
+

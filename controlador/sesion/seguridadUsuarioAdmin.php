@@ -12,12 +12,12 @@ session_start();
 //Validamos si existe realmente una sesión activa o no 
 if ($_SESSION["tipo"] !== "admin") {
     //Si no hay sesión activa, lo direccionamos al index.php (inicio de sesión)
-    header("Location: ../../index.php");
+    header("Location: ../index.php");
     exit();
 }
 if ($_SESSION["estado"] !== "activo") {
     //Si no hay sesión activa, lo direccionamos al index.php (inicio de sesión)
-    header("Location: ../../index.php");
+    header("Location: ../index.php");
     exit();
 }
 ?>

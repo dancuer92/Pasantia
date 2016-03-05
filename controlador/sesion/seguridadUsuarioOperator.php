@@ -8,12 +8,12 @@
 session_start();
 if ($_SESSION["tipo"]!=="operator") {
     //Si no hay sesión activa, lo direccionamos al index.php (inicio de sesión)
-    header("Location: ../../index.php");
+    header("Location: ../index.php");
     exit();
 }
 if ($_SESSION["estado"] !== "activo") {
     //Si no hay sesión activa, lo direccionamos al index.php (inicio de sesión)
-    header("Location: ../../index.php");
+    header("Location: ../index.php");
     exit();
 }
 ?>

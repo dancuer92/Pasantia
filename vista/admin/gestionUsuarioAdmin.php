@@ -30,10 +30,10 @@
     <div class="col l9 m12 s12">
         <div class="collection">            
             <?php 
-            include_once '../home/miPerfil.php';
-            include_once '../home/cambiarPassword.php';
-            include_once 'registrarUsuario.php';
-            include_once 'consultarUsuario.php'; ?>
+            include_once './user/miPerfil.php';
+            include_once './user/cambiarPassword.php';
+            include_once './admin/registrarUsuario.php';
+            include_once './admin/consultarUsuario.php'; ?>
         </div>
     </div>               
 </div>
