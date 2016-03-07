@@ -4,6 +4,9 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
+<?php
+include("../../controlador/sesion/seguridadUsuarioAdmin.php");
+?>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -24,6 +27,20 @@ and open the template in the editor.
 
     </head>
     <body>
+        
+        <input id="codigoFormato" name="codigoFormato" type="hidden" value="<?php echo $_POST['codigoFormato'];?>">
+        <input id="nombreFormato" name="nombreFormato" type="hidden" value="<?php echo $_POST['nombreFormato'];?>">
+        <input id="procedimientoFormato" name="procedimientoFormato" type="hidden" value="<?php echo $_POST['procedimientoFormato'];?>">
+        <input id="directorFormato" name="directorFormato" type="hidden" value="<?php echo $_POST['directorFormato'];?>">
+        <input id="frecuenciaFormato" name="frecuenciaFormato" type="hidden" value="<?php echo $_POST['frecuenciaFormato'];?>">
+        <input id="descripcionFormato" name="descripcionFormato" type="hidden" value="<?php echo $_POST['descripcionFormato'];?>">
+
+        <!-- Encabezado-->
+        <header>
+            <?php include_once './head.php'; ?>
+        </header>
+
+
         <div id="master-container" class="container">
             <div class="col-lg-4 col-sm-12 col-md-12 divMayor">
                 <div id="pestañas">
@@ -31,7 +48,7 @@ and open the template in the editor.
                     <ul id="myTabs" class="nav nav-tabs" role="tablist">
                         <li role="presentation" class="active"><a href="#elementos" aria-controls="elementos" role="tab" data-toggle="tab">Elementos</a></li>
                         <li role="presentation"><a href="#propiedades" aria-controls="propiedades" role="tab" data-toggle="tab">Propiedades</a></li>
-<!--                        <li role="presentation"><a href="#formulario" aria-controls="formulario" role="tab" data-toggle="tab">Formulario</a></li>-->
+                        <li role="presentation"><a href="#formulario" aria-controls="formulario" role="tab" data-toggle="tab">Formulario</a></li>
                     </ul>
 
 
@@ -75,15 +92,13 @@ and open the template in the editor.
                 </div>               
             </div>
             <div class="col-lg-8 col-sm-12 col-md-12 divMayor" id="formBuilder">
-
-                <table id="encabezado">
-                    <tr>
-                        <td style="text-align: center"><h2>FORMATO DEL SGC TITULO</h2></td>
-                        <td style="text-align: center"><h3> Codigo: 1234 </h3></td>                    
-                        <td style="text-align: center"><img class="responsive-img" src="../util/images/corporativo/logo_ceramica.png" alt="Cerámica Italia"></td>
-                    </tr>
+                <table id="encabezado" style="width:100%;">
+                    <th>
+                    <td style="text-align: center"><h2> Nombre: <?php echo $_POST['nombreFormato']; ?></h2></td>
+                    <td style="text-align: center"><h2> Codigo: <?php echo $_POST['codigoFormato']; ?> </h2></td>                    
+                    <td style="text-align: center"><img class="responsive-img" src="../util/images/corporativo/logo_ceramica.png" alt="Cerámica Italia"></td>
+                    </th>
                 </table>
-
             </div>
 
             <div class="col-lg-12 col-sm-12 col-md-12 divMayor" id="guardarFormato">
@@ -91,8 +106,17 @@ and open the template in the editor.
             </div>
         </div>
         <div id="res1">
-            
+
         </div>
+
+        <!-- Pie de pagina-->
+        <footer>
+            <div class="text-center text-muted">
+                <h6 >Copyright © Cerámica Italia S.A. 2015</h6>
+                <h6 >Avda 3 Calle 23AN Zona Industrial. Cúcuta, Norte de Santander, Colombia.
+                    <br>+57-7-5829800 - 018000111568</h6>                    
+            </div>
+        </footer>
 
     </body>
 

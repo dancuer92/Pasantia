@@ -3,8 +3,14 @@
         <ul class="collection">
             <li class="collection-item">
                 <a href="#registrarFormato" id="registrarFormato"class=" colorTexto">
+                    <i class="material-icons">note_add</i>
+                    Crear formato
+                </a>
+            </li>            
+            <li class="collection-item">
+                <a href="#modificarFormato" id="modificarFormato"class=" colorTexto">
                     <i class="material-icons">build</i>
-                    Crear o modificar formato
+                    Modificar formato
                 </a>
             </li>            
             <li class="collection-item">

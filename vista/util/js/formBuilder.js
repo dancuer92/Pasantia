@@ -528,8 +528,8 @@ function eliminarColumna() {
  * @returns {undefined}
  */
 function guardarFormato() {
-    var formato = $('#formBuilder div');            
-    $('#res1').text(formato.eq(3).html());
+    var formato = $('#formBuilder');            
+    $('#res1').text(formato.html());
     console.log(formato.length);
 
 }
