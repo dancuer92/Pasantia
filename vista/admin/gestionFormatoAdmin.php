@@ -2,31 +2,31 @@
     <div class="col l3 row hide-on-med-and-down">
         <ul class="collection">
             <li class="collection-item">
-                <a href="#registrarFormato" id="registrarFormato"class=" colorTexto">
+                <a href="#RegistrarFormato" id="registrarF" class=" colorTexto">
                     <i class="material-icons">note_add</i>
                     Crear formato
                 </a>
             </li>            
             <li class="collection-item">
-                <a href="#modificarFormato" id="modificarFormato"class=" colorTexto">
+                <a href="#ModificarFormato" id="modificarF" class=" colorTexto">
                     <i class="material-icons">build</i>
                     Modificar formato
                 </a>
             </li>            
             <li class="collection-item">
-                <a href="#AsignarFormato" id="asignarFormato" class=" colorTexto">
+                <a href="#AsignarFormato" id="asignarF" class=" colorTexto">
                     <i class="material-icons">input</i>
                     Asignar formato
                 </a>
             </li>
             <li class="collection-item">
-                <a href="#ConsultarFormato" id="consultarFormato" class=" colorTexto" >
+                <a href="#ConsultarFormato" id="consultarF" class=" colorTexto" >
                     <i class="material-icons">search</i>
                     Consultar formato
                 </a>
             </li>
             <li class="collection-item">
-                <a href="#DiligenciarFormato" id="diligenciarFormato" class=" colorTexto" >
+                <a href="#DiligenciarFormato" id="diligenciarF" class=" colorTexto" >
                     <i class="material-icons">keyboard</i>
                     Diligenciar formato
                 </a>
@@ -37,9 +37,10 @@
         <div class="collection">            
             <?php
             include_once 'registrarFormato.php';
-            include_once 'registrarFormato.php';
-            include_once 'registrarFormato.php';
-            include_once 'registrarFormato.php';
+//            include_once 'modificarFormato.php';
+            include_once 'asignarFormato.php';
+//            include_once 'consultarFormato.php';
+//            include_once 'diligenciarFormato.php';
             ?>
         </div>
     </div>               
@@ -50,9 +51,10 @@
         <i class="large material-icons">description</i>
     </a>
     <ul>
-        <li><a class="btn-floating blue tooltipped" data-position="left" data-delay="50" data-tooltip="Crear ó modificar formato"><i class="material-icons" id="perfilM" href="#Formato">build</i></a></li>
-        <li><a class="btn-floating blue tooltipped" data-position="left" data-delay="50" data-tooltip="Asignar Formato"><i class="material-icons" id="cambiarPasswordM" href="#AsignarFormato">input</i></a></li>
-        <li><a class="btn-floating blue tooltipped" data-position="left" data-delay="50" data-tooltip="Consultar formato"><i class="material-icons" id="registrarM" href="#ConsultarFormato">search</i></a></li>
-        <li><a class="btn-floating blue tooltipped" data-position="left" data-delay="50" data-tooltip="Diligenciar formato"><i class="material-icons" id="consultarM" href="#DiligenciarFormato">keyboard</i></a></li>
+        <li><a class="btn-floating blue tooltipped" data-position="left" data-delay="50" data-tooltip="Crear formato"><i class="material-icons" id="registrarFM" href="#RegistrarFormat">note_add</i></a></li>
+        <li><a class="btn-floating blue tooltipped" data-position="left" data-delay="50" data-tooltip="Modificar formato"><i class="material-icons" id="modificarFM" href="#ModificarFormat">build</i></a></li>
+        <li><a class="btn-floating blue tooltipped" data-position="left" data-delay="50" data-tooltip="Asignar Formato"><i class="material-icons" id="asignarFM" href="#AsignarFormat">input</i></a></li>
+        <li><a class="btn-floating blue tooltipped" data-position="left" data-delay="50" data-tooltip="Consultar formato"><i class="material-icons" id="consultarFM" href="#ConsultarFormat">search</i></a></li>
+        <li><a class="btn-floating blue tooltipped" data-position="left" data-delay="50" data-tooltip="Diligenciar formato"><i class="material-icons" id="diligenciarFM" href="#DiligenciarFormat">keyboard</i></a></li>
     </ul>
 </div>

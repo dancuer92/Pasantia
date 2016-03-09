@@ -21,7 +21,7 @@ $(document).ready(function () {
         $('.contenido').hide();
         $('#cambiarPassword').show();
     });
-    $('#cambiarPasswordM').click(function () {
+    $('#cambiarM').click(function () {
         $('.contenido').hide();
         $('#cambiarPassword').show();
     });
@@ -40,7 +40,54 @@ $(document).ready(function () {
     $('#consultarM').click(function () {
         $('.contenido').hide();
         $('#consultarUser').show();
+    });    
+    
+    
+    
+    $('#registrarF').click(function () {
+        $('.contenido').hide();
+        $('#registrarFormat').show();
     });
+    $('#registrarFM').click(function () {
+        $('.contenido').hide();
+        $('#registrarFormat').show();
+    });
+    $('#modificarF').click(function () {
+        $('.contenido').hide();
+        $('#modificarFormat').show();
+    });
+    $('#modificarFM').click(function () {
+        $('.contenido').hide();
+        $('#modificarFormat').show();
+    });
+    $('#asignarF').click(function () {
+        $('.contenido').hide();
+        $('#asignarFormat').show();
+    });
+    $('#asignarFM').click(function () {
+        $('.contenido').hide();
+        $('#asignarFormat').show();
+    });
+    $('#consultarF').click(function () {
+        $('.contenido').hide();
+        $('#consultarFormat').show();
+    });
+    $('#consultarFM').click(function () {
+        $('.contenido').hide();
+        $('#consultarFormat').show();
+    });
+    $('#diligenciarF').click(function () {
+        $('.contenido').hide();
+        $('#diligenciarFormat').show();
+    });
+    $('#diligenciarFM').click(function () {
+        $('.contenido').hide();
+        $('#diligenciarFormat').show();
+    });
+    
+    
+    
+    
 //consultarUsuario.php
     $('#busCli').click(function () {
         $('.contenido').hide();

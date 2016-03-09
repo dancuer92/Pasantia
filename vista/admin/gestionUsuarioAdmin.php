@@ -2,7 +2,7 @@
     <div class="col l3 row hide-on-med-and-down">
         <ul class="collection">
             <li class="collection-item">
-                <a href="#MiPerfil" id="perfil"class=" colorTexto">
+                <a href="#MiPerfil" id="perfil" class=" colorTexto">
                     <i class="material-icons">account_box</i>
                     Mi perfil
                 </a>
@@ -44,7 +44,7 @@
     </a>
     <ul>
         <li><a class="btn-floating blue tooltipped" data-position="left" data-delay="50" data-tooltip="Mi perfil"><i class="material-icons" id="perfilM" href="#MiPerfil">account_box</i></a></li>
-        <li><a class="btn-floating blue tooltipped" data-position="left" data-delay="50" data-tooltip="Cambiar contraseña"><i class="material-icons" id="cambiarPasswordM" href="#CambiarPassword">lock_open</i></a></li>
+        <li><a class="btn-floating blue tooltipped" data-position="left" data-delay="50" data-tooltip="Cambiar contraseña"><i class="material-icons" id="cambiarM" href="#CambiarPassword">lock_open</i></a></li>
         <li><a class="btn-floating blue tooltipped" data-position="left" data-delay="50" data-tooltip="Registrar Usuario"><i class="material-icons" id="registrarM" href="#RegistrarUsuario">person_add</i></a></li>
         <li><a class="btn-floating blue tooltipped" data-position="left" data-delay="50" data-tooltip="Consultar usuario"><i class="material-icons" id="consultarM" href="#ConsultarUsuario">search</i></a></li>
     </ul>

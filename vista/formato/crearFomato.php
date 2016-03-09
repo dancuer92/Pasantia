@@ -5,7 +5,13 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 <?php
-include("../../controlador/sesion/seguridadUsuarioAdmin.php");
+session_start();
+//Validamos si existe realmente una sesión activa o no 
+if ($_SESSION["tipo"] !== "admin") {
+    //Si no hay sesión activa, lo direccionamos al index.php (inicio de sesión)
+    header("Location: ../../index.php");
+    exit();
+}
 ?>
 <html>
     <head>
@@ -27,13 +33,13 @@ include("../../controlador/sesion/seguridadUsuarioAdmin.php");
 
     </head>
     <body>
-        
-        <input id="codigoFormato" name="codigoFormato" type="hidden" value="<?php echo $_POST['codigoFormato'];?>">
-        <input id="nombreFormato" name="nombreFormato" type="hidden" value="<?php echo $_POST['nombreFormato'];?>">
-        <input id="procedimientoFormato" name="procedimientoFormato" type="hidden" value="<?php echo $_POST['procedimientoFormato'];?>">
-        <input id="directorFormato" name="directorFormato" type="hidden" value="<?php echo $_POST['directorFormato'];?>">
-        <input id="frecuenciaFormato" name="frecuenciaFormato" type="hidden" value="<?php echo $_POST['frecuenciaFormato'];?>">
-        <input id="descripcionFormato" name="descripcionFormato" type="hidden" value="<?php echo $_POST['descripcionFormato'];?>">
+
+        <input id="codigoFormato" name="codigoFormato" type="hidden" value="<?php echo $_POST['codigoFormato']; ?>">
+        <input id="nombreFormato" name="nombreFormato" type="hidden" value="<?php echo $_POST['nombreFormato']; ?>">
+        <input id="procedimientoFormato" name="procedimientoFormato" type="hidden" value="<?php echo $_POST['procedimiento']; ?>">
+        <input id="directorFormato" name="directorFormato" type="hidden" value="<?php echo $_POST['directorProcedimiento']; ?>">
+        <input id="frecuenciaFormato" name="frecuenciaFormato" type="hidden" value="<?php echo $_POST['frecuenciaFormato']; ?>">
+        <input id="descripcionFormato" name="descripcionFormato" type="hidden" value="<?php echo $_POST['descripcionFormato']; ?>">
 
         <!-- Encabezado-->
         <header>
@@ -92,12 +98,12 @@ include("../../controlador/sesion/seguridadUsuarioAdmin.php");
                 </div>               
             </div>
             <div class="col-lg-8 col-sm-12 col-md-12 divMayor" id="formBuilder">
-                <table id="encabezado" style="width:100%;">
-                    <th>
-                    <td style="text-align: center"><h2> Nombre: <?php echo $_POST['nombreFormato']; ?></h2></td>
-                    <td style="text-align: center"><h2> Codigo: <?php echo $_POST['codigoFormato']; ?> </h2></td>                    
-                    <td style="text-align: center"><img class="responsive-img" src="../util/images/corporativo/logo_ceramica.png" alt="Cerámica Italia"></td>
-                    </th>
+                <table id="encabezado" style="width:100%;text-align: center">
+                    <tr>
+                    <td ><h2> Nombre: <?php echo $_POST['nombreFormato']; ?></h2></td>
+                    <td ><h2> Codigo: <?php echo $_POST['codigoFormato']; ?> </h2></td>                    
+                    <td ><img class="responsive-img" src="../util/images/corporativo/logo_ceramica.png" alt="Cerámica Italia"></td>
+                    </tr>
                 </table>
             </div>
 
@@ -119,5 +125,8 @@ include("../../controlador/sesion/seguridadUsuarioAdmin.php");
         </footer>
 
     </body>
+    <script>
+        console.log($('hidden'));
+    </script>
 
 </html>

@@ -8248,7 +8248,7 @@ img.logo_pie{
     font-size: large;    
 }
 
-#registroUsuario, #cambiarPass, #modificarPerfil, #guardar, #registroFormato{
+#registroUsuario, #cambiarPass, #modificarPerfil, #guardar, #registroFormato, #asignoFormato{
     background-color: #DE0000; 
     color: #FAFAFA;
     font-size: large;    

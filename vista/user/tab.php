@@ -27,7 +27,7 @@
 <script>
     $('#testUsers').click(function () {
         $('#mobileFormatos').hide();
-        $('#mobileUsuarios').show();
+        $('#mobileUsuarios').show();   
     });
     $('#testFormats').click(function () {        
         $('#mobileUsuarios').hide();

@@ -1,4 +1,4 @@
-<div id="regFor">
+<div id="registrarFormat" class="contenido">
     <form class="s12 m4" id="formRegFormat" method="POST" action="./formato/crearFomato.php"> 
         <div class="center" >
             <h3><i class="material-icons prefix" style="font-size: 2.92rem">note_add</i> Registrar Formato</h3>
