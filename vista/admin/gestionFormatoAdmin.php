@@ -51,10 +51,10 @@
         <i class="large material-icons">description</i>
     </a>
     <ul>
-        <li><a class="btn-floating blue tooltipped" data-position="left" data-delay="50" data-tooltip="Crear formato"><i class="material-icons" id="registrarFM" href="#RegistrarFormat">note_add</i></a></li>
-        <li><a class="btn-floating blue tooltipped" data-position="left" data-delay="50" data-tooltip="Modificar formato"><i class="material-icons" id="modificarFM" href="#ModificarFormat">build</i></a></li>
-        <li><a class="btn-floating blue tooltipped" data-position="left" data-delay="50" data-tooltip="Asignar Formato"><i class="material-icons" id="asignarFM" href="#AsignarFormat">input</i></a></li>
-        <li><a class="btn-floating blue tooltipped" data-position="left" data-delay="50" data-tooltip="Consultar formato"><i class="material-icons" id="consultarFM" href="#ConsultarFormat">search</i></a></li>
-        <li><a class="btn-floating blue tooltipped" data-position="left" data-delay="50" data-tooltip="Diligenciar formato"><i class="material-icons" id="diligenciarFM" href="#DiligenciarFormat">keyboard</i></a></li>
+        <li><a id="registrarFM" href="#RegistrarFormato" class="btn-floating blue tooltipped" data-position="left" data-delay="50" data-tooltip="Crear formato"><i class="material-icons" >note_add</i></a></li>
+        <li><a id="modificarFM" href="#ModificarFormato" class="btn-floating blue tooltipped" data-position="left" data-delay="50" data-tooltip="Modificar formato"><i class="material-icons" >build</i></a></li>
+        <li><a id="asignarFM" href="#AsignarFormato" class="btn-floating blue tooltipped" data-position="left" data-delay="50" data-tooltip="Asignar Formato"><i class="material-icons" >input</i></a></li>
+        <li><a id="consultarFM" href="#ConsultarFormato" class="btn-floating blue tooltipped" data-position="left" data-delay="50" data-tooltip="Consultar formato"><i class="material-icons" >search</i></a></li>
+        <li><a id="diligenciarFM" href="#DiligenciarFormato" class="btn-floating blue tooltipped" data-position="left" data-delay="50" data-tooltip="Diligenciar formato"><i class="material-icons" >keyboard</i></a></li>
     </ul>
 </div>

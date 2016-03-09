@@ -43,10 +43,10 @@
         <i class="large material-icons">group</i>
     </a>
     <ul>
-        <li><a class="btn-floating blue tooltipped" data-position="left" data-delay="50" data-tooltip="Mi perfil"><i class="material-icons" id="perfilM" href="#MiPerfil">account_box</i></a></li>
-        <li><a class="btn-floating blue tooltipped" data-position="left" data-delay="50" data-tooltip="Cambiar contraseña"><i class="material-icons" id="cambiarM" href="#CambiarPassword">lock_open</i></a></li>
-        <li><a class="btn-floating blue tooltipped" data-position="left" data-delay="50" data-tooltip="Registrar Usuario"><i class="material-icons" id="registrarM" href="#RegistrarUsuario">person_add</i></a></li>
-        <li><a class="btn-floating blue tooltipped" data-position="left" data-delay="50" data-tooltip="Consultar usuario"><i class="material-icons" id="consultarM" href="#ConsultarUsuario">search</i></a></li>
+        <li><a id="perfilM" href="#MiPerfil" class="btn-floating blue tooltipped" data-position="left" data-delay="50" data-tooltip="Mi perfil"><i class="material-icons" >account_box</i></a></li>
+        <li><a id="cambiarM" href="#CambiarPassword" class="btn-floating blue tooltipped" data-position="left" data-delay="50" data-tooltip="Cambiar contraseña"><i class="material-icons" >lock_open</i></a></li>
+        <li><a id="registrarM" href="#RegistrarUsuario" class="btn-floating blue tooltipped" data-position="left" data-delay="50" data-tooltip="Registrar Usuario"><i class="material-icons" >person_add</i></a></li>
+        <li><a id="consultarM" href="#ConsultarUsuario" class="btn-floating blue tooltipped" data-position="left" data-delay="50" data-tooltip="Consultar usuario"><i class="material-icons" >search</i></a></li>
     </ul>
 </div>
 
