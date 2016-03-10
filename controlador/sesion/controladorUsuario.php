@@ -1,7 +1,7 @@
 
 <?php
 session_start();
-require_once '../conexion/conexionMySqli.php';
+//require_once '../conexion/Conexion.php';
 require_once '../../modelo/usuario.php';
 
 $opcion = $_POST['opcion'];

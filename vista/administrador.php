@@ -11,6 +11,7 @@ include("../controlador/sesion/seguridadUsuarioAdmin.php");
         include './user/scripts.php';
         ?>
         <script src="./util/js/jsUser.js"></script>
+        <script src="./util/js/jsFormat.js"></script>
 
     </head> 
     <body>   
