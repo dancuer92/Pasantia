@@ -76,25 +76,28 @@ class Formato_dto {
         $this->frecuencia=$frecuencia;
     }
 
-    public function crear($datos) {
-        $this->cod_formato = $datos[0];
-        $this->nombre = $datos[1];
-        $this->observaciones = $datos[2];
-        $this->procedimiento = $datos[3];
-        $this->jefe_procedimiento = $datos[4];
-        $this->descripcion = $datos[5];
-        $this->frecuencia = $datos[6];
+    public function crear($cod_formato, $nombre, $observaciones, $procedimiento, $jefe_procedimiento, $descripcion_contenido, $frecuencia_uso) {
+        $this->cod_formato = $cod_formato;
+        $this->nombre = $nombre;
+        $this->observaciones = $observaciones;
+        $this->procedimiento = $procedimiento;
+        $this->jefe_procedimiento = $jefe_procedimiento;
+        $this->descripcion = $descripcion_contenido;
+        $this->frecuencia = $frecuencia_uso;
     }
 
-    public function toString() {
-        $msj = '{"codigo_formato": "' . $this->cod_formato . '", '
-                . '"nombre": ' . $this->nombre . '",'
-                . '"observaciones": ' . $this->observaciones . '",'
-                . '"procedimiento": ' . $this->procedimiento . '",'
-                . '"jefe_procedimiento": ' . $this->jefe_procedimiento . '",'
-                . '"descripcion": ' . $this->descripcion . '",'
-                . '"frecuencia": ' . $this->frecuencia . '"}';
-        return $msj;
+    public function toJSON() {
+        
+        $arr = array("cod_formato"=>$this->cod_formato,
+                "nombre"=>$this->nombre, 
+                "observaciones"=> $this->observaciones, 
+                "procedimiento"=>$this->procedimiento ,
+                "jefe_procedimiento"=>$this->jefe_procedimiento ,
+                "descripcion"=>$this->descripcion ,
+                "frecuencia"=>$this->frecuencia );
+        
+        $json=  json_encode($arr);
+        return $json;
     }
 
 }

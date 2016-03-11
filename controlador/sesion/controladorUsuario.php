@@ -2,7 +2,7 @@
 <?php
 session_start();
 //require_once '../conexion/Conexion.php';
-require_once '../../modelo/usuario.php';
+require_once '../../modelo/dto/Usuario_dto.php';
 
 $opcion = $_POST['opcion'];
 
