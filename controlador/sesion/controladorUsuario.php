@@ -101,22 +101,6 @@ function buscar() {
         $mensaje = "<p>No hay ningún usuario con ese criterio de búsqueda</p>";
     } else {
         $mensaje = '<div class="row"> ';
-//        $mensaje = '<table  class="responsive-table highlight">
-//        <thead>
-//            <tr>                        
-//                <th data-field="codigo">Código</th>
-//                <th data-field="nombre">Nombre</th>
-//                <th data-field="apellido">Apellido</th>                          
-//                <th data-field="correo"> Correo</th>                        
-//                <th data-field="cargo">Cargo</th>
-//                <th data-field="departamento">Departamento o área</th>
-//                <th data-field="telefono">Teléfono</th>
-//                <th data-field="tipoUser">Tipo de usuario</th>                   
-//                <th data-field="estado">Estado de cuenta</th> 
-//                <th data-field="boton"></th> 
-//            </tr>
-//        </thead>
-//        <tbody >';
 
         while ($resultados = mysqli_fetch_array($consulta)) {
             $tipo = "operario";
@@ -141,31 +125,7 @@ function buscar() {
                     </div>                 
                 </div>               
             </div>';
-//                $mensaje.='<tr>
-//                        <td>' . $resultados['codigo_usuario'] . '</td>
-//                        <td>' . $resultados['nombre_usuario'] . '</td>
-//                        <td>' . $resultados['apellido_usuario'] . '</td>
-//                        <td>' . $resultados['correo_usuario'] . '</td>
-//                        <td>' . $resultados['cargo_usuario'] . '</td>
-//                        <td>' . $resultados['departamento_usuario'] . '</td>
-//                        <td>' . $resultados['telefono_usuario'] . '</td>
-//                        <td>' . $tipo . '</td>
-//                        <td>Activo</td>
-//                        <td><a id="act/desac" class="waves-effect waves-red btn-flat hoverable" onclick="estadoCliente()">Desactivar</a></td>
-//                    </tr>';
             } else {
-//                $mensaje.='<tr>
-//                        <td>' . $resultados['codigo_usuario'] . '</td>
-//                        <td>' . $resultados['nombre_usuario'] . '</td>
-//                        <td>' . $resultados['apellido_usuario'] . '</td>
-//                        <td>' . $resultados['correo_usuario'] . '</td>
-//                        <td>' . $resultados['cargo_usuario'] . '</td>
-//                        <td>' . $resultados['departamento_usuario'] . '</td>
-//                        <td>' . $resultados['telefono_usuario'] . '</td>
-//                        <td>' . $tipo . '</td>
-//                        <td>Inactivo</td>
-//                        <td><a id="act/desac" class="waves-effect waves-red btn-flat hoverable" onclick="estadoCliente()">Activar</a></td>
-//                    </tr>';
                 $mensaje.='<p>Tipo de Usuario: ' . $tipo . ' Inactivo</p>
                     </div>
                     <div class="card-reveal">
@@ -175,9 +135,7 @@ function buscar() {
                 </div> 
             </div>';
             }
-            //Output
         }
-//        $mensaje.='</tbody></table>';
     }
     mysqli_close($conexion);
     print_r($mensaje);

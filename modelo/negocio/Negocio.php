@@ -40,16 +40,42 @@ class Negocio {
         return $mensaje;
     }
 
-    public function cargarFormatos($codigo_formato) {
-        $msj = '<p>codigo formato: ' . $codigo_formato . '</p>';
-        $formato = $this->formato->cargarFormatos($codigo_formato);
-        //        echo $formato->toJSON() . 'Negocio';
-
-        if ($formato->getCod_formato() != '') {
-            return $formato->toJSON();
+    public function registrar_usuario($codigo, $nombre, $apellido, $cedula, $password, $correo, $cargo, $departamento, $telefono, $rol_usuario, $estado) {
+        $usuario = $this->usuario->registrar($codigo, $nombre, $apellido, $cedula, $password, $correo, $cargo, $departamento, $telefono, $rol_usuario, $estado);
+        if (!is_null($usuario)) {
+            return 'Usuario registrado con éxito';
         } else {
-            return null;
+            return 'El usuario no ha sido registrado en el sistema';
         }
     }
 
-}
+    public function buscar_usuario($consultaBusqueda) {
+        $mensaje='';
+        $usuarios=array();
+        $usuarios = $this->usuario->buscar($consultaBusqueda);  
+        
+        if(count($usuarios)==0){
+            $mensaje = "<p>No hay ningún usuario con ese criterio de búsqueda</p>";
+        }
+        else {
+            $mensaje = '<div class="row"> ';
+            
+//            $mensaje='hay: '.count($usuarios);
+        }
+        return $mensaje;
+
+    }
+        function cargarFormatos($codigo_formato) {
+            $msj = '<p>codigo formato: ' . $codigo_formato . '</p>';
+            $formato = $this->formato->cargarFormatos($codigo_formato);
+            //        echo $formato->toJSON() . 'Negocio';
+
+            if ($formato->getCod_formato() != '') {
+                return $formato->toJSON();
+            } else {
+                return null;
+            }
+        }
+
+    }
+    

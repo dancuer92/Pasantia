@@ -144,7 +144,7 @@ function limpiar() {
 function buscarUsuario() {
     var textoBusqueda = $("#busquedaUsuario").val();
     if (textoBusqueda != "") {
-        $.post("../controlador/sesion/controladorUsuario.php", {valorBusqueda: textoBusqueda, opcion: "buscar"},
+        $.post("../controlador/Usuario_controller.php", {valorBusqueda: textoBusqueda, opcion: "buscar"},
         function (mensaje) {
             $("#resultadoBusquedaUsuario").html(mensaje);
         });
@@ -197,9 +197,9 @@ function registrarUser() {
     if (crearPass()) {
         if (codigo != "" && nombre != "" && apellido != "" && numDoc != "" && correo != "" &&
                 pass != "" && cargo != "" && departamento != "" && telefono != "" && rol != "" && estado != "") {
-            $.post("../controlador/sesion/controladorUsuario.php", {codigo: codigo, nombre: nombre,
+            $.post("../controlador/Usuario_controller.php", {codigo: codigo, nombre: nombre,
                 apellido: apellido, numDoc: numDoc, correo: correo, pass: pass, cargo: cargo,
-                departamento: departamento, telefono: telefono, rol: rol, estado: estado, opcion: "registrar"},
+                departamento: departamento, telefono: telefono, rol: rol, estado: estado, opcion: "registrar_usuario"},
             function (mensaje) {
                 $('#regUserForm').html(mensaje);
                 Materialize.toast(mensaje, 5000, 'rounded');

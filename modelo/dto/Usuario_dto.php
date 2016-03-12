@@ -111,9 +111,24 @@ class Usuario_dto {
     function setEstado_usuario($estado_usuario) {
         $this->estado_usuario = $estado_usuario;
     }
+    
+    public function registrar($codigo, $nombre, $apellido, $cedula, $password, $correo, $cargo, $departamento, $telefono, $rol_usuario, $estado) {
+
+        $this->codigo_usuario = $codigo;
+        $this->nombre_usuario = $nombre;
+        $this->apellido_usuario = $apellido;
+        $this->cedula_usuario=$cedula;
+        $this->password_usuario=$password;
+        $this->correo_usuario=$correo;
+        $this->cargo_usuario=$cargo;
+        $this->departamento_usuario=$departamento;
+        $this->telefono_usuario=$telefono;
+        $this->tipo_usuario = $this->crearTipo($rol_usuario);        
+        $this->estado_usuario = $this->crearEstado($estado); 
+    }
 
     
-    public function crear($nombre_usuario, $apellido_usuario, $codigo_usuario, $rol_usuario, $estado_usuario) {
+    public function sesion($nombre_usuario, $apellido_usuario, $codigo_usuario, $rol_usuario, $estado_usuario) {
 
         $this->codigo_usuario = $codigo_usuario;
         $this->nombre_usuario = $nombre_usuario;

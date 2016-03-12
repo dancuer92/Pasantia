@@ -9,7 +9,7 @@ function autocompletarFormato() {
     var min_length = 0; // min caracters to display the autocomplete
     var keyword = $('#cod_formato').val();
     if (keyword.length >= min_length && keyword !== "") {
-        $.post("../controlador/Facade_controller.php", {cod_formato: keyword, opcion: "cargarFormatos"},
+        $.post("../controlador/Formato_controller.php", {cod_formato: keyword, opcion: "cargarFormatos"},
         function (mensaje) {
             $('#formatos').html(mensaje);
         });

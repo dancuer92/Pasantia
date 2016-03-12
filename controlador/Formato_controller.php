@@ -12,19 +12,20 @@ require_once '../modelo/facade/Facade.php';
 $option = $_POST['opcion'];
 $codigo_formato = $_POST['cod_formato'];
 
-$facade_controller = new Facade_controller();
+$formato_controller = new Formato_controller();
+
 
 if ($option = 'cargarFormatos') {
-    $facade_controller->cargarFormatos($codigo_formato);
+    $formato_controller->cargarFormatos($codigo_formato);
 }
 
-class Facade_controller {
+class Formato_controller {
 
     private $facade;
 
     public function __construct() {
         $this->facade = new Facade();
-    }
+    }    
 
     public function cargarFormatos($formato) {
 
@@ -34,11 +35,11 @@ class Facade_controller {
             $mensaje = '<strong> El formato consultado no existe </Strong>';
         } else {
 
-            $array = json_decode($json,true);
+            $array = json_decode($json, true);
 
-            $mensaje = '<div class="card" onclick="set(&'.$array["cod_formato"].'&)">
+            $mensaje = '<div class="card" onclick="set(&' . $array["cod_formato"] . '&)">
                     <div class="card-content">
-                        <p><strong>Código: </strong>' . $array["cod_formato"]. '</p>
+                        <p><strong>Código: </strong>' . $array["cod_formato"] . '</p>
                         <p><strong>Nombre: </strong>' . $array["nombre"] . '</p>
                         <p><strong>Observaciones: </strong>' . $array["observaciones"] . '</p>
                         <p><strong>Procedimiento: </strong>' . $array["procedimiento"] . '</p>                        
@@ -46,7 +47,7 @@ class Facade_controller {
                         <p><strong>Descripción: </strong>' . $array["descripcion"] . '</p>              
                         <p><strong>Frecuencia: </strong>' . $array["frecuencia"] . '</p></div></div>';
         }
-        echo $mensaje =  str_replace("&", "'", $mensaje);
+        echo $mensaje = str_replace("&", "'", $mensaje);
     }
 
 }

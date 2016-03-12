@@ -5,7 +5,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
+session_start();
 require_once('./conexion/Conexion.php');
 require_once '../modelo/facade/Facade.php';
 
