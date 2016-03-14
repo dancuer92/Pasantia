@@ -40,10 +40,10 @@ $(document).ready(function () {
     $('#consultarM').click(function () {
         $('.contenido').hide();
         $('#consultarUser').show();
-    });    
-    
-    
-    
+    });
+
+
+
     $('#registrarF').click(function () {
         $('.contenido').hide();
         $('#registrarFormat').show();
@@ -84,10 +84,10 @@ $(document).ready(function () {
         $('.contenido').hide();
         $('#diligenciarFormat').show();
     });
-    
-    
-    
-    
+
+
+
+
 //consultarUsuario.php
     $('#busCli').click(function () {
         $('.contenido').hide();
@@ -101,7 +101,7 @@ $(document).ready(function () {
 
 function cargarPerfil() {
     $('#guardar').hide();
-    $.post("../controlador/sesion/controladorUsuario.php", {opcion: "cargar"},
+    $.post("../controlador/Usuario_controller.php", {opcion: "cargar"},
     function (mensaje) {
         $('#myProfile').html(mensaje);
     });
@@ -122,13 +122,13 @@ function guardarModificacionesPerfil() {
     $('#profile :input').css('border', 'none');
 }
 
-function edit(item) {
+function edit(item,cod) {
     var x = '#' + item;
     var valor = $(x).val();
     if (valor !== '') {
-        $.post("../controlador/sesion/controladorUsuario.php", {valor: valor, clave: item, opcion: "editar"},
-        function (mensaje) {
-            Materialize.toast(mensaje, 5000, 'rounded');
+        $.post("../controlador/Usuario_controller.php", {valor: valor, clave: item,codigo:cod, opcion: "editar"},
+        function () {
+            Materialize.toast('Campo actualizado con éxito', 5000, 'rounded');
         });
     }
     else {
@@ -159,22 +159,24 @@ function estadoUsuario(item, estado) {
     var codUser = item;
     var codigo = $('#codigoBuscar').val();
 
-    if (estado != '1' && codUser !== codigo) {
-        $.post("../controlador/sesion/controladorUsuario.php", {valor: 0, clave: "estado_usuario", codigo: codUser, opcion: "editar"},
-        function (mensaje) {
-            $("#resultadoBusquedaUsuario").html("<p>El usuario " + codUser + " ya se encuentra INACTIVO</p>");
-            Materialize.toast('El usuario ha sido desactivado', 5000, 'rounded');
-        });
-    }
-    else if (estado != '0' && codUser !== codigo) {
-        $.post("../controlador/sesion/controladorUsuario.php", {valor: 1, clave: "estado_usuario", codigo: codUser, opcion: "editar"},
-        function (mensaje) {
-            $("#resultadoBusquedaUsuario").html("<p>El usuario " + codUser + " ya se encuentra ACTIVO</p>");
-            Materialize.toast('El usuario ha sido activado', 5000, 'rounded');
-        });
+    if (codUser != codigo) {
+        if (estado != '1') {
+            $.post("../controlador/Usuario_controller.php", {valor: 0, clave: "estado_usuario", codigo: codUser, opcion: "editar"},
+            function () {
+                $("#resultadoBusquedaUsuario").html("<p>El usuario " + codUser + " ya se encuentra INACTIVO</p>");
+                Materialize.toast('El usuario ha sido desactivado', 5000, 'rounded');
+            });
+        }
+        else if (estado != '0') {
+            $.post("../controlador/Usuario_controller.php", {valor: 1, clave: "estado_usuario", codigo: codUser, opcion: "editar"},
+            function () {
+                $("#resultadoBusquedaUsuario").html("<p>El usuario " + codUser + " ya se encuentra ACTIVO</p>");
+                Materialize.toast('El usuario ha sido activado', 5000, 'rounded');
+            });
+        }
     }
     else {
-        $("#resultadoBusquedaUsuario").html("<p>Para desactivar su cuenta tiene que hacerlo a través de la cuenta de otro usuario administrador del sistema</p>");
+        $("#resultadoBusquedaUsuario").html("<strong>Para desactivar su cuenta tiene que hacerlo a través de la cuenta de otro usuario administrador del sistema</strong>");
         Materialize.toast('El usuario no ha podido ser activado o desactivado', 5000, 'rounded');
     }
     $('#busquedaUsuario').val('');
@@ -240,7 +242,7 @@ function cambiarPass() {
     var codigo = $('#codigoSesion').val();
 
     if (passConfirm()) {
-        $.post("../controlador/sesion/controladorUsuario.php", {codigo: codigo, passAnt: passAnt, passNew: passNew, opcion: "cambiar"},
+        $.post("../controlador/Usuario_controller.php", {codigo: codigo, passAnt: passAnt, passNew: passNew, opcion: "cambiar"},
         function (mensaje) {
             $('#cambiarContraseña').html(mensaje);
             Materialize.toast(mensaje, 5000, 'rounded');

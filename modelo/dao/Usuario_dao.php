@@ -99,14 +99,75 @@ class Usuario_dao {
         if ($sentencia->execute()) {
             $sentencia->bind_result($codigo_usuario, $nombre_usuario, $apellido_usuario, $correo_usuario, $cargo_usuario, $departamento_usuario, $telefono_usuario, $rol_usuario, $estado_usuario, $fecha_registro);
             while ($sentencia->fetch()) {
-                $usuario=$this->usuario->registrar($codigo_usuario, $nombre_usuario, $apellido_usuario, '', '', $correo_usuario, $cargo_usuario, $departamento_usuario, $telefono_usuario, $rol_usuario, $estado_usuario);
-                $usuarios[]=$usuario;
+                $this->usuario->registrar($codigo_usuario, $nombre_usuario, $apellido_usuario, '', '', $correo_usuario, $cargo_usuario, $departamento_usuario, $telefono_usuario, $rol_usuario, $estado_usuario);
+                $usuarios[] = $this->usuario->toJSON();
             }
         }
         $sentencia->close();
         $this->mysqli->close();
 //        echo $formato->toJSON().'DAO';
         return $usuarios;
+    }
+
+    public function editar($clave, $valor, $cod) {
+
+        $sql = "UPDATE usuario u SET u." . $clave . "=? WHERE u.codigo_usuario=? ;";
+
+        if (!$sentencia = $this->mysqli->prepare($sql)) {
+            $mensaje.= $this->mysqli->error;
+        }
+        if (!$sentencia->bind_param("ss", $valor, $cod)) {
+            $mensaje.= $this->mysqli->error;
+        }
+        $mensaje = $sentencia->execute();
+        $sentencia->close();
+        $this->mysqli->close();
+        return $mensaje;
+    }
+
+    public function cargar($codigo) {
+        $sql = "SELECT u.codigo_usuario, u.nombre_usuario, u.apellido_usuario, u.cedula_usuario, u.correo_usuario, u.cargo_usuario,"
+                . "u.departamento_usuario, u.telefono_usuario, u.rol_usuario "
+                . "FROM usuario u WHERE u.codigo_usuario = ?";
+
+
+        if (!$sentencia = $this->mysqli->prepare($sql)) {
+            $mensaje.= $this->mysqli->error;
+        }
+        if (!$sentencia->bind_param("s", $codigo)) {
+            $mensaje.= $this->mysqli->error;
+        }
+        if ($sentencia->execute()) {
+            $sentencia->bind_result($codigo_usuario, $nombre_usuario, $apellido_usuario, $cedula_usuario, $correo_usuario, $cargo_usuario, $departamento_usuario, $telefono_usuario, $rol_usuario);
+            while ($sentencia->fetch()) {
+                $this->usuario->registrar($codigo_usuario, $nombre_usuario, $apellido_usuario, $cedula_usuario, '', $correo_usuario, $cargo_usuario, $departamento_usuario, $telefono_usuario, $rol_usuario, 1);
+            }
+        }
+        $sentencia->close();
+        $this->mysqli->close();
+        return $this->usuario;
+    }
+
+    public function cambiar($newPass,$prevPass,$cod) {
+        $sql = "UPDATE usuario u SET u.password_usuario=? WHERE u.password_usuario=? AND u.codigo_usuario=? ;";
+
+        if (!$sentencia = $this->mysqli->prepare($sql)) {
+            $mensaje.= $this->mysqli->error;
+        }
+        if (!$sentencia->bind_param("sss", $newPass, $prevPass, $cod)) {
+            $mensaje.= $this->mysqli->error;
+        }
+        if (!$sentencia->execute()) {
+            $mensaje .= "0";
+        } else {
+            $mensaje = "1";
+            if ($sentencia->affected_rows === 0) {
+                $mensaje = "2";
+            }
+        }
+        $sentencia->close();
+        $this->mysqli->close();
+        return $mensaje;
     }
 
 }

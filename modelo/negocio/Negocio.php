@@ -50,32 +50,52 @@ class Negocio {
     }
 
     public function buscar_usuario($consultaBusqueda) {
-        $mensaje='';
-        $usuarios=array();
-        $usuarios = $this->usuario->buscar($consultaBusqueda);  
-        
-        if(count($usuarios)==0){
-            $mensaje = "<p>No hay ningún usuario con ese criterio de búsqueda</p>";
+        $mensaje = '';
+        $usuarios = array();
+        $usuarios = $this->usuario->buscar($consultaBusqueda);
+        if (count($usuarios) == 0) {
+            $usuarios = null;
+        } else {
+            return $usuarios;
         }
-        else {
-            $mensaje = '<div class="row"> ';
-            
-//            $mensaje='hay: '.count($usuarios);
-        }
-        return $mensaje;
-
     }
-        function cargarFormatos($codigo_formato) {
-            $msj = '<p>codigo formato: ' . $codigo_formato . '</p>';
-            $formato = $this->formato->cargarFormatos($codigo_formato);
-            //        echo $formato->toJSON() . 'Negocio';
 
-            if ($formato->getCod_formato() != '') {
-                return $formato->toJSON();
-            } else {
-                return null;
-            }
+    public function editar_usuario($clave, $valor, $cod) {
+        $mensaje = $this->usuario->editar($clave, $valor, $cod);
+        return $mensaje;
+    }
+
+    public function cargar_usuario($codigo) {
+        $usuario = $this->usuario->cargar($codigo);   
+        if (!is_null($usuario)) {
+            return $usuario->toJSON();
+        } else {
+            return null;
         }
-
     }
     
+    public function cambiar_password_usuario($newPass,$prevPass,$cod){
+        $bandera=$this->usuario->cambiar($newPass,$prevPass,$cod);
+        $msj='';
+        switch ($bandera){
+            case "0": $msj='La contraseña no ha sido actualizada, por favor vuelva a intetarlo';
+                    break;
+            case "1": $msj='La contraseña ha sido actualizada';
+                break;
+            case "2": $msj='La contraseña anterior no coincide en la base de datos';
+                break;
+        }
+        return $msj;
+    }
+
+    public function cargarFormatos($codigo_formato) {
+        $msj = '<p>codigo formato: ' . $codigo_formato . '</p>';
+        $formato = $this->formato->cargarFormatos($codigo_formato);
+        if ($formato->getCod_formato() != '') {
+            return $formato->toJSON();
+        } else {
+            return null;
+        }
+    }
+
+}

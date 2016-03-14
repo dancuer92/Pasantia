@@ -26,13 +26,27 @@ class Facade {
     }
 
     public function buscar_usuario($consultaBusqueda) {
-        $msj = $this->negocio->buscar_usuario($consultaBusqueda);
+        $usuarios = $this->negocio->buscar_usuario($consultaBusqueda);
+        return $usuarios;
+    }
+
+    public function editar_usuario($clave, $valor, $cod) {
+        $msj = $this->negocio->editar_usuario($clave, $valor, $cod);
+        return $msj;
+    }
+
+    public function cargar_usuario($codigo) {
+        $json = $this->negocio->cargar_usuario($codigo);
+        return $json;
+    }
+
+    public function cambiar_password_usuario($newPass, $prevPass, $cod) {
+        $msj = $this->negocio->cambiar_password_usuario($newPass, $prevPass, $cod);
         return $msj;
     }
 
     public function cargarFormatos($formato) {
         $json = $this->negocio->cargarFormatos($formato);
-//        echo $json.'Facade';
         return $json;
     }
 

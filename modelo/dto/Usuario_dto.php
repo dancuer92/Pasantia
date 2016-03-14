@@ -155,5 +155,23 @@ class Usuario_dto {
             return 'inactivo';
         }
     }
+    
+    public function toJSON() {
+        
+        $arr = array("codigo_usuario"=>$this->codigo_usuario,
+                "nombre_usuario"=>$this->nombre_usuario, 
+                "apellido_usuario"=>$this->apellido_usuario, 
+                "cedula_usuario"=> $this->cedula_usuario, 
+                "password_usuario"=> $this->password_usuario, 
+                "correo_usuario"=>$this->correo_usuario,
+                "cargo_usuario"=>$this->cargo_usuario,
+                "departamento_usuario"=>$this->departamento_usuario,
+                "telefono_usuario"=>$this->telefono_usuario,
+                "tipo_usuario"=>$this->tipo_usuario,
+                "estado_usuario"=>$this->estado_usuario);
+        
+        $json=  json_encode($arr);
+        return $json;
+    }
 
 }

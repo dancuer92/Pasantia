@@ -11,14 +11,15 @@ require_once '../controlador/conexion/Conexion.php';
 class Formato_dao {
 
     private $mysqli;
+    private $formato;
 
     public function __construct() {
         $this->mysqli = new Conexion();
+        $this->formato=new Formato_dto();
     }
 
     function cargarFormatos($ref_formato) {
         $mensaje = "";
-        $formato = new Formato_dto();
 
         $sql = "SELECT `cod_formato`, `nombre`, `observaciones`, `procedimiento`, `jefe_procedimiento`, `descripcion_contenido`, `frecuencia_uso` "
                 . "FROM `formato` "
@@ -32,13 +33,13 @@ class Formato_dao {
         if ($sentencia->execute()) {
             $sentencia->bind_result($cod_formato, $nombre, $observaciones, $procedimiento, $jefe_procedimiento, $descripcion_contenido, $frecuencia_uso);
             while ($sentencia->fetch()) {
-                $formato->crear($cod_formato, $nombre, $observaciones, $procedimiento, $jefe_procedimiento, $descripcion_contenido, $frecuencia_uso);
+                $this->formato->crear($cod_formato, $nombre, $observaciones, $procedimiento, $jefe_procedimiento, $descripcion_contenido, $frecuencia_uso);
             }
         } 
         $sentencia->close();
         $this->mysqli->close();
 //        echo $formato->toJSON().'DAO';
-        return $formato;
+        return $this->formato;
     }
 
 }
