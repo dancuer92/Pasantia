@@ -1,5 +1,5 @@
 <div id="asignarFormat" class="contenido">
-    <form class="s12 m4" id="formAsigFormat" method="POST" action="./formato/crearFomato.php"> 
+    <form class="s12 m4" id="formAsigFormat" method="POST" action=""> 
         <div class="center" >
             <h3><i class="material-icons prefix" style="font-size: 2.92rem">input</i> Asignar Formato</h3>
             <div>

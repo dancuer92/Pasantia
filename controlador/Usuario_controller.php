@@ -45,11 +45,16 @@ if ($opcion == 'cargar') {
     $Usuario_controller->cargar_usuario($codigo);
 }
 
-if($opcion=='cambiar'){
+if ($opcion == 'cambiar') {
     $newPass = $_POST['passNew'];
     $prevPass = $_POST['passAnt'];
     $cod = $_POST['codigo'];
-    $Usuario_controller->cambiar_password_usuario($newPass,$prevPass,$cod);
+    $Usuario_controller->cambiar_password_usuario($newPass, $prevPass, $cod);
+}
+
+if ($opcion == 'autocompletar') {
+    $cod = $_POST['codigo'];
+    $Usuario_controller->autocompletar_usuario($cod);
 }
 
 class Usuario_controller {
@@ -130,10 +135,37 @@ class Usuario_controller {
         $mensaje2 = str_replace("&", "'", $mensaje);
         echo $mensaje2;
     }
-    
-    public function cambiar_password_usuario($newPass,$prevPass,$cod){
-        $msj=  $this->facade->cambiar_password_usuario($newPass,$prevPass,$cod);
+
+    public function cambiar_password_usuario($newPass, $prevPass, $cod) {
+        $msj = $this->facade->cambiar_password_usuario($newPass, $prevPass, $cod);
         echo $msj;
+    }
+
+    public function autocompletar_usuario($codigo) {
+        $mensaje = '';
+        $usuarios = $this->facade->buscar_usuario($codigo);
+        if (is_null($usuarios)) {
+            $mensaje = '<p>No hay ningún usuario con ese criterio de búsqueda</p>';
+        } else {
+            foreach ($usuarios as $user) {
+                $array = json_decode($user, true);
+                
+                $mensaje = '<div class="card" onclick="setU(&' . $array["codigo_usuario"] . '&)">
+                    <div class="card-content">
+                        <p><strong>Código: </strong>' . $array["codigo_usuario"] . '</p>
+                        <p><strong>Nombre: </strong>' . $array["nombre_usuario"] . '</p>
+                        <p><strong>Apellido: </strong>' . $array["apellido_usuario"] . '</p>
+                        <p><strong>Cargo: </strong>' . $array["cargo_usuario"] . '</p>                        
+                        <p><strong>Área: </strong>' . $array["departamento_usuario"] . '</p>
+                        <p><strong>Telefono: </strong>' . $array["telefono_usuario"] . '</p>              
+                        <p><strong>Correo: </strong>' . $array["correo_usuario"] . '</p>
+                        <p><strong>Tipo de usuario: </strong>' . $array["tipo_usuario"] . '</p></div></div>';
+                break;
+            }
+        }
+        
+        $mensaje = str_replace("&", "'", $mensaje);
+        echo $mensaje;
     }
 
 }

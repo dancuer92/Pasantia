@@ -280,5 +280,26 @@ function passConfirm() {
         return true;
     }
 }
+
+function autocompletarUsuario(){
+    var min_length = 0; // min caracters to display the autocomplete
+    var keyword = $('#cod_usuario').val();
+    if (keyword.length >= min_length && keyword !== "") {
+        $.post("../controlador/Usuario_controller.php", {codigo: keyword, opcion: "autocompletar"},
+        function (mensaje) {
+            $('#usuarios').html(mensaje);
+        });
+    } else {
+        $('#usuarios').html('');        
+        Materialize.toast("Error seleccionando un formato", 3000, 'rounded');
+    }
+}
+
+function setU(value){
+    $('#cod_usuario').val(value);
+    var mensaje='<strong>Usuario '+value+ ' seleccionado para asignar</strong>';
+    $('#usuarios').html(mensaje);
+}
+; 
 ;
 

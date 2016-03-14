@@ -36,9 +36,9 @@
     <div class="col l9 m12 s12">
         <div class="collection">            
             <?php
-            include_once 'registrarFormato.php';
+            include_once './formato/registrarFormato.php';
 //            include_once 'modificarFormato.php';
-            include_once 'asignarFormato.php';
+            include_once './formato/asignarFormato.php';
 //            include_once 'consultarFormato.php';
 //            include_once 'diligenciarFormato.php';
             ?>
