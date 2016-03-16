@@ -46,8 +46,8 @@ class Facade {
     }
 
     public function cargarFormatos($formato) {
-        $json = $this->negocio->cargarFormatos($formato);
-        return $json;
+        $formatos = $this->negocio->cargarFormatos($formato);
+        return $formatos;
     }
 
 }

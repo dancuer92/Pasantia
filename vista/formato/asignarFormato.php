@@ -27,9 +27,9 @@
             <br>
             <br>
 
-            <button id="asignoFormato" class="btn waves-effect waves-light hoverable" type="submit">Asignar
+            <a id="asignoFormato" class="btn waves-effect waves-light hoverable" type="submit">Asignar
                 <i class="material-icons right">send</i>
-            </button>           
+            </a>           
             <a class="waves-effect waves-red btn-flat hoverable" onclick="limpiar()">Limpiar
                 <i class="material-icons right">cancel</i></a>        
         </div>

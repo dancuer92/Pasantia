@@ -20,10 +20,13 @@ class Formato_dao {
 
     function cargarFormatos($ref_formato) {
         $mensaje = "";
+        $formatos= array();
 
+//        $sql = "SELECT `cod_formato`, `nombre`, `observaciones`, `procedimiento`, `jefe_procedimiento`, `descripcion_contenido`, `frecuencia_uso` "
+//                . "FROM `formato` ";
         $sql = "SELECT `cod_formato`, `nombre`, `observaciones`, `procedimiento`, `jefe_procedimiento`, `descripcion_contenido`, `frecuencia_uso` "
                 . "FROM `formato` "
-                . "WHERE `cod_formato` COLLATE latin1_spanish_ci LIKE '%$ref_formato%'  OR `nombre` COLLATE latin1_spanish_ci LIKE '%$ref_formato%' LIMIT 1;";
+                . "WHERE `cod_formato` COLLATE latin1_spanish_ci LIKE '%$ref_formato%'  OR `nombre` COLLATE latin1_spanish_ci LIKE '%$ref_formato%';";
 
 
         if (!$sentencia = $this->mysqli->prepare($sql)) {
@@ -34,12 +37,13 @@ class Formato_dao {
             $sentencia->bind_result($cod_formato, $nombre, $observaciones, $procedimiento, $jefe_procedimiento, $descripcion_contenido, $frecuencia_uso);
             while ($sentencia->fetch()) {
                 $this->formato->crear($cod_formato, $nombre, $observaciones, $procedimiento, $jefe_procedimiento, $descripcion_contenido, $frecuencia_uso);
+                $formatos[]=  $this->formato->toJSON();
             }
         } 
         $sentencia->close();
         $this->mysqli->close();
 //        echo $formato->toJSON().'DAO';
-        return $this->formato;
+        return $formatos;
     }
 
 }

@@ -5,7 +5,8 @@ include("../controlador/sesion/seguridadUsuarioAdmin.php");
     <head> 
         <title>Administrador</title>      
         <!--import de la cabecera de la pagina -->
-        <?php include './user/headHtml.php'; ?>        
+        <?php include './user/headHtml.php'; ?>
+
         <!-- Scripts de la pagina -->
         <?php
         include './user/scripts.php';

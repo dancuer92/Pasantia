@@ -102,7 +102,7 @@ if ($_SESSION["tipo"] !== "admin") {
                     <tr>
                     <td ><h2> Nombre: <?php echo $_POST['nombreFormato']; ?></h2></td>
                     <td ><h2> Codigo: <?php echo $_POST['codigoFormato']; ?> </h2></td>                    
-                    <td ><img class="responsive-img" src="../util/images/corporativo/logo_ceramica.png" alt="Cerámica Italia"></td>
+                    <td ><img class="img-responsive" src="../util/images/corporativo/logo_ceramica.png" alt="Cerámica Italia"></td>
                     </tr>
                 </table>
             </div>

@@ -88,11 +88,10 @@ class Negocio {
         return $msj;
     }
 
-    public function cargarFormatos($codigo_formato) {
-        $msj = '<p>codigo formato: ' . $codigo_formato . '</p>';
-        $formato = $this->formato->cargarFormatos($codigo_formato);
-        if ($formato->getCod_formato() != '') {
-            return $formato->toJSON();
+    public function cargarFormatos($formato) {
+        $formatos = $this->formato->cargarFormatos($formato);
+        if (!is_null($formatos)) {
+            return $formatos;
         } else {
             return null;
         }
