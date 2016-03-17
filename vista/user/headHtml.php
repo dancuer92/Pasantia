@@ -3,8 +3,8 @@
 
 <!-- CSS  -->
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<link href="util/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-<link href="util/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+<link href="./util/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+<link href="./util/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
 
-<link rel="shortcut icon" href="util/images/corporativo/icono_ceramica.ico">
+<link rel="shortcut icon" href="./util/images/corporativo/icono_ceramica.ico">
 

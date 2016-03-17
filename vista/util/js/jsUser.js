@@ -4,46 +4,11 @@ $(document).ready(function () {
     $('ul.tabs').tabs();
     $(".dropdown-button").dropdown();
     $('select').material_select();
-    $('#mobileFormatos').hide();
+    $('#mobileFormatos').show();
     $('#mobileUsuarios').show();
-    $('.contenido').hide();
-    $('#miPerfil').show();
-
-    $('#perfil').click(function () {
-        $('.contenido').hide();
-        $('#miPerfil').show();
-    });
-    $('#perfilM').click(function () {
-        $('.contenido').hide();
-        $('#miPerfil').show();
-    });
-    $('#cambiar').click(function () {
-        $('.contenido').hide();
-        $('#cambiarPassword').show();
-    });
-    $('#cambiarM').click(function () {
-        $('.contenido').hide();
-        $('#cambiarPassword').show();
-    });
-    $('#registrar').click(function () {
-        $('.contenido').hide();
-        $('#registrarUser').show();
-    });
-    $('#registrarM').click(function () {
-        $('.contenido').hide();
-        $('#registrarUser').show();
-    });
-    $('#consultar').click(function () {
-        $('.contenido').hide();
-        $('#consultarUser').show();
-    });
-    $('#consultarM').click(function () {
-        $('.contenido').hide();
-        $('#consultarUser').show();
-    });
 
 
-
+/*
     $('#registrarF').click(function () {
         $('.contenido').hide();
         $('#registrarFormat').show();
@@ -94,8 +59,7 @@ $(document).ready(function () {
         $('#buscarUsuario').show();
         $('#busquedaUsuario').val('');
         $("#resultadoBusquedaUsuario").html("");
-    });
-
+    });*/
 
 });
 

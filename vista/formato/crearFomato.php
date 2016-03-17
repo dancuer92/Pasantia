@@ -19,7 +19,7 @@ if ($_SESSION["tipo"] !== "admin") {
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
         <title>Crear Formato</title>
 
-        <link rel="shortcut icon" href="../../vista/util/images/corporativo/icono_ceramica.ico">
+        <link rel="shortcut icon" href="../admin/util/images/corporativo/icono_ceramica.ico">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link rel="stylesheet" href="../util/css/bootstrap.css" type="text/css">
         <link rel="stylesheet" href="../util/css/formBuilder.css" type="text/css">

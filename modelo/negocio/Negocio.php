@@ -25,10 +25,8 @@ class Negocio {
         $usuario = $this->usuario->iniciar_sesion($nombre, $apellido);
         $mensaje = '';
 
-        if ($usuario->tipo_usuario == 'admin' && $usuario->estado_usuario == 'activo') {
-            $mensaje = ('location: ../vista/administrador.php');
-        } else if ($usuario->tipo_usuario == 'operator' && $usuario->estado_usuario == 'activo') {
-            $mensaje = ('location: ../vista/operario.php');
+        if ($usuario->estado_usuario == 'activo') {
+            $mensaje = ('location: ../vista/index.php');
         } else {
             $mensaje = ('location: ../index.php');
         }
