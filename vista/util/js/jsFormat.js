@@ -16,7 +16,8 @@ function autocompletarFormato() {
     var keyword = $('#cod_formato').val();
     $.post("../controlador/Formato_controller.php", {formato: keyword, opcion: "cargarFormatos"},
     function (mensaje) {
-        $('#tabla_formatos tbody').html(mensaje);
+        $('#tabla_formatos').html(mensaje);
+        $('')
     });
 }
 

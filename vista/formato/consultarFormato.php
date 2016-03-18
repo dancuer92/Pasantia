@@ -9,7 +9,7 @@
                 <label for="cod_formato">Seleccione un formato</label>                           
             </div>
             <div class="col s12 m12 l12">
-                <table id="tabla_formatos" class="highlight responsive-table">
+<!--                <table id="tabla_formatos" class="highlight responsive-table">
                     <thead>
                         <tr>
                             <th data-field="codigo"> Código</th>
@@ -22,7 +22,9 @@
                     </thead>
                     <tbody>                        
                     </tbody>
-                </table>
+                </table>-->
+                <ul id="tabla_formatos" class="collection"></ul>
+
             </div>
         </div>
     </form>

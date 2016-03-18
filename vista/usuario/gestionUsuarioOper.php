@@ -36,7 +36,7 @@
                                 break;                            
                         }
                         if ($imp === 0) {
-                            echo $seccion . (': No existe esta sección');
+                            include './user/pageNotFound.php';
                         }
                     }
                     ?> 

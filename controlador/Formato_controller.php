@@ -37,7 +37,7 @@ class Formato_controller {
     }
 
     public function cargarFormatos($formato) {
-        $mensaje = '';
+        $mensaje2 = '';
 
         $formatos = $this->facade->cargarFormatos($formato);
 //        echo $json.'controller';
@@ -49,32 +49,33 @@ class Formato_controller {
 
                 $array = json_decode($format, true);
 
-//                $mensaje = '<div class="card" onclick="set(&' . $array["cod_formato"] . '&,&' . $array["nombre"] . '&)">
-//                    <div class="card-content">
-//                        <p><strong>Código: </strong>' . $array["cod_formato"] . '</p>
-//                        <p><strong>Nombre: </strong>' . $array["nombre"] . '</p>
-//                        <p><strong>Observaciones: </strong>' . $array["observaciones"] . '</p>
-//                        <p><strong>Procedimiento: </strong>' . $array["procedimiento"] . '</p>                        
-//                        <p><strong>Jefe Procedimiento: </strong>' . $array["jefe_procedimiento"] . '</p>
-//                        <p><strong>Descripción: </strong>' . $array["descripcion"] . '</p>              
-//                        <p><strong>Frecuencia: </strong>' . $array["frecuencia"] . '</p></div></div>';
+                $mensaje2 .= '<li class="collection-item avatar">
+                            <i class="large material-icons left grey-text">description</i>
+                            <p><strong>' . $array["cod_formato"] . '</strong></p>
+                            <p>' . $array["nombre"] . '</p>
+                            <p>' . $array["observaciones"] . '</p>
+                            <p>' . $array["procedimiento"] . '</p>
+                            <p>' . $array["jefe_procedimiento"] . '</p>';
 
-                $mensaje.='<tr>
-                            <td>' . $array["cod_formato"] . '</td>
-                            <td>' . $array["nombre"] . '</td>
-                            <td>' . $array["observaciones"] . '</td>
-                            <td>' . $array["procedimiento"] . '</td>                        
-                            <td>' . $array["jefe_procedimiento"] . '</td>                        
-                            <td>
-                                <a class="hoverable colorTexto tooltipped" data-position="top" data-delay="50" data-tooltip="Diligenciar" href="#Diligenciar"> <i class="material-icons">keyboard</i></a>';
+
+//                $mensaje.='<tr>
+//                            <td>' . $array["cod_formato"] . '</td>
+//                            <td>' . $array["nombre"] . '</td>
+//                            <td>' . $array["observaciones"] . '</td>
+//                            <td>' . $array["procedimiento"] . '</td>                        
+//                            <td>' . $array["jefe_procedimiento"] . '</td>                        
+//                            <td>
+//                                <a class="hoverable colorTexto tooltipped" data-position="top" data-delay="50" data-tooltip="Diligenciar" href="#Diligenciar"> <i class="material-icons">keyboard</i></a>';
                 if ($_SESSION['tipo'] == 'admin') {
-                    $mensaje.='<a class="hoverable colorTexto tooltipped modal-trigger" data-position="top" data-delay="50" data-tooltip="Asignar " onclick="asignarFormato(' . $array["cod_formato"] . ');"><i class="material-icons">input</i></a>
-                                <a class="hoverable colorTexto tooltipped" data-position="top" data-delay="50" data-tooltip="Modificar" href="#Modificar"><i class="material-icons">edit</i></a>';
+                    $mensaje2.='<a class="hoverable colorTexto tooltipped" data-position="top" data-delay="50" data-tooltip="Diligenciar" href="#Diligenciar"> <i class="material-icons">keyboard</i></a>'
+                            . '<a class="hoverable colorTexto tooltipped modal-trigger" data-position="top" data-delay="50" data-tooltip="Asignar " onclick="asignarFormato(' . $array["cod_formato"] . ');"><i class="material-icons">input</i></a>'
+                            . '<a class="hoverable colorTexto tooltipped" data-position="top" data-delay="50" data-tooltip="Modificar" href="#Modificar"><i class="material-icons">edit</i></a>';
+                } else {
+                    $mensaje2.='<a class="hoverable colorTexto tooltipped" data-position="top" data-delay="50" data-tooltip="Diligenciar" href="#Diligenciar"> <i class="material-icons">keyboard</i></a>';
                 }
-                $mensaje.='</td>
-                        </tr>';
+                $mensaje2.='</li>';
             }
-            $mensaje = str_replace("&", "'", $mensaje);
+            $mensaje = str_replace("&", "'", $mensaje2);
         }
         echo $mensaje;
     }
