@@ -28,6 +28,8 @@ if ($_SESSION["tipo"] !== "admin") {
         <script type="text/javascript" src="../util/js/bootstrap.js"></script>
         <script type="text/javascript" src="../util/js/formBuilder.js"></script>
         <script type="text/javascript" src="../util/js/jquery-ui.js"></script>
+        <script type="text/javascript" src="../util/js/materialize.js"></script>
+<!--        <script type="text/javascript" src="../util/js/jsFormat.js"></script>-->
 
 
 
@@ -36,10 +38,12 @@ if ($_SESSION["tipo"] !== "admin") {
 
         <input id="codigoFormato" name="codigoFormato" type="hidden" value="<?php echo $_POST['codigoFormato']; ?>">
         <input id="nombreFormato" name="nombreFormato" type="hidden" value="<?php echo $_POST['nombreFormato']; ?>">
+        <input id="descripcionFormato" name="descripcionFormato" type="hidden" value="<?php echo $_POST['descripcionFormato']; ?>">
         <input id="procedimientoFormato" name="procedimientoFormato" type="hidden" value="<?php echo $_POST['procedimiento']; ?>">
         <input id="directorFormato" name="directorFormato" type="hidden" value="<?php echo $_POST['directorProcedimiento']; ?>">
         <input id="frecuenciaFormato" name="frecuenciaFormato" type="hidden" value="<?php echo $_POST['frecuenciaFormato']; ?>">
-        <input id="descripcionFormato" name="descripcionFormato" type="hidden" value="<?php echo $_POST['descripcionFormato']; ?>">
+        <input id="tipoFormato" name="tipoFormato" type="hidden" value="<?php echo $_POST['tipoFormato']; ?>">
+        
 
         <!-- Encabezado-->
         <header>
@@ -124,9 +128,6 @@ if ($_SESSION["tipo"] !== "admin") {
             </div>
         </footer>
 
-    </body>
-    <script>
-        console.log($('hidden'));
-    </script>
+    </body> 
 
 </html>

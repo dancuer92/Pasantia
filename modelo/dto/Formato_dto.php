@@ -15,6 +15,7 @@ class Formato_dto {
     private $jefe_procedimiento;
     private $descripcion;
     private $frecuencia;
+    private $html;
 
     public function __construct() {
         
@@ -48,6 +49,10 @@ class Formato_dto {
         return $this->frecuencia;
     }
     
+    public function getHtml() {
+        return $this->html;
+    }
+    
     public function setCod_formato($codigo) {
         $this->cod_formato=$codigo;
     }
@@ -55,7 +60,7 @@ class Formato_dto {
     public function setNombre($nombre) {
         $this->nombre=$nombre;
     }
-
+    
     public function setObservaciones($observaciones) {
         $this->observaciones=$observaciones;
     }
@@ -75,8 +80,12 @@ class Formato_dto {
     public function setFrecuencia($frecuencia) {
         $this->frecuencia=$frecuencia;
     }
+    
+    public function setHtml($html) {
+        $this->html=$html;
+    }
 
-    public function crear($cod_formato, $nombre, $observaciones, $procedimiento, $jefe_procedimiento, $descripcion_contenido, $frecuencia_uso) {
+    public function crear($cod_formato, $nombre, $observaciones, $procedimiento, $jefe_procedimiento, $descripcion_contenido, $frecuencia_uso,$html) {
         $this->cod_formato = $cod_formato;
         $this->nombre = $nombre;
         $this->observaciones = $observaciones;
@@ -84,6 +93,7 @@ class Formato_dto {
         $this->jefe_procedimiento = $jefe_procedimiento;
         $this->descripcion = $descripcion_contenido;
         $this->frecuencia = $frecuencia_uso;
+        $this->html=$html;
     }
 
     public function toJSON() {

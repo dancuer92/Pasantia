@@ -87,11 +87,21 @@ class Negocio {
     }
 
     public function cargarFormatos($formato) {
+        
         $formatos = $this->formato->cargarFormatos($formato);
         if (!is_null($formatos)) {
             return $formatos;
         } else {
             return null;
+        }
+    }
+    
+    public function guardarFormato($codigo, $nombre, $procedimiento, $director, $frecuencia, $tipo, $descripcion, $html){
+        $formato=$this->formato->guardarFormato($codigo, $nombre, $procedimiento, $director, $frecuencia, $tipo, $descripcion, $html);
+        if (!is_null($formato)) {
+            return 'Formato registrado con éxito';
+        } else {
+            return 'El formato no ha sido registrado en el sistema porque fue registrado anteriormente';
         }
     }
 

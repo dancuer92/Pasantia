@@ -141,7 +141,7 @@ class Usuario_controller {
         echo $msj;
     }
 
-    public function autocompletar_usuario($codigo) {
+    public function autocompletar_usuario($codigo) {        
         $mensaje = '';
         $usuarios = $this->facade->buscar_usuario($codigo);
         if (is_null($usuarios)) {
@@ -149,21 +149,11 @@ class Usuario_controller {
         } else {
             foreach ($usuarios as $user) {
                 $array = json_decode($user, true);
-                
-                $mensaje = '<div class="card" onclick="setU(&' . $array["codigo_usuario"] . '&)">
-                    <div class="card-content">
-                        <p><strong>Código: </strong>' . $array["codigo_usuario"] . '</p>
-                        <p><strong>Nombre: </strong>' . $array["nombre_usuario"] . '</p>
-                        <p><strong>Apellido: </strong>' . $array["apellido_usuario"] . '</p>
-                        <p><strong>Cargo: </strong>' . $array["cargo_usuario"] . '</p>                        
-                        <p><strong>Área: </strong>' . $array["departamento_usuario"] . '</p>
-                        <p><strong>Telefono: </strong>' . $array["telefono_usuario"] . '</p>              
-                        <p><strong>Correo: </strong>' . $array["correo_usuario"] . '</p>
-                        <p><strong>Tipo de usuario: </strong>' . $array["tipo_usuario"] . '</p></div></div>';
-                break;
+
+                $mensaje .= '<a class="collection-item black-text" onclick="setU(&' . $array["codigo_usuario"] . '&)"><strong>Código: </strong>'
+                        . $array["codigo_usuario"] . '. <strong>Usuario: </strong>' . $array["nombre_usuario"] .' '. $array["apellido_usuario"] . '</a>';
             }
         }
-        
         $mensaje = str_replace("&", "'", $mensaje);
         echo $mensaje;
     }

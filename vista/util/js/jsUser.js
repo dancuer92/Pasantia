@@ -246,6 +246,7 @@ function passConfirm() {
 }
 
 function autocompletarUsuario(){
+    $('#asignarFormatoButton').attr('disabled',true);
     var min_length = 0; // min caracters to display the autocomplete
     var keyword = $('#cod_usuario').val();
     if (keyword.length >= min_length && keyword !== "") {
@@ -255,7 +256,7 @@ function autocompletarUsuario(){
         });
     } else {
         $('#usuarios').html('');        
-        Materialize.toast("Error seleccionando un formato", 3000, 'rounded');
+        Materialize.toast("Error seleccionando un usuario", 3000, 'rounded');
     }
 }
 
@@ -263,6 +264,7 @@ function setU(value){
     $('#cod_usuario').val(value);
     var mensaje='<strong>Usuario '+value+ ' seleccionado para asignar</strong>';
     $('#usuarios').html(mensaje);
+    $('#asignarFormatoButton').attr('disabled',false);
 }
 ; 
 ;

@@ -49,5 +49,10 @@ class Facade {
         $formatos = $this->negocio->cargarFormatos($formato);
         return $formatos;
     }
+    
+    public function guardarFormato($codigo, $nombre, $procedimiento, $director, $frecuencia, $tipo, $descripcion, $html){
+        $formato= $this->negocio->guardarFormato($codigo, $nombre, $procedimiento, $director, $frecuencia, $tipo, $descripcion, $html);
+        return $formato;
+    }
 
 }

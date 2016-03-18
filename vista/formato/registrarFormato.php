@@ -31,8 +31,8 @@
                     </div>
                     <div class="input-field col s12 m12 l6">
                         <i class="material-icons prefix">list</i>
-                        <input id="tipoContenido" name="tipoContenido" type="text" maxlength="50" class="validate" required>
-                        <label for="tipoContenido">tipo de contenido</label>                                                      
+                        <input id="tipoFormato" name="tipoFormato" type="text" maxlength="50" class="validate" required>
+                        <label for="tipoFormato">tipo de contenido</label>                                                      
                     </div>                    
                     <div class="input-field col s12 m12 l12">
                         <i class="material-icons prefix">description</i>

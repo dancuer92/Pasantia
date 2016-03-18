@@ -8,6 +8,10 @@ $(document).ready(function () {
     autocompletarFormato();
 });
 
+/**
+ * 
+ * @returns {undefined}
+ */
 function autocompletarFormato() {
     var keyword = $('#cod_formato').val();
     $.post("../controlador/Formato_controller.php", {formato: keyword, opcion: "cargarFormatos"},
@@ -16,7 +20,11 @@ function autocompletarFormato() {
     });
 }
 
-
+function asignarFormato(formato){
+    $('#asignarFormato').openModal();
+    $('#formatoAsignar').val(formato);
+    
+}
 
 
 
