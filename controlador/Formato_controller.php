@@ -94,7 +94,7 @@ class Formato_controller {
     public function asignarFormato($usuario, $formato) {
         $mensaje='';
         $mensaje= $this->facade->asignarFormato($usuario, $formato);
-        echo $mesaje;
+        echo $mensaje;
     }
 
 }

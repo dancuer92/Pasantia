@@ -78,12 +78,12 @@ class Formato_dao {
 
     public function asignarFormato($usuario, $formato) {
         
-        $sql = 'INSERT INTO `usuario_formato`(`id_usuario`, `id_formato`, `fecha_asignacion`, `estado`) VALUES (?,?,?,?);';
+        $sql = 'INSERT INTO `usuario_formato`(`id_usuario`, `id_formato`, `fecha_asignacion`, `estado`) VALUES (?,?,?,?)';
         if (!$sentencia = $this->mysqli->prepare($sql)) {
             echo $this->mysqli->error;
         }
 
-        if (!$sentencia->bind_param("sssi", $usuario, $formato, date('yy/mm/dd', time()),'1')) {
+        if (!$sentencia->bind_param("sssi", $usuario, $formato, $fecha,$estado)) {
             echo $this->mysqli->error;
         }
         if ($sentencia->execute()) {
