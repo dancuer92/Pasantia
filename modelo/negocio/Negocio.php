@@ -104,5 +104,15 @@ class Negocio {
             return 'El formato no ha sido registrado en el sistema porque fue registrado anteriormente';
         }
     }
+    
+    public function asignarFormato($usuario, $formato){
+        $bandera=  $this->formato->asignarFormato($usuario, $formato);
+        if($bandera){
+            return 'El formato '.$formato.' ha sido asignado al usuario '.$usuario;
+        }
+        else{
+            return 'El formato no ha sido asignado';
+        }
+    }
 
 }

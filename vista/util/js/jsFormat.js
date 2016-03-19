@@ -17,14 +17,23 @@ function autocompletarFormato() {
     $.post("../controlador/Formato_controller.php", {formato: keyword, opcion: "cargarFormatos"},
     function (mensaje) {
         $('#tabla_formatos').html(mensaje);
-        $('')
     });
 }
 
-function asignarFormato(formato){
+function asignarFormato(formato) {
     $('#asignarFormato').openModal();
     $('#formatoAsignar').val(formato);
-    
+}
+
+function btnAsignar() {
+    var formato = $('#formatoAsignar').val();
+    var usuario = $('#cod_usuario').val();
+    console.log(formato + " " + usuario);
+    $.post("../controlador/Formato_controller.php", {formato: formato, usuario: usuario, opcion: "asignarFormato"},
+    function (mensaje) {        
+        Materialize.toast(mensaje, 5000, 'rounded');
+    });
+
 }
 
 

@@ -27,6 +27,11 @@ if ($option == 'guardarFormato') {
     $html = $_POST['codigoHTML'];
     $formato_controller->guardarFormato($codigo, $nombre, $procedimiento, $director, $frecuencia, $tipo, $descripcion, $html);
 }
+if($option=='asignarFormato'){
+    $usuario= $_POST['usuario'];
+    $formato= $_POST['formato'];
+    $formato_controller->asignarFormato($usuario,$formato);
+}
 
 class Formato_controller {
 
@@ -84,6 +89,12 @@ class Formato_controller {
         $mensaje = '';
         $mensaje = $this->facade->guardarFormato($codigo, $nombre, $procedimiento, $director, $frecuencia, $tipo, $descripcion, $html);
         echo $mensaje;
+    }
+
+    public function asignarFormato($usuario, $formato) {
+        $mensaje='';
+        $mensaje= $this->facade->asignarFormato($usuario, $formato);
+        echo $mesaje;
     }
 
 }

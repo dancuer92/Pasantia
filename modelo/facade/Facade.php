@@ -55,4 +55,9 @@ class Facade {
         return $formato;
     }
 
+    public function asignarFormato($usuario, $formato) {
+        $msj= $this->negocio->asignarFormato($usuario, $formato);
+        return $msj;
+    }
+
 }
