@@ -17,6 +17,8 @@ function autocompletarFormato() {
     $.post("../controlador/Formato_controller.php", {formato: keyword, opcion: "cargarFormatos"},
     function (mensaje) {
         $('#tabla_formatos').html(mensaje);
+        $('.tooltipped').tooltip();
+
     });
 }
 
@@ -30,7 +32,7 @@ function btnAsignar() {
     var usuario = $('#cod_usuario').val();
     console.log(formato + " " + usuario);
     $.post("../controlador/Formato_controller.php", {formato: formato, usuario: usuario, opcion: "asignarFormato"},
-    function (mensaje) {        
+    function (mensaje) {
         Materialize.toast(mensaje, 5000, 'rounded');
     });
 
