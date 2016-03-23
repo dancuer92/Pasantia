@@ -38,7 +38,9 @@ function btnAsignar() {
 
 }
 
-
+function modificarFormato(cod){
+    
+}
 
 
 

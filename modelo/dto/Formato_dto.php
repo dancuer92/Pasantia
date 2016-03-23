@@ -104,7 +104,8 @@ class Formato_dto {
                 "procedimiento"=>$this->procedimiento ,
                 "jefe_procedimiento"=>$this->jefe_procedimiento ,
                 "descripcion"=>$this->descripcion ,
-                "frecuencia"=>$this->frecuencia );
+                "frecuencia"=>$this->frecuencia ,
+                "codigo_html"=>$this->html );
         
         $json=  json_encode($arr);
         return $json;

@@ -1,5 +1,5 @@
 <div id="registrarFormat" class="contenido">
-    <form class="s12 m4" id="formRegFormat" method="POST" action="./formato/crearFomato.php"> 
+    <form class="s12 m4" id="formRegFormat" method="POST" action="./formato/crearFormato.php"> 
         <div class="center" >
             <h3><i class="material-icons prefix" style="font-size: 2.92rem">note_add</i> Registrar Formato</h3>
             <div>
@@ -39,6 +39,7 @@
                         <textarea id="descripcionFormato" name="descripcionFormato" class="materialize-textarea" ></textarea>
                         <label for="descripcionFormato">Descripción del formato</label>                                                      
                     </div>
+                    <input id="cod_html" name="cod_html" type="hidden" value="">
                 </div>
 
             </div> 

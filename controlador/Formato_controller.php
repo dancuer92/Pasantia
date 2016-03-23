@@ -53,14 +53,23 @@ class Formato_controller {
             foreach ($formatos as $format) {
 
                 $array = json_decode($format, true);
+                $cod=$array["cod_formato"];
+                $nombre=$array["nombre"];
+                $observaciones=$array["observaciones"];
+                $procedimiento=$array["procedimiento"];
+                $jefe=$array["jefe_procedimiento"];
+                $tipo=$array["descripcion"];
+                $frecuencia=$array["frecuencia"];
+                $html=$array["codigo_html"];
+                
 
                 $mensaje .= '<li class="collection-item avatar">
                             <i class="large material-icons left grey-text text-lighten-1 tooltipped" data-position="bottom" data-delay="50" data-tooltip="VER">description</i>
-                            <p><strong>' . $array["cod_formato"] . '</strong></p>
-                            <p>' . $array["nombre"] . '</p>
-                            <p>' . $array["observaciones"] . '</p>
-                            <p>' . $array["procedimiento"] . '</p>
-                            <p>' . $array["jefe_procedimiento"] . '</p>';
+                            <p><strong>' . $cod . '</strong></p>
+                            <p>' . $nombre . '</p>
+                            <p>' . $observaciones . '</p>
+                            <p>' . $procedimiento . '</p>
+                            <p>' . $jefe . '</p>';
 
 
 //                $mensaje.='<tr>
@@ -73,8 +82,8 @@ class Formato_controller {
 //                                <a class="hoverable colorTexto tooltipped" data-position="top" data-delay="50" data-tooltip="Diligenciar" href="#Diligenciar"> <i class="material-icons">keyboard</i></a>';
                 if ($_SESSION['tipo'] == 'admin') {
                     $mensaje.='<a class="btn-floating red hoverable tooltipped" data-position="top" data-delay="50" data-tooltip="Diligenciar" href="#Diligenciar"> <i class="material-icons">keyboard</i></a>'
-                            . '<a class="btn-floating red hoverable tooltipped modal-trigger" data-position="top" data-delay="50" data-tooltip="Asignar " onclick="asignarFormato(' . $array["cod_formato"] . ');"><i class="material-icons">input</i></a>'
-                            . '<a class="btn-floating red hoverable tooltipped" data-position="top" data-delay="50" data-tooltip="Modificar" href="#Modificar"><i class="material-icons">edit</i></a>';
+                            . '<a class="btn-floating red hoverable tooltipped modal-trigger" data-position="top" data-delay="50" data-tooltip="Asignar" onclick="asignarFormato(' . $array["cod_formato"] . ');"><i class="material-icons">input</i></a>'
+                            . '<a class="btn-floating red hoverable tooltipped" data-position="top" data-delay="50" data-tooltip="Modificar" onclick="modificarFormato(&'.$cod.'&)" ><i class="material-icons">edit</i></a>';
                 } else {
                     $mensaje.='<a class="btn-floating red hoverable tooltipped" data-position="top" data-delay="50" data-tooltip="Diligenciar" href="#Diligenciar"> <i class="material-icons">keyboard</i></a>';
                 }

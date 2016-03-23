@@ -43,6 +43,7 @@ if ($_SESSION["tipo"] !== "admin") {
         <input id="directorFormato" name="directorFormato" type="hidden" value="<?php echo $_POST['directorProcedimiento']; ?>">
         <input id="frecuenciaFormato" name="frecuenciaFormato" type="hidden" value="<?php echo $_POST['frecuenciaFormato']; ?>">
         <input id="tipoFormato" name="tipoFormato" type="hidden" value="<?php echo $_POST['tipoFormato']; ?>">
+        <input id="cod_html" name="cod_html" type="hidden" value="<?php echo $_POST['cod_html']; ?>">
         
 
         <!-- Encabezado-->

@@ -23,11 +23,11 @@ class Formato_dao {
         $sql = '';
         $formatos = array();
         if ($_SESSION['tipo'] == 'admin') {
-            $sql = "SELECT `cod_formato`, `nombre`, `observaciones`, `procedimiento`, `jefe_procedimiento`, `descripcion_contenido`, `frecuencia_uso` "
+            $sql = "SELECT `cod_formato`, `nombre`, `observaciones`, `procedimiento`, `jefe_procedimiento`, `descripcion_contenido`, `frecuencia_uso`, `codigo_html`"
                     . "FROM `formato` "
                     . "WHERE `cod_formato` COLLATE latin1_spanish_ci LIKE '%$ref_formato%'  OR `nombre` COLLATE latin1_spanish_ci LIKE '%$ref_formato%';";
         } else {
-            $sql = "SELECT f.cod_formato, f.nombre, f.observaciones, f.procedimiento, f.jefe_procedimiento, f.descripcion_contenido, f.frecuencia_uso
+            $sql = "SELECT f.cod_formato, f.nombre, f.observaciones, f.procedimiento, f.jefe_procedimiento, f.descripcion_contenido, f.frecuencia_uso, f.codigo_html 
                     FROM formato f, usuario_formato uf
                     WHERE f.cod_formato = uf.id_formato AND uf.id_usuario=".$_SESSION['codigo']." AND (f.cod_formato COLLATE latin1_spanish_ci LIKE '%$ref_formato%'  OR f.nombre COLLATE latin1_spanish_ci LIKE '%$ref_formato%')";
         }
@@ -42,9 +42,9 @@ class Formato_dao {
         }
 
         if ($sentencia->execute()) {
-            $sentencia->bind_result($cod_formato, $nombre, $observaciones, $procedimiento, $jefe_procedimiento, $descripcion_contenido, $frecuencia_uso);
+            $sentencia->bind_result($cod_formato, $nombre, $observaciones, $procedimiento, $jefe_procedimiento, $descripcion_contenido, $frecuencia_uso, $codigo_html);
             while ($sentencia->fetch()) {
-                $this->formato->crear($cod_formato, $nombre, $observaciones, $procedimiento, $jefe_procedimiento, $descripcion_contenido, $frecuencia_uso, '');
+                $this->formato->crear($cod_formato, $nombre, $observaciones, $procedimiento, $jefe_procedimiento, $descripcion_contenido, $frecuencia_uso, $codigo_html);
                 $formatos[] = $this->formato->toJSON();
             }
         }

@@ -4,12 +4,19 @@ if ($_SESSION["estado"] !== "activo") {
     //Si no hay sesión activa, lo direccionamos al index.php (inicio de sesión)
     header("Location: ../index.php");
     exit();
-}?>
+}
+?>
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
 <html> 
     <head> 
-        <title><?php echo $_SESSION['tipo'];?></title>      
+        <title><?php echo $_SESSION['tipo']; ?></title>      
         <!--import de la cabecera de la pagina -->
-        <?php include './user/headHtml.php'; ?>
+<?php include './user/headHtml.php'; ?>
 
         <!-- Scripts de la pagina -->
         <?php
