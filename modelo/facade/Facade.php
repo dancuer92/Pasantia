@@ -59,5 +59,10 @@ class Facade {
         $msj= $this->negocio->asignarFormato($usuario, $formato);
         return $msj;
     }
+    
+    public function diligenciarFormato($formato) {
+        $msj= $this->negocio->diligenciarFormato($formato);
+        return $msj;
+    }
 
 }

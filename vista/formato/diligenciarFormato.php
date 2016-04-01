@@ -1,81 +1,52 @@
-<html lang="en">
+<?php
+session_start();
+//Validamos si existe realmente una sesión activa o no 
+if ($_SESSION["tipo"] !== "admin") {
+    //Si no hay sesión activa, lo direccionamos al index.php (inicio de sesión)
+    header("Location: ../../index.php");
+    exit();
+}
+?>
+
+<html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+        <title>Crear Formato</title>
 
-        <title>Sistema Integrado de Gestión a la calidad de Cerámica Italia S.A.</title>
-
-        <!-- CSS  -->
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css" type="text/css">
-        <link rel="stylesheet" href="http://cdn.datatables.net/1.10.11/css/jquery.dataTables.min.css" type="text/css">
-
-        <!--<link href="../util/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>-->
-        <!--<link href="vista/util/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>-->
         <link rel="shortcut icon" href="../util/images/corporativo/icono_ceramica.ico">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" href="../util/css/bootstrap.css" type="text/css">
 
-        <!--  Scripts-->
-        <script src="../util/js/jquery-2.1.4.min.js"></script>
-        <script src="http://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
-        <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>-->
+        <script type="text/javascript" src="../util/js/jquery-2.1.4.min.js"></script>
+        <script type="text/javascript" src="../util/js/bootstrap.js"></script>
+        <script type="text/javascript" src="../util/js/jsFormat.js"></script>
         <script>
-            $(document).ready(function () {
-                $('#diligenciarFormato').DataTable();
+            $(document).ready(function(){
+                cargarPagina();
             });
         </script>
 
 
+
     </head>
-    <body>     
-        <div  class="container">
-            <table id="diligenciarFormato" class="highlight">
-                <thead>
-                    <tr>
-                        <th>Código del formato</th>
-                        <th>Nombre del formato</th>
-                        <th>Observaciones</th>
-                        <th>Procedimiento</th>
-                        <th>Jefe de procedimiento</th>
-                        <th>Diligenciar</th>
-                        <th>Asignar</th>
-                        <th>Modificar</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>name1</td>
-                        <td>observaciones1</td>
-                        <td>procedimiento1</td>                        
-                        <td>jefePro1</td>                        
-                        <td><a class="btn-flat waves-effect waves-red hoverable">Diligenciar</a></td>                        
-                        <td><a class="btn-flat waves-effect waves-red hoverable">Asignar</a></td>                        
-                        <td><a class="btn-flat waves-effect waves-red hoverable">Modificar</a></td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>name2</td>
-                        <td>observaciones2</td>
-                        <td>procedimiento2</td>                        
-                        <td>jefePro2</td>                        
-                        <td><a class="btn-flat waves-effect waves-red hoverable">Diligenciar</a></td>                        
-                        <td><a class="btn-flat waves-effect waves-red hoverable">Asignar</a></td>                        
-                        <td><a class="btn-flat waves-effect waves-red hoverable">Modificar</a></td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>name3</td>
-                        <td>observaciones3</td>
-                        <td>procedimiento3</td>                        
-                        <td>jefePro3</td>                        
-                        <td><a class="btn-flat waves-effect waves-red hoverable">Diligenciar</a></td>                        
-                        <td><a class="btn-flat waves-effect waves-red hoverable">Asignar</a></td>                        
-                        <td><a class="btn-flat waves-effect waves-red hoverable">Modificar</a></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+    <body>
+        <!-- Encabezado-->
+        <header>
+            <?php include_once './head.php'; ?>
+        </header>
+        <main>
+            <div id="diligenciarFormato" class="container center">
+                <?php // echo $_POST['ref_formato']; echo 'hola'?>
+            </div>
+        </main>
+        <!-- Pie de pagina-->
+        <footer>
+            <div class="text-center text-muted">
+                <h6 >Copyright © Cerámica Italia S.A. 2015</h6>
+                <h6 >Avda 3 Calle 23AN Zona Industrial. Cúcuta, Norte de Santander, Colombia.
+                    <br>+57-7-5829800 - 018000111568</h6>                    
+            </div>
+        </footer>
     </body>
-
-
 </html>

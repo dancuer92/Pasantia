@@ -50,7 +50,6 @@ class Formato_dao {
         }
         $sentencia->close();
         $this->mysqli->close();
-//        echo $formato->toJSON().'DAO';
         return $formatos;
     }
 
@@ -61,7 +60,7 @@ class Formato_dao {
             $mensaje.=$this->mysqli->error;
         }
 
-        if (!$sentencia->bind_param("ssssisss", $codigo, $nombre, $descripcion, $procedimiento, $director, $tipo, $frecuencia, $html)) {
+        if (!$sentencia->bind_param("ssssssss", $codigo, $nombre, $descripcion, $procedimiento, $director, $tipo, $frecuencia, $html)) {
             echo $this->mysqli->error;
         }
 

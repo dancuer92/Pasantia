@@ -64,30 +64,30 @@ class Negocio {
     }
 
     public function cargar_usuario($codigo) {
-        $usuario = $this->usuario->cargar($codigo);   
+        $usuario = $this->usuario->cargar($codigo);
         if (!is_null($usuario)) {
             return $usuario->toJSON();
         } else {
             return null;
         }
     }
-    
-    public function cambiar_password_usuario($newPass,$prevPass,$cod){
-        $bandera=$this->usuario->cambiar($newPass,$prevPass,$cod);
-        $msj='';
-        switch ($bandera){
-            case "0": $msj='La contraseña no ha sido actualizada, por favor vuelva a intetarlo';
-                    break;
-            case "1": $msj='La contraseña ha sido actualizada';
+
+    public function cambiar_password_usuario($newPass, $prevPass, $cod) {
+        $bandera = $this->usuario->cambiar($newPass, $prevPass, $cod);
+        $msj = '';
+        switch ($bandera) {
+            case "0": $msj = 'La contraseña no ha sido actualizada, por favor vuelva a intetarlo';
                 break;
-            case "2": $msj='La contraseña anterior no coincide en la base de datos';
+            case "1": $msj = 'La contraseña ha sido actualizada';
+                break;
+            case "2": $msj = 'La contraseña anterior no coincide en la base de datos';
                 break;
         }
         return $msj;
     }
 
     public function cargarFormatos($formato) {
-        
+
         $formatos = $this->formato->cargarFormatos($formato);
         if (!is_null($formatos)) {
             return $formatos;
@@ -95,23 +95,37 @@ class Negocio {
             return null;
         }
     }
-    
-    public function guardarFormato($codigo, $nombre, $procedimiento, $director, $frecuencia, $tipo, $descripcion, $html){
-        $formato=$this->formato->guardarFormato($codigo, $nombre, $procedimiento, $director, $frecuencia, $tipo, $descripcion, $html);
+
+    public function guardarFormato($codigo, $nombre, $procedimiento, $director, $frecuencia, $tipo, $descripcion, $html) {
+        $formato = $this->formato->guardarFormato($codigo, $nombre, $procedimiento, $director, $frecuencia, $tipo, $descripcion, $html);
         if (!is_null($formato)) {
             return 'Formato registrado con éxito';
         } else {
             return 'El formato no ha sido registrado en el sistema porque fue registrado anteriormente';
         }
     }
-    
-    public function asignarFormato($usuario, $formato){
-        $bandera=  $this->formato->asignarFormato($usuario, $formato);
-        if($bandera){
-            return 'El formato '.$formato.' ha sido asignado al usuario '.$usuario;
-        }
-        else{
+
+    public function asignarFormato($usuario, $formato) {
+        $bandera = $this->formato->asignarFormato($usuario, $formato);
+        if ($bandera) {
+            return 'El formato ' . $formato . ' ha sido asignado al usuario ' . $usuario;
+        } else {
             return 'El formato no ha sido asignado';
+        }
+    }
+
+    public function diligenciarFormato($formato) {
+        $html='';
+        $formatos = $this->formato->cargarFormatos($formato);
+
+        if (!is_null($formatos)) {
+            foreach ($formatos as $formato) {
+                $array = json_decode($formato, true);
+                $html=$array['codigo_html'];
+            }
+            return $html;
+        } else {
+            return null;
         }
     }
 
