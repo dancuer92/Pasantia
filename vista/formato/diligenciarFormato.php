@@ -1,11 +1,11 @@
 <?php
 session_start();
-//Validamos si existe realmente una sesión activa o no 
-if ($_SESSION["tipo"] !== "admin") {
-    //Si no hay sesión activa, lo direccionamos al index.php (inicio de sesión)
-    header("Location: ../../index.php");
-    exit();
-}
+////Validamos si existe realmente una sesión activa o no 
+//if ($_SESSION["tipo"] !== "admin") {
+//    //Si no hay sesión activa, lo direccionamos al index.php (inicio de sesión)
+//    header("Location: ../../index.php");
+//    exit();
+//}
 ?>
 
 <html>
@@ -20,10 +20,16 @@ if ($_SESSION["tipo"] !== "admin") {
 
         <script type="text/javascript" src="../util/js/jquery-2.1.4.min.js"></script>
         <script type="text/javascript" src="../util/js/bootstrap.js"></script>
-        <script type="text/javascript" src="../util/js/jsFormat.js"></script>
+<!--        <script type="text/javascript" src="../util/js/jsFormat.js"></script>-->
         <script>
-            $(document).ready(function(){
-                cargarPagina();
+            $(document).ready(function () {
+                var formato = sessionStorage.getItem('formato');
+                console.log(formato);
+                $.post("../../controlador/Formato_controller.php", {formato: formato, opcion: "diligenciarFormato"},
+                function (mensaje) {
+                    $('#diligenciarFormato').append(mensaje);
+                    $('input').attr('disabled',false);
+                });
             });
         </script>
 
@@ -37,7 +43,6 @@ if ($_SESSION["tipo"] !== "admin") {
         </header>
         <main>
             <div id="diligenciarFormato" class="container center">
-                <?php // echo $_POST['ref_formato']; echo 'hola'?>
             </div>
         </main>
         <!-- Pie de pagina-->

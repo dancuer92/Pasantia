@@ -21,8 +21,8 @@ class Negocio {
         $this->usuario = new Usuario_dao();
     }
 
-    public function iniciar_sesion($nombre, $apellido) {
-        $usuario = $this->usuario->iniciar_sesion($nombre, $apellido);
+    public function iniciar_sesion($nombre, $password) {
+        $usuario = $this->usuario->iniciar_sesion($nombre, $password);
         $mensaje = '';
 
         if ($usuario->estado_usuario == 'activo') {

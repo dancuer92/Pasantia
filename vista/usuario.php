@@ -16,7 +16,7 @@ and open the template in the editor.
     <head> 
         <title><?php echo $_SESSION['tipo']; ?></title>      
         <!--import de la cabecera de la pagina -->
-<?php include './user/headHtml.php'; ?>
+        <?php include './user/headHtml.php'; ?>
 
         <!-- Scripts de la pagina -->
         <?php
@@ -37,12 +37,12 @@ and open the template in the editor.
         </header>
         <main>
             <?php
-            $tipo = $_SESSION['tipo'];
-            if ($tipo === 'admin') {
+            $tipo = $_SESSION['tipo'];            
+            if ($tipo === 'administrador') {
                 include './usuario/gestionUsuarioAdmin.php';
             }
-            if ($tipo === 'operator') {
-                include './usuario/gestionUsuarioOper.php';
+            else{            
+                include './usuario/gestionUsuario.php';
             }
             ?> 
 

@@ -19,12 +19,12 @@ class Usuario_dao {
         $this->usuario = new Usuario_dto();
     }
 
-    public function iniciar_sesion($nombre, $apellido) {
+    public function iniciar_sesion($nombre, $password) {
         $usuario = new Usuario_dto();
 
-        $sql = "SELECT usuario.nombre_usuario, usuario.apellido_usuario , usuario.codigo_usuario, 
-            usuario.rol_usuario, usuario.estado_usuario
-            FROM usuario WHERE usuario.nombre_usuario=? AND usuario.apellido_usuario =?";
+        $sql = "SELECT u.nombre_usuario, u.apellido_usuario , u.codigo_usuario, 
+            u.rol_usuario, u.estado_usuario 
+            FROM usuario u WHERE u.codigo_usuario=? AND u.password_usuario =?";
 
         //PREPARAMOS EL PROCEDIMIENTO
         if (!$sentencia = $this->mysqli->prepare($sql)) {
@@ -32,14 +32,14 @@ class Usuario_dao {
         }
 
         //LE PASAMOS LOS PARAMETROS; "SS" SIGNIFICA QUE SON STRINGS
-        if (!$sentencia->bind_param("ss", $nombre, $apellido)) {
+        if (!$sentencia->bind_param("ss", $nombre, $password)) {
             echo $this->mysqli->error;
         }
 
         //EJECUTAMOS LA CONSULTA
         if (!$sentencia->execute()) {
             print $this->mysqli->error;
-            die("Fallo en la ejecucion");
+            die("Falló la ejecucion de la consulta");
         }
         if ($sentencia->execute()) {
             $sentencia->bind_result($nombre_usuario, $apellido_usuario, $codigo_usuario, $rol_usuario, $estado_usuario);
@@ -67,7 +67,7 @@ class Usuario_dao {
         }
 
         //LE PASAMOS LOS PARAMETROS; "SS" SIGNIFICA QUE SON STRINGS
-        if (!$sentencia->bind_param("issssssssii", $codigo, $nombre, $apellido, $cedula, $password, $correo, $cargo, $departamento, $telefono, $rol_usuario, $estado)) {
+        if (!$sentencia->bind_param("sssssssssii", $codigo, $nombre, $apellido, $cedula, $password, $correo, $cargo, $departamento, $telefono, $rol_usuario, $estado)) {
             echo $this->mysqli->error;
         }
 

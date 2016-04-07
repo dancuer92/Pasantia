@@ -15,8 +15,8 @@ class Facade {
         $this->negocio = new Negocio();
     }
 
-    public function iniciar_sesion($nombre, $apellido) {
-        $msj = $this->negocio->iniciar_sesion($nombre, $apellido);
+    public function iniciar_sesion($nombre, $password) {
+        $msj = $this->negocio->iniciar_sesion($nombre, $password);
         return $msj;
     }
 

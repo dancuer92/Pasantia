@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-var html;
+
 
 $(document).ready(function () {
     autocompletarFormato();
@@ -40,18 +40,12 @@ function btnAsignar() {
 }
 
 function modificarFormato(cod) {
-    location.href = ('formato/crearFormato.php');
+//    location.href = ('formato/crearFormato.php');
 }
 
-function diligenciarFormato(cod) {
-    $.post("../controlador/Formato_controller.php", {formato: cod, opcion:"diligenciarFormato"},
-    function (mensaje) {
-        html=mensaje;
-        window.location.href='./formato/diligenciarFormato.php';
-    });
-//    location.href=('formato/diligenciarFormato.php');
+function diligenciarFormato(cod) {    
+    sessionStorage.setItem('formato', cod);
+    location.href=('formato/diligenciarFormato.php');
 }
 
-function cargarPagina(){
-    $('#diligenciarFormato').html(html);
-}
+

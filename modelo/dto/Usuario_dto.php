@@ -138,13 +138,18 @@ class Usuario_dto {
     }
     
     public function crearTipo($rol_usuario){
-        if ($rol_usuario == 1) {
-            return 'admin';
-        }
-
         if ($rol_usuario == 0) {
-            return 'operator';
+            return 'operario';
         }
+        if ($rol_usuario == 1) {
+            return 'administrador';
+        }
+        if ($rol_usuario == 2) {
+            return 'asistente';
+        }
+        if ($rol_usuario == 3) {
+            return 'supervisor';
+        }        
     }
     
     public function crearEstado($estado_usuario){

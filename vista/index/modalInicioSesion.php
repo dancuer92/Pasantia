@@ -8,11 +8,11 @@
                     <div class="input-field col s12">
                         <i class="material-icons prefix">account_circle</i>
                         <input id="nombre" name="nombre" type="text" class="validate" required>
-                        <label for="nombre">Nombre de Usuario</label>                            
+                        <label for="nombre">Usuario</label>                            
                     </div>
                     <div class="input-field col s12">
                         <i class="material-icons prefix">lock</i>
-                        <input id="password" name="apellido" type="password" class="validate" required>
+                        <input id="password" name="password" type="password" class="validate" required>
                         <label for="password">Contraseña</label>                                                      
                     </div>
                 </div>

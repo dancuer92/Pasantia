@@ -10,10 +10,10 @@ require_once('./conexion/Conexion.php');
 require_once '../modelo/facade/Facade.php';
 
 $nombre = $_POST['nombre']; //TOMAMOS usuario DE TEXTO FORMULARIO
-$apellido = $_POST['apellido']; //TOMAMOS password.
+$password = $_POST['password']; //TOMAMOS password.
 
 $sesion_controller=new Sesion_controller();
-$sesion_controller->iniciar_sesion($nombre, $apellido);
+$sesion_controller->iniciar_sesion($nombre, $password);
 
 class Sesion_controller{
     private $facade;
@@ -22,8 +22,8 @@ class Sesion_controller{
         $this->facade=new Facade();
     }
     
-    public function iniciar_sesion($nombre,$apellido){
-        $msj= $this->facade->iniciar_sesion($nombre, $apellido);
+    public function iniciar_sesion($nombre,$password){
+        $msj= $this->facade->iniciar_sesion($nombre, $password);
         header($msj);
     }
     

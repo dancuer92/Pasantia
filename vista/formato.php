@@ -38,11 +38,10 @@ and open the template in the editor.
         <main>
             <?php
             $tipo = $_SESSION['tipo'];
-            if ($tipo === 'admin') {
-                include './formato/gestionFormatoAdmin.php';
-            }
-            if ($tipo === 'operator') {
-                include './formato/gestionFormatoOper.php';
+            if ($tipo === 'asistente') {
+                include './formato/gestionFormatoAsis.php';
+            }else{
+                include './formato/gestionFormato.php';
             }
             ?> 
 

@@ -4,10 +4,26 @@
             <h3><i class="material-icons prefix" style="font-size: 2.92rem">person_add</i> Registrar Usuario</h3>
             <div>
                 <div class="row">
+                    <div class="input-field col s6 m6 l3">
+                        <select id="tipoUser" name="tipoUser" class="validate" required >                        
+                            <option value="0" >Operario</option>
+                            <option value="1">Administrador</option>                        
+                            <option value="2">Asistente del SGC</option>                        
+                            <option value="3">Supervisor</option>                        
+                        </select>                                  
+                        <label for="tipoUser">Tipo de usuario</label>
+                    </div>
+                    <div class="input-field col s6 m6 l3">
+                        <select id="estado" name="estado" class="validate" required >                        
+                            <option value="1" >Activo</option>
+                            <option value="0">Inactivo</option>                        
+                        </select>                                  
+                        <label for="estado">Estado</label>
+                    </div>
                     <div class="input-field col s12 m6 l3">
                         <i class="material-icons prefix">person_pin</i>
                         <input id="codigo" name="codigo" type="text" maxlength="10" class="validate" required>
-                        <label for="codigo">Código</label>                           
+                        <label for="codigo">Usuario de red</label>                           
                     </div>
                     <div class="input-field col s6 m6 l3">
                         <i class="material-icons prefix">person_pin</i>
@@ -51,23 +67,9 @@
                     </div>
                     <div class="input-field col s12 m6 l3">
                         <i class="material-icons prefix">phone</i>
-                        <input id="telefono" name="telefono" type="number" maxlength="20" class="validate" required>
+                        <input id="telefono" name="telefono" type="tel" maxlength="20" class="validate" required>
                         <label for="telefono">Teléfono</label>                            
-                    </div>
-                    <div class="input-field col s6 m6 l3">
-                        <select id="tipoUser" name="tipoUser" class="validate" required >                        
-                            <option value="0" >Operario</option>
-                            <option value="1">Administrador</option>                        
-                        </select>                                  
-                        <label for="tipoUser">Tipo de usuario</label>
-                    </div>
-                    <div class="input-field col s6 m6 l3">
-                        <select id="estado" name="estado" class="validate" required >                        
-                            <option value="1" >Activo</option>
-                            <option value="0">Inactivo</option>                        
-                        </select>                                  
-                        <label for="estado">Estado</label>
-                    </div>
+                    </div>                    
                 </div>
 
             </div> 

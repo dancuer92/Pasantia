@@ -5,8 +5,8 @@
         <div class="input-field col s12 m12 l12">
             <i class="material-icons prefix">person_pin</i>
             <input type="hidden" name="codigoBuscar" id="codigoBuscar" value="<?php echo $_SESSION['codigo'] ?>">
-            <input type="text" name="busquedaUsuario" id="busquedaUsuario" value="" placeholder="" maxlength="30" autocomplete="off" onKeyUp="buscarUsuario();"/> 
-            <label for="busquedaUsuario">Número de identificación o nombre del usuario a buscar</label>                                                      
+            <input type="text" name="busquedaUsuario" id="busquedaUsuario" value="" maxlength="30" autocomplete="off" onKeyUp="buscarUsuario();"/> 
+            <label for="busquedaUsuario">Usuario de red o nombre del usuario</label>                                                      
         </div> 
     </div>
     <div id="resultadoBusquedaUsuario"></div>

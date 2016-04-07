@@ -14,7 +14,7 @@ $opcion = $_POST['opcion'];
 $Usuario_controller = new Usuario_controller();
 
 if ($opcion == "registrar_usuario") {
-    $codigo = (int) $_POST['codigo'];
+    $codigo = $_POST['codigo'];
     $nombre = $_POST['nombre'];
     $apellido = $_POST['apellido'];
     $cedula = $_POST['numDoc'];
