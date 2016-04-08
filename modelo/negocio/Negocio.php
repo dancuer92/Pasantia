@@ -47,10 +47,10 @@ class Negocio {
         }
     }
 
-    public function buscar_usuario($consultaBusqueda) {
+    public function buscar_usuario($consultaBusqueda,$opc) {
         $mensaje = '';
         $usuarios = array();
-        $usuarios = $this->usuario->buscar($consultaBusqueda);
+        $usuarios = $this->usuario->buscar($consultaBusqueda,$opc);
         if (count($usuarios) == 0) {
             $usuarios = null;
         } else {
@@ -112,6 +112,10 @@ class Negocio {
         } else {
             return 'El formato no ha sido asignado';
         }
+    }
+    
+    public function desasignarFormato($usuario,$formato){
+        
     }
 
     public function diligenciarFormato($formato) {

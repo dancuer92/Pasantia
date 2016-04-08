@@ -76,15 +76,35 @@ class Formato_dao {
 
     public function asignarFormato($usuario, $formato) {
 
-        $sql = 'INSERT INTO `usuario_formato`(`id_usuario`, `id_formato`, `fecha_asignacion`, `estado`) VALUES (?,?,?,?)';
+        $sql = "INSERT INTO `usuario_formato`(`id_usuario`, `id_formato`, `accion`) "
+                . "VALUES (?,?,'asignado') ON DUPLICATE KEY UPDATE `accion`='asignado'";
+        if (!$sentencia = $this->mysqli->prepare($sql)) {
+            echo $this->mysqli->error;
+        }        
+
+//        $fecha= date('Y/m/d', time());
+//        $accion='asignado';
+        if (!$sentencia->bind_param("ss", $usuario, $formato)) {
+            echo $this->mysqli->error;
+        }
+        if ($sentencia->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+        $sentencia->close();
+        $this->mysqli->close();
+    }
+    
+    public function desasignarFormato($usuario,$formato){
+        $sql="UPDATE `usuario_formato` SET `estado`='0', `fecha_desasignacion` = ? WHERE `usuario_formato`.`id_usuario` = ? AND `usuario_formato`.`id_formato` = ?";
         if (!$sentencia = $this->mysqli->prepare($sql)) {
             echo $this->mysqli->error;
         }
 
-        $fecha = date('Y/m/d', time());
-        $estado = 1;
+        $fecha = date('Y/m/d', time());        
 
-        if (!$sentencia->bind_param("sssi", $usuario, $formato, $fecha, $estado)) {
+        if (!$sentencia->bind_param("sss", $fecha, $usuario, $formato)) {
             echo $this->mysqli->error;
         }
         if ($sentencia->execute()) {

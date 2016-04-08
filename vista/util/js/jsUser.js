@@ -8,58 +8,58 @@ $(document).ready(function () {
     $('#mobileUsuarios').show();
 
 
-/*
-    $('#registrarF').click(function () {
-        $('.contenido').hide();
-        $('#registrarFormat').show();
-    });
-    $('#registrarFM').click(function () {
-        $('.contenido').hide();
-        $('#registrarFormat').show();
-    });
-    $('#modificarF').click(function () {
-        $('.contenido').hide();
-        $('#modificarFormat').show();
-    });
-    $('#modificarFM').click(function () {
-        $('.contenido').hide();
-        $('#modificarFormat').show();
-    });
-    $('#asignarF').click(function () {
-        $('.contenido').hide();
-        $('#asignarFormat').show();
-    });
-    $('#asignarFM').click(function () {
-        $('.contenido').hide();
-        $('#asignarFormat').show();
-    });
-    $('#consultarF').click(function () {
-        $('.contenido').hide();
-        $('#consultarFormat').show();
-    });
-    $('#consultarFM').click(function () {
-        $('.contenido').hide();
-        $('#consultarFormat').show();
-    });
-    $('#diligenciarF').click(function () {
-        $('.contenido').hide();
-        $('#diligenciarFormat').show();
-    });
-    $('#diligenciarFM').click(function () {
-        $('.contenido').hide();
-        $('#diligenciarFormat').show();
-    });
-
-
-
-
-//consultarUsuario.php
-    $('#busCli').click(function () {
-        $('.contenido').hide();
-        $('#buscarUsuario').show();
-        $('#busquedaUsuario').val('');
-        $("#resultadoBusquedaUsuario").html("");
-    });*/
+    /*
+     $('#registrarF').click(function () {
+     $('.contenido').hide();
+     $('#registrarFormat').show();
+     });
+     $('#registrarFM').click(function () {
+     $('.contenido').hide();
+     $('#registrarFormat').show();
+     });
+     $('#modificarF').click(function () {
+     $('.contenido').hide();
+     $('#modificarFormat').show();
+     });
+     $('#modificarFM').click(function () {
+     $('.contenido').hide();
+     $('#modificarFormat').show();
+     });
+     $('#asignarF').click(function () {
+     $('.contenido').hide();
+     $('#asignarFormat').show();
+     });
+     $('#asignarFM').click(function () {
+     $('.contenido').hide();
+     $('#asignarFormat').show();
+     });
+     $('#consultarF').click(function () {
+     $('.contenido').hide();
+     $('#consultarFormat').show();
+     });
+     $('#consultarFM').click(function () {
+     $('.contenido').hide();
+     $('#consultarFormat').show();
+     });
+     $('#diligenciarF').click(function () {
+     $('.contenido').hide();
+     $('#diligenciarFormat').show();
+     });
+     $('#diligenciarFM').click(function () {
+     $('.contenido').hide();
+     $('#diligenciarFormat').show();
+     });
+     
+     
+     
+     
+     //consultarUsuario.php
+     $('#busCli').click(function () {
+     $('.contenido').hide();
+     $('#buscarUsuario').show();
+     $('#busquedaUsuario').val('');
+     $("#resultadoBusquedaUsuario").html("");
+     });*/
 
 });
 
@@ -86,11 +86,11 @@ function guardarModificacionesPerfil() {
     $('#profile :input').css('border', 'none');
 }
 
-function edit(item,cod) {
+function edit(item, cod) {
     var x = '#' + item;
     var valor = $(x).val();
     if (valor !== '') {
-        $.post("../controlador/Usuario_controller.php", {valor: valor, clave: item,codigo:cod, opcion: "editar"},
+        $.post("../controlador/Usuario_controller.php", {valor: valor, clave: item, codigo: cod, opcion: "editar"},
         function () {
             Materialize.toast('Campo actualizado con éxito', 5000, 'rounded');
         });
@@ -245,27 +245,48 @@ function passConfirm() {
     }
 }
 
-function autocompletarUsuario(){
-    $('#asignarFormatoButton').attr('disabled',true);
+function autocompletarUsuario() {
+    $('#asignarFormatoButton').attr('disabled', true);
     var min_length = 0; // min caracters to display the autocomplete
     var keyword = $('#cod_usuario').val();
     if (keyword.length >= min_length && keyword !== "") {
-        $.post("../controlador/Usuario_controller.php", {codigo: keyword, opcion: "autocompletar"},
+        $.post("../controlador/Usuario_controller.php", {codigo: keyword, opcion: "asignar"},
         function (mensaje) {
             $('#usuarios').html(mensaje);
         });
     } else {
-        $('#usuarios').html('');        
+        $('#usuarios').html('');
         Materialize.toast("Error seleccionando un usuario", 3000, 'rounded');
     }
 }
 
-function setU(value){
-    $('#cod_usuario').val(value);
-    var mensaje='<strong>Usuario '+value+ ' seleccionado para asignar</strong>';
-    $('#usuarios').html(mensaje);
-    $('#asignarFormatoButton').attr('disabled',false);
+function usuariosDesasignar() {
+    $('#desasignarFormatoButton').attr('disabled', true);
+    var min_length = 0; // min caracters to display the autocomplete
+    var keyword = $('#cod_usuarioDes').val();
+    if (keyword.length >= min_length && keyword !== "") {
+        $.post("../controlador/Usuario_controller.php", {codigo: keyword, opcion: "desasignar"},
+        function (mensaje) {
+            $('#usuariosD').html(mensaje);
+        });
+    } else {
+        $('#usuariosD').html('');
+        Materialize.toast("Error seleccionando un usuario", 3000, 'rounded');
+    }
 }
-; 
+
+function setA(value) {
+    $('#cod_usuario').val(value);
+    var mensaje = '<strong>Usuario ' + value + ' seleccionado para asignar</strong>';
+    $('#usuarios').html(mensaje);
+    $('#asignarFormatoButton').attr('disabled', false);
+}
 ;
+
+function setD(value) {
+    $('#cod_usuarioDes').val(value);
+    var mensaje = '<strong>Usuario ' + value + ' seleccionado para asignar</strong>';
+    $('#usuariosD').html(mensaje);
+    $('#desasignarFormatoButton').attr('disabled', false);
+}
 

@@ -28,6 +28,11 @@ function asignarFormato(formato) {
     $('#formatoAsignar').val(formato);
 }
 
+function desasignarFormato(formato){
+    $('#desasignarFormato').openModal();
+    $('#formatoDesasignar').val(formato);
+}
+
 function btnAsignar() {
     var formato = $('#formatoAsignar').val();
     var usuario = $('#cod_usuario').val();
@@ -37,6 +42,16 @@ function btnAsignar() {
         Materialize.toast(mensaje, 5000, 'rounded');
     });
 
+}
+
+function btnDesasignar(){
+    var formato = $('#formatoDesasignar').val();
+    var usuario = $('#cod_usuarioDes').val();
+    console.log(formato + " " + usuario);
+    $.post("../controlador/Formato_controller.php", {formato: formato, usuario: usuario, opcion: "desasignarFormato"},
+    function (mensaje) {
+        Materialize.toast(mensaje, 5000, 'rounded');
+    });
 }
 
 function modificarFormato(cod) {

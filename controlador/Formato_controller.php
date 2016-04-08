@@ -32,6 +32,11 @@ if ($option == 'asignarFormato') {
     $formato = $_POST['formato'];
     $formato_controller->asignarFormato($usuario, $formato);
 }
+if($option=='desasignar'){
+    $usuario = $_POST['usuario'];
+    $formato = $_POST['formato'];
+    $formato_controller->desasignarFormato($usuario, $formato);
+}
 if ($option == 'diligenciarFormato') {
     $formato = $_POST['formato'];
     $formato_controller->diligenciarFormato($formato);
@@ -82,8 +87,8 @@ class Formato_controller {
                             <p>' . $jefe . '</p>';
         switch ($_SESSION['tipo']) {
             case 'administrador':
-                $mensaje.='<a class="btn-floating red hoverable tooltipped modal-trigger" data-position="top" data-delay="50" data-tooltip="Asignar" onclick="asignarFormato(&' . $cod . '&);"><i class="material-icons">visibility</i></a>'
-                        . '<a class="btn-floating red hoverable tooltipped" data-position="top" data-delay="50" data-tooltip="Desasignar" onclick="desasignarFormato(&' . $cod . '&)" ><i class="material-icons">visibility_off</i></a>';
+                $mensaje.='<a class="btn-floating red hoverable tooltipped modal-trigger" data-position="top" data-delay="50" data-tooltip="Asignar" onclick="asignarFormato(&' . $cod . '&);"><i class="material-icons">input</i></a>'
+                        . '<a class="btn-floating red hoverable tooltipped modal-trigger" data-position="top" data-delay="50" data-tooltip="Desasignar" onclick="desasignarFormato(&' . $cod . '&)" ><i class="material-icons">visibility_off</i></a>';
                 break;
             case 'asistente':
                 $mensaje.='<a class="btn-floating red hoverable tooltipped" data-position="top" data-delay="50" data-tooltip="Modificar" onclick="modificarFormato(&' . $cod . '&)" ><i class="material-icons">edit</i></a>'
@@ -115,6 +120,12 @@ class Formato_controller {
         echo $mensaje;
     }
 
+    public function desasignarFormato($usuario, $formato){
+        $mensaje='';
+        $mensaje=$this->facade->desasignarFormato($usuario, $formato);
+        echo $mensaje;
+    }
+    
     public function diligenciarFormato($formato) {
         $mensaje = '';
         $mensaje = $this->facade->diligenciarFormato($formato);

@@ -25,8 +25,8 @@ class Facade {
         return $msj;
     }
 
-    public function buscar_usuario($consultaBusqueda) {
-        $usuarios = $this->negocio->buscar_usuario($consultaBusqueda);
+    public function buscar_usuario($consultaBusqueda,$opc) {
+        $usuarios = $this->negocio->buscar_usuario($consultaBusqueda,$opc);
         return $usuarios;
     }
 
@@ -57,6 +57,11 @@ class Facade {
 
     public function asignarFormato($usuario, $formato) {
         $msj= $this->negocio->asignarFormato($usuario, $formato);
+        return $msj;
+    }
+    
+    public function desasignarFormato($usuario, $formato) {
+        $msj= $this->negocio->desasignarFormato($usuario, $formato);
         return $msj;
     }
     

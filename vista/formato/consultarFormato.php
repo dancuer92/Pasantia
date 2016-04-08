@@ -16,4 +16,5 @@
 </div>
 <?php
     include './formato/modalAsignar.php';
+    include './formato/modalDesasignar.php';
 ?>

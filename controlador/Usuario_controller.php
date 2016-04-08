@@ -52,9 +52,14 @@ if ($opcion == 'cambiar') {
     $Usuario_controller->cambiar_password_usuario($newPass, $prevPass, $cod);
 }
 
-if ($opcion == 'autocompletar') {
+if ($opcion == 'asignar') {
     $cod = $_POST['codigo'];
-    $Usuario_controller->autocompletar_usuario($cod);
+    $Usuario_controller->autocompletar_usuario($cod, 'asignar');
+}
+
+if ($opcion == 'desasignar') {
+    $cod = $_POST['codigo'];
+    $Usuario_controller->autocompletar_usuario($cod, 'desasignar');
 }
 
 class Usuario_controller {
@@ -72,7 +77,7 @@ class Usuario_controller {
 
     public function buscar_usuario($consultaBusqueda) {
         $mensaje = '';
-        $usuarios = $this->facade->buscar_usuario($consultaBusqueda);
+        $usuarios = $this->facade->buscar_usuario($consultaBusqueda,'');
         if (is_null($usuarios)) {
             $mensaje = '<p>No hay ningún usuario con ese criterio de búsqueda</p>';
         } else {
@@ -141,20 +146,25 @@ class Usuario_controller {
         echo $msj;
     }
 
-    public function autocompletar_usuario($codigo) {        
+    public function autocompletar_usuario($codigo, $opc) {
         $mensaje = '';
-        $usuarios = $this->facade->buscar_usuario($codigo);
+        $usuarios = $this->facade->buscar_usuario($codigo, $opc);
         if (is_null($usuarios)) {
             $mensaje = '<p>No hay ningún usuario con ese criterio de búsqueda</p>';
         } else {
             foreach ($usuarios as $user) {
                 $array = json_decode($user, true);
+                $msj='';
+                if ($opc == 'asignar') {
+                    $msj = "setA('" . $array['codigo_usuario'] . "')";
+                } else {
+                    $msj = "setD('" . $array['codigo_usuario'] . "')";
+                }
 
-                $mensaje .= '<a class="collection-item black-text" onclick="setU(&' . $array["codigo_usuario"] . '&)"><strong>Código: </strong>'
-                        . $array["codigo_usuario"] . '. <strong>Usuario: </strong>' . $array["nombre_usuario"] .' '. $array["apellido_usuario"] . '</a>';
+                $mensaje .= '<a class="collection-item black-text" onclick="' .$msj. '"><strong>Código: </strong>'
+                        . $array["codigo_usuario"] . '. <strong>Usuario: </strong>' . $array["nombre_usuario"] . ' ' . $array["apellido_usuario"] . '</a>';
             }
         }
-        $mensaje = str_replace("&", "'", $mensaje);
         echo $mensaje;
     }
 

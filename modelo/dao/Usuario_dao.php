@@ -82,16 +82,37 @@ class Usuario_dao {
         return $this->usuario;
     }
 
-    public function buscar($consultaBusqueda) {
+    public function buscar($consultaBusqueda, $opc) {
         $usuarios = array();
-        $sql = "SELECT u.codigo_usuario, u.nombre_usuario, u.apellido_usuario, u.correo_usuario, u.cargo_usuario, "
-                . "u.departamento_usuario, u.telefono_usuario, u.rol_usuario, u.estado_usuario, u.fecha_registro "
-                . "FROM usuario u WHERE u.codigo_usuario COLLATE latin1_swedish_ci LIKE '%$consultaBusqueda%' "
-                . "OR u.nombre_usuario COLLATE latin1_swedish_ci LIKE '%$consultaBusqueda%' "
-                . "OR u.apellido_usuario COLLATE latin1_swedish_ci LIKE '%$consultaBusqueda%' "
-                . "OR concat(u.nombre_usuario,' ',u.apellido_usuario) COLLATE latin1_swedish_ci LIKE '%$consultaBusqueda%' "
-                . "LIMIT 6;";
-
+        $sql = "";
+        if ($opc == 'asignar') {
+            $sql = "SELECT u.codigo_usuario, u.nombre_usuario, u.apellido_usuario, u.correo_usuario, u.cargo_usuario, "
+                    . "u.departamento_usuario, u.telefono_usuario, u.rol_usuario, u.estado_usuario, u.fecha_registro "
+                    . "FROM usuario u WHERE (u.rol_usuario=0 OR u.rol_usuario=3) AND( "
+                    . "u.codigo_usuario COLLATE latin1_spanish_ci LIKE '%$consultaBusqueda%' "
+                    . "OR u.nombre_usuario COLLATE latin1_spanish_ci LIKE '%$consultaBusqueda%' "
+                    . "OR u.apellido_usuario COLLATE latin1_spanish_ci LIKE '%$consultaBusqueda%' "
+                    . "OR concat(u.nombre_usuario,' ',u.apellido_usuario) COLLATE latin1_spanish_ci LIKE '%$consultaBusqueda%') "
+                    . "LIMIT 6;";
+        } else if ($opc == 'desasignar') {
+            $sql = "SELECT u.codigo_usuario, u.nombre_usuario, u.apellido_usuario, u.correo_usuario, u.cargo_usuario, "
+                    . "u.departamento_usuario, u.telefono_usuario, u.rol_usuario, u.estado_usuario, u.fecha_registro "
+                    . "FROM usuario u, usuario_formato uf WHERE uf.estado=1 AND uf.id_usuario=u.codigo_usuario "
+                    . "AND (u.rol_usuario=0 OR u.rol_usuario=3)"
+                    . "AND (u.codigo_usuario COLLATE latin1_spanish_ci LIKE '%$consultaBusqueda%' "
+                    . "OR u.nombre_usuario COLLATE latin1_spanish_ci LIKE '%$consultaBusqueda%' "
+                    . "OR u.apellido_usuario COLLATE latin1_spanish_ci LIKE '%$consultaBusqueda%' "
+                    . "OR concat(u.nombre_usuario,' ',u.apellido_usuario) COLLATE latin1_spanish_ci LIKE '%$consultaBusqueda%') "
+                    . "LIMIT 6;";
+        } else {
+            $sql = "SELECT u.codigo_usuario, u.nombre_usuario, u.apellido_usuario, u.correo_usuario, u.cargo_usuario, "
+                    . "u.departamento_usuario, u.telefono_usuario, u.rol_usuario, u.estado_usuario, u.fecha_registro "
+                    . "FROM usuario u WHERE u.codigo_usuario COLLATE latin1_spanish_ci LIKE '%$consultaBusqueda%' "
+                    . "OR u.nombre_usuario COLLATE latin1_spanish_ci LIKE '%$consultaBusqueda%' "
+                    . "OR u.apellido_usuario COLLATE latin1_spanish_ci LIKE '%$consultaBusqueda%' "
+                    . "OR concat(u.nombre_usuario,' ',u.apellido_usuario) COLLATE latin1_spanish_ci LIKE '%$consultaBusqueda%' "
+                    . "LIMIT 6;";
+        }
         if (!$sentencia = $this->mysqli->prepare($sql)) {
             echo $this->mysqli->error;
         }
@@ -148,7 +169,7 @@ class Usuario_dao {
         return $this->usuario;
     }
 
-    public function cambiar($newPass,$prevPass,$cod) {
+    public function cambiar($newPass, $prevPass, $cod) {
         $sql = "UPDATE usuario u SET u.password_usuario=? WHERE u.password_usuario=? AND u.codigo_usuario=? ;";
 
         if (!$sentencia = $this->mysqli->prepare($sql)) {
