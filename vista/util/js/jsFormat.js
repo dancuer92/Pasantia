@@ -4,8 +4,6 @@
  * and open the template in the editor.
  */
 
-
-
 /**
  * 
  * @returns {undefined}
@@ -55,6 +53,11 @@ function btnDesasignar() {
 function modificarFormato(cod) {
     sessionStorage.setItem('formato', cod);
     location.href = ('formato/modificarFormato.php');
+}
+
+function historialFormato(cod){
+    sessionStorage.setItem('formato', cod);
+    location.href = ('formato/historialFormato.php');
 }
 
 function diligenciarFormato(cod) {
