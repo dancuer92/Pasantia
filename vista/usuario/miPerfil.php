@@ -6,7 +6,7 @@
             <a id="modificarPerfil" class="btn waves-effect waves-light hoverable" onclick="modificarPerfil()">Modificar
                 <i class="material-icons right">send</i>
             </a>
-            <a id="guardar" class="btn waves-effect waves-light hoverable red" onclick="guardarModificacionesPerfil()">Guardar cambios
+            <a id="guardar" class="btn waves-effect waves-light hoverable" onclick="guardarModificacionesPerfil()">Guardar cambios
                 <i class="material-icons right">send</i>
             </a>
         </div>

@@ -8248,10 +8248,12 @@ img.logo_pie{
     font-size: large;    
 }
 
-#registroUsuario, #cambiarPass, #modificarPerfil, #guardar, #registroFormato, #asignoFormato, #consultoFormato{
+#registroUsuario, #cambiarPass, #modificarPerfil, #guardar, #registroFormato, #asignoFormato, #consultoFormato,
+#asignarFormatoButton, #desasignarFormatoButton{
     background-color: #DE0000; 
     color: #FAFAFA;
-    font-size: large;    
+    font-size: large;
+    margin-bottom: 20px;
 }
 
 #navbarUsers, #footer{

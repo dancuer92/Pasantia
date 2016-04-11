@@ -22,14 +22,14 @@ class Formato_dao {
         $mensaje = "";
         $sql = '';
         $formatos = array();
-        if ($_SESSION['tipo'] == 'administrador' || $_SESSION['tipo']=='asistente') {
+        if ($_SESSION['tipo'] == 'administrador' || $_SESSION['tipo'] == 'asistente') {
             $sql = "SELECT `cod_formato`, `nombre`, `observaciones`, `procedimiento`, `jefe_procedimiento`, `descripcion_contenido`, `frecuencia_uso`, `codigo_html`"
                     . "FROM `formato` "
                     . "WHERE `cod_formato` COLLATE latin1_spanish_ci LIKE '%$ref_formato%'  OR `nombre` COLLATE latin1_spanish_ci LIKE '%$ref_formato%';";
         } else {
             $sql = "SELECT f.cod_formato, f.nombre, f.observaciones, f.procedimiento, f.jefe_procedimiento, f.descripcion_contenido, f.frecuencia_uso, f.codigo_html 
                     FROM formato f, usuario_formato uf
-                    WHERE f.cod_formato = uf.id_formato AND uf.id_usuario='".$_SESSION['codigo']."' AND uf.estado=1 AND (f.cod_formato COLLATE latin1_spanish_ci LIKE '%$ref_formato%'  OR f.nombre COLLATE latin1_spanish_ci LIKE '%$ref_formato%')";
+                    WHERE f.cod_formato = uf.id_formato AND uf.id_usuario='" . $_SESSION['codigo'] . "' AND uf.estado=1 AND (f.cod_formato COLLATE latin1_spanish_ci LIKE '%$ref_formato%'  OR f.nombre COLLATE latin1_spanish_ci LIKE '%$ref_formato%')";
         }
 
 //        $sql = "SELECT `cod_formato`, `nombre`, `observaciones`, `procedimiento`, `jefe_procedimiento`, `descripcion_contenido`, `frecuencia_uso` "
@@ -74,13 +74,19 @@ class Formato_dao {
         return $this->formato;
     }
 
-    public function asignarFormato($usuario, $formato) {
-
-        $sql = "INSERT INTO `usuario_formato`(`id_usuario`, `id_formato`, `accion`) "
-                . "VALUES (?,?,'asignado') ON DUPLICATE KEY UPDATE `accion`='asignado'";
+    public function asignarDesasignarFormato($usuario, $formato, $opc) {
+        $sql = '';
+        if ($opc === 1) {
+            $sql = "INSERT INTO `usuario_formato`(`id_usuario`, `id_formato`, `accion`) "
+                    . "VALUES (?,?,'asignado') ON DUPLICATE KEY UPDATE `accion`='asignado';";
+        } else {
+            $sql = "UPDATE `usuario_formato` SET `accion`='desasignado' "
+                    . "WHERE `id_usuario`=? AND `id_formato`=? AND `accion`='asignado';";
+        }
+        
         if (!$sentencia = $this->mysqli->prepare($sql)) {
             echo $this->mysqli->error;
-        }        
+        }
 
 //        $fecha= date('Y/m/d', time());
 //        $accion='asignado';
@@ -88,29 +94,9 @@ class Formato_dao {
             echo $this->mysqli->error;
         }
         if ($sentencia->execute()) {
-            return true;
+            return $sentencia->affected_rows;
         } else {
-            return false;
-        }
-        $sentencia->close();
-        $this->mysqli->close();
-    }
-    
-    public function desasignarFormato($usuario,$formato){
-        $sql="UPDATE `usuario_formato` SET `estado`='0', `fecha_desasignacion` = ? WHERE `usuario_formato`.`id_usuario` = ? AND `usuario_formato`.`id_formato` = ?";
-        if (!$sentencia = $this->mysqli->prepare($sql)) {
-            echo $this->mysqli->error;
-        }
-
-        $fecha = date('Y/m/d', time());        
-
-        if (!$sentencia->bind_param("sss", $fecha, $usuario, $formato)) {
-            echo $this->mysqli->error;
-        }
-        if ($sentencia->execute()) {
-            return true;
-        } else {
-            return false;
+            return 0;
         }
         $sentencia->close();
         $this->mysqli->close();

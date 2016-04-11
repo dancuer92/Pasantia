@@ -5,9 +5,6 @@
  */
 
 
-$(document).ready(function () {
-    autocompletarFormato();
-});
 
 /**
  * 
@@ -28,7 +25,7 @@ function asignarFormato(formato) {
     $('#formatoAsignar').val(formato);
 }
 
-function desasignarFormato(formato){
+function desasignarFormato(formato) {
     $('#desasignarFormato').openModal();
     $('#formatoDesasignar').val(formato);
 }
@@ -44,23 +41,25 @@ function btnAsignar() {
 
 }
 
-function btnDesasignar(){
+function btnDesasignar() {
     var formato = $('#formatoDesasignar').val();
     var usuario = $('#cod_usuarioDes').val();
     console.log(formato + " " + usuario);
     $.post("../controlador/Formato_controller.php", {formato: formato, usuario: usuario, opcion: "desasignarFormato"},
     function (mensaje) {
+        console.log(mensaje);
         Materialize.toast(mensaje, 5000, 'rounded');
     });
 }
 
 function modificarFormato(cod) {
-//    location.href = ('formato/crearFormato.php');
+    sessionStorage.setItem('formato', cod);
+    location.href = ('formato/modificarFormato.php');
 }
 
-function diligenciarFormato(cod) {    
+function diligenciarFormato(cod) {
     sessionStorage.setItem('formato', cod);
-    location.href=('formato/diligenciarFormato.php');
+    location.href = ('formato/diligenciarFormato.php');
 }
 
 

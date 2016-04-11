@@ -32,7 +32,7 @@ if ($option == 'asignarFormato') {
     $formato = $_POST['formato'];
     $formato_controller->asignarFormato($usuario, $formato);
 }
-if($option=='desasignar'){
+if($option=='desasignarFormato'){
     $usuario = $_POST['usuario'];
     $formato = $_POST['formato'];
     $formato_controller->desasignarFormato($usuario, $formato);
@@ -92,7 +92,7 @@ class Formato_controller {
                 break;
             case 'asistente':
                 $mensaje.='<a class="btn-floating red hoverable tooltipped" data-position="top" data-delay="50" data-tooltip="Modificar" onclick="modificarFormato(&' . $cod . '&)" ><i class="material-icons">edit</i></a>'
-                        . '<a class="btn-floating red hoverable tooltipped" data-position="top" data-delay="50" data-tooltip="Historial de versiones" onclick="modificarFormato(&' . $cod . '&)" ><i class="material-icons">history</i></a>';
+                        . '<a class="btn-floating red hoverable tooltipped" data-position="top" data-delay="50" data-tooltip="Historial de versiones" onclick="historialFormato(&' . $cod . '&)" ><i class="material-icons">history</i></a>';
                 break;
             case 'supervisor':
                 $mensaje.='<a class="btn-floating red hoverable tooltipped" data-position="top" data-delay="50" data-tooltip="Diligenciar" onclick="diligenciarFormato(&' . $cod . '&)" ><i class="material-icons">keyboard</i></a>'

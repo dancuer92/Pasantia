@@ -24,6 +24,11 @@ and open the template in the editor.
         ?>
         <script src="./util/js/jsUser.js"></script>
         <script src="./util/js/jsFormat.js"></script>
+        <script>
+            $(document).ready(function () {
+                autocompletarFormato();
+            })
+        </script>
 
     </head>  
     <body>
@@ -40,7 +45,7 @@ and open the template in the editor.
             $tipo = $_SESSION['tipo'];
             if ($tipo === 'asistente') {
                 include './formato/gestionFormatoAsis.php';
-            }else{
+            } else {
                 include './formato/gestionFormato.php';
             }
             ?> 

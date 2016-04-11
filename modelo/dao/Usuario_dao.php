@@ -97,7 +97,7 @@ class Usuario_dao {
         } else if ($opc == 'desasignar') {
             $sql = "SELECT u.codigo_usuario, u.nombre_usuario, u.apellido_usuario, u.correo_usuario, u.cargo_usuario, "
                     . "u.departamento_usuario, u.telefono_usuario, u.rol_usuario, u.estado_usuario, u.fecha_registro "
-                    . "FROM usuario u, usuario_formato uf WHERE uf.estado=1 AND uf.id_usuario=u.codigo_usuario "
+                    . "FROM usuario u, usuario_formato uf WHERE uf.accion='asignado' AND uf.id_usuario=u.codigo_usuario "
                     . "AND (u.rol_usuario=0 OR u.rol_usuario=3)"
                     . "AND (u.codigo_usuario COLLATE latin1_spanish_ci LIKE '%$consultaBusqueda%' "
                     . "OR u.nombre_usuario COLLATE latin1_spanish_ci LIKE '%$consultaBusqueda%' "

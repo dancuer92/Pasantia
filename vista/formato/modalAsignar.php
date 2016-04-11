@@ -19,7 +19,7 @@
 
         <!-- Modal Footer -->
         <div class="modal-footer">
-            <button id="asignarFormatoButton" class="modal-action btn waves-effect waves-light hoverable"   disabled="true" onclick="btnAsignar();">Asignar
+            <button id="asignarFormatoButton" class="modal-action btn waves-effect waves-light hoverable btn-primary"   disabled="true" onclick="btnAsignar();">Asignar
                 <i class="material-icons right">send</i>
             </button>            
             <a class="modal-action modal-close waves-effect waves-red btn-flat hoverable">Cancelar

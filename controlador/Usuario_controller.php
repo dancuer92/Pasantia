@@ -98,7 +98,7 @@ class Usuario_controller {
                         </div>
                         <div class="card-reveal">
                             <span class="card-title grey-text text-darken-4">¿Desea desactivar el usuario?<i class="material-icons right">close</i></span>
-                            <p><a id="act/desac" class="waves-effect waves-red btn-flat hoverable" onclick="estadoUsuario(' . $usuario['codigo_usuario'] . ',' . 0 . ')">Aceptar</a></p>                    
+                            <p><a id="act/desac" class="waves-effect waves-red btn-flat hoverable" onclick="estadoUsuario(&' . $usuario['codigo_usuario'] . '&,' . 0 . ')">Aceptar</a></p>                    
                         </div>                 
                     </div>               
                 </div>';
@@ -107,13 +107,14 @@ class Usuario_controller {
                         </div>
                         <div class="card-reveal">
                             <span class="card-title grey-text text-darken-4">¿Desea activar el usuario?<i class="material-icons right">close</i></span>
-                            <p><a id="act/desac" class="waves-effect waves-red btn-flat hoverable" onclick="estadoUsuario(' . $usuario['codigo_usuario'] . ',' . 1 . ')">Aceptar</a></p>                    
+                            <p><a id="act/desac" class="waves-effect waves-red btn-flat hoverable" onclick="estadoUsuario(&' . $usuario['codigo_usuario'] . '&,' . 1 . ')">Aceptar</a></p>                    
                         </div>                 
                     </div> 
                 </div>';
                 }
             }
         }
+        $mensaje=  str_replace("&","'", $mensaje);
         echo $mensaje;
     }
 

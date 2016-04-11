@@ -104,6 +104,7 @@ function edit(item, cod) {
 function limpiar() {
     $(':input').not(':button, :submit, :reset, :hidden, :checkbox, :radio').val('');
 }
+
 //consultarUsuario.php
 function buscarUsuario() {
     var textoBusqueda = $("#busquedaUsuario").val();

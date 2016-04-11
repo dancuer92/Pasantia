@@ -106,16 +106,21 @@ class Negocio {
     }
 
     public function asignarFormato($usuario, $formato) {
-        $bandera = $this->formato->asignarFormato($usuario, $formato);
-        if ($bandera) {
+        $bandera = $this->formato->asignarDesasignarFormato($usuario, $formato,1);
+        if ($bandera>0) {
             return 'El formato ' . $formato . ' ha sido asignado al usuario ' . $usuario;
         } else {
-            return 'El formato no ha sido asignado';
+            return 'El formato ha sido asignado anteriormente';
         }
     }
     
     public function desasignarFormato($usuario,$formato){
-        
+        $bandera = $this->formato->asignarDesasignarFormato($usuario, $formato,0);
+        if ($bandera>0) {
+            return 'El formato ' . $formato . ' ha sido desasignado del usuario ' . $usuario;
+        } else {
+            return 'El usuario no tiene dicho formato asignado';
+        }
     }
 
     public function diligenciarFormato($formato) {
