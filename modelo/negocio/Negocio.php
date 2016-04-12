@@ -123,7 +123,7 @@ class Negocio {
         }
     }
 
-    public function diligenciarFormato($formato) {
+    public function visualizarFormato($formato) {
         $html='';
         $formatos = $this->formato->cargarFormatos($formato);
 
@@ -136,6 +136,10 @@ class Negocio {
         } else {
             return null;
         }
+    }
+    
+    public function modificarFormato($usuario, $formato, $detalle, $observaciones, $html){
+        $formatos = $this->formato->modificarFormato($usuario, $formato, $detalle, $observaciones, $html);
     }
 
 }

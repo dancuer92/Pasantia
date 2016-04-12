@@ -5,7 +5,7 @@
             <ul id="myTabs" class="nav nav-tabs" role="tablist">
                 <li role="presentation" class="active"><a href="#elementos" aria-controls="elementos" role="tab" data-toggle="tab">Elementos</a></li>
                 <li role="presentation"><a href="#propiedades" aria-controls="propiedades" role="tab" data-toggle="tab">Propiedades</a></li>
-                <li role="presentation"><a href="#formulario" aria-controls="formulario" role="tab" data-toggle="tab">Formulario</a></li>
+                <li id="pestañaFormulario" role="presentation"><a href="#formulario" aria-controls="formulario" role="tab" data-toggle="tab">Formulario</a></li>
             </ul>
 
 
@@ -43,7 +43,16 @@
                         <button class="btn btn-danger btn-block" id="eliminar" name="eliminar" onclick="eliminar();">Eliminar elemento</button>
                     </div>                            
                 </div>
-                <div role="tabpanel" class="tab-pane" id="formulario">Formulario</div>
+                <div role="tabpanel" class="tab-pane" id="formulario">                    
+                    <div>
+                        <label>Detalle de la modificación</label>
+                        <textarea type="text" class="form-control" id="detForm" placeholder="Aquí se pueden escribir los detalles sobre la modificación al cpntenido del formato."></textarea>
+                    </div>
+                    <div>
+                        <label>Observaciones del formato</label>
+                        <textarea type="text" class="form-control" id="obsForm" placeholder="Escribir la nueva revisión, versión del formato, o la actualización en el SGC."></textarea>
+                    </div>
+                </div>
             </div>
 
         </div>               
@@ -56,11 +65,5 @@
                 <td ><img class="img-responsive" src="../util/images/corporativo/logo_ceramica.png" alt="Cerámica Italia"></td>
             </tr>
         </table>
-    </div>
-
-    <div class="col-lg-12 col-sm-12 col-md-12 divMayor" id="guardarFormato">
-        <button class="btn btn-success btn-lg center-block" id="saveFormato" onclick="guardarFormato();">GUARDAR FORMATO</button>
-    </div>
+    </div>    
 </div>
-
-<div id="res1"></div>

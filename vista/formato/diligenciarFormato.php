@@ -25,10 +25,11 @@ session_start();
             $(document).ready(function () {
                 var formato = sessionStorage.getItem('formato');
                 console.log(formato);
-                $.post("../../controlador/Formato_controller.php", {formato: formato, opcion: "diligenciarFormato"},
+                $.post("../../controlador/Formato_controller.php", {formato: formato, opcion: "visualizarFormato"},
                 function (mensaje) {
                     $('#diligenciarFormato').append(mensaje);
                     $('input').attr('disabled',false);
+//                    $('textarea').attr('disabled',false);
                 });
             });
         </script>
@@ -42,6 +43,7 @@ session_start();
             <?php include_once './head.php'; ?>
         </header>
         <main>
+            <h1 class="titulo"><i class="material-icons prefix" style="font-size: 43px">keyboard</i> Crear formato</h1>
             <div id="diligenciarFormato" class="container center">
             </div>
         </main>

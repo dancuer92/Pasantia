@@ -83,7 +83,7 @@ class Formato_dao {
             $sql = "UPDATE `usuario_formato` SET `accion`='desasignado' "
                     . "WHERE `id_usuario`=? AND `id_formato`=? AND `accion`='asignado';";
         }
-        
+
         if (!$sentencia = $this->mysqli->prepare($sql)) {
             echo $this->mysqli->error;
         }
@@ -100,6 +100,21 @@ class Formato_dao {
         }
         $sentencia->close();
         $this->mysqli->close();
+    }
+
+    public function modificarFormato($usuario, $formato, $detalle, $observaciones, $html) {
+        $sql = "UPDATE usuario u SET u." . $clave . "=? WHERE u.codigo_usuario=? ;";
+
+        if (!$sentencia = $this->mysqli->prepare($sql)) {
+            $mensaje.= $this->mysqli->error;
+        }
+        if (!$sentencia->bind_param("ss", $valor, $cod)) {
+            $mensaje.= $this->mysqli->error;
+        }
+        $mensaje = $sentencia->execute();
+        $sentencia->close();
+        $this->mysqli->close();
+        return $mensaje;
     }
 
 }

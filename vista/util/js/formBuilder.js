@@ -488,7 +488,6 @@ function agregarColumna() {
 
 /**
  * Método para eliminar la ultima fila de la tabla.
- * @returns {undefined}
  */
 function eliminarFila() {
     //Seleccionar la ultima fila y que no se pueda eliminar menos de uno.
@@ -523,33 +522,3 @@ function eliminarColumna() {
     }
 }
 
-/**
- * Método que se encarga de guardar el html del formato generado en la base de datos.
- * @returns {undefined}
- */
-function guardarFormato() {
-    var codigoF = $('#codigoFormato').val();
-    var nombreF = $('#nombreFormato').val();
-    var procedimientoF = $('#procedimientoFormato').val();
-    var directorF = $('#directorFormato').val();
-    var frecuenciaF = $('#frecuenciaFormato').val();
-    var tipoF = $('#tipoFormato').val();
-    var descripcionF = $('#descripcionFormato').val();
-    var formato = $('#formBuilder').html();
-    var res = $('#res1').text(formato);
-    console.log(formato.length);
-
-    if (codigoF!='') {
-        $.post("../../controlador/Formato_controller.php",
-                {codigoF: codigoF, nombreF: nombreF, procedimientoF: procedimientoF, directorF: directorF, frecuenciaF: frecuenciaF, tipoF: tipoF, descripcionF: descripcionF, codigoHTML: formato, opcion: 'guardarFormato'},
-        function (mensaje) {
-            res.html(mensaje);
-//        Materialize.toast(mensaje, 5000, 'rounded');
-        })
-    }
-    else{
-        res.html('Por favor adicione elementos al nuevo formato');
-    }
-
-
-}

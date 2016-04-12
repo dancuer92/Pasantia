@@ -65,8 +65,13 @@ class Facade {
         return $msj;
     }
     
-    public function diligenciarFormato($formato) {
-        $msj= $this->negocio->diligenciarFormato($formato);
+    public function visualizarFormato($formato) {
+        $msj= $this->negocio->visualizarFormato($formato);
+        return $msj;
+    }
+
+    public function modificarFormato($usuario, $formato, $detalle, $observaciones, $html) {
+        $msj= $this->negocio->modificarFormato($usuario, $formato, $detalle, $observaciones, $html);
         return $msj;
     }
 

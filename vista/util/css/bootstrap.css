@@ -1078,14 +1078,15 @@ th {
     box-sizing: border-box;
 }
 html {
-    font-size: 10px;
+    font-size: 14px;
 
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 body {
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: "Roboto", sans-serif;
     font-size: 14px;
-    line-height: 1.42857143;
+    line-height: 1.5;
+    font-weight: normal;
     color: #333;
     background-color: #fff;
 }
@@ -4496,9 +4497,13 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
         margin-right: 0;
     }
 }
-.navbar-default {
-    background-color: #f8f8f8;
-    border-color: #e7e7e7;
+.navbar-default {    
+/*    background-color: #f8f8f8;
+    border-color: #e7e7e7;*/
+    background-color: #fAfAfA;
+    font-size: 1.2em;
+    color: #DE0000;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
 }
 .navbar-default .navbar-brand {
     color: #777;
@@ -6760,4 +6765,6 @@ button.close {
 }
 /*# sourceMappingURL=bootstrap.css.map */
 
-
+#barraNav a{
+    color: #DE0000;
+}

@@ -50,12 +50,56 @@ function btnDesasignar() {
     });
 }
 
+/**
+ * Método que se encarga de guardar el html del formato generado en la base de datos.
+ * @returns {undefined}
+ */
+function guardarRegistroFormato() {
+    var codigoF = $('#codigoFormato').val();
+    var nombreF = $('#nombreFormato').val();
+    var procedimientoF = $('#procedimientoFormato').val();
+    var directorF = $('#directorFormato').val();
+    var frecuenciaF = $('#frecuenciaFormato').val();
+    var tipoF = $('#tipoFormato').val();
+    var descripcionF = $('#descripcionFormato').val();
+    var formato = $('#formBuilder').html();
+    var res = $('#res1').text(formato);
+    console.log(formato.length);
+
+    if (codigoF != '') {
+        $.post("../../controlador/Formato_controller.php",
+                {codigoF: codigoF, nombreF: nombreF, procedimientoF: procedimientoF, directorF: directorF, frecuenciaF: frecuenciaF, tipoF: tipoF, descripcionF: descripcionF, codigoHTML: formato, opcion: 'guardarFormato'},
+        function (mensaje) {
+            res.html(mensaje);
+//        Materialize.toast(mensaje, 5000, 'rounded');
+        })
+    }
+    else {
+        res.html('Por favor adicione elementos al nuevo formato');
+    }
+
+
+}
+
 function modificarFormato(cod) {
     sessionStorage.setItem('formato', cod);
     location.href = ('formato/modificarFormato.php');
 }
 
-function historialFormato(cod){
+function guardarModificacionFormato() {
+    var formato = sessionStorage.getItem('formato');
+    var detalle = $('#detForm').val();
+    var observaciones = $('#obsForm').val();
+    var html = $('#formBuilder').html();
+    if (detalle !== '' || observaciones !== '') {
+        $.post("../../controlador/Formato_controller.php",{formato: formato, detalle: detalle, observaciones: observaciones, html: html, opcion: 'modificarFormato'},
+        function (mensaje) {            
+            $('#res1').html(mensaje);
+        })
+    }
+}
+
+function historialFormato(cod) {
     sessionStorage.setItem('formato', cod);
     location.href = ('formato/historialFormato.php');
 }

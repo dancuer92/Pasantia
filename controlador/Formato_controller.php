@@ -32,14 +32,23 @@ if ($option == 'asignarFormato') {
     $formato = $_POST['formato'];
     $formato_controller->asignarFormato($usuario, $formato);
 }
-if($option=='desasignarFormato'){
+if ($option == 'desasignarFormato') {
     $usuario = $_POST['usuario'];
     $formato = $_POST['formato'];
     $formato_controller->desasignarFormato($usuario, $formato);
 }
-if ($option == 'diligenciarFormato') {
+if ($option == 'visualizarFormato') {
     $formato = $_POST['formato'];
-    $formato_controller->diligenciarFormato($formato);
+    $formato_controller->visualizarFormato($formato);
+}
+
+if ($opcion == 'modificarFormato') {
+    $usuario = $_SESSION['usuario'];
+    $formato = $_POST['formato'];
+    $detalle =$_POST['detalle'];
+    $observaciones =$_POST['observaciones'];
+    $html =$_POST['html'];
+    $formato_controller->modificarFormato($usuario, $formato, $detalle, $observaciones, $html);
 }
 
 class Formato_controller {
@@ -103,7 +112,7 @@ class Formato_controller {
                 $mensaje.='<a class="btn-floating red hoverable tooltipped" data-position="top" data-delay="50" data-tooltip="Diligenciar" href="#Diligenciar"> <i class="material-icons">keyboard</i></a>'
                         . '<a class="btn-floating red hoverable tooltipped" data-position="top" data-delay="50" data-tooltip="Mostrar registros" href="#MostrarRegistros"> <i class="material-icons">find_in_page</i></a>';
         }
-        
+
         $mensaje.='</li>';
         return $mensaje;
     }
@@ -120,15 +129,21 @@ class Formato_controller {
         echo $mensaje;
     }
 
-    public function desasignarFormato($usuario, $formato){
-        $mensaje='';
-        $mensaje=$this->facade->desasignarFormato($usuario, $formato);
+    public function desasignarFormato($usuario, $formato) {
+        $mensaje = '';
+        $mensaje = $this->facade->desasignarFormato($usuario, $formato);
+        echo $mensaje;
+    }
+
+    public function visualizarFormato($formato) {
+        $mensaje = '';
+        $mensaje = $this->facade->visualizarFormato($formato);
         echo $mensaje;
     }
     
-    public function diligenciarFormato($formato) {
+    public function modificarFormato($usuario,$formato,$detalle,$observaciones,$html){
         $mensaje = '';
-        $mensaje = $this->facade->diligenciarFormato($formato);
+        $mensaje = $this->facade->modificarFormato($usuario,$formato,$detalle,$observaciones,$html);
         echo $mensaje;
     }
 
