@@ -3,9 +3,9 @@
         <div id="pestañas">
             <!-- Nav tabs -->
             <ul id="myTabs" class="nav nav-tabs" role="tablist">
-                <li role="presentation" class="active"><a href="#elementos" aria-controls="elementos" role="tab" data-toggle="tab">Elementos</a></li>
-                <li role="presentation"><a href="#propiedades" aria-controls="propiedades" role="tab" data-toggle="tab">Propiedades</a></li>
-                <li id="pestañaFormulario" role="presentation"><a href="#formulario" aria-controls="formulario" role="tab" data-toggle="tab">Formulario</a></li>
+                <li  role="presentation" class="active"><a id="pestañaElementos" href="#elementos" aria-controls="elementos" role="tab" data-toggle="tab">Elementos</a></li>
+                <li  role="presentation"><a id="pestañaPropiedades" href="#propiedades" aria-controls="propiedades" role="tab" data-toggle="tab">Propiedades</a></li>
+                <li role="presentation"><a id="pestañaFormulario" href="#formulario" aria-controls="formulario" role="tab" data-toggle="tab">Formulario</a></li>
             </ul>
 
 

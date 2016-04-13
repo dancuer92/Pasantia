@@ -96,8 +96,7 @@ class Formato_dto {
         $this->html=$html;
     }
 
-    public function toJSON() {
-        
+    public function toJSON() {        
         $arr = array("cod_formato"=>$this->cod_formato,
                 "nombre"=>$this->nombre, 
                 "observaciones"=> $this->observaciones, 

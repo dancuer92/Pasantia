@@ -74,5 +74,10 @@ class Facade {
         $msj= $this->negocio->modificarFormato($usuario, $formato, $detalle, $observaciones, $html);
         return $msj;
     }
+    
+    public function historialFormato($formato) {
+        $msj= $this->negocio->historialFormato($formato);
+        return $msj;
+    }
 
 }

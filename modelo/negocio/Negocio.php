@@ -47,10 +47,10 @@ class Negocio {
         }
     }
 
-    public function buscar_usuario($consultaBusqueda,$opc) {
+    public function buscar_usuario($consultaBusqueda, $opc) {
         $mensaje = '';
         $usuarios = array();
-        $usuarios = $this->usuario->buscar($consultaBusqueda,$opc);
+        $usuarios = $this->usuario->buscar($consultaBusqueda, $opc);
         if (count($usuarios) == 0) {
             $usuarios = null;
         } else {
@@ -106,17 +106,17 @@ class Negocio {
     }
 
     public function asignarFormato($usuario, $formato) {
-        $bandera = $this->formato->asignarDesasignarFormato($usuario, $formato,1);
-        if ($bandera>0) {
+        $bandera = $this->formato->asignarDesasignarFormato($usuario, $formato, 1);
+        if ($bandera > 0) {
             return 'El formato ' . $formato . ' ha sido asignado al usuario ' . $usuario;
         } else {
             return 'El formato ha sido asignado anteriormente';
         }
     }
-    
-    public function desasignarFormato($usuario,$formato){
-        $bandera = $this->formato->asignarDesasignarFormato($usuario, $formato,0);
-        if ($bandera>0) {
+
+    public function desasignarFormato($usuario, $formato) {
+        $bandera = $this->formato->asignarDesasignarFormato($usuario, $formato, 0);
+        if ($bandera > 0) {
             return 'El formato ' . $formato . ' ha sido desasignado del usuario ' . $usuario;
         } else {
             return 'El usuario no tiene dicho formato asignado';
@@ -124,22 +124,38 @@ class Negocio {
     }
 
     public function visualizarFormato($formato) {
-        $html='';
+        $html = '';
         $formatos = $this->formato->cargarFormatos($formato);
 
         if (!is_null($formatos)) {
             foreach ($formatos as $formato) {
                 $array = json_decode($formato, true);
-                $html=$array['codigo_html'];
+                $html = $array['codigo_html'];
             }
             return $html;
         } else {
             return null;
         }
     }
+
+    public function modificarFormato($usuario, $formato, $detalle, $observaciones, $html) {
+        $msj = '';
+        $buscar_modificacion = $this->formato->buscar_modificacion($formato);
+        if ($buscar_modificacion <= 1) {
+            $flag = $this->formato->modificarFormato($usuario, $formato, $detalle, $observaciones, $html);
+            if ($flag > 0) {
+                return 'El formato ha sido modificado';
+            } else {
+                return 'El formato no ha podido ser modificado';
+            }
+            
+        } else {
+            return 'El formato ya fue modificado el día de hoy, pruebe mañana nuevamente.';
+        }        
+    }
     
-    public function modificarFormato($usuario, $formato, $detalle, $observaciones, $html){
-        $formatos = $this->formato->modificarFormato($usuario, $formato, $detalle, $observaciones, $html);
+    public function historialFormato($formato){
+        return $this->formato->historialFormato($formato);        
     }
 
 }

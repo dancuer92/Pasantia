@@ -29,7 +29,8 @@ class Formato_dao {
         } else {
             $sql = "SELECT f.cod_formato, f.nombre, f.observaciones, f.procedimiento, f.jefe_procedimiento, f.descripcion_contenido, f.frecuencia_uso, f.codigo_html 
                     FROM formato f, usuario_formato uf
-                    WHERE f.cod_formato = uf.id_formato AND uf.id_usuario='" . $_SESSION['codigo'] . "' AND uf.estado=1 AND (f.cod_formato COLLATE latin1_spanish_ci LIKE '%$ref_formato%'  OR f.nombre COLLATE latin1_spanish_ci LIKE '%$ref_formato%')";
+                    WHERE f.cod_formato = uf.id_formato AND uf.id_usuario='" . $_SESSION['codigo'] . "' AND uf.accion='asignado' 
+                    AND (f.cod_formato COLLATE latin1_spanish_ci LIKE '%$ref_formato%'  OR f.nombre COLLATE latin1_spanish_ci LIKE '%$ref_formato%')";
         }
 
 //        $sql = "SELECT `cod_formato`, `nombre`, `observaciones`, `procedimiento`, `jefe_procedimiento`, `descripcion_contenido`, `frecuencia_uso` "
@@ -76,6 +77,7 @@ class Formato_dao {
 
     public function asignarDesasignarFormato($usuario, $formato, $opc) {
         $sql = '';
+        $filas = 0;
         if ($opc === 1) {
             $sql = "INSERT INTO `usuario_formato`(`id_usuario`, `id_formato`, `accion`) "
                     . "VALUES (?,?,'asignado') ON DUPLICATE KEY UPDATE `accion`='asignado';";
@@ -94,27 +96,81 @@ class Formato_dao {
             echo $this->mysqli->error;
         }
         if ($sentencia->execute()) {
-            return $sentencia->affected_rows;
+            $filas = $sentencia->affected_rows;
         } else {
-            return 0;
+            $filas = 0;
         }
         $sentencia->close();
         $this->mysqli->close();
+        return $filas;
     }
 
     public function modificarFormato($usuario, $formato, $detalle, $observaciones, $html) {
-        $sql = "UPDATE usuario u SET u." . $clave . "=? WHERE u.codigo_usuario=? ;";
+        $sql = "INSERT INTO `modificaciones_formato`(`id_usuario`, `id_formato`, `detalle_modificacion`, `observaciones_formato`, `html`) VALUES (?,?,?,?,?);";
+        $filas = 0;
 
         if (!$sentencia = $this->mysqli->prepare($sql)) {
-            $mensaje.= $this->mysqli->error;
+            echo $this->mysqli->error;
         }
-        if (!$sentencia->bind_param("ss", $valor, $cod)) {
-            $mensaje.= $this->mysqli->error;
+
+        if (!$sentencia->bind_param("sssss", $usuario, $formato, $detalle, $observaciones, $html)) {
+            echo $this->mysqli->error;
         }
-        $mensaje = $sentencia->execute();
+
+        if ($sentencia->execute()) {
+            $filas = $sentencia->affected_rows;
+        }
+
         $sentencia->close();
         $this->mysqli->close();
-        return $mensaje;
+        return $filas;
+    }
+
+    public function buscar_modificacion($formato) {
+        $fecha = date('Y-m-d', time());
+        $filas = 0;
+        $sql = "SELECT `fecha_modificacion`, `id_usuario`, `id_formato` FROM `modificaciones_formato` 
+            WHERE fecha_modificacion LIKE '%$fecha%' AND id_formato=?";
+
+        if (!$sentencia = $this->mysqli->prepare($sql)) {
+            echo $this->mysqli->error;
+        }
+
+        if (!$sentencia->bind_param("s", $formato)) {
+            echo $this->mysqli->error;
+        }
+
+        if ($sentencia->execute()) {
+            $sentencia->store_result();
+            $filas = $sentencia->num_rows;
+        }
+        return $filas;
+    }
+
+    public function historialFormato($formato) {
+        $sql = "SELECT `fecha_modificacion`,`detalle_modificacion`,`id_usuario`,`observaciones_formato` "
+                . "FROM `modificaciones_formato` WHERE id_formato=?;";
+        $json=array();
+        
+        if (!$sentencia = $this->mysqli->prepare($sql)) {
+            echo $this->mysqli->error;
+        }
+
+        if (!$sentencia->bind_param("s", $formato)) {
+            echo $this->mysqli->error;
+        }
+        if ($sentencia->execute()) {
+            $sentencia->bind_result($fecha_modificacion, $detalle_modificacion, $id_usuario, $observaciones);
+            while ($sentencia->fetch()) {
+                $arr = array("fecha_modificacion" => $fecha_modificacion,
+                    "detalle_modificacion" => $detalle_modificacion,
+                    "id_usuario" => $id_usuario,
+                    "observaciones" => $observaciones);
+
+                $json []= json_encode($arr);
+            }
+        }
+        return $json;
     }
 
 }

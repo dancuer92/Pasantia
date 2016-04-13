@@ -42,13 +42,18 @@ if ($option == 'visualizarFormato') {
     $formato_controller->visualizarFormato($formato);
 }
 
-if ($opcion == 'modificarFormato') {
-    $usuario = $_SESSION['usuario'];
+if ($option == 'modificarFormato') {
+    $usuario = $_SESSION['codigo'];
     $formato = $_POST['formato'];
     $detalle =$_POST['detalle'];
     $observaciones =$_POST['observaciones'];
     $html =$_POST['html'];
     $formato_controller->modificarFormato($usuario, $formato, $detalle, $observaciones, $html);
+}
+
+if($option =='historialFormato'){
+        $formato = $_POST['formato'];
+        $formato_controller->historialFormato($formato);
 }
 
 class Formato_controller {
@@ -145,6 +150,41 @@ class Formato_controller {
         $mensaje = '';
         $mensaje = $this->facade->modificarFormato($usuario,$formato,$detalle,$observaciones,$html);
         echo $mensaje;
+    }
+    
+    public function historialFormato($formato){
+        $mensaje='';
+        $historial=  $this->facade->historialFormato($formato);
+        if (count($historial) == 0) {
+            $mensaje = '<strong> El formato no tiene historial de modificaciones </Strong>';
+        } else {
+
+            foreach ($historial as $historia) {
+                $array = json_decode($historia, true);
+                $fecha = $array["fecha_modificacion"];
+                $detalle = $array["detalle_modificacion"];
+                $usuario= $array["id_usuario"];
+                $observaciones= $array["observaciones"];
+
+                $mensaje .= $this->cargarFilas($fecha,$detalle,$usuario,$observaciones);
+            }
+            $mensaje = str_replace("&", "'", $mensaje);
+        }
+        echo $mensaje;
+        
+    }
+    
+    public function cargarFilas($fecha,$detalle,$usuario,$observaciones){
+        $mensaje='<tr>'
+                . '<td>' . $fecha . '</td>'
+                . '<td>' . $detalle . '</td>'
+                . '<td>' . $usuario . '</td>'
+                . '<td>' . $observaciones. '</td>'
+                . '<td>'
+                    . '<a class="hoverable" href="#visualizar"> Ver</a>'
+                . '</td>'
+                . '</tr>';
+        return $mensaje;
     }
 
 }

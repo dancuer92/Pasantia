@@ -91,11 +91,20 @@ function guardarModificacionFormato() {
     var detalle = $('#detForm').val();
     var observaciones = $('#obsForm').val();
     var html = $('#formBuilder').html();
-    if (detalle !== '' || observaciones !== '') {
-        $.post("../../controlador/Formato_controller.php",{formato: formato, detalle: detalle, observaciones: observaciones, html: html, opcion: 'modificarFormato'},
-        function (mensaje) {            
+
+    if (detalle === '') {
+        $('#pestañaFormulario').click();
+        $('#detForm').focus();
+    }
+    else if (observaciones === '') {
+        $('#pestañaFormulario').click();
+        $('#obsForm').focus();
+    }
+    else {
+        $.post("../../controlador/Formato_controller.php", {formato: formato, detalle: detalle, observaciones: observaciones, html: html, opcion: 'modificarFormato'},
+        function (mensaje) {
             $('#res1').html(mensaje);
-        })
+        });
     }
 }
 
@@ -104,9 +113,21 @@ function historialFormato(cod) {
     location.href = ('formato/historialFormato.php');
 }
 
+function cargarHistorial(formato) {
+    $.post('../../controlador/Formato_controller.php', {formato: formato, opcion: 'historialFormato'},
+    function (mensaje) {
+        $('#tabla_historial tbody').append(mensaje);
+    });
+}
+
 function diligenciarFormato(cod) {
     sessionStorage.setItem('formato', cod);
     location.href = ('formato/diligenciarFormato.php');
+}
+
+function guardarDiligenciaFormato(){
+    var info=$('#diligenciarFormato').serialize();
+    $('#res1').text(info);
 }
 
 

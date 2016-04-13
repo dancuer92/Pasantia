@@ -14,13 +14,19 @@ session_start();
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
         <title>Diligenciar Formato</title>
 
-        <link rel="shortcut icon" href="../util/images/corporativo/icono_ceramica.ico">
+        <link rel="shortcut icon" href="../../vista/util/images/corporativo/icono_ceramica.ico">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link rel="stylesheet" href="../util/css/bootstrap.css" type="text/css">
+        <link rel="stylesheet" href="../util/css/formBuilder.css" type="text/css">
+        <link rel="stylesheet" href="../util/css/style.css" type="text/css">
 
         <script type="text/javascript" src="../util/js/jquery-2.1.4.min.js"></script>
         <script type="text/javascript" src="../util/js/bootstrap.js"></script>
-<!--        <script type="text/javascript" src="../util/js/jsFormat.js"></script>-->
+        <script type="text/javascript" src="../util/js/formBuilder.js"></script>
+        <script type="text/javascript" src="../util/js/jquery-ui.js"></script> 
+        <script type="text/javascript" src="../util/js/jsFormat.js"></script> 
+
+
         <script>
             $(document).ready(function () {
                 var formato = sessionStorage.getItem('formato');
@@ -28,8 +34,9 @@ session_start();
                 $.post("../../controlador/Formato_controller.php", {formato: formato, opcion: "visualizarFormato"},
                 function (mensaje) {
                     $('#diligenciarFormato').append(mensaje);
-                    $('input').attr('disabled',false);
-//                    $('textarea').attr('disabled',false);
+                    $('input').attr('disabled', false);
+                    $('div').css('border-style','none');
+                    $('textarea').attr('disabled',false);
                 });
             });
         </script>
@@ -40,12 +47,17 @@ session_start();
     <body>
         <!-- Encabezado-->
         <header>
-            <?php include_once './head.php'; ?>
+            <?php include_once './panel_header.php'; ?>
         </header>
         <main>
             <h1 class="titulo"><i class="material-icons prefix" style="font-size: 43px">keyboard</i> Crear formato</h1>
-            <div id="diligenciarFormato" class="container center">
+            <div class="container center">
+                <form id="diligenciarFormato"></form>
             </div>
+            <div class="col-lg-12 col-sm-12 col-md-12 divMayor" id="guardarFormato">
+                <button class="btn btn-success btn-lg center-block" id="saveFormato" onclick="guardarDiligenciaFormato();">GUARDAR</button>
+            </div>
+            <div id="res1"></div>
         </main>
         <!-- Pie de pagina-->
         <footer>

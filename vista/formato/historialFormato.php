@@ -18,7 +18,14 @@ if ($_SESSION["tipo"] !== "asistente") {
         <script type="text/javascript" src="../util/js/jquery-2.1.4.min.js"></script>
         <script type="text/javascript" src="../util/js/bootstrap.js"></script>
         <script type="text/javascript" src="../util/js/formBuilder.js"></script>
-        <script type="text/javascript" src="../util/js/jquery-ui.js"></script>    
+        <script type="text/javascript" src="../util/js/jquery-ui.js"></script>
+        <script type="text/javascript" src="../util/js/jsFormat.js"></script>
+        <script>
+            $(document).ready(function () {
+                var formato = sessionStorage.getItem('formato');
+                cargarHistorial(formato);
+            });
+        </script>
     </head>
     <body>
         <header>
@@ -30,26 +37,18 @@ if ($_SESSION["tipo"] !== "asistente") {
             <div id="master-container" class="container">
 
                 <div class="table-responsive">
-                    <table class="table  table-hover">
+                    <table id="tabla_historial" class="table  table-hover">
                         <thead>
                             <tr>
                                 <th data-field="fecha"> Fecha</th>
-                                <th data-field="observaciones"> Observaciones  del formato</th>
-                                <th data-field="usuario"> Usuario de la modificación</th>
                                 <th data-field="detalle"> Detalle de la modificación</th>
-                                <th data-field="opciones">opc</th>
+                                <th data-field="usuario"> Usuario de la modificación</th>
+                                <th data-field="observaciones"> Observaciones  del formato</th>
+                                <th></th>
                             </tr>
                         </thead>
-                        <tbody>   
-                            <tr>
-                                <td>' . $array["cod_formato"] . '</td>
-                                <td>' . $array["nombre"] . '</td>
-                                <td>' . $array["observaciones"] . '</td>
-                                <td>' . $array["procedimiento"] . '</td>                        
-                                <td>
-                                    <a class="hoverable" href="#Diligenciar"> Ver</a>
-                                </td>
-                            </tr>                            
+                        <tbody> 
+
                         </tbody>
                     </table>
                 </div>               
