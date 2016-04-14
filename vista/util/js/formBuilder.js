@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-$('crearFormato2').ready(function () {
+$('crearFormato').ready(function () {
     var currentlySelected = '';
 
     /**
@@ -154,6 +154,7 @@ function cambiarTitulo() {
         //Se modifica el nombre según el tipo de entrada que posee el formato.
         if (tipo === 'text' || tipo === 'number') {
             elem.attr('id', titulo);
+            elem.attr('name',titulo);
         }
         else {
             //Modificación de otros tipos de entrada.

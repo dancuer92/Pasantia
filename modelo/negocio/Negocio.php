@@ -99,6 +99,7 @@ class Negocio {
     public function guardarFormato($codigo, $nombre, $procedimiento, $director, $frecuencia, $tipo, $descripcion, $html) {
         $formato = $this->formato->guardarFormato($codigo, $nombre, $procedimiento, $director, $frecuencia, $tipo, $descripcion, $html);
         if (!is_null($formato)) {
+            $this->formato->crearTablaInfo($codigo);
             return 'Formato registrado con éxito';
         } else {
             return 'El formato no ha sido registrado en el sistema porque fue registrado anteriormente';
@@ -141,7 +142,13 @@ class Negocio {
     public function modificarFormato($usuario, $formato, $detalle, $observaciones, $html) {
         $msj = '';
         $buscar_modificacion = $this->formato->buscar_modificacion($formato);
+//        if (count($buscar_modificacion) <= 1) {
+//            echo count($buscar_modificacion);
+//        } else {
+//            return 0;
+//        }
         if ($buscar_modificacion <= 1) {
+            echo $buscar_modificacion;
             $flag = $this->formato->modificarFormato($usuario, $formato, $detalle, $observaciones, $html);
             if ($flag > 0) {
                 return 'El formato ha sido modificado';

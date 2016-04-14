@@ -13,16 +13,17 @@
             <div class="tab-content">
                 <div role="tabpanel" class="tab-pane active" id="elementos">                            
                     <div class="col-sm-6">
-                        <button class="btn btn-default  btn-block new-element" data-type="element-text" style="width: 100%;">Single Line Text</button>
-                        <button class="btn btn-default  btn-block new-element" data-type="element-paragraph-text" style="width: 100%;">Paragraph Text</button>
-                        <button class="btn btn-default  btn-block new-element" data-type="element-multiple-choice" style="width: 100%;">Multiple Choice</button>
-                        <button class="btn btn-default  btn-block new-element" data-type="element-section-break" style="width: 100%;">Section Break</button>
+                        <button class="btn btn-default  btn-block new-element" data-type="element-text" style="width: 100%;">Campo de texto</button>
+                        <button class="btn btn-default  btn-block new-element" data-type="element-paragraph-text" style="width: 100%;">Área de texto</button>
+                        <button class="btn btn-default  btn-block new-element" data-type="element-multiple-choice" style="width: 100%;">Opciones</button>
+                        <button class="btn btn-default  btn-block new-element" data-type="element-date" style="width: 100%;">Fecha</button>
+                        <button class="btn btn-default  btn-block new-element" data-type="element-section-break" style="width: 100%;">Separador</button>
                     </div>
                     <div class="col-sm-6">
-                        <button class="btn btn-default  btn-block new-element" data-type="element-number" style="width: 100%;">Number</button>
-                        <button class="btn btn-default  btn-block new-element" data-type="element-checkboxes" style="width: 100%;">Checkboxes</button>
-                        <button class="btn btn-default  btn-block new-element" data-type="element-dropdown" style="width: 100%;">Dropdown</button>
-                        <button class="btn btn-default  btn-block new-element" data-type="element-table" style="width: 100%;">Table</button>
+                        <button class="btn btn-default  btn-block new-element" data-type="element-number" style="width: 100%;">Campo numérico</button>
+                        <button class="btn btn-default  btn-block new-element" data-type="element-checkboxes" style="width: 100%;">C. de verificación</button>
+                        <button class="btn btn-default  btn-block new-element" data-type="element-dropdown" style="width: 100%;">Lista desplegable</button>
+                        <button class="btn btn-default  btn-block new-element" data-type="element-table" style="width: 100%;">Tabla</button>
                     </div>
                 </div>
                 <div role="tabpanel" class="tab-pane" id="propiedades">

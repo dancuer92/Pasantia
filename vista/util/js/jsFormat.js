@@ -14,7 +14,6 @@ function autocompletarFormato() {
     function (mensaje) {
         $('#tabla_formatos').html(mensaje);
         $('.tooltipped').tooltip();
-
     });
 }
 
@@ -58,13 +57,14 @@ function guardarRegistroFormato() {
     var codigoF = $('#codigoFormato').val();
     var nombreF = $('#nombreFormato').val();
     var procedimientoF = $('#procedimientoFormato').val();
-    var directorF = $('#directorFormato').val();
+    var directorF = $('#directorProcedimiento').val();
     var frecuenciaF = $('#frecuenciaFormato').val();
     var tipoF = $('#tipoFormato').val();
     var descripcionF = $('#descripcionFormato').val();
     var formato = $('#formBuilder').html();
-    var res = $('#res1').text(formato);
-    console.log(formato.length);
+    var res = $('#res1');
+//    var res = $('#res1').text(formato);
+    console.log(codigoF,nombreF);
 
     if (codigoF != '') {
         $.post("../../controlador/Formato_controller.php",
@@ -126,8 +126,14 @@ function diligenciarFormato(cod) {
 }
 
 function guardarDiligenciaFormato(){
+    var formato=sessionStorage.getItem('formato');
     var info=$('#diligenciarFormato').serialize();
     $('#res1').text(info);
+    $.post('../../controlador/Formato_controller.php', {formato: formato, opcion: 'historialFormato'},
+    function (mensaje) {
+        $('#tabla_historial tbody').append(mensaje);
+    });
+    
 }
 
 

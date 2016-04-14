@@ -46,7 +46,7 @@ switch ($opcion) {
 function getInputText() {
     $msj = '<div class="formato form-group ui-state-default ">'
             . '<label >Untitled </label>'
-            . '<input id="untitled" type="text" length="30" disabled/>'
+            . '<input id="untitled" name="untitled" type="text" length="30" disabled/>'
             . '</div>';
     echo $msj;
 }
@@ -54,7 +54,7 @@ function getInputText() {
 function getInputNumber() {
     $msj = '<div class="formato  form-group ui-state-default ">'
             . '<label>Untitled </label>'
-            . '<input id="untitled" type="number" length="15" disabled/>'
+            . '<input id="untitled" name="untitled" type="number" length="15" disabled/>'
             . '</label>'
             . '</div>';
     echo $msj;
@@ -63,7 +63,7 @@ function getInputNumber() {
 function getAreaText() {
     $msj = '<div class="formato ui-state-default " >'
             . '<label>Untitled</label>'
-            . '<textarea id="untitled" type="text" disabled>'
+            . '<textarea id="untitled" name="untitled" type="text" disabled>'
             . '</textarea>'
             . '</div>';
     echo $msj;
@@ -99,7 +99,7 @@ function getTable() {
     $msj = '<div class="formato ui-state-default">'
             . '<table id="tabla" name="tabla"><thead><th><label>Titulo 1</label></th></thead>'
             . '<tbody>'
-            . '<tr><td><p>Untitled </p><input id="Untitled" type="text" disabled></td></tr>'
+            . '<tr><td><p>Untitled </p><input id="Untitled" name="untitled" type="text" disabled></td></tr>'
             . '</tbody>'
             . '</table>'
             . '</div>';

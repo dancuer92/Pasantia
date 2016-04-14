@@ -71,8 +71,30 @@ class Formato_dao {
             $this->formato = null;
         }
         $sentencia->close();
-        $this->mysqli->close();
+//        $this->mysqli->close();
         return $this->formato;
+    }
+
+    public function crearTablaInfo($formato) {
+        $mensaje = '';
+        $sql = "CREATE TABLE `info_$formato` (
+                    `id` int(11) NOT NULL,
+                    `fecha` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                    `usuario` varchar(30) COLLATE latin1_spanish_ci NOT NULL,
+                    `estado` tinyint(4) NOT NULL,
+                    `informacion` text COLLATE latin1_spanish_ci NOT NULL
+                ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+
+                ALTER TABLE `info_$formato`
+                    ADD PRIMARY KEY (`id`),
+                    MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;";
+//        echo $sql;
+        if(!$this->mysqli->multi_query($sql)){
+            $this->mysqli->error;
+        }
+        
+        $this->mysqli->close();
+        return $mensaje;
     }
 
     public function asignarDesasignarFormato($usuario, $formato, $opc) {
@@ -128,9 +150,10 @@ class Formato_dao {
 
     public function buscar_modificacion($formato) {
         $fecha = date('Y-m-d', time());
-        $filas = 0;
+//        $json=array();
+        $json = 0;
         $sql = "SELECT `fecha_modificacion`, `id_usuario`, `id_formato` FROM `modificaciones_formato` 
-            WHERE fecha_modificacion LIKE '%$fecha%' AND id_formato=?";
+            WHERE `fecha_modificacion` LIKE '%$fecha%' AND `id_formato`=?;";
 
         if (!$sentencia = $this->mysqli->prepare($sql)) {
             echo $this->mysqli->error;
@@ -141,17 +164,28 @@ class Formato_dao {
         }
 
         if ($sentencia->execute()) {
+//            echo $sql;
             $sentencia->store_result();
-            $filas = $sentencia->num_rows;
+            $json = $sentencia->affected_rows;
+//            echo $json;
+//            $sentencia->bind_result($fecha_modificacion, $id_usuario, $id_formato);
+//            while ($sentencia->fetch()) {
+//                $arr = array("fecha_modificacion" => $fecha_modificacion,
+//                    "id_usuario" => $id_usuario,
+//                    "id_formato" => $id_formato);
+//                $json []= json_encode($arr);
+//            }            
         }
-        return $filas;
+//        $sentencia->close();
+//        $this->mysqli->close();
+        return $json;
     }
 
     public function historialFormato($formato) {
         $sql = "SELECT `fecha_modificacion`,`detalle_modificacion`,`id_usuario`,`observaciones_formato` "
                 . "FROM `modificaciones_formato` WHERE id_formato=?;";
-        $json=array();
-        
+        $json = array();
+
         if (!$sentencia = $this->mysqli->prepare($sql)) {
             echo $this->mysqli->error;
         }
@@ -167,9 +201,11 @@ class Formato_dao {
                     "id_usuario" => $id_usuario,
                     "observaciones" => $observaciones);
 
-                $json []= json_encode($arr);
+                $json [] = json_encode($arr);
             }
         }
+        $sentencia->close();
+        $this->mysqli->close();
         return $json;
     }
 

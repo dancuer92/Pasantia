@@ -84,7 +84,7 @@ class Formato_controller {
                 $frecuencia = $array["frecuencia"];
                 $html = $array["codigo_html"];
 
-                $mensaje = $this->cargarBotones($cod, $nombre, $observaciones, $procedimiento, $jefe);
+                $mensaje .= $this->cargarBotones($cod, $nombre, $observaciones, $procedimiento, $jefe);
             }
             $mensaje = str_replace("&", "'", $mensaje);
         }

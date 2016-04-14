@@ -33,7 +33,7 @@ session_start();
                 console.log(formato);
                 $.post("../../controlador/Formato_controller.php", {formato: formato, opcion: "visualizarFormato"},
                 function (mensaje) {
-                    $('#diligenciarFormato').append(mensaje);
+                    $('#diligenciarFormato').prepend(mensaje);
                     $('input').attr('disabled', false);
                     $('div').css('border-style','none');
                     $('textarea').attr('disabled',false);
@@ -52,11 +52,12 @@ session_start();
         <main>
             <h1 class="titulo"><i class="material-icons prefix" style="font-size: 43px">keyboard</i> Crear formato</h1>
             <div class="container center">
-                <form id="diligenciarFormato"></form>
+                <form id="diligenciarFormato">
             </div>
             <div class="col-lg-12 col-sm-12 col-md-12 divMayor" id="guardarFormato">
                 <button class="btn btn-success btn-lg center-block" id="saveFormato" onclick="guardarDiligenciaFormato();">GUARDAR</button>
             </div>
+            </form>
             <div id="res1"></div>
         </main>
         <!-- Pie de pagina-->
