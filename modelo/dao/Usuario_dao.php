@@ -82,10 +82,10 @@ class Usuario_dao {
         return $this->usuario;
     }
 
-    public function buscar($consultaBusqueda, $opc) {
+    public function buscar($consultaBusqueda, $opc, $formato) {
         $usuarios = array();
         $sql = "";
-        if ($opc == 'asignar') {
+        if ($opc === 'asignar') {
             $sql = "SELECT u.codigo_usuario, u.nombre_usuario, u.apellido_usuario, u.correo_usuario, u.cargo_usuario, "
                     . "u.departamento_usuario, u.telefono_usuario, u.rol_usuario, u.estado_usuario, u.fecha_registro "
                     . "FROM usuario u WHERE (u.rol_usuario=0 OR u.rol_usuario=3) AND( "
@@ -94,10 +94,10 @@ class Usuario_dao {
                     . "OR u.apellido_usuario COLLATE latin1_spanish_ci LIKE '%$consultaBusqueda%' "
                     . "OR concat(u.nombre_usuario,' ',u.apellido_usuario) COLLATE latin1_spanish_ci LIKE '%$consultaBusqueda%') "
                     . "LIMIT 6;";
-        } else if ($opc == 'desasignar') {
+        } else if ($opc === 'desasignar') {
             $sql = "SELECT u.codigo_usuario, u.nombre_usuario, u.apellido_usuario, u.correo_usuario, u.cargo_usuario, "
                     . "u.departamento_usuario, u.telefono_usuario, u.rol_usuario, u.estado_usuario, u.fecha_registro "
-                    . "FROM usuario u, usuario_formato uf WHERE uf.accion='asignado' AND uf.id_usuario=u.codigo_usuario "
+                    . "FROM usuario u, usuario_formato uf WHERE uf.id_formato='$formato' AND uf.accion='asignado' AND u.codigo_usuario=uf.id_usuario "
                     . "AND (u.rol_usuario=0 OR u.rol_usuario=3)"
                     . "AND (u.codigo_usuario COLLATE latin1_spanish_ci LIKE '%$consultaBusqueda%' "
                     . "OR u.nombre_usuario COLLATE latin1_spanish_ci LIKE '%$consultaBusqueda%' "

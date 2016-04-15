@@ -262,11 +262,12 @@ function autocompletarUsuario() {
 }
 
 function usuariosDesasignar() {
+    var formato=$('#formatoDesasignar').val();
     $('#desasignarFormatoButton').attr('disabled', true);
     var min_length = 0; // min caracters to display the autocomplete
     var keyword = $('#cod_usuarioDes').val();
     if (keyword.length >= min_length && keyword !== "") {
-        $.post("../controlador/Usuario_controller.php", {codigo: keyword, opcion: "desasignar"},
+        $.post("../controlador/Usuario_controller.php", {formato:formato, codigo: keyword, opcion: "desasignar"},
         function (mensaje) {
             $('#usuariosD').html(mensaje);
         });

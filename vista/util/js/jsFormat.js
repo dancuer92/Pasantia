@@ -64,7 +64,7 @@ function guardarRegistroFormato() {
     var formato = $('#formBuilder').html();
     var res = $('#res1');
 //    var res = $('#res1').text(formato);
-    console.log(codigoF,nombreF);
+    console.log(codigoF, nombreF);
 
     if (codigoF != '') {
         $.post("../../controlador/Formato_controller.php",
@@ -117,6 +117,7 @@ function cargarHistorial(formato) {
     $.post('../../controlador/Formato_controller.php', {formato: formato, opcion: 'historialFormato'},
     function (mensaje) {
         $('#tabla_historial tbody').append(mensaje);
+        $('#tabla_historial').DataTable({responsive:true});
     });
 }
 
@@ -125,15 +126,63 @@ function diligenciarFormato(cod) {
     location.href = ('formato/diligenciarFormato.php');
 }
 
-function guardarDiligenciaFormato(){
-    var formato=sessionStorage.getItem('formato');
-    var info=$('#diligenciarFormato').serialize();
-    $('#res1').text(info);
-    $.post('../../controlador/Formato_controller.php', {formato: formato, info: info, opcion: 'diligenciarFormato'},
-    function (mensaje) {
-        $('#res1').html(mensaje);
-    });
-    
+function guardarDiligenciaFormato() {
+    var formato = sessionStorage.getItem('formato');
+    var requeridos = validarRequeridos();
+        
+    if (requeridos) {
+//        var info = JSON.stringify($('#diligenciarFormato').serializeArray());
+//        var info = $('#diligenciarFormato').serializeArray();
+//        console.log(info);
+//        $('#res1').html(info.toString());
+
+
+        var info = JSON.stringify($('#diligenciarFormato').serializeObject());
+        $.post('../../controlador/Formato_controller.php', {formato: formato, info: info, opcion: 'diligenciarFormato'},
+        function (mensaje) {
+            confirm(mensaje);
+        });
+    }
 }
 
+function validarRequeridos() {
+    var requeridos = false;
+    $('input[required]').each(function () {
+        console.log($(this).attr('id'));
+        var value = $(this).val();
+        if (value != '') {
+            requeridos = true;
+        }
+        else {
+//            alert('Favor rellenar los campos vacíos');
+            $(this).focus();
+            requeridos = false;
+            return false;
+        }
+    });
+    return requeridos;
+}
 
+(function ($) {
+    $.fn.serializeObject = function () {
+
+        var o = {};
+        var a = this.serializeArray();
+        $.each(a, function () {
+            if (o[this.name]) {
+                if (!o[this.name].push) {
+                    o[this.name] = [o[this.name]];
+                }
+                o[this.name].push(this.value || '');
+            } else {
+                o[this.name] = this.value || '';
+            }
+        });
+        return o;
+    };
+})(jQuery);
+
+function mostrarRegistrosFormato(cod) {
+    sessionStorage.setItem('formato', cod);
+    location.href = ('formato/mostrarRegistrosFormato.php');
+}

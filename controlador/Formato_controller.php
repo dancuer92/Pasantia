@@ -57,10 +57,15 @@ if ($option == 'historialFormato') {
 }
 
 if ($option == 'diligenciarFormato') {
-    $formato= $_POST['formato'];
-    $info= $_POST['info'];
-    $usuario= $_SESSION['codigo'];
-    $formato_controller->diligenciarFormato($usuario,$formato,$info);
+    $formato = $_POST['formato'];
+    $info = $_POST['info'];
+    $usuario = $_SESSION['codigo'];
+    $formato_controller->diligenciarFormato($usuario, $formato, $info);
+}
+
+if ($option == 'mostrarRegistrosFormato') {
+    $formato = $_POST['formato'];
+    $formato_controller->mostrarRegistrosFormato($formato);
 }
 
 class Formato_controller {
@@ -117,7 +122,7 @@ class Formato_controller {
                 break;
             case 'supervisor':
                 $mensaje.='<a class="btn-floating red hoverable tooltipped" data-position="top" data-delay="50" data-tooltip="Diligenciar" onclick="diligenciarFormato(&' . $cod . '&)" ><i class="material-icons">keyboard</i></a>'
-                        . '<a class="btn-floating red hoverable tooltipped" data-position="top" data-delay="50" data-tooltip="Mostrar registros" onclick="modificarFormato(&' . $cod . '&)" ><i class="material-icons">find_in_page</i></a>'
+                        . '<a class="btn-floating red hoverable tooltipped" data-position="top" data-delay="50" data-tooltip="Mostrar registros" onclick="mostrarRegistrosFormato(&' . $cod . '&)" ><i class="material-icons">find_in_page</i></a>'
                         . '<a class="btn-floating red hoverable tooltipped" data-position="top" data-delay="50" data-tooltip="Analizar trazabilidad" onclick="modificarFormato(&' . $cod . '&)" ><i class="material-icons">timeline</i></a>';
                 break;
             case 'operario':
@@ -192,11 +197,45 @@ class Formato_controller {
                 . '</tr>';
         return $mensaje;
     }
-    
-    public function diligenciarFormato($usuario,$formato,$info){
-        $mensaje='';
-        $this->facade->diligenciarFormato($usuario,$formato,$info);
+
+    public function diligenciarFormato($usuario, $formato, $info) {
+        $mensaje = '';
+        $mensaje = $this->facade->diligenciarFormato($usuario, $formato, $info);
         echo $mensaje;
+    }
+
+    public function mostrarRegistrosFormato($formato) {
+        $mensaje = '';
+        $informacion = $this->facade->mostrarRegistrosFormato($formato);
+
+        if (count($informacion) == 0) {
+            $mensaje = '<strong> El formato no posee registros de datos </Strong>';
+        } else {
+
+            foreach ($informacion as $info) {
+                $array = json_decode($info, true);
+                $fecha = $array["fecha"];
+                $usuario = $array["usuario"];
+                $estado = $array["estado"];
+                $datos = $array["informacion"];
+
+                $mensaje .= $this->listar($fecha, $usuario, $estado);
+            }
+            $mensaje = str_replace("&", "'", $mensaje);
+        }
+        echo $mensaje;
+    }
+    
+    public function listar($fecha, $usuario, $estado){
+        $mensaje = '<tr>'
+                . '<td>' . $fecha. '</td>'
+                . '<td>' . $usuario. '</td>'
+                . '<td>' . $estado. '</td>'
+                . '<td>'
+                . '<a class="hoverable" onclick="verDatos(&'.$fecha.'&)"> Ver</a>'
+                . '</td>'
+                . '</tr>';
+        return $mensaje;
     }
 
 }

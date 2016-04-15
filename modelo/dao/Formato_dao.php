@@ -184,6 +184,7 @@ class Formato_dao {
     public function historialFormato($formato) {
         $sql = "SELECT `fecha_modificacion`,`detalle_modificacion`,`id_usuario`,`observaciones_formato` "
                 . "FROM `modificaciones_formato` WHERE id_formato=?;";
+        
         $json = array();
 
         if (!$sentencia = $this->mysqli->prepare($sql)) {

@@ -25,8 +25,8 @@ class Facade {
         return $msj;
     }
 
-    public function buscar_usuario($consultaBusqueda,$opc) {
-        $usuarios = $this->negocio->buscar_usuario($consultaBusqueda,$opc);
+    public function buscar_usuario($consultaBusqueda,$opc,$formato) {
+        $usuarios = $this->negocio->buscar_usuario($consultaBusqueda,$opc,$formato);
         return $usuarios;
     }
 
@@ -77,6 +77,16 @@ class Facade {
     
     public function historialFormato($formato) {
         $msj= $this->negocio->historialFormato($formato);
+        return $msj;
+    }
+    
+    public function diligenciarFormato($usuario,$formato,$info){
+        $msj=$this->negocio->diligenciarFormato($usuario,$formato,$info);
+        return $msj;
+    }
+    
+    public function mostrarRegistrosFormato($formato) {
+        $msj=  $this->negocio->mostrarRegistrosFormato($formato);
         return $msj;
     }
 

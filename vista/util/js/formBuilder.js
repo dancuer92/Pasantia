@@ -461,7 +461,7 @@ function agregarFila() {
     //Se recorre el número de columnas
     for (var x = 0; x < totalCol; x++) {
         //Se adiciona una nueva celda por cada columna que se recorre
-        col += "<td><p>Untitled <p><input id='Untitled' type='text' disabled></td>";
+        col += "<td><p>Untitled <p><input id='Untitled' name='untitled' type='text' disabled></td>";
     }
     //Se añade la nueva fila creada al final de la tabla.
     var row = fila + col + "</tr>";
@@ -482,7 +482,7 @@ function agregarColumna() {
         }
         //Se adiciona una celda que pertenezca al cuerpo de la tabla.
         else {
-            $(this).append("<td><p>Untitled </p><input id='Untitled' type='text' disabled></td>");
+            $(this).append("<td><p>Untitled </p><input id='Untitled' name='untitled' type='text' disabled></td>");
         }
     });
 }

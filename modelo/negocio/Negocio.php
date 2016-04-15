@@ -10,15 +10,20 @@ require_once '../modelo/dao/Formato_dao.php';
 require_once '../modelo/dto/Formato_dto.php';
 require_once '../modelo/dao/Usuario_dao.php';
 require_once '../modelo/dto/Usuario_dto.php';
+require_once '../modelo/dao/Informacion_dao.php';
+require_once '../modelo/dto/Informacion_dto.php';
+
 
 class Negocio {
 
     private $formato;
     private $usuario;
+    private $info;
 
     public function __construct() {
         $this->formato = new Formato_dao();
         $this->usuario = new Usuario_dao();
+        $this->info = new Informacion_dao();
     }
 
     public function iniciar_sesion($nombre, $password) {
@@ -47,10 +52,9 @@ class Negocio {
         }
     }
 
-    public function buscar_usuario($consultaBusqueda, $opc) {
-        $mensaje = '';
+    public function buscar_usuario($consultaBusqueda, $opc, $formato) {
         $usuarios = array();
-        $usuarios = $this->usuario->buscar($consultaBusqueda, $opc);
+        $usuarios = $this->usuario->buscar($consultaBusqueda, $opc, $formato);
         if (count($usuarios) == 0) {
             $usuarios = null;
         } else {
@@ -163,6 +167,28 @@ class Negocio {
     
     public function historialFormato($formato){
         return $this->formato->historialFormato($formato);        
+    }
+    
+    public function diligenciarFormato($usuario,$formato,$info){
+        $msj='';
+        $informacion = $this->info->guardarInfo($usuario,$formato,$info);
+        if (!is_null($informacion)) {
+            $msj= 'Información registrada con éxito';
+        } else {
+            $msj= 'La información no ha sido registrado en el sistema';
+        }
+        return $msj;
+    }
+    
+    public function mostrarRegistrosFormato($formato){
+        $informacion=array();
+        $informacion= $this->info->mostrarInfo($formato);
+        if (count($informacion) == 0) {
+            $informacion = null;
+        } else {
+            return $informacion;
+        }
+        return $informacion;
     }
 
 }

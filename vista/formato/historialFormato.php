@@ -15,11 +15,13 @@ if ($_SESSION["tipo"] !== "asistente") {
         <link rel="stylesheet" href="../util/css/bootstrap.css" type="text/css">
         <link rel="stylesheet" href="../util/css/formBuilder.css" type="text/css">
         <link rel="stylesheet" href="../util/css/style.css" type="text/css">
+        <link rel="stylesheet" href="../util/css/datatables.css" type="text/css">
         <script type="text/javascript" src="../util/js/jquery-2.1.4.min.js"></script>
         <script type="text/javascript" src="../util/js/bootstrap.js"></script>
         <script type="text/javascript" src="../util/js/formBuilder.js"></script>
         <script type="text/javascript" src="../util/js/jquery-ui.js"></script>
         <script type="text/javascript" src="../util/js/jsFormat.js"></script>
+        <script type="text/javascript" src="../util/js/datatables.min.js"></script>
         <script>
             $(document).ready(function () {
                 var formato = sessionStorage.getItem('formato');
@@ -40,7 +42,7 @@ if ($_SESSION["tipo"] !== "asistente") {
                     <table id="tabla_historial" class="table  table-hover">
                         <thead>
                             <tr>
-                                <th data-field="fecha"> Fecha</th>
+                                <th data-field="fecha"> Fecha de modificación</th>
                                 <th data-field="detalle"> Detalle de la modificación</th>
                                 <th data-field="usuario"> Usuario de la modificación</th>
                                 <th data-field="observaciones"> Observaciones  del formato</th>

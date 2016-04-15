@@ -54,12 +54,13 @@ if ($opcion == 'cambiar') {
 
 if ($opcion == 'asignar') {
     $cod = $_POST['codigo'];
-    $Usuario_controller->autocompletar_usuario($cod, 'asignar');
+    $Usuario_controller->autocompletar_usuario($cod, 'asignar','');
 }
 
 if ($opcion == 'desasignar') {
     $cod = $_POST['codigo'];
-    $Usuario_controller->autocompletar_usuario($cod, 'desasignar');
+    $formato = $_POST['formato'];
+    $Usuario_controller->autocompletar_usuario($cod, 'desasignar',$formato);
 }
 
 class Usuario_controller {
@@ -147,9 +148,9 @@ class Usuario_controller {
         echo $msj;
     }
 
-    public function autocompletar_usuario($codigo, $opc) {
+    public function autocompletar_usuario($codigo, $opc,$formato) {
         $mensaje = '';
-        $usuarios = $this->facade->buscar_usuario($codigo, $opc);
+        $usuarios = $this->facade->buscar_usuario($codigo, $opc,$formato);
         if (is_null($usuarios)) {
             $mensaje = '<p>No hay ningún usuario con ese criterio de búsqueda</p>';
         } else {
