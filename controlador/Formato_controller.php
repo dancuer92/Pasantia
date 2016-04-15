@@ -45,15 +45,22 @@ if ($option == 'visualizarFormato') {
 if ($option == 'modificarFormato') {
     $usuario = $_SESSION['codigo'];
     $formato = $_POST['formato'];
-    $detalle =$_POST['detalle'];
-    $observaciones =$_POST['observaciones'];
-    $html =$_POST['html'];
+    $detalle = $_POST['detalle'];
+    $observaciones = $_POST['observaciones'];
+    $html = $_POST['html'];
     $formato_controller->modificarFormato($usuario, $formato, $detalle, $observaciones, $html);
 }
 
-if($option =='historialFormato'){
-        $formato = $_POST['formato'];
-        $formato_controller->historialFormato($formato);
+if ($option == 'historialFormato') {
+    $formato = $_POST['formato'];
+    $formato_controller->historialFormato($formato);
+}
+
+if ($option == 'diligenciarFormato') {
+    $formato= $_POST['formato'];
+    $info= $_POST['info'];
+    $usuario= $_SESSION['codigo'];
+    $formato_controller->diligenciarFormato($usuario,$formato,$info);
 }
 
 class Formato_controller {
@@ -145,16 +152,16 @@ class Formato_controller {
         $mensaje = $this->facade->visualizarFormato($formato);
         echo $mensaje;
     }
-    
-    public function modificarFormato($usuario,$formato,$detalle,$observaciones,$html){
+
+    public function modificarFormato($usuario, $formato, $detalle, $observaciones, $html) {
         $mensaje = '';
-        $mensaje = $this->facade->modificarFormato($usuario,$formato,$detalle,$observaciones,$html);
+        $mensaje = $this->facade->modificarFormato($usuario, $formato, $detalle, $observaciones, $html);
         echo $mensaje;
     }
-    
-    public function historialFormato($formato){
-        $mensaje='';
-        $historial=  $this->facade->historialFormato($formato);
+
+    public function historialFormato($formato) {
+        $mensaje = '';
+        $historial = $this->facade->historialFormato($formato);
         if (count($historial) == 0) {
             $mensaje = '<strong> El formato no tiene historial de modificaciones </Strong>';
         } else {
@@ -163,28 +170,33 @@ class Formato_controller {
                 $array = json_decode($historia, true);
                 $fecha = $array["fecha_modificacion"];
                 $detalle = $array["detalle_modificacion"];
-                $usuario= $array["id_usuario"];
-                $observaciones= $array["observaciones"];
+                $usuario = $array["id_usuario"];
+                $observaciones = $array["observaciones"];
 
-                $mensaje .= $this->cargarFilas($fecha,$detalle,$usuario,$observaciones);
+                $mensaje .= $this->cargarFilas($fecha, $detalle, $usuario, $observaciones);
             }
             $mensaje = str_replace("&", "'", $mensaje);
         }
         echo $mensaje;
-        
     }
-    
-    public function cargarFilas($fecha,$detalle,$usuario,$observaciones){
-        $mensaje='<tr>'
+
+    public function cargarFilas($fecha, $detalle, $usuario, $observaciones) {
+        $mensaje = '<tr>'
                 . '<td>' . $fecha . '</td>'
                 . '<td>' . $detalle . '</td>'
                 . '<td>' . $usuario . '</td>'
-                . '<td>' . $observaciones. '</td>'
+                . '<td>' . $observaciones . '</td>'
                 . '<td>'
-                    . '<a class="hoverable" href="#visualizar"> Ver</a>'
+                . '<a class="hoverable" href="#visualizar"> Ver</a>'
                 . '</td>'
                 . '</tr>';
         return $mensaje;
+    }
+    
+    public function diligenciarFormato($usuario,$formato,$info){
+        $mensaje='';
+        $this->facade->diligenciarFormato($usuario,$formato,$info);
+        echo $mensaje;
     }
 
 }

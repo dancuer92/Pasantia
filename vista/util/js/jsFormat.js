@@ -129,9 +129,9 @@ function guardarDiligenciaFormato(){
     var formato=sessionStorage.getItem('formato');
     var info=$('#diligenciarFormato').serialize();
     $('#res1').text(info);
-    $.post('../../controlador/Formato_controller.php', {formato: formato, opcion: 'historialFormato'},
+    $.post('../../controlador/Formato_controller.php', {formato: formato, info: info, opcion: 'diligenciarFormato'},
     function (mensaje) {
-        $('#tabla_historial tbody').append(mensaje);
+        $('#res1').html(mensaje);
     });
     
 }
