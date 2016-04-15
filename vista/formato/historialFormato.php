@@ -57,7 +57,7 @@ if ($_SESSION["tipo"] !== "asistente") {
             </div>
         </main>
         <footer>
-            <?php include './panel_footer.php'; ?>
+            <?php include './panel_footer.php'; ?>           
         </footer>
     </body>
 </html>
