@@ -12,60 +12,64 @@ require_once '../modelo/facade/Facade.php';
 $option = $_POST['opcion'];
 $formato_controller = new Formato_controller();
 
-if ($option == 'cargarFormatos') {
-    $formato = $_POST['formato'];
-    $formato_controller->cargarFormatos($formato);
-}
-if ($option == 'guardarFormato') {
-    $codigo = $_POST['codigoF'];
-    $nombre = $_POST['nombreF'];
-    $procedimiento = $_POST['procedimientoF'];
-    $director = $_POST['directorF'];
-    $frecuencia = $_POST['frecuenciaF'];
-    $tipo = $_POST['tipoF'];
-    $descripcion = $_POST['descripcionF'];
-    $html = $_POST['codigoHTML'];
-    $formato_controller->guardarFormato($codigo, $nombre, $procedimiento, $director, $frecuencia, $tipo, $descripcion, $html);
-}
-if ($option == 'asignarFormato') {
-    $usuario = $_POST['usuario'];
-    $formato = $_POST['formato'];
-    $formato_controller->asignarFormato($usuario, $formato);
-}
-if ($option == 'desasignarFormato') {
-    $usuario = $_POST['usuario'];
-    $formato = $_POST['formato'];
-    $formato_controller->desasignarFormato($usuario, $formato);
-}
-if ($option == 'visualizarFormato') {
-    $formato = $_POST['formato'];
-    $formato_controller->visualizarFormato($formato);
-}
-
-if ($option == 'modificarFormato') {
-    $usuario = $_SESSION['codigo'];
-    $formato = $_POST['formato'];
-    $detalle = $_POST['detalle'];
-    $observaciones = $_POST['observaciones'];
-    $html = $_POST['html'];
-    $formato_controller->modificarFormato($usuario, $formato, $detalle, $observaciones, $html);
-}
-
-if ($option == 'historialFormato') {
-    $formato = $_POST['formato'];
-    $formato_controller->historialFormato($formato);
-}
-
-if ($option == 'diligenciarFormato') {
-    $formato = $_POST['formato'];
-    $info = $_POST['info'];
-    $usuario = $_SESSION['codigo'];
-    $formato_controller->diligenciarFormato($usuario, $formato, $info);
-}
-
-if ($option == 'mostrarRegistrosFormato') {
-    $formato = $_POST['formato'];
-    $formato_controller->mostrarRegistrosFormato($formato);
+switch ($option) {
+    case 'cargarFormatos':
+        $formato = $_POST['formato'];
+        $formato_controller->cargarFormatos($formato);
+        break;
+    case 'guardarFormato':
+        $codigo = $_POST['codigoF'];
+        $nombre = $_POST['nombreF'];
+        $procedimiento = $_POST['procedimientoF'];
+        $director = $_POST['directorF'];
+        $frecuencia = $_POST['frecuenciaF'];
+        $tipo = $_POST['tipoF'];
+        $descripcion = $_POST['descripcionF'];
+        $html = $_POST['codigoHTML'];
+        $formato_controller->guardarFormato($codigo, $nombre, $procedimiento, $director, $frecuencia, $tipo, $descripcion, $html);
+        break;
+    case 'asignarFormato':
+        $usuario = $_POST['usuario'];
+        $formato = $_POST['formato'];
+        $formato_controller->asignarFormato($usuario, $formato);
+        break;
+    case 'desasignarFormato':
+        $usuario = $_POST['usuario'];
+        $formato = $_POST['formato'];
+        $formato_controller->desasignarFormato($usuario, $formato);
+        break;
+    case 'visualizarFormato':
+        $formato = $_POST['formato'];
+        $formato_controller->visualizarFormato($formato);
+        break;
+    case 'modificarFormato':
+        $usuario = $_SESSION['codigo'];
+        $formato = $_POST['formato'];
+        $detalle = $_POST['detalle'];
+        $observaciones = $_POST['observaciones'];
+        $html = $_POST['html'];
+        $formato_controller->modificarFormato($usuario, $formato, $detalle, $observaciones, $html);
+        break;
+    case 'historialFormato':
+        $formato = $_POST['formato'];
+        $formato_controller->historialFormato($formato);
+        break;
+    case 'diligenciarFormato':
+        $formato = $_POST['formato'];
+        $info = $_POST['info'];
+        $usuario = $_SESSION['codigo'];
+        $formato_controller->diligenciarFormato($usuario, $formato, $info);
+        break;
+    case 'mostrarRegistrosFormato':
+        $formato = $_POST['formato'];
+        $formato_controller->mostrarRegistrosFormato($formato);
+        break;
+    case 'verDatos':
+        $formato=$_POST['formato'];
+        $fecha=$_POST['fecha'];
+        $formato_controller->verDatos($formato,$fecha);
+        break;
+    
 }
 
 class Formato_controller {
@@ -123,11 +127,11 @@ class Formato_controller {
             case 'supervisor':
                 $mensaje.='<a class="btn-floating red hoverable tooltipped" data-position="top" data-delay="50" data-tooltip="Diligenciar" onclick="diligenciarFormato(&' . $cod . '&)" ><i class="material-icons">keyboard</i></a>'
                         . '<a class="btn-floating red hoverable tooltipped" data-position="top" data-delay="50" data-tooltip="Mostrar registros" onclick="mostrarRegistrosFormato(&' . $cod . '&)" ><i class="material-icons">find_in_page</i></a>'
-                        . '<a class="btn-floating red hoverable tooltipped" data-position="top" data-delay="50" data-tooltip="Analizar trazabilidad" onclick="modificarFormato(&' . $cod . '&)" ><i class="material-icons">timeline</i></a>';
+                        . '<a class="btn-floating red hoverable tooltipped" data-position="top" data-delay="50" data-tooltip="Analizar trazabilidad" onclick="analizarFormato(&' . $cod . '&)" ><i class="material-icons">timeline</i></a>';
                 break;
             case 'operario':
-                $mensaje.='<a class="btn-floating red hoverable tooltipped" data-position="top" data-delay="50" data-tooltip="Diligenciar" href="#Diligenciar"> <i class="material-icons">keyboard</i></a>'
-                        . '<a class="btn-floating red hoverable tooltipped" data-position="top" data-delay="50" data-tooltip="Mostrar registros" href="#MostrarRegistros"> <i class="material-icons">find_in_page</i></a>';
+                $mensaje.='<a class="btn-floating red hoverable tooltipped" data-position="top" data-delay="50" data-tooltip="Diligenciar" onclick="diligenciarFormato(&' . $cod . '&)" > <i class="material-icons">keyboard</i></a>'
+                        . '<a class="btn-floating red hoverable tooltipped" data-position="top" data-delay="50" data-tooltip="Mostrar registros" onclick="mostrarRegistrosFormato(&' . $cod . '&)" > <i class="material-icons">find_in_page</i></a>';
         }
 
         $mensaje.='</li>';
@@ -225,17 +229,31 @@ class Formato_controller {
         }
         echo $mensaje;
     }
-    
-    public function listar($fecha, $usuario, $estado){
+
+    public function listar($fecha, $usuario, $estado) {
         $mensaje = '<tr>'
-                . '<td>' . $fecha. '</td>'
-                . '<td>' . $usuario. '</td>'
-                . '<td>' . $estado. '</td>'
+                . '<td>' . $fecha . '</td>'
+                . '<td>' . $usuario . '</td>'
+                . '<td>' . $estado . '</td>'
                 . '<td>'
-                . '<a class="hoverable" onclick="verDatos(&'.$fecha.'&)"> Ver</a>'
+                . '<a class="hoverable" onclick="verDatos(&' . $fecha . '&)"> Ver</a>'
                 . '</td>'
                 . '</tr>';
         return $mensaje;
+    }
+    
+    public function verDatos($formato,$fecha){
+        $mensaje = '';
+        $informacion = $this->facade->verDatos($formato, $fecha);
+
+        if (count($informacion) == 0) {
+            $mensaje = '<strong> No existe el registro con la fecha '.$fecha.' </Strong>';
+        } else {
+            foreach ($informacion as $info) {   
+                echo $info;                
+            }
+        }
+        
     }
 
 }

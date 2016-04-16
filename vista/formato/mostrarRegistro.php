@@ -8,7 +8,6 @@ if ($_SESSION["tipo"] !== "supervisor" && $_SESSION["tipo"] !== "operario") {
     exit();
 }
 ?>
-
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -20,26 +19,31 @@ if ($_SESSION["tipo"] !== "supervisor" && $_SESSION["tipo"] !== "operario") {
         <link rel="stylesheet" href="../util/css/bootstrap.css" type="text/css">
         <link rel="stylesheet" href="../util/css/formBuilder.css" type="text/css">
         <link rel="stylesheet" href="../util/css/style.css" type="text/css">
-        <link rel="stylesheet" type="text/css" href="../util/css/datatables.css"/>
-
 
         <script type="text/javascript" src="../util/js/jquery-2.1.4.min.js"></script>
         <script type="text/javascript" src="../util/js/bootstrap.js"></script>
         <script type="text/javascript" src="../util/js/formBuilder.js"></script>
         <script type="text/javascript" src="../util/js/jquery-ui.js"></script> 
         <script type="text/javascript" src="../util/js/jsFormat.js"></script> 
-        <script type="text/javascript" src="../util/js/datatables.js"></script>
 
 
         <script>
             $(document).ready(function () {
                 var formato = sessionStorage.getItem('formato');
-                console.log(formato);                
-
-                $.post("../../controlador/Formato_controller.php", {formato: formato, opcion: "mostrarRegistrosFormato"},
+                var fecha = sessionStorage.getItem('fecha');
+                console.log(formato,fecha);  
+                
+                $.post("../../controlador/Formato_controller.php", {formato: formato, opcion: "visualizarFormato"},
                 function (mensaje) {
-                    $('#mostrarRegFormato tbody').append(mensaje);
-                    $('#mostrarRegFormato').DataTable({responsive:true});
+                    $('#ver_datos').prepend(mensaje);
+                    $('div').css('border-style', 'none');
+                    $('select').attr('disabled',true);
+                });
+
+                $.post("../../controlador/Formato_controller.php", {formato: formato, fecha:fecha, opcion: "verDatos"},
+                function (mensaje) {
+                    
+//                    $('#ver_datos').html(mensaje);
                 });
 
                 
@@ -57,20 +61,10 @@ if ($_SESSION["tipo"] !== "supervisor" && $_SESSION["tipo"] !== "operario") {
 
         <main>
             <h1 class="titulo"><i class="material-icons prefix" style="font-size: 43px">find_in_page</i> Mostrar registros del formato</h1>
-            <div class="container center">
-                <table id="mostrarRegFormato" class="table table-hover">
-                    <thead>
-                        <tr>
-                            <td>Fecha de registro en el sistema</td>
-                            <td>Usuario encargado</td>
-                            <td>Estado del registro</td>
-                            <td></td>
-                        </tr>
-                    </thead>
-                    <tbody>
-
-                    </tbody>
-                </table>
+            <div class="container center">   
+                <div id="ver_datos">
+                    
+                </div>
             </div>
         </main>
 

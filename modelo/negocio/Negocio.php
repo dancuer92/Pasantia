@@ -190,5 +190,10 @@ class Negocio {
         }
         return $informacion;
     }
+    
+    public function verDatos($formato,$fecha){
+        $json=  $this->info->verDatos($formato,$fecha);
+        return $json;
+    }
 
 }

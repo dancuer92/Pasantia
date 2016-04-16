@@ -186,3 +186,9 @@ function mostrarRegistrosFormato(cod) {
     sessionStorage.setItem('formato', cod);
     location.href = ('formato/mostrarRegistrosFormato.php');
 }
+
+function verDatos(fecha){
+    sessionStorage.setItem('fecha', fecha);
+    location.href = ('mostrarRegistro.php');
+}
+

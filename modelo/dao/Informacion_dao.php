@@ -67,4 +67,26 @@ class Informacion_dao {
         return $informacion;
     }
 
+    public function verDatos($formato,$fecha){
+        $mensaje='';
+        $sql = "SELECT `informacion` FROM `info_$formato` WHERE `fecha`=?;";
+        
+        if (!$sentencia = $this->mysqli->prepare($sql)) {
+            $mensaje.=$this->mysqli->error;
+        }
+
+        if (!$sentencia->bind_param("s", $fecha)) {
+            echo $this->mysqli->error;
+        }
+
+        if ($sentencia->execute()) {
+            $sentencia->bind_result($info);
+            while ($sentencia->fetch()) {
+                $mensaje=  $this->info->setInformacion($info);
+            }  
+        }
+        $sentencia->close();
+        $this->mysqli->close();
+        return $this->info;
+    }
 }

@@ -21,7 +21,7 @@ if ($_SESSION["tipo"] !== "asistente") {
         <script type="text/javascript" src="../util/js/formBuilder.js"></script>
         <script type="text/javascript" src="../util/js/jquery-ui.js"></script>
         <script type="text/javascript" src="../util/js/jsFormat.js"></script>
-        <script type="text/javascript" src="../util/js/datatables.min.js"></script>
+        <script type="text/javascript" src="../util/js/datatables.js"></script>
         <script>
             $(document).ready(function () {
                 var formato = sessionStorage.getItem('formato');

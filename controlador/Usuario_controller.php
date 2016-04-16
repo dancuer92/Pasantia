@@ -78,7 +78,7 @@ class Usuario_controller {
 
     public function buscar_usuario($consultaBusqueda) {
         $mensaje = '';
-        $usuarios = $this->facade->buscar_usuario($consultaBusqueda,'');
+        $usuarios = $this->facade->buscar_usuario($consultaBusqueda,'','');
         if (is_null($usuarios)) {
             $mensaje = '<p>No hay ningún usuario con ese criterio de búsqueda</p>';
         } else {

@@ -89,5 +89,10 @@ class Facade {
         $msj=  $this->negocio->mostrarRegistrosFormato($formato);
         return $msj;
     }
+    
+    public function verDatos($formato,$fecha){
+        $msj=  $this->negocio->verDatos($formato,$fecha);
+        return $msj;
+    }
 
 }
