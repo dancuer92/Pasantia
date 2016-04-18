@@ -31,22 +31,32 @@ if ($_SESSION["tipo"] !== "supervisor" && $_SESSION["tipo"] !== "operario") {
             $(document).ready(function () {
                 var formato = sessionStorage.getItem('formato');
                 var fecha = sessionStorage.getItem('fecha');
-                console.log(formato,fecha);  
-                
+                console.log(formato, fecha);
+
                 $.post("../../controlador/Formato_controller.php", {formato: formato, opcion: "visualizarFormato"},
                 function (mensaje) {
                     $('#ver_datos').prepend(mensaje);
                     $('div').css('border-style', 'none');
-                    $('select').attr('disabled',true);
+                    $('select').attr('disabled', true);
                 });
 
-                $.post("../../controlador/Formato_controller.php", {formato: formato, fecha:fecha, opcion: "verDatos"},
+                $.post("../../controlador/Formato_controller.php", {formato: formato, fecha: fecha, opcion: "verDatos"},
                 function (mensaje) {
-                    
-//                    $('#ver_datos').html(mensaje);
+                    var arreglo = mensaje.split(';');
+                    for (i = 0; i < arreglo.length - 1; i++) {
+                        var div = arreglo[i].split('=');
+                        var clave = '#' + div[0];
+                        
+                        var valor=div[1].replace(/ +/g,' ');
+                        var name='input[name='+div[0]+']';
+                        $(name).prop('checked',true);    
+                        
+                        $(name).val(valor);
+                        $(clave).val(valor);
+                    }
                 });
 
-                
+
             });
         </script>
 
@@ -63,7 +73,7 @@ if ($_SESSION["tipo"] !== "supervisor" && $_SESSION["tipo"] !== "operario") {
             <h1 class="titulo"><i class="material-icons prefix" style="font-size: 43px">find_in_page</i> Mostrar registros del formato</h1>
             <div class="container center">   
                 <div id="ver_datos">
-                    
+
                 </div>
             </div>
         </main>

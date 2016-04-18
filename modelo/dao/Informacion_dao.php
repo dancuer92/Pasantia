@@ -1,5 +1,6 @@
 <?php
 
+//header("Content-Type: text/html;charset=utf-8");
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -18,6 +19,7 @@ class Informacion_dao {
 
     public function __construct() {
         $this->mysqli = new Conexion();
+        $this->mysqli->set_charset('utf8');
         $this->info = new Informacion_dto();
     }
 
@@ -53,24 +55,22 @@ class Informacion_dao {
         if (!$sentencia = $this->mysqli->prepare($sql)) {
             $mensaje.=$this->mysqli->error;
         }
-
         if ($sentencia->execute()) {
             $sentencia->bind_result($fecha, $usuario, $estado, $info);
             while ($sentencia->fetch()) {
                 $this->info->crear($fecha, $usuario, $estado, $info);
                 $informacion[] = $this->info->toJSON();
-            }            
+            }
         }
-        
         $sentencia->close();
         $this->mysqli->close();
         return $informacion;
     }
 
-    public function verDatos($formato,$fecha){
-        $mensaje='';
+    public function verDatos($formato, $fecha) {
+        $mensaje = '';
         $sql = "SELECT `informacion` FROM `info_$formato` WHERE `fecha`=?;";
-        
+
         if (!$sentencia = $this->mysqli->prepare($sql)) {
             $mensaje.=$this->mysqli->error;
         }
@@ -82,11 +82,12 @@ class Informacion_dao {
         if ($sentencia->execute()) {
             $sentencia->bind_result($info);
             while ($sentencia->fetch()) {
-                $mensaje=  $this->info->setInformacion($info);
-            }  
+                $mensaje = $this->info->setInformacion($info);
+            }
         }
         $sentencia->close();
         $this->mysqli->close();
         return $this->info;
     }
+
 }

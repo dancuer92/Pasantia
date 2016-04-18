@@ -1,4 +1,5 @@
 <?php
+//header("Content-Type: text/html;charset=utf-8");
 session_start();
 if ($_SESSION["estado"] !== "activo") {
     //Si no hay sesión activa, lo direccionamos al index.php (inicio de sesión)

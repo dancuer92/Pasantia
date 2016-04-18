@@ -1,5 +1,6 @@
 <?php
 
+//header("Content-Type: text/html;charset=utf-8");
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -16,6 +17,7 @@ class Usuario_dao {
 
     public function __construct() {
         $this->mysqli = new Conexion();
+        mysqli_set_charset($this->mysqli, 'utf8');
         $this->usuario = new Usuario_dto();
     }
 
@@ -89,28 +91,28 @@ class Usuario_dao {
             $sql = "SELECT u.codigo_usuario, u.nombre_usuario, u.apellido_usuario, u.correo_usuario, u.cargo_usuario, "
                     . "u.departamento_usuario, u.telefono_usuario, u.rol_usuario, u.estado_usuario, u.fecha_registro "
                     . "FROM usuario u WHERE (u.rol_usuario=0 OR u.rol_usuario=3) AND( "
-                    . "u.codigo_usuario COLLATE latin1_spanish_ci LIKE '%$consultaBusqueda%' "
-                    . "OR u.nombre_usuario COLLATE latin1_spanish_ci LIKE '%$consultaBusqueda%' "
-                    . "OR u.apellido_usuario COLLATE latin1_spanish_ci LIKE '%$consultaBusqueda%' "
-                    . "OR concat(u.nombre_usuario,' ',u.apellido_usuario) COLLATE latin1_spanish_ci LIKE '%$consultaBusqueda%') "
+                    . "u.codigo_usuario COLLATE utf8_spanish_ci LIKE '%$consultaBusqueda%' "
+                    . "OR u.nombre_usuario COLLATE utf8_spanish_ci LIKE '%$consultaBusqueda%' "
+                    . "OR u.apellido_usuario COLLATE utf8_spanish_ci LIKE '%$consultaBusqueda%' "
+                    . "OR concat(u.nombre_usuario,' ',u.apellido_usuario) COLLATE utf8_spanish_ci LIKE '%$consultaBusqueda%') "
                     . "LIMIT 6;";
         } else if ($opc === 'desasignar') {
             $sql = "SELECT u.codigo_usuario, u.nombre_usuario, u.apellido_usuario, u.correo_usuario, u.cargo_usuario, "
                     . "u.departamento_usuario, u.telefono_usuario, u.rol_usuario, u.estado_usuario, u.fecha_registro "
                     . "FROM usuario u, usuario_formato uf WHERE uf.id_formato='$formato' AND uf.accion='asignado' AND u.codigo_usuario=uf.id_usuario "
                     . "AND (u.rol_usuario=0 OR u.rol_usuario=3)"
-                    . "AND (u.codigo_usuario COLLATE latin1_spanish_ci LIKE '%$consultaBusqueda%' "
-                    . "OR u.nombre_usuario COLLATE latin1_spanish_ci LIKE '%$consultaBusqueda%' "
-                    . "OR u.apellido_usuario COLLATE latin1_spanish_ci LIKE '%$consultaBusqueda%' "
-                    . "OR concat(u.nombre_usuario,' ',u.apellido_usuario) COLLATE latin1_spanish_ci LIKE '%$consultaBusqueda%') "
+                    . "AND (u.codigo_usuario COLLATE utf8_spanish_ci LIKE '%$consultaBusqueda%' "
+                    . "OR u.nombre_usuario COLLATE utf8_spanish_ci LIKE '%$consultaBusqueda%' "
+                    . "OR u.apellido_usuario COLLATE utf8_spanish_ci LIKE '%$consultaBusqueda%' "
+                    . "OR concat(u.nombre_usuario,' ',u.apellido_usuario) COLLATE utf8_spanish_ci LIKE '%$consultaBusqueda%') "
                     . "LIMIT 6;";
         } else {
             $sql = "SELECT u.codigo_usuario, u.nombre_usuario, u.apellido_usuario, u.correo_usuario, u.cargo_usuario, "
                     . "u.departamento_usuario, u.telefono_usuario, u.rol_usuario, u.estado_usuario, u.fecha_registro "
-                    . "FROM usuario u WHERE u.codigo_usuario COLLATE latin1_spanish_ci LIKE '%$consultaBusqueda%' "
-                    . "OR u.nombre_usuario COLLATE latin1_spanish_ci LIKE '%$consultaBusqueda%' "
-                    . "OR u.apellido_usuario COLLATE latin1_spanish_ci LIKE '%$consultaBusqueda%' "
-                    . "OR concat(u.nombre_usuario,' ',u.apellido_usuario) COLLATE latin1_spanish_ci LIKE '%$consultaBusqueda%' "
+                    . "FROM usuario u WHERE u.codigo_usuario COLLATE utf8_spanish_ci LIKE '%$consultaBusqueda%' "
+                    . "OR u.nombre_usuario COLLATE utf8_spanish_ci LIKE '%$consultaBusqueda%' "
+                    . "OR u.apellido_usuario COLLATE utf8_spanish_ci LIKE '%$consultaBusqueda%' "
+                    . "OR concat(u.nombre_usuario,' ',u.apellido_usuario) COLLATE utf8_spanish_ci LIKE '%$consultaBusqueda%' "
                     . "LIMIT 6;";
         }
         if (!$sentencia = $this->mysqli->prepare($sql)) {

@@ -132,15 +132,19 @@ function guardarDiligenciaFormato() {
         
     if (requeridos) {
 //        var info = JSON.stringify($('#diligenciarFormato').serializeArray());
+//        var info = JSON.stringify($('#diligenciarFormato'));
 //        var info = $('#diligenciarFormato').serializeArray();
+//        var info = $('#diligenciarFormato').serialize();
+//        var info = $('#diligenciarFormato').serializeObject();
+//        var info = JSON.stringify($('#diligenciarFormato').serializeObject());
 //        console.log(info);
 //        $('#res1').html(info.toString());
 
-
-        var info = JSON.stringify($('#diligenciarFormato').serializeObject());
+        var info = $('#diligenciarFormato').serialize();
         $.post('../../controlador/Formato_controller.php', {formato: formato, info: info, opcion: 'diligenciarFormato'},
         function (mensaje) {
-            confirm(mensaje);
+//            confirm(mensaje);
+            console.log(mensaje);
         });
     }
 }
@@ -148,7 +152,7 @@ function guardarDiligenciaFormato() {
 function validarRequeridos() {
     var requeridos = false;
     $('input[required]').each(function () {
-        console.log($(this).attr('id'));
+//        console.log($(this).attr('id'));
         var value = $(this).val();
         if (value != '') {
             requeridos = true;

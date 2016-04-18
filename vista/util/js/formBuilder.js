@@ -412,6 +412,8 @@ function rename() {
     div.children('input').each(function (i) {
         var nombreOpcion = titulo + "-" + i;
         $(this).attr('id', nombreOpcion);
+        $(this).attr('name', titulo);
+        
         if ($(this).attr('type') === 'checkbox') {
             $(this).attr('name', nombreOpcion);
         }

@@ -1,5 +1,5 @@
 <?php
-
+//header("Content-Type: text/html;charset=utf-8");
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -15,6 +15,7 @@ class Formato_dao {
 
     public function __construct() {
         $this->mysqli = new Conexion();
+        mysqli_set_charset( $this->mysqli, 'utf8');
         $this->formato = new Formato_dto();
     }
 
@@ -25,12 +26,12 @@ class Formato_dao {
         if ($_SESSION['tipo'] == 'administrador' || $_SESSION['tipo'] == 'asistente') {
             $sql = "SELECT `cod_formato`, `nombre`, `observaciones`, `procedimiento`, `jefe_procedimiento`, `descripcion_contenido`, `frecuencia_uso`, `codigo_html`"
                     . "FROM `formato` "
-                    . "WHERE `cod_formato` COLLATE latin1_spanish_ci LIKE '%$ref_formato%'  OR `nombre` COLLATE latin1_spanish_ci LIKE '%$ref_formato%';";
+                    . "WHERE `cod_formato` COLLATE utf8_spanish_ci LIKE '%$ref_formato%'  OR `nombre` COLLATE utf8_spanish_ci LIKE '%$ref_formato%';";
         } else {
             $sql = "SELECT f.cod_formato, f.nombre, f.observaciones, f.procedimiento, f.jefe_procedimiento, f.descripcion_contenido, f.frecuencia_uso, f.codigo_html 
                     FROM formato f, usuario_formato uf
                     WHERE f.cod_formato = uf.id_formato AND uf.id_usuario='" . $_SESSION['codigo'] . "' AND uf.accion='asignado' 
-                    AND (f.cod_formato COLLATE latin1_spanish_ci LIKE '%$ref_formato%'  OR f.nombre COLLATE latin1_spanish_ci LIKE '%$ref_formato%')";
+                    AND (f.cod_formato COLLATE utf8_spanish_ci LIKE '%$ref_formato%'  OR f.nombre COLLATE utf8_spanish_ci LIKE '%$ref_formato%')";
         }
 
 //        $sql = "SELECT `cod_formato`, `nombre`, `observaciones`, `procedimiento`, `jefe_procedimiento`, `descripcion_contenido`, `frecuencia_uso` "
@@ -80,10 +81,10 @@ class Formato_dao {
         $sql = "CREATE TABLE `info_$formato` (
                     `id` int(11) NOT NULL,
                     `fecha` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                    `usuario` varchar(30) COLLATE latin1_spanish_ci NOT NULL,
+                    `usuario` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
                     `estado` tinyint(4) NOT NULL,
-                    `informacion` text COLLATE latin1_spanish_ci NOT NULL
-                ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+                    `informacion` text COLLATE utf8_spanish_ci NOT NULL
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
                 ALTER TABLE `info_$formato`
                     ADD PRIMARY KEY (`id`),

@@ -59,6 +59,7 @@ if ($_SESSION["tipo"] !== "supervisor" && $_SESSION["tipo"]!=="operario") {
                     </div>
                 </form>
             </div>
+            <div id="res1"></div>
         </main>
         <!-- Pie de pagina-->
         <footer>

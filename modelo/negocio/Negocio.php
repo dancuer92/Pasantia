@@ -1,5 +1,5 @@
 <?php
-
+//header("Content-Type: text/html;charset=utf-8");
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -171,14 +171,35 @@ class Negocio {
     
     public function diligenciarFormato($usuario,$formato,$info){
         $msj='';
+        echo $info;
+        $info=$this->validarInformacion($info);
+        echo $info;
+        if(is_null($info)){
+            return 'Por favor ingrese los datos correspondientes al formato';            
+        }
+        
         $informacion = $this->info->guardarInfo($usuario,$formato,$info);
         if (!is_null($informacion)) {
             $msj= 'Información registrada con éxito';
         } else {
-            $msj= 'La información no ha sido registrado en el sistema';
+            $msj= 'La información no ha sido registrada en el sistema';
         }
         return $msj;
     }
+    
+    public function validarInformacion($info){
+        $arr=  explode('&', $info);
+        $msj='';
+        foreach ($arr as $var){
+            $arreglo2=explode('=', $var);
+            if($arreglo2[1]!=''){
+                $msj.=$var.';';
+            }            
+        }   
+        return $msj;
+    }
+    
+    
     
     public function mostrarRegistrosFormato($formato){
         $informacion=array();
