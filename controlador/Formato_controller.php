@@ -15,7 +15,9 @@ $formato_controller = new Formato_controller();
 switch ($option) {
     case 'cargarFormatos':
         $formato = $_POST['formato'];
-        $formato_controller->cargarFormatos($formato);
+        $tipo=$_SESSION['tipo'];
+        $codigo=$_SESSION['codigo'];
+        $formato_controller->cargarFormatos($formato,$tipo,$codigo);
         break;
     case 'guardarFormato':
         $codigo = $_POST['codigoF'];
@@ -40,7 +42,9 @@ switch ($option) {
         break;
     case 'visualizarFormato':
         $formato = $_POST['formato'];
-        $formato_controller->visualizarFormato($formato);
+        $tipo=$_SESSION['tipo'];
+        $codigo=$_SESSION['codigo'];
+        $formato_controller->visualizarFormato($formato,$tipo,$codigo);
         break;
     case 'modificarFormato':
         $usuario = $_SESSION['codigo'];
@@ -80,10 +84,10 @@ class Formato_controller {
         $this->facade = new Facade();
     }
 
-    public function cargarFormatos($formato) {
+    public function cargarFormatos($formato,$tipo,$codigo) {
         $mensaje = '';
 
-        $formatos = $this->facade->cargarFormatos($formato);
+        $formatos = $this->facade->cargarFormatos($formato,$tipo,$codigo);
 //        echo $json.'controller';
         if (count($formatos) == 0) {
             $mensaje = '<strong> El formato consultado no existe </Strong>';
@@ -156,9 +160,9 @@ class Formato_controller {
         echo $mensaje;
     }
 
-    public function visualizarFormato($formato) {
+    public function visualizarFormato($formato,$tipo,$codigo) {
         $mensaje = '';
-        $mensaje = $this->facade->visualizarFormato($formato);
+        $mensaje = $this->facade->visualizarFormato($formato,$tipo,$codigo);
         echo $mensaje;
     }
 

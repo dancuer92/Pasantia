@@ -45,8 +45,8 @@ class Facade {
         return $msj;
     }
 
-    public function cargarFormatos($formato) {
-        $formatos = $this->negocio->cargarFormatos($formato);
+    public function cargarFormatos($formato,$tipo,$codigo) {
+        $formatos = $this->negocio->cargarFormatos($formato,$tipo,$codigo);
         return $formatos;
     }
     
@@ -65,8 +65,8 @@ class Facade {
         return $msj;
     }
     
-    public function visualizarFormato($formato) {
-        $msj= $this->negocio->visualizarFormato($formato);
+    public function visualizarFormato($formato,$tipo,$codigo) {
+        $msj= $this->negocio->visualizarFormato($formato,$tipo,$codigo);
         return $msj;
     }
 

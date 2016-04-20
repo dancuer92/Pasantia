@@ -90,9 +90,9 @@ class Negocio {
         return $msj;
     }
 
-    public function cargarFormatos($formato) {
+    public function cargarFormatos($formato,$tipo,$codigo) {
 
-        $formatos = $this->formato->cargarFormatos($formato);
+        $formatos = $this->formato->cargarFormatos($formato,$tipo,$codigo);
         if (!is_null($formatos)) {
             return $formatos;
         } else {
@@ -128,9 +128,9 @@ class Negocio {
         }
     }
 
-    public function visualizarFormato($formato) {
+    public function visualizarFormato($formato,$tipo,$codigo) {
         $html = '';
-        $formatos = $this->formato->cargarFormatos($formato);
+        $formatos = $this->formato->cargarFormatos($formato,$tipo,$codigo);
 
         if (!is_null($formatos)) {
             foreach ($formatos as $formato) {

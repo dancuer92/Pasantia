@@ -19,18 +19,18 @@ class Formato_dao {
         $this->formato = new Formato_dto();
     }
 
-    function cargarFormatos($ref_formato) {
+    function cargarFormatos($ref_formato,$tipo,$codigo) {
         $mensaje = "";
         $sql = '';
         $formatos = array();
-        if ($_SESSION['tipo'] == 'administrador' || $_SESSION['tipo'] == 'asistente') {
+        if ($tipo == 'administrador' || $tipo == 'asistente') {
             $sql = "SELECT `cod_formato`, `nombre`, `observaciones`, `procedimiento`, `jefe_procedimiento`, `descripcion_contenido`, `frecuencia_uso`, `codigo_html`"
                     . "FROM `formato` "
                     . "WHERE `cod_formato` COLLATE utf8_spanish_ci LIKE '%$ref_formato%'  OR `nombre` COLLATE utf8_spanish_ci LIKE '%$ref_formato%';";
         } else {
             $sql = "SELECT f.cod_formato, f.nombre, f.observaciones, f.procedimiento, f.jefe_procedimiento, f.descripcion_contenido, f.frecuencia_uso, f.codigo_html 
                     FROM formato f, usuario_formato uf
-                    WHERE f.cod_formato = uf.id_formato AND uf.id_usuario='" . $_SESSION['codigo'] . "' AND uf.accion='asignado' 
+                    WHERE f.cod_formato = uf.id_formato AND uf.id_usuario='" . $codigo . "' AND uf.accion='asignado' 
                     AND (f.cod_formato COLLATE utf8_spanish_ci LIKE '%$ref_formato%'  OR f.nombre COLLATE utf8_spanish_ci LIKE '%$ref_formato%')";
         }
 
