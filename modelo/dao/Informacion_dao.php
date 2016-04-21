@@ -50,15 +50,15 @@ class Informacion_dao {
     public function mostrarInfo($formato) {
         $mensaje = '';
         $informacion = array();
-        $formato= strtolower($formato);
+        $formato = strtolower($formato);
 //        echo $formato;
-        
+
         $sql = "SELECT `fecha`, `usuario`, `estado`, `informacion` FROM info_$formato ;";
 
         if (!$sentencia = $this->mysqli->prepare($sql)) {
             $mensaje.=$this->mysqli->error;
-        }             
-        
+        }
+
         if ($sentencia->execute()) {
             $sentencia->bind_result($fecha, $usuario, $estado, $info);
             while ($sentencia->fetch()) {
@@ -73,6 +73,8 @@ class Informacion_dao {
 
     public function verDatos($formato, $fecha) {
         $mensaje = '';
+        $formato = strtolower($formato);
+
         $sql = "SELECT `informacion` FROM `info_$formato` WHERE `fecha`=?;";
 
         if (!$sentencia = $this->mysqli->prepare($sql)) {
