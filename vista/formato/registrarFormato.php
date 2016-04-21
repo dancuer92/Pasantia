@@ -1,4 +1,4 @@
-<div id="registrarFormat" class="contenido">
+<div id="registrarFormat" class="contenido" >
     <form class="s12 m4" id="formRegFormat" method="POST" action="./formato/crearFormato.php"> 
         <div class="center" >
             <h3><i class="material-icons prefix" style="font-size: 2.92rem">note_add</i> Registrar Formato</h3>
@@ -23,17 +23,23 @@
                         <i class="material-icons prefix">supervisor_account</i>
                         <input id="directorProcedimiento" name="directorProcedimiento" type="text" maxlength="15" class="validate" required>
                         <label for="directorProcedimiento">Director del procedimiento</label>                                                      
-                    </div>
-                    <div class="input-field col s12 m12 l6">
-                        <i class="material-icons prefix">timeline</i>
-                        <input id="frecuenciaFormato" name="frecuenciaFormato" type="text" maxlength="50" class="validate" required>
-                        <label for="frecuenciaFormato">Frecuencia de uso del formato</label>                                                      
-                    </div>
+                    </div>                    
                     <div class="input-field col s12 m12 l6">
                         <i class="material-icons prefix">list</i>
                         <input id="tipoFormato" name="tipoFormato" type="text" maxlength="50" class="validate" required>
                         <label for="tipoFormato">tipo de contenido</label>                                                      
-                    </div>                    
+                    </div>  
+                    <div class="input-field col s12 m12 l6">   
+                        <select id="frecuenciaFormato" name="frecuenciaFormato" class="validate" required >  
+                            <option value="1">Hora</option>
+                            <option value="2">Turno</option>                        
+                            <option value="3">Turno administración</option>                        
+                            <option value="4">Diario</option>                        
+                            <option value="5">Semanal</option>                        
+                            <option value="6">Ocasional</option>                        
+                            <option value="7">Libre</option>                        
+                        </select>
+                    </div>
                     <div class="input-field col s12 m12 l12">
                         <i class="material-icons prefix">description</i>
                         <textarea id="descripcionFormato" name="descripcionFormato" class="materialize-textarea" ></textarea>

@@ -9,7 +9,7 @@
                             Consultar formato
                         </a>
                     </li>            
-                    <li class="collection-item">
+                    <li class="collection-item" >
                         <a href="?RegistrarFormato" id="registrarF" class=" colorTexto">
                             <i class="material-icons">note_add</i>
                             Crear formato
@@ -18,7 +18,7 @@
                 </ul>               
             </div>
             <div class="col l9 m12 s12">
-                <div class="collection">
+                <div class="collection" style="overflow: visible">
                     <?php
                     $seccion = basename($_SERVER['QUERY_STRING']);
                     if (empty($seccion)) {
