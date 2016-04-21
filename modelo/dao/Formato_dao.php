@@ -70,10 +70,11 @@ class Formato_dao {
         if ($sentencia->execute()) {
             $this->formato->crear($codigo, $nombre, $descripcion, $procedimiento, $director, $tipo, $frecuencia, $html);
         } else {
+//            echo $sentencia->error;
             $this->formato = null;
         }
         $sentencia->close();
-        $this->mysqli->close();
+//        $this->mysqli->close();
         return $this->formato;
     }
 
