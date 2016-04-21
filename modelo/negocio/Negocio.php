@@ -102,6 +102,7 @@ class Negocio {
 
     public function guardarFormato($codigo, $nombre, $procedimiento, $director, $frecuencia, $tipo, $descripcion, $html) {
         $formato = $this->formato->guardarFormato($codigo, $nombre, $procedimiento, $director, $frecuencia, $tipo, $descripcion, $html);
+        echo $formato;
         if (!is_null($formato)) {
             $this->formato->crearTablaInfo($codigo);
             return 'Formato registrado con éxito';

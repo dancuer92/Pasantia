@@ -225,7 +225,6 @@ class Formato_controller {
                 $fecha = $array["fecha"];
                 $usuario = $array["usuario"];
                 $estado = $array["estado"];
-                $datos = $array["informacion"];
 
                 $mensaje .= $this->listar($fecha, $usuario, $estado);
             }

@@ -1,4 +1,5 @@
 <?php
+
 //header("Content-Type: text/html;charset=utf-8");
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -48,44 +49,44 @@ class Formato_dto {
     public function getFrecuencia() {
         return $this->frecuencia;
     }
-    
+
     public function getHtml() {
         return $this->html;
     }
-    
+
     public function setCod_formato($codigo) {
-        $this->cod_formato=$codigo;
+        $this->cod_formato = $codigo;
     }
 
     public function setNombre($nombre) {
-        $this->nombre=$nombre;
+        $this->nombre = $nombre;
     }
-    
+
     public function setObservaciones($observaciones) {
-        $this->observaciones=$observaciones;
+        $this->observaciones = $observaciones;
     }
 
     public function setProcedimiento($procedimiento) {
-        $this->procedimiento=$procedimiento;
+        $this->procedimiento = $procedimiento;
     }
 
     public function setJefe_procedimiento($jefe) {
-        $this->jefe_procedimiento=$jefe;
+        $this->jefe_procedimiento = $jefe;
     }
 
     public function setDescripcion($descripcion) {
-        $this->descripcion=$descripcion;
+        $this->descripcion = $descripcion;
     }
 
     public function setFrecuencia($frecuencia) {
-        $this->frecuencia=$frecuencia;
-    }
-    
-    public function setHtml($html) {
-        $this->html=$html;
+        $this->frecuencia = $frecuencia;
     }
 
-    public function crear($cod_formato, $nombre, $observaciones, $procedimiento, $jefe_procedimiento, $descripcion_contenido, $frecuencia_uso,$html) {
+    public function setHtml($html) {
+        $this->html = $html;
+    }
+
+    public function crear($cod_formato, $nombre, $observaciones, $procedimiento, $jefe_procedimiento, $descripcion_contenido, $frecuencia_uso, $html) {
         $this->cod_formato = $cod_formato;
         $this->nombre = $nombre;
         $this->observaciones = $observaciones;
@@ -93,20 +94,20 @@ class Formato_dto {
         $this->jefe_procedimiento = $jefe_procedimiento;
         $this->descripcion = $descripcion_contenido;
         $this->frecuencia = $frecuencia_uso;
-        $this->html=$html;
+        $this->html = $html;
     }
 
-    public function toJSON() {        
-        $arr = array("cod_formato"=>$this->cod_formato,
-                "nombre"=>$this->nombre, 
-                "observaciones"=> $this->observaciones, 
-                "procedimiento"=>$this->procedimiento ,
-                "jefe_procedimiento"=>$this->jefe_procedimiento ,
-                "descripcion"=>$this->descripcion ,
-                "frecuencia"=>$this->frecuencia ,
-                "codigo_html"=>$this->html );
-        
-        $json=  json_encode($arr);
+    public function toJSON() {
+        $arr = array("cod_formato" => $this->cod_formato,
+            "nombre" => $this->nombre,
+            "observaciones" => $this->observaciones,
+            "procedimiento" => $this->procedimiento,
+            "jefe_procedimiento" => $this->jefe_procedimiento,
+            "descripcion" => $this->descripcion,
+            "frecuencia" => $this->frecuencia,
+            "codigo_html" => $this->html);
+
+        $json = json_encode($arr);
         return $json;
     }
 

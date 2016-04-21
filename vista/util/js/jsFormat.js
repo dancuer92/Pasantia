@@ -66,7 +66,7 @@ function guardarRegistroFormato() {
 //    var res = $('#res1').text(formato);
     console.log(codigoF, nombreF);
 
-    if (codigoF != '') {
+    if (codigoF !== '') {
         $.post("../../controlador/Formato_controller.php",
                 {codigoF: codigoF, nombreF: nombreF, procedimientoF: procedimientoF, directorF: directorF, frecuenciaF: frecuenciaF, tipoF: tipoF, descripcionF: descripcionF, codigoHTML: formato, opcion: 'guardarFormato'},
         function (mensaje) {

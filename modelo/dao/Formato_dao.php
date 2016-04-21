@@ -1,4 +1,5 @@
 <?php
+
 //header("Content-Type: text/html;charset=utf-8");
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -15,11 +16,11 @@ class Formato_dao {
 
     public function __construct() {
         $this->mysqli = new Conexion();
-        mysqli_set_charset( $this->mysqli, 'utf8');
+        mysqli_set_charset($this->mysqli, 'utf8');
         $this->formato = new Formato_dto();
     }
 
-    function cargarFormatos($ref_formato,$tipo,$codigo) {
+    function cargarFormatos($ref_formato, $tipo, $codigo) {
         $mensaje = "";
         $sql = '';
         $formatos = array();
@@ -72,12 +73,13 @@ class Formato_dao {
             $this->formato = null;
         }
         $sentencia->close();
-//        $this->mysqli->close();
+        $this->mysqli->close();
         return $this->formato;
     }
 
     public function crearTablaInfo($formato) {
         $mensaje = '';
+        $formato = strtolower($formato);
         $sql = "CREATE TABLE `info_$formato` (
                     `id` int(11) NOT NULL,
                     `fecha` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -90,10 +92,10 @@ class Formato_dao {
                     ADD PRIMARY KEY (`id`),
                     MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;";
 //        echo $sql;
-        if(!$this->mysqli->multi_query($sql)){
+        if (!$this->mysqli->multi_query($sql)) {
             $this->mysqli->error;
         }
-        
+
         $this->mysqli->close();
         return $mensaje;
     }
@@ -185,7 +187,7 @@ class Formato_dao {
     public function historialFormato($formato) {
         $sql = "SELECT `fecha_modificacion`,`detalle_modificacion`,`id_usuario`,`observaciones_formato` "
                 . "FROM `modificaciones_formato` WHERE id_formato=?;";
-        
+
         $json = array();
 
         if (!$sentencia = $this->mysqli->prepare($sql)) {
