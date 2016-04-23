@@ -1,5 +1,5 @@
 
-<footer class="page-footer center">
+<footer id="footer" class="page-footer center">
     <div class="container">
         <div class="row">
             <div class="col l2 m4 s12"><a class="waves-effect waves-red " href="http://www.mintic.gov.co"><img class="responsive-img logo_pie" src="<?php echo $ruta ?>mintic.png" alt="MinTIC"></a></div>
@@ -12,8 +12,8 @@
     </div>
     <div class="footer-copyright">
         <div class="container">
-            <h6 class="white-text " >Copyright © Cerámica Italia S.A. 2015</h6>
-            <h6 class="white-text ">Avda 3 Calle 23AN Zona Industrial. Cúcuta, Norte de Santander, Colombia.
+            <h6 class="black-text" >Copyright © Cerámica Italia S.A. 2016</h6>
+            <h6 class="black-text">Avda 3 Calle 23AN Zona Industrial. Cúcuta, Norte de Santander, Colombia.
                 <br>+57-7-5829800 - 018000111568</h6>                    
         </div>
     </div>

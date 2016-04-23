@@ -53,7 +53,7 @@ class Informacion_dao {
         $formato = strtolower($formato);
 //        echo $formato;
 
-        $sql = "SELECT `fecha`, `usuario`, `estado`, `informacion` FROM info_$formato ;";
+        $sql = "SELECT `fecha`, `usuario`, `estado`, `informacion` FROM `info_$formato` ;";
 
         if (!$sentencia = $this->mysqli->prepare($sql)) {
             $mensaje.=$this->mysqli->error;
