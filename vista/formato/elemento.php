@@ -41,6 +41,12 @@ switch ($opcion) {
     case("element-option"):
         getOpcion();
         break;
+    case("element-date"):
+        getFecha();
+        break;
+    case("element-time"):
+        getHora();
+        break;
 }
 
 function getInputText() {
@@ -124,6 +130,22 @@ function getOpcion() {
 function getSectionBreak(){
     $msj='<div class="formato ui-state-default" style="width:100%;">'
             . '<label>Separador</label>'
+            . '</div>';
+    echo $msj;
+}
+
+function getFecha(){
+    $msj = '<div class="formato form-group ui-state-default ">'
+            . '<label >Fecha</label>'
+            . '<input id="fecharegistro" name="fecharegistro" type="date" disabled/>'
+            . '</div>';
+    echo $msj;
+}
+
+function getHora(){
+    $msj = '<div class="formato form-group ui-state-default ">'
+            . '<label >Hora</label>'
+            . '<input id="horaregistro" name="horaregistro" type="time" disabled/>'
             . '</div>';
     echo $msj;
 }

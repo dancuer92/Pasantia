@@ -14,7 +14,7 @@
                 </ul>               
             </div>
             <div class="col l9 m12 s12">
-                <div class="collection">
+                <div class="collection" >
                     <?php include './formato/consultarFormato.php'; ?>
                 </div>               
             </div>

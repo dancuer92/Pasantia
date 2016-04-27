@@ -83,10 +83,12 @@ class Formato_dao {
         $formato = strtolower($formato);
         $sql = "CREATE TABLE `info_$formato` (
                     `id` int(11) NOT NULL,
-                    `fecha` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                    `fecha_registro_sistema` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                    `fecha_formato_diligenciado` date NOT NULL,
                     `usuario` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
                     `estado` tinyint(4) NOT NULL,
-                    `informacion` text COLLATE utf8_spanish_ci NOT NULL
+                    `informacion` text COLLATE utf8_spanish_ci NOT NULL,
+                    `observaciones` text COLLATE utf8_spanish_ci
                 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
                 ALTER TABLE `info_$formato`

@@ -1,4 +1,5 @@
 <?php
+
 //header("Content-Type: text/html;charset=utf-8");
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -15,9 +16,9 @@ $formato_controller = new Formato_controller();
 switch ($option) {
     case 'cargarFormatos':
         $formato = $_POST['formato'];
-        $tipo=$_SESSION['tipo'];
-        $codigo=$_SESSION['codigo'];
-        $formato_controller->cargarFormatos($formato,$tipo,$codigo);
+        $tipo = $_SESSION['tipo'];
+        $codigo = $_SESSION['codigo'];
+        $formato_controller->cargarFormatos($formato, $tipo, $codigo);
         break;
     case 'guardarFormato':
         $codigo = $_POST['codigoF'];
@@ -42,9 +43,9 @@ switch ($option) {
         break;
     case 'visualizarFormato':
         $formato = $_POST['formato'];
-        $tipo=$_SESSION['tipo'];
-        $codigo=$_SESSION['codigo'];
-        $formato_controller->visualizarFormato($formato,$tipo,$codigo);
+        $tipo = $_SESSION['tipo'];
+        $codigo = $_SESSION['codigo'];
+        $formato_controller->visualizarFormato($formato, $tipo, $codigo);
         break;
     case 'modificarFormato':
         $usuario = $_SESSION['codigo'];
@@ -60,20 +61,21 @@ switch ($option) {
         break;
     case 'diligenciarFormato':
         $formato = $_POST['formato'];
+        $fechaFormato = $_POST['fechaFormato'];
+        $observaciones = $_POST['observaciones'];
         $info = $_POST['info'];
         $usuario = $_SESSION['codigo'];
-        $formato_controller->diligenciarFormato($usuario, $formato, $info);
+        $formato_controller->diligenciarFormato($fechaFormato, $usuario, $formato, $info, $observaciones);
         break;
     case 'mostrarRegistrosFormato':
         $formato = $_POST['formato'];
         $formato_controller->mostrarRegistrosFormato($formato);
         break;
     case 'verDatos':
-        $formato=$_POST['formato'];
-        $fecha=$_POST['fecha'];
-        $formato_controller->verDatos($formato,$fecha);
+        $formato = $_POST['formato'];
+        $fecha = $_POST['fecha'];
+        $formato_controller->verDatos($formato, $fecha);
         break;
-    
 }
 
 class Formato_controller {
@@ -84,10 +86,10 @@ class Formato_controller {
         $this->facade = new Facade();
     }
 
-    public function cargarFormatos($formato,$tipo,$codigo) {
+    public function cargarFormatos($formato, $tipo, $codigo) {
         $mensaje = '';
 
-        $formatos = $this->facade->cargarFormatos($formato,$tipo,$codigo);
+        $formatos = $this->facade->cargarFormatos($formato, $tipo, $codigo);
 //        echo $json.'controller';
         if (count($formatos) == 0) {
             $mensaje = '<strong> El formato consultado no existe </Strong>';
@@ -113,12 +115,16 @@ class Formato_controller {
 
     public function cargarBotones($cod, $nombre, $observaciones, $procedimiento, $jefe) {
         $mensaje = '<li class="collection-item avatar">
-                            <i class="large material-icons left grey-text text-lighten-1 tooltipped" data-position="bottom" data-delay="50" data-tooltip="VER">description</i>
-                            <p><strong>' . $cod . '</strong></p>
-                            <p>' . $nombre . '</p>
-                            <p>' . $observaciones . '</p>
-                            <p>' . $procedimiento . '</p>
-                            <p>' . $jefe . '</p>';
+                            <div class="col l2 m3 s12">
+                                <a class="left grey-text text-lighten-1 tooltipped" data-position="bottom" data-delay="50" data-tooltip="VER" onclick="visualizarFormato(&' . $cod . '&)"><i class="large material-icons">description</i></a>
+                            </div>
+                            <div class="col l10 m9 s12">
+                                <p><strong>' . $cod . '</strong></p>
+                                <p>' . $nombre . '</p>
+                                <p>' . $observaciones . '</p>
+                                <p>' . $procedimiento . '</p>
+                                <p>' . $jefe . '</p>
+                            </div>';
         switch ($_SESSION['tipo']) {
             case 'administrador':
                 $mensaje.='<a class="btn-floating red hoverable tooltipped modal-trigger" data-position="top" data-delay="50" data-tooltip="Asignar" onclick="asignarFormato(&' . $cod . '&);"><i class="material-icons">input</i></a>'
@@ -160,9 +166,9 @@ class Formato_controller {
         echo $mensaje;
     }
 
-    public function visualizarFormato($formato,$tipo,$codigo) {
+    public function visualizarFormato($formato, $tipo, $codigo) {
         $mensaje = '';
-        $mensaje = $this->facade->visualizarFormato($formato,$tipo,$codigo);
+        $mensaje = $this->facade->visualizarFormato($formato, $tipo, $codigo);
         echo $mensaje;
     }
 
@@ -206,9 +212,9 @@ class Formato_controller {
         return $mensaje;
     }
 
-    public function diligenciarFormato($usuario, $formato, $info) {
+    public function diligenciarFormato($fechaFormato, $usuario, $formato, $info,$observaciones) {
         $mensaje = '';
-        $mensaje = $this->facade->diligenciarFormato($usuario, $formato, $info);
+        $mensaje = $this->facade->diligenciarFormato($fechaFormato, $usuario, $formato, $info,$observaciones);
         echo $mensaje;
     }
 
@@ -222,41 +228,44 @@ class Formato_controller {
 
             foreach ($informacion as $info) {
                 $array = json_decode($info, true);
-                $fecha = $array["fecha"];
+                $fecha = $array["fecha_sistema"];
+                $fechaFormato = $array["fecha_formato"];
                 $usuario = $array["usuario"];
                 $estado = $array["estado"];
+                $observaciones = $array["observaciones"];
 
-                $mensaje .= $this->listar($fecha, $usuario, $estado);
+                $mensaje .= $this->listar($fecha, $fechaFormato, $usuario, $estado, $observaciones);
             }
             $mensaje = str_replace("&", "'", $mensaje);
         }
         echo $mensaje;
     }
 
-    public function listar($fecha, $usuario, $estado) {
+    public function listar($fecha, $fechaFormato, $usuario, $estado, $observaciones) {
         $mensaje = '<tr>'
                 . '<td>' . $fecha . '</td>'
+                . '<td>' . $fechaFormato . '</td>'
                 . '<td>' . $usuario . '</td>'
                 . '<td>' . $estado . '</td>'
+                . '<td>' . $observaciones . '</td>'
                 . '<td>'
                 . '<a class="hoverable" onclick="verDatos(&' . $fecha . '&)"> Ver</a>'
                 . '</td>'
                 . '</tr>';
         return $mensaje;
     }
-    
-    public function verDatos($formato,$fecha){
+
+    public function verDatos($formato, $fecha) {
         $mensaje = '';
         $informacion = $this->facade->verDatos($formato, $fecha);
 
         if (count($informacion) == 0) {
-            $mensaje = '<strong> No existe el registro con la fecha '.$fecha.' </Strong>';
+            $mensaje = '<strong> No existe el registro con la fecha ' . $fecha . ' </Strong>';
         } else {
-            foreach ($informacion as $info) {   
-                echo $info;                
+            foreach ($informacion as $info) {
+                echo $info;
             }
         }
-        
     }
 
 }

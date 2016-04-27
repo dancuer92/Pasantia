@@ -170,16 +170,21 @@ class Negocio {
         return $this->formato->historialFormato($formato);        
     }
     
-    public function diligenciarFormato($usuario,$formato,$info){
+    public function diligenciarFormato($fechaFormato, $usuario, $formato, $info,$observaciones){
         $msj='';
-        echo $info;
+//        echo $info;
         $info=$this->validarInformacion($info);
-        echo $info;
+//        echo $info;
         if(is_null($info)){
             return 'Por favor ingrese los datos correspondientes al formato';            
         }
+        if($fechaFormato==''){
+            date_default_timezone_set('America/Bogota');
+            $fechaFormato= date('Y/m/d', time());
+//            echo date('Y/m/d H:i:s', time());
+        }
         
-        $informacion = $this->info->guardarInfo($usuario,$formato,$info);
+        $informacion = $this->info->guardarInfo($fechaFormato, $usuario, $formato, $info,$observaciones);
         if (!is_null($informacion)) {
             $msj= 'Información registrada con éxito';
         } else {

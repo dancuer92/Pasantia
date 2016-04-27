@@ -117,7 +117,7 @@ function cargarHistorial(formato) {
     $.post('../../controlador/Formato_controller.php', {formato: formato, opcion: 'historialFormato'},
     function (mensaje) {
         $('#tabla_historial tbody').append(mensaje);
-        $('#tabla_historial').DataTable({responsive:true});
+        $('#tabla_historial').DataTable({responsive: true});
     });
 }
 
@@ -129,7 +129,7 @@ function diligenciarFormato(cod) {
 function guardarDiligenciaFormato() {
     var formato = sessionStorage.getItem('formato');
     var requeridos = validarRequeridos();
-        
+
     if (requeridos) {
 //        var info = JSON.stringify($('#diligenciarFormato').serializeArray());
 //        var info = JSON.stringify($('#diligenciarFormato'));
@@ -140,11 +140,14 @@ function guardarDiligenciaFormato() {
 //        console.log(info);
 //        $('#res1').html(info.toString());
 
-        var info = $('#diligenciarFormato').serialize();
-        $.post('../../controlador/Formato_controller.php', {formato: formato, info: info, opcion: 'diligenciarFormato'},
+        var info = $('#visualizarFormato').serialize();
+        var fechaFormato=$('#fecharegistro').val();
+        var observaciones=$('#observaciones').val();
+        $.post('../../controlador/Formato_controller.php', {formato: formato, fechaFormato:fechaFormato,observaciones:observaciones, info: info, opcion: 'diligenciarFormato'},
         function (mensaje) {
 //            confirm(mensaje);
-            console.log(mensaje);
+            $('#res1').html(mensaje);
+//            console.log(mensaje);
         });
     }
 }
@@ -191,8 +194,54 @@ function mostrarRegistrosFormato(cod) {
     location.href = ('formato/mostrarRegistrosFormato.php');
 }
 
-function verDatos(fecha){
+function verDatos(fecha) {
     sessionStorage.setItem('fecha', fecha);
     location.href = ('mostrarRegistro.php');
 }
 
+function cargarRegistro() {
+    var formato = sessionStorage.getItem('formato');
+    var fecha = sessionStorage.getItem('fecha');
+    console.log(formato, fecha);
+
+    $.post("../../controlador/Formato_controller.php", {formato: formato, opcion: "visualizarFormato"},
+    function (mensaje) {
+        $('#ver_datos').prepend(mensaje);
+        $('div').css('border-style', 'none');
+        $('select').attr('disabled', true);        
+    });
+
+    $.post("../../controlador/Formato_controller.php", {formato: formato, fecha: fecha, opcion: "verDatos"},
+    function (mensaje) {
+        var arreglo = mensaje.split(';');
+        for (i = 0; i < arreglo.length - 1; i++) {
+            var div = arreglo[i].split('=');
+            var clave = '#' + div[0];
+
+            var valor = div[1].replace(/ +/g, ' ');
+            var name = 'input[name=' + div[0] + ']';
+            $(name).prop('checked', true);
+
+            $(name).val(valor);
+            $(clave).val(valor);
+        }
+    });
+}
+
+function visualizarFormato(cod) {
+    sessionStorage.setItem('formato', cod);
+    location.href = ('formato/visualizarFormato.php');
+}
+
+function verFormato() {
+    var formato = sessionStorage.getItem('formato');
+    console.log(formato);
+
+    $.post("../../controlador/Formato_controller.php", {formato: formato, opcion: "visualizarFormato"},
+    function (mensaje) {
+        $('#visualizarFormato').prepend(mensaje);
+        $('div').css('border-style', 'none');
+        $('input').attr('disabled', false);
+        $('textarea').attr('disabled', false);
+    });
+}

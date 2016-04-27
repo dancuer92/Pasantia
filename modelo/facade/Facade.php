@@ -80,8 +80,8 @@ class Facade {
         return $msj;
     }
     
-    public function diligenciarFormato($usuario,$formato,$info){
-        $msj=$this->negocio->diligenciarFormato($usuario,$formato,$info);
+    public function diligenciarFormato($fechaFormato, $usuario, $formato, $info,$observaciones){
+        $msj=$this->negocio->diligenciarFormato($fechaFormato, $usuario, $formato, $info,$observaciones);
         return $msj;
     }
     

@@ -154,7 +154,7 @@ function cambiarTitulo() {
         //Se modifica el nombre según el tipo de entrada que posee el formato.
         if (tipo === 'text' || tipo === 'number') {
             elem.attr('id', titulo);
-            elem.attr('name',titulo);
+            elem.attr('name', titulo);
         }
         else {
             //Modificación de otros tipos de entrada.
@@ -413,7 +413,7 @@ function rename() {
         var nombreOpcion = titulo + "-" + i;
         $(this).attr('id', nombreOpcion);
         $(this).attr('name', titulo);
-        
+
         if ($(this).attr('type') === 'checkbox') {
             $(this).attr('name', nombreOpcion);
         }

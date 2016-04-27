@@ -1,7 +1,7 @@
 <?php
 session_start();
 ////Validamos si existe realmente una sesión activa o no 
-if ($_SESSION["tipo"] !== "supervisor" && $_SESSION["tipo"]!=="operario") {
+if ($_SESSION["tipo"] !== "supervisor" && $_SESSION["tipo"] !== "operario") {
     //Si no hay sesión activa, lo direccionamos al index.php (inicio de sesión)
     header("Location: ../../index.php");
     exit();
@@ -29,16 +29,7 @@ if ($_SESSION["tipo"] !== "supervisor" && $_SESSION["tipo"]!=="operario") {
 
         <script>
             $(document).ready(function () {
-                var formato = sessionStorage.getItem('formato');
-                console.log(formato);                
-                
-                $.post("../../controlador/Formato_controller.php", {formato: formato, opcion: "visualizarFormato"},
-                function (mensaje) {
-                    $('#diligenciarFormato').prepend(mensaje);
-                    $('input').attr('disabled', false);
-                    $('div').css('border-style', 'none');
-                    $('textarea').attr('disabled', false);
-                });
+                verFormato();
             });
         </script>
 
@@ -51,13 +42,14 @@ if ($_SESSION["tipo"] !== "supervisor" && $_SESSION["tipo"]!=="operario") {
             <?php include_once './panel_header.php'; ?>
         </header>
         <main>
-            <h1 class="titulo"><i class="material-icons prefix" style="font-size: 43px">keyboard</i> Crear formato</h1>
+            <h1 class="titulo"><i class="material-icons prefix" style="font-size: 43px">keyboard</i> Diligenciar formato</h1>
             <div class="container center">
-                <form id="diligenciarFormato" method="POST">
-                    <div class="col-lg-12 col-sm-12 col-md-12 divMayor" id="guardarFormato">
-                        <button class="btn btn-success btn-lg center-block" id="saveFormato" onclick="guardarDiligenciaFormato();">GUARDAR</button>
-                    </div>
+                <form id="visualizarFormato">
+
                 </form>
+                <div class="col-lg-12 col-sm-12 col-md-12 divMayor" id="guardarFormato">
+                    <button class="btn btn-success btn-lg center-block" id="saveFormato" onclick="guardarDiligenciaFormato();">GUARDAR</button>
+                </div>
             </div>
             <div id="res1"></div>
         </main>

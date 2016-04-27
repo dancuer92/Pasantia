@@ -17,18 +17,18 @@
         <!--  Scripts-->
         <script src="../util/js/jquery-2.1.4.min.js"></script>
         <script src="http://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
-        <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
         <script>
             $(document).ready(function () {
                 $('#diligenciarFormato');
-            });
-        </script>
+                $('.tooltipped').tooltip();
+            });</script>
 
 
     </head>
     <body>     
         <div  class="container">
-            <table id="diligenciarFormato" class="highlight ">
+            <table id="diligenciarFormato" class="highlight responsive-table">
                 <thead>
                     <tr>
                         <th>Código del formato</th>
@@ -74,6 +74,89 @@
                     </tr>
                 </tbody>
             </table>
+
+            <div class="row">
+                <div class="col s12">
+                    <div id="test2" class="col s12">
+                        <div class="col l3 row hide-on-med-and-down">
+                            <ul class="collection">            
+                                <li class="collection-item colorTexto">
+                                    <i class="material-icons">search</i>Consultar formato
+                                </li>                    
+                            </ul>               
+                        </div>
+                        <div class="col l9 m12 s12">
+                            <div class="collection"><div id="consultarFormat" class="contenido">
+                                    <form class="s12 m4" id="formConsFormat" method="POST" action=""> 
+                                        <div class="center" >
+                                            <h3><i class="material-icons prefix" style="font-size: 2.92rem">search</i> Consultar Formato</h3>
+                                            <div class="input-field col s12 m12 l12">
+                                                <i class="material-icons prefix">description</i>
+                                                <input id="cod_formato" name="cod_formato" type="text" maxlength="15" class="validate" required onkeyup="autocompletarFormato();">
+                                                <label for="cod_formato">Seleccione un formato</label>                           
+                                            </div>
+                                            <div class="col s12 m12 l12">
+                                                <ul id="tabla_formatos" class="collection">
+                                                    <li class="collection-item avatar">
+                                                        <div class="col l2 m3 s12">
+                                                            <a class="left grey-text text-lighten-1 tooltipped" data-position="bottom" data-delay="50" data-tooltip="VER" ><i class="large material-icons">description</i></a>
+                                                        </div>
+                                                        <div class="col l10 m9 s12">
+                                                            <p><strong>Test</strong></p>
+                                                            <p> Formato de prueba</p>
+                                                            <p> Observaciones foprmato</p>
+                                                            <p> Proccess</p>
+                                                            <p> Boss</p>
+                                                        </div>
+                                                        <a class="btn-floating red hoverable tooltipped modal-trigger" data-position="top" data-delay="50" data-tooltip="Asignar" ><i class="material-icons">input</i></a>
+                                                        <a class="btn-floating red hoverable tooltipped modal-trigger" data-position="top" data-delay="50" data-tooltip="Desasignar" ><i class="material-icons">visibility_off</i></a>
+                                                    </li>
+                                                    <li class="collection-item avatar">
+                                                        <div class="col l2 m3 s12">
+                                                            <a class="left grey-text text-lighten-1 tooltipped" data-position="bottom" data-delay="50" data-tooltip="VER" ><i class="large material-icons">description</i></a>
+                                                        </div>
+                                                        <div class="col l10 m9 s12">
+                                                            <p><strong>Test</strong></p>
+                                                            <p> Formato de prueba</p>
+                                                            <p> Observaciones foprmato</p>
+                                                            <p> Proccess</p>
+                                                            <p> Boss</p>
+                                                        </div>
+                                                        <a class="btn-floating red hoverable tooltipped modal-trigger" data-position="top" data-delay="50" data-tooltip="Asignar" ><i class="material-icons">input</i></a>
+                                                        <a class="btn-floating red hoverable tooltipped modal-trigger" data-position="top" data-delay="50" data-tooltip="Desasignar" ><i class="material-icons">visibility_off</i></a>
+                                                    </li>
+                                                    <li class="collection-item avatar">
+                                                        <div class="col l2 m3 s12">
+                                                            <a class="left grey-text text-lighten-1 tooltipped" data-position="bottom" data-delay="50" data-tooltip="VER" ><i class="large material-icons">description</i></a>
+                                                        </div>
+                                                        <div class="col l10 m9 s12">
+                                                            <p><strong>Test</strong></p>
+                                                            <p> Formato de prueba</p>
+                                                            <p> Observaciones foprmato</p>
+                                                            <p> Proccess</p>
+                                                            <p> Boss</p>
+                                                        </div>
+                                                        <a class="btn-floating red hoverable tooltipped modal-trigger" data-position="top" data-delay="50" data-tooltip="Asignar" ><i class="material-icons">input</i></a>
+                                                        <a class="btn-floating red hoverable tooltipped modal-trigger" data-position="top" data-delay="50" data-tooltip="Desasignar" ><i class="material-icons">visibility_off</i></a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>                                
+                            </div>               
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <form method="post" action="Tabla.php">
+                <div class="formato form-group ui-state-default ">
+                    <label >Untitled </label>
+                    <input id="untitled" name="untitled" type="datetime-local" required/>
+                </div>
+                <button type="submit">send</button>
+            </form>
         </div>
     </body>
 

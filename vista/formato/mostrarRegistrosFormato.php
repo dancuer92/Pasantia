@@ -56,14 +56,16 @@ if ($_SESSION["tipo"] !== "supervisor" && $_SESSION["tipo"] !== "operario") {
         </header>
 
         <main>
-            <h1 class="titulo"><i class="material-icons prefix" style="font-size: 43px">find_in_page</i> Mostrar registros del formato</h1>
+            <h1 class="titulo"><i class="material-icons prefix" style="font-size: 43px">find_in_page</i> Mostrar histórico de registros del formato</h1>
             <div class="container center">
                 <table id="mostrarRegFormato" class="table table-hover">
                     <thead>
                         <tr>
                             <td>Fecha de registro en el sistema</td>
+                            <td>Fecha del formato</td>
                             <td>Usuario encargado</td>
                             <td>Estado del registro</td>
+                            <td>Observaciones</td>
                             <td></td>
                         </tr>
                     </thead>

@@ -23,6 +23,7 @@
                         <button class="btn btn-default  btn-block new-element" data-type="element-number" style="width: 100%;">Campo numérico</button>
                         <button class="btn btn-default  btn-block new-element" data-type="element-checkboxes" style="width: 100%;">C. de verificación</button>
                         <button class="btn btn-default  btn-block new-element" data-type="element-dropdown" style="width: 100%;">Lista desplegable</button>
+                        <button class="btn btn-default  btn-block new-element" data-type="element-time" style="width: 100%;">Hora</button>
                         <button class="btn btn-default  btn-block new-element" data-type="element-table" style="width: 100%;">Tabla</button>
                     </div>
                 </div>
