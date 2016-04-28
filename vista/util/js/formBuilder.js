@@ -496,7 +496,7 @@ function agregarFila() {
     var columnasTabla = $('.isSelected table tr:last td');
     //Se toma el número de filas y columnas que tiene la última fila
     var totalCol = $(columnasTabla).length;
-    var f = ($('.isSelected table tr').length)-1;
+    var f = ($('.isSelected table tr').length);
     //Se crea la nueva fila
     var fila = "<tr>";
     var col = "";
@@ -517,7 +517,7 @@ function agregarFila() {
 function agregarColumna() {
     //Se seleccionan todas las filas de la tabla y se recorren.
     var filasTabla = $('.isSelected table tr');
-    var c = ($('.isSelected table tr:last td').length)-1;
+    var c = ($('.isSelected table tr:last td').length);
     $(filasTabla).each(function (i) {
         //Se adiciona una celda que pertenezca al encabezado de la tabla.
         if (i == 0) {
