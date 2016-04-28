@@ -181,10 +181,10 @@ function cambiarTitulo() {
         if (elem.is('textarea') || elem.is('select')) {
             elem.attr('id', titulo);
             elem.attr('name', titulo);
-        }        
-        
-        if(elem.is('table')){
-            elem.attr('id',titulo);
+        }
+
+        if (elem.is('table')) {
+            elem.attr('id', titulo);
         }
     }
 
@@ -264,12 +264,12 @@ function mostrarConfiguraciones(div) {
             $('#requerido').hide();
 
         }
-        else if (elemento.children('table').html()) {            
-            $('table').on('click', 'td', function () {
+        else if (elemento.children('table').html()) {
+            $('table').on('dblclick', 'td', function () {
                 removerCeldasSeleccionadas();
                 $(this).addClass('hover');
                 cargarOpcionesCelda();
-            });            
+            });
             cargarOpcionesTabla();
             $('#requerido').hide();
             $('#opciones').show();
@@ -397,15 +397,15 @@ function cargarOpcionesTabla() {
  * 
  * @returns {undefined}
  */
-function cargarOpcionesCelda(){
-     
+function cargarOpcionesCelda() {
+
 }
 
 /**
  * Método para cambiar el estado de una celda, si es seleccinado o no
  * @returns {undefined}
  */
-function removerCeldasSeleccionadas(){
+function removerCeldasSeleccionadas() {
     $('.hover').removeClass('hover');
 }
 
@@ -503,7 +503,7 @@ function agregarFila() {
     //Se recorre el número de columnas
     for (var y = 0; y < totalCol; y++) {
         //Se adiciona una nueva celda por cada columna que se recorre
-        col += "<td><p>Untitled <p><input id='celda_"+f+"_"+y+"' name='celda_"+f+"_"+y+"' type='text' disabled></td>";
+        col += "<td><p> <p><input id='celda_" + (f - 1) + "_" + y + "' name='celda_" + (f - 1) + "_" + y + "' type='text' disabled></td>";
     }
     //Se añade la nueva fila creada al final de la tabla.
     var row = fila + col + "</tr>";
@@ -525,7 +525,7 @@ function agregarColumna() {
         }
         //Se adiciona una celda que pertenezca al cuerpo de la tabla.
         else {
-            $(this).append("<td><p>Untitled </p><input id='celda_"+i+"_"+c+"' name='celda_"+i+"_"+c+"' type='text' disabled></td>");
+            $(this).append("<td><p> </p><input id='celda_" + (i - 1) + "_" + c + "' name='celda_" + (i - 1) + "_" + c + "' type='text' disabled></td>");
         }
     });
 }

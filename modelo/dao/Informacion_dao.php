@@ -26,8 +26,8 @@ class Informacion_dao {
     public function guardarInfo($fecha_formato, $usuario, $formato, $info, $observaciones) {
         $mensaje = '';
         $estado = 0;
-        $sql = 'INSERT INTO `info_test`(`id`, `fecha_registro_sistema`, `fecha_formato_diligenciado`, `usuario`, `estado`, `informacion`, `observaciones`) '
-                . 'VALUES (null,CURRENT_TIMESTAMP,?,?,?,?,?);';
+        $formato = strtolower($formato);
+        $sql = "INSERT INTO `info_$formato`(`id`, `fecha_registro_sistema`, `fecha_formato_diligenciado`, `usuario`, `estado`, `informacion`, `observaciones`) VALUES (null,CURRENT_TIMESTAMP,?,?,?,?,?);";
 
         if (!$sentencia = $this->mysqli->prepare($sql)) {
             $mensaje.=$this->mysqli->error;

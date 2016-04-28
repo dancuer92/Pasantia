@@ -106,7 +106,7 @@ function getTable() {
             . '<label >Untitled </label>'
             . '<table id="tabla"><thead><th>Titulo 1</th></thead>'
             . '<tbody>'
-            . '<tr><td><p>Untitled </p><input id="celda_0_0" name="celda_0_0" type="text" disabled></td></tr>'
+            . '<tr><td><p> </p><input id="celda_0_0" name="celda_0_0" type="text" disabled></td></tr>'
             . '</tbody>'
             . '</table>'
             . '</div>';

@@ -1,5 +1,5 @@
 <?php
-//header("Content-Type: text/html;charset=utf-8");
+header("Content-Type: text/html;charset=utf-8");
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -173,9 +173,9 @@ class Negocio {
     public function diligenciarFormato($fechaFormato, $usuario, $formato, $info,$observaciones){
         $msj='';
 //        echo $info;
-        $info=$this->validarInformacion($info);
+        $info2=$this->validarInformacion($info);
 //        echo $info;
-        if(is_null($info)){
+        if(is_null($info2)){
             return 'Por favor ingrese los datos correspondientes al formato';            
         }
         if($fechaFormato==''){
@@ -184,7 +184,7 @@ class Negocio {
 //            echo date('Y/m/d H:i:s', time());
         }
         
-        $informacion = $this->info->guardarInfo($fechaFormato, $usuario, $formato, $info,$observaciones);
+        $informacion = $this->info->guardarInfo($fechaFormato, $usuario, $formato, $info2,$observaciones);
         if (!is_null($informacion)) {
             $msj= 'Información registrada con éxito';
         } else {

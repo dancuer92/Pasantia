@@ -141,7 +141,11 @@ function guardarDiligenciaFormato() {
 //        $('#res1').html(info.toString());
 
         var info = $('#visualizarFormato').serialize();
+        console.log(info);
         var fechaFormato=$('#fecharegistro').val();
+        if(fechaFormato===''){
+            fechaFormato='---';
+        }
         var observaciones=$('#observaciones').val();
         $.post('../../controlador/Formato_controller.php', {formato: formato, fechaFormato:fechaFormato,observaciones:observaciones, info: info, opcion: 'diligenciarFormato'},
         function (mensaje) {
@@ -153,7 +157,7 @@ function guardarDiligenciaFormato() {
 }
 
 function validarRequeridos() {
-    var requeridos = false;
+    var requeridos = true;
     $('input[required]').each(function () {
 //        console.log($(this).attr('id'));
         var value = $(this).val();
