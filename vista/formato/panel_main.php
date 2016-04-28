@@ -40,6 +40,9 @@
                     <br>
                     <div id="opciones">                                
                     </div>
+                    <div id="celdas">
+                        
+                    </div>
                     <br>
                     <div>
                         <button class="btn btn-danger btn-block" id="eliminar" name="eliminar" onclick="eliminar();">Eliminar elemento</button>

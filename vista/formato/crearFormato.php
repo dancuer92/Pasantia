@@ -33,9 +33,9 @@ if ($_SESSION["tipo"] !== "asistente") {
         <script type="text/javascript" src="../util/js/jquery-ui.js"></script>
         <script type="text/javascript" src="../util/js/jsFormat.js"></script>
         <script>
-            $(document).ready(function (){
+            $(document).ready(function () {
                 $('#formulario').hide();
-                $('#pestañaFormulario').hide();
+                $('#pestañaFormulario').hide();                
             });
         </script>
 
@@ -49,13 +49,13 @@ if ($_SESSION["tipo"] !== "asistente") {
         <!-- Contenido -->
         <main>
             <h1 class="titulo"><i class="material-icons prefix" style="font-size: 43px">note_add</i> Crear formato</h1>
-            <input type="hidden" id="codigoFormato" name="codigoFormato" value="<?php echo $_POST['codigoFormato']?>"/>
-            <input type="hidden" id="nombreFormato" name="nombreFormato" value="<?php echo $_POST['nombreFormato']?>"/>
-            <input type="hidden" id="procedimientoFormato" name="procedimientoFormato" value="<?php echo $_POST['procedimiento']?>"/>
-            <input type="hidden" id="directorProcedimiento" name="directorProcedimiento" value="<?php echo $_POST['directorProcedimiento']?>"/>
-            <input type="hidden" id="frecuenciaFormato" name="frecuenciaFormato" value="<?php echo $_POST['frecuenciaFormato']?>"/>
-            <input type="hidden" id="tipoFormato" name="tipoFormato" value="<?php echo $_POST['tipoFormato']?>"/>
-            <input type="hidden" id="descripcionFormato" name="descripcionFormato" value="<?php echo $_POST['descripcionFormato']?>"/>
+            <input type="hidden" id="codigoFormato" name="codigoFormato" value="<?php echo $_POST['codigoFormato'] ?>"/>
+            <input type="hidden" id="nombreFormato" name="nombreFormato" value="<?php echo $_POST['nombreFormato'] ?>"/>
+            <input type="hidden" id="procedimientoFormato" name="procedimientoFormato" value="<?php echo $_POST['procedimiento'] ?>"/>
+            <input type="hidden" id="directorProcedimiento" name="directorProcedimiento" value="<?php echo $_POST['directorProcedimiento'] ?>"/>
+            <input type="hidden" id="frecuenciaFormato" name="frecuenciaFormato" value="<?php echo $_POST['frecuenciaFormato'] ?>"/>
+            <input type="hidden" id="tipoFormato" name="tipoFormato" value="<?php echo $_POST['tipoFormato'] ?>"/>
+            <input type="hidden" id="descripcionFormato" name="descripcionFormato" value="<?php echo $_POST['descripcionFormato'] ?>"/>
             <?php include_once './panel_main.php'; ?>
             <div class="col-lg-12 col-sm-12 col-md-12 divMayor" id="guardarFormato">
                 <button class="btn btn-success btn-lg center-block" id="saveFormato" onclick="guardarRegistroFormato();">GUARDAR FORMATO</button>

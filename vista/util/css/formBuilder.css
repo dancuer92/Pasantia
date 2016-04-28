@@ -89,3 +89,7 @@ select{
     line-height: 110%;
     margin: 15px;
 }
+
+.hover{
+    background-color: #ccc;
+}

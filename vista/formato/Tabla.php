@@ -9,6 +9,11 @@
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css" type="text/css">
         <link rel="stylesheet" href="http://cdn.datatables.net/1.10.11/css/jquery.dataTables.min.css" type="text/css">
+        <style>
+            .hover{
+                background-color:lightpink;
+            }
+        </style>
 
         <!--<link href="../util/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>-->
         <!--<link href="vista/util/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>-->
@@ -22,13 +27,26 @@
             $(document).ready(function () {
                 $('#diligenciarFormato');
                 $('.tooltipped').tooltip();
-            });</script>
+                $("td").hover(
+                        function () {
+                            $(this).addClass("hover");
+                        },
+                        function () {
+                            $(this).removeClass("hover");
+                        }
+                );
+            });
+
+
+
+
+        </script>
 
 
     </head>
     <body>     
         <div  class="container">
-            <table id="diligenciarFormato" class="highlight responsive-table">
+            <table id="diligenciarFormato" class=" responsive-table">
                 <thead>
                     <tr>
                         <th>Código del formato</th>

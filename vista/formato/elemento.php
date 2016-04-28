@@ -103,9 +103,10 @@ function getRadio() {
 
 function getTable() {
     $msj = '<div class="formato ui-state-default">'
-            . '<table id="tabla" name="tabla"><thead><th><label>Titulo 1</label></th></thead>'
+            . '<label >Untitled </label>'
+            . '<table id="tabla"><thead><th>Titulo 1</th></thead>'
             . '<tbody>'
-            . '<tr><td><p>Untitled </p><input id="Untitled" name="untitled" type="text" disabled></td></tr>'
+            . '<tr><td><p>Untitled </p><input id="celda_0_0" name="celda_0_0" type="text" disabled></td></tr>'
             . '</tbody>'
             . '</table>'
             . '</div>';

@@ -4,7 +4,8 @@
  * and open the template in the editor.
  */
 
-$('crearFormato').ready(function () {
+$(document).ready(function () {
+
     var currentlySelected = '';
 
     /**
@@ -120,6 +121,19 @@ $('crearFormato').ready(function () {
             $('#obligatorio').val("false");
         }
     });
+
+
+//    $(".isSelected").on( "mouseenter",
+//        
+//            function () {
+//                $(this).addClass("hover");
+//                console.log($(this));
+//            },
+//            function () {
+//                $(this).removeClass("hover");
+//            }
+//    );
+
 });
 
 
@@ -167,6 +181,10 @@ function cambiarTitulo() {
         if (elem.is('textarea') || elem.is('select')) {
             elem.attr('id', titulo);
             elem.attr('name', titulo);
+        }        
+        
+        if(elem.is('table')){
+            elem.attr('id',titulo);
         }
     }
 
@@ -231,7 +249,7 @@ function mostrarConfiguraciones(div) {
 
     //Selecciona el tipo de entrada
     var tipo = elemento.children('input').attr('type');
-    console.log(tipo);
+//    console.log(tipo);
     if (tipo === 'checkbox' || tipo === 'radio') {
         $('#opciones').show();
         $('#requerido').hide();
@@ -246,7 +264,12 @@ function mostrarConfiguraciones(div) {
             $('#requerido').hide();
 
         }
-        else if (elemento.children('table').html()) {
+        else if (elemento.children('table').html()) {            
+            $('table').on('click', 'td', function () {
+                removerCeldasSeleccionadas();
+                $(this).addClass('hover');
+                cargarOpcionesCelda();
+            });            
             cargarOpcionesTabla();
             $('#requerido').hide();
             $('#opciones').show();
@@ -371,6 +394,22 @@ function cargarOpcionesTabla() {
 }
 
 /**
+ * 
+ * @returns {undefined}
+ */
+function cargarOpcionesCelda(){
+     
+}
+
+/**
+ * Método para cambiar el estado de una celda, si es seleccinado o no
+ * @returns {undefined}
+ */
+function removerCeldasSeleccionadas(){
+    $('.hover').removeClass('hover');
+}
+
+/**
  * Función que permite eliminar una opción del formato.
  * pos, es la posición del elemento a eliminar.
  * @param {type} pos
@@ -455,15 +494,16 @@ function eliminar() {
 function agregarFila() {
     //Se buscan las columnas de la última
     var columnasTabla = $('.isSelected table tr:last td');
-    //Se toma el número de columnas que tiene la última fila
+    //Se toma el número de filas y columnas que tiene la última fila
     var totalCol = $(columnasTabla).length;
+    var f = ($('.isSelected table tr').length)-1;
     //Se crea la nueva fila
     var fila = "<tr>";
     var col = "";
     //Se recorre el número de columnas
-    for (var x = 0; x < totalCol; x++) {
+    for (var y = 0; y < totalCol; y++) {
         //Se adiciona una nueva celda por cada columna que se recorre
-        col += "<td><p>Untitled <p><input id='Untitled' name='untitled' type='text' disabled></td>";
+        col += "<td><p>Untitled <p><input id='celda_"+f+"_"+y+"' name='celda_"+f+"_"+y+"' type='text' disabled></td>";
     }
     //Se añade la nueva fila creada al final de la tabla.
     var row = fila + col + "</tr>";
@@ -477,6 +517,7 @@ function agregarFila() {
 function agregarColumna() {
     //Se seleccionan todas las filas de la tabla y se recorren.
     var filasTabla = $('.isSelected table tr');
+    var c = ($('.isSelected table tr:last td').length)-1;
     $(filasTabla).each(function (i) {
         //Se adiciona una celda que pertenezca al encabezado de la tabla.
         if (i == 0) {
@@ -484,7 +525,7 @@ function agregarColumna() {
         }
         //Se adiciona una celda que pertenezca al cuerpo de la tabla.
         else {
-            $(this).append("<td><p>Untitled </p><input id='Untitled' name='untitled' type='text' disabled></td>");
+            $(this).append("<td><p>Untitled </p><input id='celda_"+i+"_"+c+"' name='celda_"+i+"_"+c+"' type='text' disabled></td>");
         }
     });
 }
