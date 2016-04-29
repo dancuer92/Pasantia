@@ -185,6 +185,7 @@ function cambiarTitulo() {
 
         if (elem.is('table')) {
             elem.attr('id', titulo);
+            cambiarNombreCeldas(titulo);
         }
     }
 
@@ -217,6 +218,24 @@ function nombrarElementos() {
  */
 function limpiarTitulo() {
     $('#cambiarTitulo').val('');
+}
+
+/**
+ * Método que permite cambiar el nombre de los input de la tabla
+ * el título corresponde al nombre de la tabla
+ * @param {type} titulo
+ * @returns {undefined}
+ */
+function cambiarNombreCeldas(titulo){
+    var tabla='#'+titulo+' input';
+    $(tabla).each(function(){
+        var input=$(this);
+        var id=$(input).attr('id');
+        var nombre = id.replace('celda', titulo);
+//        $(input).attr('id',nombre);
+//        console.log($(input).attr('id'));
+//        $(input).attr('name',nombre);
+    });
 }
 
 /**

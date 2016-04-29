@@ -58,7 +58,7 @@ if ($_SESSION["tipo"] !== "asistente") {
             <input type="hidden" id="descripcionFormato" name="descripcionFormato" value="<?php echo $_POST['descripcionFormato'] ?>"/>
             <?php include_once './panel_main.php'; ?>
             <div class="col-lg-12 col-sm-12 col-md-12 divMayor" id="guardarFormato">
-                <button class="btn btn-success btn-lg center-block" id="saveFormato" onclick="guardarRegistroFormato();">GUARDAR FORMATO</button>
+                <button class="btn btn-danger btn-lg center-block" id="saveFormato" onclick="guardarRegistroFormato();">GUARDAR FORMATO</button>
             </div>
             <div id="res1"></div>
         </main>    

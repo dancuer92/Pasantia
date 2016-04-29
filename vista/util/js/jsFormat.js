@@ -142,14 +142,15 @@ function guardarDiligenciaFormato() {
 
         var info = $('#visualizarFormato').serialize();
         console.log(info);
-        var fechaFormato=$('#fecharegistro').val();
-        if(fechaFormato===''){
-            fechaFormato='---';
+        var fechaFormato = $('#fecharegistro').val();
+        if (fechaFormato === '') {
+            fechaFormato = '---';
         }
-        var observaciones=$('#observaciones').val();
-        $.post('../../controlador/Formato_controller.php', {formato: formato, fechaFormato:fechaFormato,observaciones:observaciones, info: info, opcion: 'diligenciarFormato'},
+        var observaciones = $('#observaciones').val();
+        $.post('../../controlador/Formato_controller.php', {formato: formato, fechaFormato: fechaFormato, observaciones: observaciones, info: info, opcion: 'diligenciarFormato'},
         function (mensaje) {
 //            confirm(mensaje);
+            $('input').val('');
             $('#res1').html(mensaje);
 //            console.log(mensaje);
         });
@@ -157,16 +158,18 @@ function guardarDiligenciaFormato() {
 }
 
 function validarRequeridos() {
-    var requeridos = true;
+    var requeridos = false;
     $('input[required]').each(function () {
+        var input = $(this);
 //        console.log($(this).attr('id'));
-        var value = $(this).val();
-        if (value != '') {
+        var value = $(input).val();
+        if (value !== '') {
             requeridos = true;
         }
         else {
-//            alert('Favor rellenar los campos vacíos');
-            $(this).focus();
+            $('#myModal').modal('hide');
+            alert('Favor rellenar los campos vacíos: \n'+input.attr('id'));
+//            $(input).focus();
             requeridos = false;
             return false;
         }
@@ -212,7 +215,7 @@ function cargarRegistro() {
     function (mensaje) {
         $('#ver_datos').prepend(mensaje);
         $('div').css('border-style', 'none');
-        $('select').attr('disabled', true);        
+        $('select').attr('disabled', true);
     });
 
     $.post("../../controlador/Formato_controller.php", {formato: formato, fecha: fecha, opcion: "verDatos"},
