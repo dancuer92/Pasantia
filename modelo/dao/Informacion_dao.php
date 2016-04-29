@@ -95,5 +95,27 @@ class Informacion_dao {
         $this->mysqli->close();
         return $this->info;
     }
+    
+    public function modificarRegistroFormato($fecha_formato, $usuario, $formato, $info, $observaciones){
+        $sql = "UPDATE `info_$formato` SET `usuario`=?,`estado`=1,`informacion`=?,`observaciones`=?"
+                . " WHERE `fecha_registro_sistema`=?";
+        $filas = 0;
+
+        if (!$sentencia = $this->mysqli->prepare($sql)) {
+            echo $this->mysqli->error;
+        }
+
+        if (!$sentencia->bind_param("ssss", $usuario, $info, $observaciones, $fecha_formato)) {
+            echo $this->mysqli->error;
+        }
+
+        if ($sentencia->execute()) {
+            $filas = $sentencia->affected_rows;
+        }
+
+        $sentencia->close();
+        $this->mysqli->close();
+        return $filas;
+    }
 
 }

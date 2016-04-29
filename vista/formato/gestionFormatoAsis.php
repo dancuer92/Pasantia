@@ -18,7 +18,7 @@
                 </ul>               
             </div>
             <div class="col l9 m12 s12">
-                <div class="collection">
+                <div class="collection" style="overflow: auto">
                     <?php
                     $seccion = basename($_SERVER['QUERY_STRING']);
                     if (empty($seccion)) {

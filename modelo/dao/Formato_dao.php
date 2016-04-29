@@ -40,7 +40,7 @@ class Formato_dao {
 
 
         if (!$sentencia = $this->mysqli->prepare($sql)) {
-            echo $this->mysqli->error;
+//            echo $this->mysqli->error;
             $mensaje.= $this->mysqli->error;
         }
 

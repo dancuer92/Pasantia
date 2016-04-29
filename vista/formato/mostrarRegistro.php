@@ -30,6 +30,7 @@ if ($_SESSION["tipo"] !== "supervisor" && $_SESSION["tipo"] !== "operario") {
         <script>
             $(document).ready(function () {
                 cargarRegistro();
+                $('#guardarRegistro').hide();
             });
         </script>
 
@@ -45,9 +46,12 @@ if ($_SESSION["tipo"] !== "supervisor" && $_SESSION["tipo"] !== "operario") {
         <main>
             <h1 class="titulo"><i class="material-icons prefix" style="font-size: 43px">find_in_page</i> Mostrar registro del formato</h1>
             <div class="container center">   
-                <div id="ver_datos">
-                </div>
+                <form id="ver_datos">
+                </form>
+                <button id="modificarRegistro"type="button" class="btn btn-danger btn-lg center-block" onclick="modificarDiligenciaFormato();">MODIFICAR</button>
+                <button id="guardarRegistro" type="button" class="btn btn-danger btn-lg center-block" onclick="guardarMR();">GUARDAR</button>
             </div>
+            <div id="res1"></div>
         </main>
 
         <!-- Pie de pagina-->

@@ -1,4 +1,5 @@
 <?php
+
 header("Content-Type: text/html;charset=utf-8");
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -12,7 +13,6 @@ require_once '../modelo/dao/Usuario_dao.php';
 require_once '../modelo/dto/Usuario_dto.php';
 require_once '../modelo/dao/Informacion_dao.php';
 require_once '../modelo/dto/Informacion_dto.php';
-
 
 class Negocio {
 
@@ -90,9 +90,9 @@ class Negocio {
         return $msj;
     }
 
-    public function cargarFormatos($formato,$tipo,$codigo) {
+    public function cargarFormatos($formato, $tipo, $codigo) {
 
-        $formatos = $this->formato->cargarFormatos($formato,$tipo,$codigo);
+        $formatos = $this->formato->cargarFormatos($formato, $tipo, $codigo);
         if (!is_null($formatos)) {
             return $formatos;
         } else {
@@ -129,9 +129,9 @@ class Negocio {
         }
     }
 
-    public function visualizarFormato($formato,$tipo,$codigo) {
+    public function visualizarFormato($formato, $tipo, $codigo) {
         $html = '';
-        $formatos = $this->formato->cargarFormatos($formato,$tipo,$codigo);
+        $formatos = $this->formato->cargarFormatos($formato, $tipo, $codigo);
 
         if (!is_null($formatos)) {
             foreach ($formatos as $formato) {
@@ -160,56 +160,53 @@ class Negocio {
             } else {
                 return 'El formato no ha podido ser modificado';
             }
-            
         } else {
             return 'El formato ya fue modificado el día de hoy, pruebe mañana nuevamente.';
-        }        
-    }
-    
-    public function historialFormato($formato){
-        return $this->formato->historialFormato($formato);        
-    }
-    
-    public function diligenciarFormato($fechaFormato, $usuario, $formato, $info,$observaciones){
-        $msj='';
-//        echo $info;
-        $info2=$this->validarInformacion($info);
-//        echo $info;
-        if(is_null($info2)){
-            return 'Por favor ingrese los datos correspondientes al formato';            
         }
-        if($fechaFormato=='---'){
+    }
+
+    public function historialFormato($formato) {
+        return $this->formato->historialFormato($formato);
+    }
+
+    public function diligenciarFormato($fechaFormato, $usuario, $formato, $info, $observaciones) {
+        $msj = '';
+//        echo $info;
+        $info2 = $this->validarInformacion($info);
+//        echo $info;
+        if (is_null($info2)) {
+            return 'Por favor ingrese los datos correspondientes al formato';
+        }
+        if ($fechaFormato == '---') {
             date_default_timezone_set('America/Bogota');
-            $fechaFormato= date('Y/m/d', time());
+            $fechaFormato = date('Y/m/d', time());
 //            echo date('Y/m/d H:i:s', time());
         }
-        
-        $informacion = $this->info->guardarInfo($fechaFormato, $usuario, $formato, $info2,$observaciones);
+
+        $informacion = $this->info->guardarInfo($fechaFormato, $usuario, $formato, $info2, $observaciones);
         if (!is_null($informacion)) {
-            $msj= 'Información registrada con éxito';
+            $msj = 'Información registrada con éxito';
         } else {
-            $msj= 'La información no ha sido registrada en el sistema';
+            $msj = 'La información no ha sido registrada en el sistema';
         }
         return $msj;
     }
-    
-    public function validarInformacion($info){
-        $arr=  explode('&', $info);
-        $msj='';
-        foreach ($arr as $var){
-            $arreglo2=explode('=', $var);
-            if($arreglo2[1]!=''){
-                $msj.=$var.';';
-            }            
-        }   
+
+    public function validarInformacion($info) {
+        $arr = explode('&', $info);
+        $msj = '';
+        foreach ($arr as $var) {
+            $arreglo2 = explode('=', $var);
+            if ($arreglo2[1] != '') {
+                $msj.=$var . ';';
+            }
+        }
         return $msj;
     }
-    
-    
-    
-    public function mostrarRegistrosFormato($formato){
-        $informacion=array();
-        $informacion= $this->info->mostrarInfo($formato);
+
+    public function mostrarRegistrosFormato($formato) {
+        $informacion = array();
+        $informacion = $this->info->mostrarInfo($formato);
         if (count($informacion) == 0) {
             $informacion = null;
         } else {
@@ -217,10 +214,19 @@ class Negocio {
         }
         return $informacion;
     }
-    
-    public function verDatos($formato,$fecha){
-        $json=  $this->info->verDatos($formato,$fecha);
+
+    public function verDatos($formato, $fecha) {
+        $json = $this->info->verDatos($formato, $fecha);
         return $json;
+    }
+
+    public function modificarRegistroFormato($fechaFormato, $usuario, $formato, $info,$observaciones) {
+        $flag = $this->info->modificarRegistroFormato($fechaFormato, $usuario, $formato, $info,$observaciones);
+        if ($flag > 0) {
+            return 'El registro ha sido modificado';
+        } else {
+            return 'El registro no ha podido ser modificado';
+        }
     }
 
 }

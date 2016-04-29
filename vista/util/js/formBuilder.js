@@ -184,7 +184,7 @@ function cambiarTitulo() {
         }
 
         if (elem.is('table')) {
-            elem.attr('id', titulo);
+            var tabla=elem.attr('id', titulo);
             cambiarNombreCeldas(titulo);
         }
     }
@@ -228,13 +228,11 @@ function limpiarTitulo() {
  */
 function cambiarNombreCeldas(titulo){
     var tabla='#'+titulo+' input';
-    $(tabla).each(function(){
+    $(tabla).each(function(i){
         var input=$(this);
-        var id=$(input).attr('id');
-        var nombre = id.replace('celda', titulo);
-//        $(input).attr('id',nombre);
-//        console.log($(input).attr('id'));
-//        $(input).attr('name',nombre);
+        var nombre = titulo+"_"+i;
+        $(input).attr('id',nombre);
+        $(input).attr('name',nombre);
     });
 }
 
@@ -511,7 +509,9 @@ function eliminar() {
  * @returns {undefined}
  */
 function agregarFila() {
-    //Se buscan las columnas de la última
+    //se toma el nombre de la tabla
+    var nomTabla=$('.isSelected table').attr('id');
+    //Se buscan las columnas de la última fila
     var columnasTabla = $('.isSelected table tr:last td');
     //Se toma el número de filas y columnas que tiene la última fila
     var totalCol = $(columnasTabla).length;
@@ -522,7 +522,7 @@ function agregarFila() {
     //Se recorre el número de columnas
     for (var y = 0; y < totalCol; y++) {
         //Se adiciona una nueva celda por cada columna que se recorre
-        col += "<td><p> <p><input id='celda_" + (f - 1) + "_" + y + "' name='celda_" + (f - 1) + "_" + y + "' type='text' disabled></td>";
+        col += "<td><p> <p><input id='"+nomTabla +"_"+ (f - 1) + "_" + y + "' name='"+nomTabla +"_" + (f - 1) + "_" + y + "' type='text' disabled></td>";
     }
     //Se añade la nueva fila creada al final de la tabla.
     var row = fila + col + "</tr>";
@@ -533,7 +533,9 @@ function agregarFila() {
  * Permite adicionar una nueva columna a la tabla
  * @returns {undefined}
  */
-function agregarColumna() {
+function agregarColumna() {    
+    //se toma el nombre de la tabla
+    var nomTabla=$('.isSelected table').attr('id');
     //Se seleccionan todas las filas de la tabla y se recorren.
     var filasTabla = $('.isSelected table tr');
     var c = ($('.isSelected table tr:last td').length);
@@ -544,7 +546,7 @@ function agregarColumna() {
         }
         //Se adiciona una celda que pertenezca al cuerpo de la tabla.
         else {
-            $(this).append("<td><p> </p><input id='celda_" + (i - 1) + "_" + c + "' name='celda_" + (i - 1) + "_" + c + "' type='text' disabled></td>");
+            $(this).append("<td><p> </p><input id='"+nomTabla +"_" + (i - 1) + "_" + c + "' name='"+nomTabla +"_" + (i - 1) + "_" + c + "' type='text' disabled></td>");
         }
     });
 }

@@ -30,7 +30,8 @@
                         <label for="tipoFormato">tipo de contenido</label>                                                      
                     </div>  
                     <div class="input-field col s12 m12 l6">   
-                        <select id="frecuenciaFormato" name="frecuenciaFormato" class="validate" required >  
+                        <select id="frecuenciaFormato" name="frecuenciaFormato" class="validate" required >
+                            <option value="" disabled selected>Frecuencia del formato</option>
                             <option value="1">Hora</option>
                             <option value="2">Turno</option>                        
                             <option value="3">Turno administración</option>                        
@@ -42,8 +43,8 @@
                     </div>
                     <div class="input-field col s12 m12 l12">
                         <i class="material-icons prefix">description</i>
-                        <textarea id="descripcionFormato" name="descripcionFormato" class="materialize-textarea" ></textarea>
-                        <label for="descripcionFormato">Descripción del formato</label>                                                      
+                        <input id="descripcionFormato" name="descripcionFormato" type="text" class="validate" >
+                        <label for="descripcionFormato">Versión del formato</label>                                                      
                     </div>
                     <input id="cod_html" name="cod_html" type="hidden" value="">
                 </div>

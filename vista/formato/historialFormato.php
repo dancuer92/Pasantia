@@ -43,9 +43,9 @@ if ($_SESSION["tipo"] !== "asistente") {
                         <thead>
                             <tr>
                                 <th data-field="fecha"> Fecha de modificación</th>
-                                <th data-field="detalle"> Detalle de la modificación</th>
+                                <th data-field="detalle"> Naturaleza del cambio</th>
                                 <th data-field="usuario"> Usuario de la modificación</th>
-                                <th data-field="observaciones"> Observaciones  del formato</th>
+                                <th data-field="observaciones"> Versión  del formato</th>
                                 <th></th>
                             </tr>
                         </thead>

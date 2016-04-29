@@ -76,6 +76,13 @@ switch ($option) {
         $fecha = $_POST['fecha'];
         $formato_controller->verDatos($formato, $fecha);
         break;
+    case 'modificarRegistroFormato':
+        $formato = $_POST['formato'];
+        $fechaFormato = $_POST['fechaFormato'];
+        $observaciones = $_POST['observaciones'];
+        $info = $_POST['info'];
+        $usuario = $_SESSION['codigo'];
+        $formato_controller->modificarRegistroFormato($fechaFormato, $usuario, $formato, $info, $observaciones);
 }
 
 class Formato_controller {
@@ -266,6 +273,12 @@ class Formato_controller {
                 echo $info;
             }
         }
+    }
+    
+    public function modificarRegistroFormato($fechaFormato, $usuario, $formato, $info,$observaciones) {
+        $mensaje = '';
+        $mensaje = $this->facade->modificarRegistroFormato($fechaFormato, $usuario, $formato, $info,$observaciones);
+        echo $mensaje;
     }
 
 }

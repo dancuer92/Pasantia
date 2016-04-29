@@ -126,7 +126,7 @@ function diligenciarFormato(cod) {
     location.href = ('formato/diligenciarFormato.php');
 }
 
-function guardarDiligenciaFormato() {
+function guardarDiligenciaFormato(opcion) {
     var formato = sessionStorage.getItem('formato');
     var requeridos = validarRequeridos();
     if (requeridos) {
@@ -142,23 +142,38 @@ function guardarDiligenciaFormato() {
         var info = $('#visualizarFormato').serialize();
         console.log(info);
         var fechaFormato = $('#fecharegistro').val();
+        console.log(fechaFormato);
         if (fechaFormato === '') {
             fechaFormato = '---';
         }
         var observaciones = $('#observaciones').val();
-        $.post('../../controlador/Formato_controller.php', {formato: formato, fechaFormato: fechaFormato, observaciones: observaciones, info: info, opcion: 'diligenciarFormato'},
-        function (mensaje) {
+        if (opcion === 'regitrar') {
+            $.post('../../controlador/Formato_controller.php', {formato: formato, fechaFormato: fechaFormato, observaciones: observaciones, info: info, opcion: 'diligenciarFormato'},
+            function (mensaje) {
 //            confirm(mensaje);
-            $('#res1').html(mensaje);
+                $('#res1').html(mensaje);
 //            console.log(mensaje);
-        });
-        $('input').val('');
+            });
+            $('input').val('');
+        }
+        if(opcion==='modificar'){
+            console.log('modificar');
+            var info = $('#ver_datos').serialize();
+            var fecha=sessionStorage.getItem('fecha');
+            $.post('../../controlador/Formato_controller.php', {formato: formato, fechaFormato: fecha, observaciones: observaciones, info: info, opcion: 'modificarRegistroFormato'},
+            function (mensaje) {
+//            confirm(mensaje);
+                $('#res1').html(mensaje);
+//            console.log(mensaje);
+            });
+            $('input').val('');
+        }
     }
 }
 
 function validarRequeridos() {
     $('#myModal').modal('hide');
-    var requeridos = false;
+    var requeridos = true;
     $('input[required]').each(function () {
         var input = $(this);
 //        console.log($(this).attr('id'));
@@ -167,13 +182,13 @@ function validarRequeridos() {
             requeridos = true;
         }
         else {
-            $('#myModal').on('hidden.bs.modal', function (e) {
+            $('#myModal').on('hidden.bs.modal', function () {
                 $(input).focus();
-                var msj='Favor digitar el campo obligatorio:<br>'+input.attr('id');
+                var msj = 'Favor digitar el campo obligatorio:<br>' + input.attr('id');
                 $('#res1').html(msj);
                 requeridos = false;
                 return requeridos;
-            });            
+            });
         }
     });
     return requeridos;
@@ -228,7 +243,7 @@ function cargarRegistro() {
             var clave = '#' + div[0];
 
             var valor = div[1].replace(/ +/g, ' ');
-            var name = 'input[name=' + div[0] + ']';
+            var name = 'input[id=' + div[0] + ']';
             $(name).prop('checked', true);
 
             $(name).val(valor);
@@ -253,4 +268,16 @@ function verFormato() {
         $('input').attr('disabled', false);
         $('textarea').attr('disabled', false);
     });
+}
+
+function modificarDiligenciaFormato() {
+    $('input').attr('disabled', false);
+    $('#guardarRegistro').show();
+    $('#modificarRegistro').hide();
+}
+
+function guardarMR() {
+    guardarDiligenciaFormato('modificar');
+    $('#guardarRegistro').hide();
+    $('modificarRegistro').show();
 }

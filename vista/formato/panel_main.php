@@ -51,11 +51,11 @@
                 <div role="tabpanel" class="tab-pane" id="formulario">                    
                     <div>
                         <label>Detalle de la modificación</label>
-                        <textarea type="text" class="form-control" id="detForm" placeholder="Aquí se pueden escribir los detalles sobre la modificación al cpntenido del formato."></textarea>
+                        <textarea type="text" class="form-control" id="detForm" placeholder="Indique aquí la naturaleza del cambio y demas detalles de la modificación del contenido."></textarea>
                     </div>
                     <div>
                         <label>Observaciones del formato</label>
-                        <textarea type="text" class="form-control" id="obsForm" placeholder="Escribir la nueva revisión, versión del formato, o la actualización en el SGC."></textarea>
+                        <textarea type="text" class="form-control" id="obsForm" placeholder="Escribir la nueva versión del formato"></textarea>
                     </div>
                 </div>
             </div>
