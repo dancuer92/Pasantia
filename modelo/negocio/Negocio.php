@@ -178,7 +178,7 @@ class Negocio {
         if(is_null($info2)){
             return 'Por favor ingrese los datos correspondientes al formato';            
         }
-        if($fechaFormato==''){
+        if($fechaFormato=='---'){
             date_default_timezone_set('America/Bogota');
             $fechaFormato= date('Y/m/d', time());
 //            echo date('Y/m/d H:i:s', time());

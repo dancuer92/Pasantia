@@ -129,7 +129,6 @@ function diligenciarFormato(cod) {
 function guardarDiligenciaFormato() {
     var formato = sessionStorage.getItem('formato');
     var requeridos = validarRequeridos();
-
     if (requeridos) {
 //        var info = JSON.stringify($('#diligenciarFormato').serializeArray());
 //        var info = JSON.stringify($('#diligenciarFormato'));
@@ -150,14 +149,15 @@ function guardarDiligenciaFormato() {
         $.post('../../controlador/Formato_controller.php', {formato: formato, fechaFormato: fechaFormato, observaciones: observaciones, info: info, opcion: 'diligenciarFormato'},
         function (mensaje) {
 //            confirm(mensaje);
-            $('input').val('');
             $('#res1').html(mensaje);
 //            console.log(mensaje);
         });
+        $('input').val('');
     }
 }
 
 function validarRequeridos() {
+    $('#myModal').modal('hide');
     var requeridos = false;
     $('input[required]').each(function () {
         var input = $(this);
@@ -167,11 +167,13 @@ function validarRequeridos() {
             requeridos = true;
         }
         else {
-            $('#myModal').modal('hide');
-            alert('Favor rellenar los campos vacíos: \n'+input.attr('id'));
-//            $(input).focus();
-            requeridos = false;
-            return false;
+            $('#myModal').on('hidden.bs.modal', function (e) {
+                $(input).focus();
+                var msj='Favor digitar el campo obligatorio:<br>'+input.attr('id');
+                $('#res1').html(msj);
+                requeridos = false;
+                return requeridos;
+            });            
         }
     });
     return requeridos;
