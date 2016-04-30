@@ -219,23 +219,42 @@ class Negocio {
         return $json;
     }
 
-    public function modificarRegistroFormato($fechaFormato, $usuario, $formato, $info, $observaciones) {
+    public function modificarRegistroFormato($fechaFormato, $usuario, $formato, $info, $observaciones, $tipo) {
 
-        $f = (int) $this->formato->buscarFormato($formato);
+        $f = (int) $this->formato->buscarDiasModificacion($formato);
 
         date_default_timezone_set('America/Bogota');
         $fechaSistema = date('Y/m/d H:i:s', time());
-        
-        $ff=new DateTime($fechaFormato);
-        $fs=new DateTime($fechaSistema);
-        
-        echo $ff->format('Y/m/d H:i:s');
-        echo $fs->format('Y/m/d H:i:s');
-        
-        $diferencia=$ff->diff($fs);
-        echo $diferencia->format('%d');
-        
-        
+
+        $ff = new DateTime($fechaFormato);
+        $fs = new DateTime($fechaSistema);
+
+//        echo $ff->format('Y/m/d H:i:s');
+//        echo $fs->format('Y/m/d H:i:s');
+
+        $diferencia = $ff->diff($fs);
+        $d = $diferencia->format('%d');
+
+        if ($d <= $f) {
+            if ($tipo == 'supervisor') {
+                echo 'Aqui va el codigo de modificar registro por el supervisor';
+            } else {
+                $u = $this->info->buscarRegistro($formato, $fechaFormato);
+                echo $u,' ',$usuario;
+                if ($usuario === $u) {
+                    echo 'Aqui va el codigo de modificar registro por el operario';
+                }
+                else{
+                    echo 'No puede modificar el formato porque usted no lo ha diligenciado inicialmente.';
+                }
+            }
+            echo "<br>El formato puede ser modificado";
+        } else {
+            echo "el formato no puede ser modificado";
+        }
+
+
+
 
 
 ////        echo $info;

@@ -95,8 +95,8 @@ class Facade {
         return $msj;
     }
     
-    public function modificarRegistroFormato($fechaFormato, $usuario, $formato, $info,$observaciones){
-        $msj=$this->negocio->modificarRegistroFormato($fechaFormato, $usuario, $formato, $info,$observaciones);
+    public function modificarRegistroFormato($fechaFormato, $usuario, $formato, $info,$observaciones, $tipo){
+        $msj=$this->negocio->modificarRegistroFormato($fechaFormato, $usuario, $formato, $info,$observaciones, $tipo);
         return $msj;
     }
 

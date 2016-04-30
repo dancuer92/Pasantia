@@ -153,7 +153,6 @@ function guardarDiligenciaFormato(opcion) {
                 $('#res1').html(mensaje);
 //            console.log(mensaje);
             });
-            $('input').val('');
         }
         if (opcion === 'modificar') {
             console.log('modificar');

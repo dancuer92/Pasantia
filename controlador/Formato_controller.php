@@ -277,7 +277,8 @@ class Formato_controller {
     
     public function modificarRegistroFormato($fechaFormato, $usuario, $formato, $info,$observaciones) {
         $mensaje = '';
-        $mensaje = $this->facade->modificarRegistroFormato($fechaFormato, $usuario, $formato, $info,$observaciones);
+        $tipo=$_SESSION['tipo'];
+        $mensaje = $this->facade->modificarRegistroFormato($fechaFormato, $usuario, $formato, $info,$observaciones,$tipo);
         echo $mensaje;
     }
 

@@ -117,5 +117,30 @@ class Informacion_dao {
         $this->mysqli->close();
         return $filas;
     }
+    
+    public function buscarRegistro($formato, $fecha) {
+        $mensaje = '';
+        $formato = strtolower($formato);
+
+        $sql = "SELECT `usuario` FROM `info_$formato` WHERE `fecha_registro_sistema`=?;";
+
+        if (!$sentencia = $this->mysqli->prepare($sql)) {
+            $mensaje.=$this->mysqli->error;
+        }
+
+        if (!$sentencia->bind_param("s", $fecha)) {
+            echo $this->mysqli->error;
+        }
+
+        if ($sentencia->execute()) {
+            $sentencia->bind_result($usuario);
+            while ($sentencia->fetch()) {
+                $mensaje = $usuario;
+            }
+        }
+        $sentencia->close();
+        $this->mysqli->close();
+        return $mensaje;
+    }
 
 }

@@ -216,7 +216,7 @@ class Formato_dao {
         return $json;
     }
 
-    public function buscarFormato($formato) {
+    public function buscarDiasModificacion($formato) {
         $dias=0;
         $sql = "SELECT fre.`dias_modificacion` FROM `frecuencia_formato` fre, `formato`f "
                 . "WHERE f.`cod_formato`=? AND f.`frecuencia_uso`=fre.`id`";
