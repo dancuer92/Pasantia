@@ -216,4 +216,28 @@ class Formato_dao {
         return $json;
     }
 
+    public function buscarFormato($formato) {
+        $dias=0;
+        $sql = "SELECT fre.`dias_modificacion` FROM `frecuencia_formato` fre, `formato`f "
+                . "WHERE f.`cod_formato`=? AND f.`frecuencia_uso`=fre.`id`";
+        
+        if (!$sentencia = $this->mysqli->prepare($sql)) {
+            echo $this->mysqli->error;
+        }
+
+        if (!$sentencia->bind_param("s", $formato)) {
+            echo $this->mysqli->error;
+        }
+        
+        if ($sentencia->execute()) {
+            $sentencia->bind_result($dias);
+            while ($sentencia->fetch()) {
+                return $dias;
+            }
+        }
+        $sentencia->close();
+        $this->mysqli->close();
+        return $dias;
+    }
+
 }

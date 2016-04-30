@@ -171,9 +171,7 @@ class Negocio {
 
     public function diligenciarFormato($fechaFormato, $usuario, $formato, $info, $observaciones) {
         $msj = '';
-//        echo $info;
         $info2 = $this->validarInformacion($info);
-//        echo $info;
         if (is_null($info2)) {
             return 'Por favor ingrese los datos correspondientes al formato';
         }
@@ -192,7 +190,8 @@ class Negocio {
         return $msj;
     }
 
-    public function validarInformacion($info) {
+    public function validarInformacion($info2) {
+        $info = urldecode($info2);
         $arr = explode('&', $info);
         $msj = '';
         foreach ($arr as $var) {
@@ -220,13 +219,37 @@ class Negocio {
         return $json;
     }
 
-    public function modificarRegistroFormato($fechaFormato, $usuario, $formato, $info,$observaciones) {
-        $flag = $this->info->modificarRegistroFormato($fechaFormato, $usuario, $formato, $info,$observaciones);
-        if ($flag > 0) {
-            return 'El registro ha sido modificado';
-        } else {
-            return 'El registro no ha podido ser modificado';
-        }
+    public function modificarRegistroFormato($fechaFormato, $usuario, $formato, $info, $observaciones) {
+
+        $f = (int) $this->formato->buscarFormato($formato);
+
+        date_default_timezone_set('America/Bogota');
+        $fechaSistema = date('Y/m/d H:i:s', time());
+        
+        $ff=new DateTime($fechaFormato);
+        $fs=new DateTime($fechaSistema);
+        
+        echo $ff->format('Y/m/d H:i:s');
+        echo $fs->format('Y/m/d H:i:s');
+        
+        $diferencia=$ff->diff($fs);
+        echo $diferencia->format('%d');
+        
+        
+
+
+////        echo $info;
+//        $info2 = $this->validarInformacion($info);
+////        echo $info;
+//        if (is_null($info2)) {
+//            return 'Por favor ingrese los datos correspondientes al formato';
+//        }
+//        $flag = $this->info->modificarRegistroFormato($fechaFormato, $usuario, $formato, $info2,$observaciones);
+//        if ($flag > 0) {
+//            return 'El registro ha sido modificado';
+//        } else {
+//            return 'El registro no ha podido ser modificado';
+//        }
     }
 
 }
