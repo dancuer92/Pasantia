@@ -219,9 +219,9 @@ class Formato_controller {
         return $mensaje;
     }
 
-    public function diligenciarFormato($fechaFormato, $usuario, $formato, $info,$observaciones) {
+    public function diligenciarFormato($fechaFormato, $usuario, $formato, $info, $observaciones) {
         $mensaje = '';
-        $mensaje = $this->facade->diligenciarFormato($fechaFormato, $usuario, $formato, $info,$observaciones);
+        $mensaje = $this->facade->diligenciarFormato($fechaFormato, $usuario, $formato, $info, $observaciones);
         echo $mensaje;
     }
 
@@ -274,11 +274,11 @@ class Formato_controller {
             }
         }
     }
-    
-    public function modificarRegistroFormato($fechaFormato, $usuario, $formato, $info,$observaciones) {
+
+    public function modificarRegistroFormato($fechaFormato, $usuario, $formato, $info, $observaciones) {
         $mensaje = '';
-        $tipo=$_SESSION['tipo'];
-        $mensaje = $this->facade->modificarRegistroFormato($fechaFormato, $usuario, $formato, $info,$observaciones,$tipo);
+        $tipo = $_SESSION['tipo'];
+        $mensaje = $this->facade->modificarRegistroFormato($fechaFormato, $usuario, $formato, $info, $observaciones, $tipo);
         echo $mensaje;
     }
 

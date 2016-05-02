@@ -126,23 +126,18 @@ function diligenciarFormato(cod) {
     location.href = ('formato/diligenciarFormato.php');
 }
 
-function guardarDiligenciaFormato(opcion) {
+function guardarDiligenciaFormato(opcion, info) {
     var formato = sessionStorage.getItem('formato');
     var requeridos = validarRequeridos();
     if (requeridos) {
-//        var info = JSON.stringify($('#diligenciarFormato').serializeArray());
-//        var info = JSON.stringify($('#diligenciarFormato'));
-//        var info = $('#diligenciarFormato').serializeArray();
-//        var info = $('#diligenciarFormato').serialize();
-//        var info = $('#diligenciarFormato').serializeObject();
-//        var info = JSON.stringify($('#diligenciarFormato').serializeObject());
-//        console.log(info);
-//        $('#res1').html(info.toString());
 
-        var info = $('#visualizarFormato').serialize();
-
+//        var info = $('#visualizarFormato').serialize();
+        console.log(info);
         var observaciones = $('#observaciones').val();
         if (opcion === 'registrar') {
+            info = $('#visualizarFormato').serialize();
+            console.log(info);
+
             var fechaFormato = $('#fecharegistro').val();
             if (fechaFormato === '') {
                 fechaFormato = '---';
@@ -251,12 +246,18 @@ function verFormato() {
 function modificarDiligenciaFormato() {
     $('input').attr('disabled', false);
     $('textarea').attr('disabled', false);
+    $('select').attr('disabled', false);
     $('#guardarRegistro').show();
     $('#modificarRegistro').hide();
 }
 
 function guardarMR() {
-    guardarDiligenciaFormato('modificar');
+    var info = $('#visualizarFormato').serialize();
+//    console.log(info);
+    $('input').attr('disabled', true);
+    $('textarea').attr('disabled', true);
+    $('select').attr('disabled', true);
+    guardarDiligenciaFormato('modificar', info);
     $('#guardarRegistro').hide();
     $('#modificarRegistro').show();
 }

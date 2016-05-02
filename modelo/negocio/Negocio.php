@@ -196,7 +196,7 @@ class Negocio {
         $msj = '';
         foreach ($arr as $var) {
             $arreglo2 = explode('=', $var);
-            if ($arreglo2[1] != '') {
+            if ($arreglo2[1] !== '') {
                 $msj.=$var . ';';
             }
         }
@@ -234,41 +234,41 @@ class Negocio {
 
         $diferencia = $ff->diff($fs);
         $d = $diferencia->format('%d');
+//        echo $info;
+        
 
         if ($d <= $f) {
-            if ($tipo == 'supervisor') {
+            $reg = $this->info->buscarRegistro($formato, $fechaFormato);
+            $u = explode('-', $reg);
+            $estado = (int) $u[1];
+            $user = $u[0];
+            
+            
+            
+            $info2 = $this->validarInformacion($info);
+//            echo $info2;
+            $observaciones.=' El registro ha sido mofificado por el usuario ' . $usuario;
+
+            if ($tipo === 'supervisor' && $estado === 0) {
+                $flag = $this->info->modificarRegistroFormato($fechaFormato, $usuario, $formato, $info2, $observaciones);
+                if ($flag > 0) {
+                    return 'El registro ha sido modificado';
+                } 
                 echo 'Aqui va el codigo de modificar registro por el supervisor';
             } else {
-                $u = $this->info->buscarRegistro($formato, $fechaFormato);
-                echo $u,' ',$usuario;
-                if ($usuario === $u) {
+                if ($usuario === $user && $estado === 0) {
+                    $flag = $this->info->modificarRegistroFormato($fechaFormato, $usuario, $formato, $info2, $observaciones);
+                    if ($flag > 0) {
+                        return 'El registro ha sido modificado';
+                    }
                     echo 'Aqui va el codigo de modificar registro por el operario';
-                }
-                else{
-                    echo 'No puede modificar el formato porque usted no lo ha diligenciado inicialmente.';
+                } else {
+                    echo 'No puede modificar el formato porque usted no lo ha diligenciado inicialmente o en su defecto el formato ya fue modificado';
                 }
             }
-            echo "<br>El formato puede ser modificado";
         } else {
-            echo "el formato no puede ser modificado";
+            echo "el formato no puede ser modificado.<br>Se ha excedido la fecha límite del formato.";
         }
-
-
-
-
-
-////        echo $info;
-//        $info2 = $this->validarInformacion($info);
-////        echo $info;
-//        if (is_null($info2)) {
-//            return 'Por favor ingrese los datos correspondientes al formato';
-//        }
-//        $flag = $this->info->modificarRegistroFormato($fechaFormato, $usuario, $formato, $info2,$observaciones);
-//        if ($flag > 0) {
-//            return 'El registro ha sido modificado';
-//        } else {
-//            return 'El registro no ha podido ser modificado';
-//        }
     }
 
 }
