@@ -40,6 +40,7 @@ class Negocio {
         $_SESSION['codigo'] = $usuario->codigo_usuario;
         $_SESSION['estado'] = $usuario->estado_usuario;
         $_SESSION['tipo'] = $usuario->tipo_usuario;
+//        echo $_SERVER['HTTP_HOST'];
         return $mensaje;
     }
 

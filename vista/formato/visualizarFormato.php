@@ -1,5 +1,11 @@
 <?php
 session_start();
+
+if (!isset($_SESSION["tipo"])) {
+    //Si no hay sesión activa, lo direccionamos al index.php (inicio de sesión)
+    header("Location: ../../index.php");
+    exit();
+}
 ?>
 <html>
     <head>

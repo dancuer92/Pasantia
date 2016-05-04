@@ -49,9 +49,12 @@ class Usuario_dao {
                 $usuario->sesion($nombre_usuario, $apellido_usuario, $codigo_usuario, $rol_usuario, $estado_usuario);
             }
         }
+        
+//        echo $this->mysqli->host_info;
         $sentencia->close();
-        $this->mysqli->close();
+        $this->mysqli->close();        
 //        echo $formato->toJSON().'DAO';
+        
         return $usuario;
     }
 
