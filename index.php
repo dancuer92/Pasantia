@@ -13,7 +13,7 @@ and open the template in the editor.
         <title>Sistema de registro de información de la calidad CISA</title>
 
         <!-- CSS  -->
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href="vista/util/css/material-icons.css" rel="stylesheet">
         <link href="vista/util/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
         <!--<link href="vista/util/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>-->
         <link rel="shortcut icon" href="vista/util/images/corporativo/icono_ceramica.ico">

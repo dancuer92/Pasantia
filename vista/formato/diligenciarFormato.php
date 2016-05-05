@@ -10,22 +10,10 @@ if ($_SESSION["tipo"] !== "supervisor" && $_SESSION["tipo"] !== "operario") {
 
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
         <title>Diligenciar Formato</title>
-
-        <link rel="shortcut icon" href="../../vista/util/images/corporativo/icono_ceramica.ico">
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <link rel="stylesheet" href="../util/css/bootstrap.css" type="text/css">
-        <link rel="stylesheet" href="../util/css/formBuilder.css" type="text/css">
-        <link rel="stylesheet" href="../util/css/style.css" type="text/css">
-
-        <script type="text/javascript" src="../util/js/jquery-2.1.4.min.js"></script>
-        <script type="text/javascript" src="../util/js/bootstrap.js"></script>
-        <script type="text/javascript" src="../util/js/formBuilder.js"></script>
-        <script type="text/javascript" src="../util/js/jquery-ui.js"></script> 
-        <script type="text/javascript" src="../util/js/jsFormat.js"></script> 
-
+        <?php
+            include 'head.php';
+        ?>
 
         <script>
             $(document).ready(function () {
@@ -51,8 +39,8 @@ if ($_SESSION["tipo"] !== "supervisor" && $_SESSION["tipo"] !== "operario") {
                     <button class="btn btn-danger btn-lg center-block" id="saveFormato" data-toggle="modal" data-target="#myModal">GUARDAR</button>
                 </div>
             </div>
-            
-            
+
+
             <!--Modal-->
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog">
                 <div class="modal-dialog">
@@ -63,11 +51,11 @@ if ($_SESSION["tipo"] !== "supervisor" && $_SESSION["tipo"] !== "operario") {
                         </div>
                         <div class="modal-body">
                             <p>Haga clic en CANCELAR si desea realizar algún cambio.<br>
-                            Una vez hecho clic en ACEPTAR, tiene permiso para realizar un cambio antes de 24 horas.</p>
+                                Una vez hecho clic en ACEPTAR, tiene permiso para realizar un cambio antes de 24 horas.</p>
                         </div>
                         <div class="modal-footer">
                             <a type="button" class="btn btn-default" data-dismiss="modal">CANCELAR</a>
-                            <a type="button" class="btn btn-danger" onclick="guardarDiligenciaFormato('registrar','');">ACEPTAR</a>
+                            <a type="button" class="btn btn-danger" onclick="guardarDiligenciaFormato('registrar', '');">ACEPTAR</a>
                         </div>
                     </div><!-- /.modal-content -->
                 </div><!-- /.modal-dialog -->

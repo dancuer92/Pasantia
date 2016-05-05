@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 30-04-2016 a las 02:02:51
+-- Tiempo de generación: 05-05-2016 a las 21:33:36
 -- Versión del servidor: 10.1.9-MariaDB
 -- Versión de PHP: 5.6.15
 
@@ -14,7 +14,7 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Base de datos: `pasantia`
@@ -104,7 +104,8 @@ INSERT INTO `historial_usuario_formato` (`id`, `id_usuario`, `id_formato`, `fech
 (12, 'super', 'TEST', '2016-04-15 21:22:13', 'desasignado'),
 (13, 'oper', 'RMO-1100', '2016-04-11 13:32:36', 'asignado'),
 (14, 'oper', 'TEST', '2016-04-16 13:35:04', 'asignado'),
-(15, 'oper', 'TEST', '2016-04-18 22:29:28', 'desasignado');
+(15, 'oper', 'TEST', '2016-04-18 22:29:28', 'desasignado'),
+(16, 'oper', 'RMO-1100', '2016-04-15 21:28:57', 'desasignado');
 
 -- --------------------------------------------------------
 
@@ -146,7 +147,9 @@ INSERT INTO `info_rmo-1100` (`id`, `fecha_registro_sistema`, `fecha_formato_dili
 (1, '2016-04-28 22:11:21', '2016-04-28', 'super', 0, 'fecha=2016%2F04%2F28;operario=Danie;tipo_de_cargue-0=Gres;radio=6+a.m.+-+2+p.m.;tolva_no.=5;n%C3%BAmero=4;', ''),
 (2, '2016-04-28 22:13:44', '2016-04-28', 'super', 0, 'fecha=2016%2F04%2F29;operario=super;tipo_de_cargue-0=Gres;radio=6+a.m.+-+2+p.m.;celda_0_0=agua;celda_0_1=78%25;', ''),
 (4, '2016-04-28 22:27:52', '2016-04-28', 'super', 1, 'operario=Daniel;tipo_de_cargue-0=Gres;celda_0_0=Agua;celda_0_1=25%2525;celda_0_2=4;celda_0_3=5;celda_0_4=6;', 'Esto+es+una+prueba+de+caracteres+especiales'),
-(5, '2016-04-28 22:27:54', '2016-04-28', 'super', 1, 'operario=Daniel;tipo_de_cargue-0=Gres;celda_0_0=Agua;celda_0_1=25%;observaciones=Esto es una prueba de caracteres especiales;', 'Esto es una prueba de caracteres especiales');
+(5, '2016-04-28 22:27:54', '2016-04-28', 'super', 1, 'operario=Daniel;tipo_de_cargue-0=Gres;celda_0_0=Agua;celda_0_1=25%;observaciones=Esto es una prueba de caracteres especiales;', 'Esto es una prueba de caracteres especiales'),
+(6, '2016-05-02 19:24:35', '2016-05-02', 'super', 0, 'fecharegistro=2016-05-02;operario=Daniel;tipo_de_cargue-0=Gres;radio=6 a.m. - 2 p.m.;tolva_no=987;numero=58526;celda_0_0=Esto;celda_0_1=es;celda_0_2=una;celda_0_3=prueba;celda_0_4=sobre;celda_1_0=la;celda_1_1=tabla;observaciones=Ninguna;', 'Ninguna'),
+(7, '2016-05-05 19:08:05', '2016-05-05', 'oper', 1, 'fecharegistro=2016-05-05;operario=daniel;tipo_de_cargue-1=Ensayo;tolva_no=6585;numero=52;celda_0_0=agua ;celda_0_1=24%;celda_0_2=87%;celda_0_3=25%;observaciones=prueba 05/05/2016;firma_del_cargador=qwerty;', 'prueba 05/05/2016 El registro ha sido mofificado por el usuario oper');
 
 -- --------------------------------------------------------
 
@@ -179,7 +182,11 @@ INSERT INTO `info_test` (`id`, `fecha_registro_sistema`, `fecha_formato_diligenc
 (8, '2016-04-28 22:33:05', '0000-00-00', 'super', 0, 'nombre=Daniel;lista=opc1;', ''),
 (9, '2016-04-28 22:33:23', '0000-00-00', 'super', 0, 'nombre=Daniel;lista=opc1;observaciones=prueba+de+caracter+%2F;', 'prueba de caracter /'),
 (10, '2016-04-29 12:17:56', '2016-04-29', 'super', 1, 'nombre=Daneil;edad=23;no_requerido=25;verificacion-0=cas1;observaciones=esto es una prueba de caracteres especiales con tilde como título, número además, con división / y porcentaje %;', 'esto es una prueba de caracteres especiales con tilde como título, número además, con división / y porcentaje %'),
-(11, '2016-04-29 16:04:13', '2016-04-29', 'super', 0, 'fecharegistro=2016-04-29;nombre=Daniel;edad=23;verificacion-1=cas2;verificacion-2=cas3;opciones=si;lista=opc1;untitled=98798;untitled=8979855;untitled=554s;untitled=a;', '');
+(11, '2016-04-29 16:04:13', '2016-04-29', 'super', 0, 'fecharegistro=2016-04-29;nombre=Daniel;edad=23;verificacion-1=cas2;verificacion-2=cas3;opciones=si;lista=opc1;untitled=98798;untitled=8979855;untitled=554s;untitled=a;', ''),
+(12, '2016-04-30 15:33:16', '2016-04-30', 'oper', 0, 'fecharegistro=2016-04-30;nombre=Oper;edad=23;no_requerido=98;verificacion-1=cas2;lista=opc3;observaciones=tengo caracteres especiales como / ;', 'tengo caracteres especiales como / & %  Esto es una prueba de este formato '),
+(20, '2016-04-30 15:51:52', '2016-04-30', 'oper', 0, 'lista=opc2;observaciones= asidhf kaslj dhflasjdf ñlkasjfdña sdfjañlsdfjpqhe´ojdlkjqíwqéoqwuirqhpeiq´werqipwe ripuqwerg ksjfñafpqiuweyruhsdfkjjlkñsadjpquierjdaskldfncvmmmmmmmc;', ' ´wuweyruhsdfkjjlkñsadjpquierjdaskldfncvmmmmmmmc'),
+(21, '2016-04-30 15:52:04', '2016-04-30', 'oper', 0, 'fecharegistro=2016-04-30;nombre=Oper;edad=23;no_requerido=98;verificacion-1=cas2;lista=opc3;observaciones=tengo caracteres especiales como / ;', ' El registro ha sido mofificado por el usuario oper'),
+(24, '2016-05-02 14:27:50', '2016-05-02', 'oper', 1, 'fecharegistro=2016-05-02;nombre=Daniel;edad=23;verificacion-0=cas1;verificacion-1=cas2;verificacion-2=cas3;opciones=si;lista=opc2;observaciones=prueba de modificar;', 'prueba de modificar El registro ha sido mofificado por el usuario oper');
 
 -- --------------------------------------------------------
 
@@ -301,7 +308,7 @@ CREATE TABLE `usuario_formato` (
 --
 
 INSERT INTO `usuario_formato` (`id_usuario`, `id_formato`, `fecha_accion`, `accion`) VALUES
-('oper', 'RMO-1100', '2016-04-15 21:28:57', 'desasignado'),
+('oper', 'RMO-1100', '2016-05-02 19:25:34', 'asignado'),
 ('oper', 'TEST', '2016-04-18 22:30:07', 'asignado'),
 ('oper2', 'TEST', '2016-04-18 22:33:31', 'asignado'),
 ('super', 'RES-1710', '2016-04-15 21:01:59', 'asignado'),
@@ -398,7 +405,7 @@ ALTER TABLE `usuario_formato`
 -- AUTO_INCREMENT de la tabla `historial_usuario_formato`
 --
 ALTER TABLE `historial_usuario_formato`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 --
 -- AUTO_INCREMENT de la tabla `info_res-1710`
 --
@@ -408,12 +415,12 @@ ALTER TABLE `info_res-1710`
 -- AUTO_INCREMENT de la tabla `info_rmo-1100`
 --
 ALTER TABLE `info_rmo-1100`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT de la tabla `info_test`
 --
 ALTER TABLE `info_test`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 --
 -- AUTO_INCREMENT de la tabla `tipo_usuario`
 --
