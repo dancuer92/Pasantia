@@ -12,7 +12,7 @@ if ($_SESSION["tipo"] !== "supervisor" && $_SESSION["tipo"] !== "operario") {
     <head>
         <title>Diligenciar Formato</title>
         <?php
-            include 'head.php';
+        include 'head.php';
         ?>
 
         <script>
@@ -32,6 +32,16 @@ if ($_SESSION["tipo"] !== "supervisor" && $_SESSION["tipo"] !== "operario") {
         <main>
             <h1 class="titulo"><i class="material-icons prefix" style="font-size: 43px">keyboard</i> Diligenciar formato</h1>
             <div class="container center">
+                <div id="fecha" class="right-block">
+                    <p>
+                        Fecha del sistema: 
+                        <?php
+                        date_default_timezone_set('America/Bogota');
+                        $fechaSistema = date('Y/m/d H:i:s', time());
+                        echo $fechaSistema;
+                        ?>
+                    </p>                    
+                </div>
                 <form id="visualizarFormato">
 
                 </form>
