@@ -1,7 +1,7 @@
 <div id="desasignarFormato" class="modal" >
     <div class="s12">
         <div class="modal-content" >
-            <h3>Desasignar Formato</h3>
+            <h4>Desasignar Formato</h4>
             <div>
                 <div class="row">
                     <div class="input-field col s12">

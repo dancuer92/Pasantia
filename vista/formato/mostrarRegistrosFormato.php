@@ -14,7 +14,7 @@ if ($_SESSION["tipo"] !== "supervisor" && $_SESSION["tipo"] !== "operario") {
 
         <title>Registros Formato</title>
         <?php
-            include 'head.php';
+        include 'head.php';
         ?>
 
         <link rel="stylesheet" type="text/css" href="../util/css/datatables.css"/>
@@ -47,22 +47,22 @@ if ($_SESSION["tipo"] !== "supervisor" && $_SESSION["tipo"] !== "operario") {
 
         <main>
             <h1 class="titulo"><i class="material-icons prefix" style="font-size: 43px">find_in_page</i> Mostrar histórico de registros del formato</h1>
-            <div class="container center">
-                <table id="mostrarRegFormato" class="table table-hover">
-                    <thead>
-                        <tr>
-                            <td>Fecha de registro en el sistema</td>
-                            <td>Fecha del formato</td>
-                            <td>Usuario encargado</td>
-                            <td>Estado del registro</td>
-                            <td>Observaciones</td>
-                            <td></td>
-                        </tr>
-                    </thead>
-                    <tbody>
-
-                    </tbody>
-                </table>
+            <div id="master-container" class="container">
+                <!--<div class="table-responsive">-->
+                    <table id="mostrarRegFormato" class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Fecha de registro en el sistema</th>
+                                <th>Fecha del formato</th>
+                                <th>Usuario encargado</th>
+                                <th>Estado del registro</th>
+                                <th>Observaciones</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>  
+                <!--</div>-->
             </div>
         </main>
 

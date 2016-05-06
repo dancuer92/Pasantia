@@ -122,8 +122,8 @@ class Formato_controller {
 
     public function cargarBotones($cod, $nombre, $observaciones, $procedimiento, $jefe) {
         $mensaje = '<li class="collection-item avatar">
-                            <div class="col l2 m3 s12">
-                                <a class="left grey-text text-lighten-1 tooltipped" data-position="bottom" data-delay="50" data-tooltip="VER" onclick="visualizarFormato(&' . $cod . '&)"><i class="large material-icons">description</i></a>
+                            <div class="col l2 m3 s12 hide-on-small-only">
+                                <a class="grey-text text-lighten-1 tooltipped " data-position="bottom" data-delay="50" data-tooltip="VER" onclick="visualizarFormato(&' . $cod . '&)"><i class="large material-icons">description</i></a>
                             </div>
                             <div class="col l10 m9 s12">
                                 <p><strong>' . $cod . '</strong></p>
@@ -134,21 +134,21 @@ class Formato_controller {
                             </div>';
         switch ($_SESSION['tipo']) {
             case 'administrador':
-                $mensaje.='<a class="btn-floating red hoverable tooltipped modal-trigger" data-position="top" data-delay="50" data-tooltip="Asignar" onclick="asignarFormato(&' . $cod . '&);"><i class="material-icons">input</i></a>'
-                        . '<a class="btn-floating red hoverable tooltipped modal-trigger" data-position="top" data-delay="50" data-tooltip="Desasignar" onclick="desasignarFormato(&' . $cod . '&)" ><i class="material-icons">visibility_off</i></a>';
+                $mensaje.='<a class="btn-floating red hoverable tooltipped modal-trigger right" data-position="top" data-delay="50" data-tooltip="Desasignar" onclick="desasignarFormato(&' . $cod . '&)" ><i class="material-icons">visibility_off</i></a>'
+                        . '<a class="btn-floating red hoverable tooltipped modal-trigger right" data-position="top" data-delay="50" data-tooltip="Asignar" onclick="asignarFormato(&' . $cod . '&);"><i class="material-icons">input</i></a>';
                 break;
             case 'asistente':
-                $mensaje.='<a class="btn-floating red hoverable tooltipped" data-position="top" data-delay="50" data-tooltip="Modificar" onclick="modificarFormato(&' . $cod . '&)" ><i class="material-icons">edit</i></a>'
-                        . '<a class="btn-floating red hoverable tooltipped" data-position="top" data-delay="50" data-tooltip="Historial de versiones" onclick="historialFormato(&' . $cod . '&)" ><i class="material-icons">history</i></a>';
+                $mensaje.='<a class="btn-floating red hoverable tooltipped right" data-position="top" data-delay="50" data-tooltip="Historial de versiones" onclick="historialFormato(&' . $cod . '&)" ><i class="material-icons">history</i></a>'
+                        . '<a class="btn-floating red hoverable tooltipped right" data-position="top" data-delay="50" data-tooltip="Modificar" onclick="modificarFormato(&' . $cod . '&)" ><i class="material-icons">edit</i></a>';
                 break;
             case 'supervisor':
-                $mensaje.='<a class="btn-floating red hoverable tooltipped" data-position="top" data-delay="50" data-tooltip="Diligenciar" onclick="diligenciarFormato(&' . $cod . '&)" ><i class="material-icons">keyboard</i></a>'
-                        . '<a class="btn-floating red hoverable tooltipped" data-position="top" data-delay="50" data-tooltip="Mostrar registros" onclick="mostrarRegistrosFormato(&' . $cod . '&)" ><i class="material-icons">find_in_page</i></a>'
-                        . '<a class="btn-floating red hoverable tooltipped" data-position="top" data-delay="50" data-tooltip="Analizar trazabilidad" onclick="analizarFormato(&' . $cod . '&)" ><i class="material-icons">timeline</i></a>';
+                $mensaje.='<a class="btn-floating red hoverable tooltipped right" data-position="top" data-delay="50" data-tooltip="Analizar trazabilidad" onclick="analizarFormato(&' . $cod . '&)" ><i class="material-icons">timeline</i></a>'
+                        . '<a class="btn-floating red hoverable tooltipped right" data-position="top" data-delay="50" data-tooltip="Mostrar registros" onclick="mostrarRegistrosFormato(&' . $cod . '&)" ><i class="material-icons">find_in_page</i></a>'
+                        .'<a class="btn-floating red hoverable tooltipped right" data-position="top" data-delay="50" data-tooltip="Diligenciar" onclick="diligenciarFormato(&' . $cod . '&)" ><i class="material-icons">keyboard</i></a>';
                 break;
             case 'operario':
-                $mensaje.='<a class="btn-floating red hoverable tooltipped" data-position="top" data-delay="50" data-tooltip="Diligenciar" onclick="diligenciarFormato(&' . $cod . '&)" > <i class="material-icons">keyboard</i></a>'
-                        . '<a class="btn-floating red hoverable tooltipped" data-position="top" data-delay="50" data-tooltip="Mostrar registros" onclick="mostrarRegistrosFormato(&' . $cod . '&)" > <i class="material-icons">find_in_page</i></a>';
+                $mensaje.='<a class="btn-floating red hoverable tooltipped right" data-position="top" data-delay="50" data-tooltip="Mostrar registros" onclick="mostrarRegistrosFormato(&' . $cod . '&)" > <i class="material-icons">find_in_page</i></a>'
+                    .'<a class="btn-floating red hoverable tooltipped right" data-position="top" data-delay="50" data-tooltip="Diligenciar" onclick="diligenciarFormato(&' . $cod . '&)" > <i class="material-icons">keyboard</i></a>';
         }
 
         $mensaje.='</li>';

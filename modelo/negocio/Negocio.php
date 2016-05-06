@@ -115,7 +115,7 @@ class Negocio {
     public function asignarFormato($usuario, $formato) {
         $bandera = $this->formato->asignarDesasignarFormato($usuario, $formato, 1);
         if ($bandera > 0) {
-            return 'El formato ' . $formato . ' ha sido asignado al usuario ' . $usuario;
+            return 'El formato ' . $formato . ' ha sido asignado a ' . $usuario;
         } else {
             return 'El formato ha sido asignado anteriormente';
         }
@@ -124,7 +124,7 @@ class Negocio {
     public function desasignarFormato($usuario, $formato) {
         $bandera = $this->formato->asignarDesasignarFormato($usuario, $formato, 0);
         if ($bandera > 0) {
-            return 'El formato ' . $formato . ' ha sido desasignado del usuario ' . $usuario;
+            return 'El formato ' . $formato . ' ha sido desasignado de ' . $usuario;
         } else {
             return 'El usuario no tiene dicho formato asignado';
         }

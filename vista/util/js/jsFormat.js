@@ -210,16 +210,17 @@ function cargarRegistro() {
 
     $.post("../../controlador/Formato_controller.php", {formato: formato, fecha: fecha, opcion: "verDatos"},
     function (mensaje) {
+        console.log(mensaje);
         var arreglo = mensaje.split(';');
         for (i = 0; i < arreglo.length - 1; i++) {
             var div = arreglo[i].split('=');
             var clave = '#' + div[0];
-
-            var valor = div[1].replace(/ +/g, ' ');
-            var name = 'input[id=' + div[0] + ']';
+            var valor = div[1];
+            
+            var name = 'input[name=' + div[0] + ']';
             $(name).prop('checked', true);
 
-            $(name).val(valor);
+//            $(name).val(valor);
             $(clave).val(valor);
         }
     });

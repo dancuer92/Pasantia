@@ -105,8 +105,8 @@
                         </div>
                         <div class="col l9 m12 s12">
                             <div class="collection"><div id="consultarFormat" class="contenido">
-                                    <form class="s12 m4" id="formConsFormat" method="POST" action=""> 
-                                        <div class="center" >
+                                    <div class="s12 m4" id="formConsFormat" method="POST" action=""> 
+                                        <div class="" >
                                             <h3><i class="material-icons prefix" style="font-size: 2.92rem">search</i> Consultar Formato</h3>
                                             <div class="input-field col s12 m12 l12">
                                                 <i class="material-icons prefix">description</i>
@@ -126,8 +126,8 @@
                                                             <p> Proccess</p>
                                                             <p> Boss</p>
                                                         </div>
-                                                        <a class="btn-floating red hoverable tooltipped modal-trigger" data-position="top" data-delay="50" data-tooltip="Asignar" ><i class="material-icons">input</i></a>
-                                                        <a class="btn-floating red hoverable tooltipped modal-trigger" data-position="top" data-delay="50" data-tooltip="Desasignar" ><i class="material-icons">visibility_off</i></a>
+                                                        <a class="btn-floating red hoverable tooltipped modal-trigger right" data-position="top" data-delay="50" data-tooltip="Asignar" ><i class="material-icons">input</i></a>
+                                                        <a class="btn-floating red hoverable tooltipped modal-trigger right" data-position="top" data-delay="50" data-tooltip="Desasignar" ><i class="material-icons">visibility_off</i></a>
                                                     </li>
                                                     <li class="collection-item avatar">
                                                         <div class="col l2 m3 s12">
@@ -140,8 +140,8 @@
                                                             <p> Proccess</p>
                                                             <p> Boss</p>
                                                         </div>
-                                                        <a class="btn-floating red hoverable tooltipped modal-trigger" data-position="top" data-delay="50" data-tooltip="Asignar" ><i class="material-icons">input</i></a>
-                                                        <a class="btn-floating red hoverable tooltipped modal-trigger" data-position="top" data-delay="50" data-tooltip="Desasignar" ><i class="material-icons">visibility_off</i></a>
+                                                        <a class="btn-floating red hoverable tooltipped modal-trigger right" data-position="top" data-delay="50" data-tooltip="Asignar" ><i class="material-icons">input</i></a>
+                                                        <a class="btn-floating red hoverable tooltipped modal-trigger right" data-position="top" data-delay="50" data-tooltip="Desasignar" ><i class="material-icons">visibility_off</i></a>
                                                     </li>
                                                     <li class="collection-item avatar">
                                                         <div class="col l2 m3 s12">
@@ -154,13 +154,13 @@
                                                             <p> Proccess</p>
                                                             <p> Boss</p>
                                                         </div>
-                                                        <a class="btn-floating red hoverable tooltipped modal-trigger" data-position="top" data-delay="50" data-tooltip="Asignar" ><i class="material-icons">input</i></a>
-                                                        <a class="btn-floating red hoverable tooltipped modal-trigger" data-position="top" data-delay="50" data-tooltip="Desasignar" ><i class="material-icons">visibility_off</i></a>
+                                                        <a class="btn-floating red hoverable tooltipped modal-trigger right" data-position="top" data-delay="50" data-tooltip="Asignar" ><i class="material-icons">input</i></a>
+                                                        <a class="btn-floating red hoverable tooltipped modal-trigger right" data-position="top" data-delay="50" data-tooltip="Desasignar" ><i class="material-icons">visibility_off</i></a>
                                                     </li>
                                                 </ul>
                                             </div>
                                         </div>
-                                    </form>
+                                    </div>
                                 </div>                                
                             </div>               
                         </div>

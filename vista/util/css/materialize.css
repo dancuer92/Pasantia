@@ -2287,7 +2287,9 @@ td, th {
 .collection .collection-item.avatar {
     min-height: 84px;
     padding-left: 72px;
-    position: relative; }
+    position: relative;
+    overflow-y: auto;
+}
 .collection .collection-item.avatar .circle {
     position: absolute;
     width: 42px;

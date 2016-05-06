@@ -2,7 +2,7 @@
 <div id="modalInicioSesion" class="modal" >
     <form class="s12" action="controlador/Sesion_controller.php" method="post">
         <div class="modal-content" >
-            <h3>Inicio de sesión</h3>
+            <h4>Inicio de sesión</h4>
             <div>
                 <div class="row">
                     <div class="input-field col s12">

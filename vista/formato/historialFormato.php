@@ -12,7 +12,6 @@ if ($_SESSION["tipo"] !== "asistente") {
         <?php
             include 'head.php';
         ?>
-        
         <link rel="stylesheet" href="../util/css/datatables.css" type="text/css">
         <script type="text/javascript" src="../util/js/datatables.js"></script>
         <script>
@@ -28,10 +27,8 @@ if ($_SESSION["tipo"] !== "asistente") {
         </header>
         <main>
             <h1 class="titulo"><i class="material-icons prefix" style="font-size: 43px">history</i> Historial de modificaciones en el formato</h1>
-
             <div id="master-container" class="container">
-
-                <div class="table-responsive">
+                <!--<div class="table-responsive">-->
                     <table id="tabla_historial" class="table  table-hover">
                         <thead>
                             <tr>
@@ -42,11 +39,9 @@ if ($_SESSION["tipo"] !== "asistente") {
                                 <th></th>
                             </tr>
                         </thead>
-                        <tbody> 
-
-                        </tbody>
+                        <tbody></tbody>
                     </table>
-                </div>               
+                <!--</div>-->               
             </div>
         </main>
         <footer>

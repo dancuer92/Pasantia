@@ -1,37 +1,43 @@
 <div class="container">
     <div class="section">
-
         <!--   Icon Section   -->
-        <div class="row">                        
-
+        <div class="row hide-on-med-and-down">  
             <div class="col s12 m6 l4 offset-l1 hoverable">
                 <a href="./usuario.php">
                     <div class="icon-block">
                         <h2 class="center colorTexto"><i class="material-icons" style="font-size: 16rem;">group</i></h2>
-                        <h5 class="black-text center">Gestión de usuarios</h5>
-
-                        <p class="grey-text ">Módulo para la configuración del perfil, el registro de nuevos usuarios y consulta de otros usuarios</p>
+                        <h5 class="black-text center">Usuario</h5>
                     </div>
                 </a>                            
             </div>
-
             <div class="col s12 m6 l4 offset-l2 hoverable">
                 <a href="./formato.php">
                     <div class="icon-block">
                         <h2 class="center colorTexto"><i class="material-icons" style="font-size: 16rem;">description</i></h2>
-                        <h5 class="black-text center">Gestión de formatos</h5>
-
-                        <p class="grey-text">Módulo para la creación, consulta, modificación, diligenciamiento de formatos y asignación de formatos a usuario</p>
+                        <h5 class="black-text center">Formato</h5>
                     </div>
                 </a>
-
             </div>
         </div>
-
+        <div class="row hide-on-large-only">  
+            <div class="col s6 hoverable">
+                <a href="./usuario.php">
+                    <div class="icon-block">
+                        <h2 class="center colorTexto"><i class="material-icons" style="font-size: 8rem;">group</i></h2>
+                        <h5 class="black-text center">Usuario</h5>
+                    </div>
+                </a>                            
+            </div>
+            <div class="col s6 hoverable">
+                <a href="./formato.php">
+                    <div class="icon-block">
+                        <h2 class="center colorTexto"><i class="material-icons" style="font-size: 8rem;">description</i></h2>
+                        <h5 class="black-text center">Formato</h5>
+                    </div>
+                </a>
+            </div>
+        </div>
     </div>
     <br><br>
-
-    <div class="section">
-
-    </div>
+    <div class="section"></div>
 </div>
