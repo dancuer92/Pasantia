@@ -73,6 +73,12 @@ class Informacion_dto {
     }
 
     public function toJSON() {
+        if($this->estado==0){
+            $this->estado='Guardado';
+        }
+        else{
+            $this->estado='Modificado';
+        }
 
         $arr = array(
             "fecha_sistema" => $this->fecha_sistema,
