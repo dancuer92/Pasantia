@@ -13,7 +13,6 @@ and open the template in the editor.
 }
 
 #formBuilder{
-    size: A4;
     border: 1px solid;
     padding: 15px;
     border-color: #e4e4e4;
@@ -52,8 +51,6 @@ select{
 }
 
 .isSelected {
-    border-style: dashed;
-    border-width: 5px;
     background-color: #E4E4E4;
     
 }
@@ -93,3 +90,9 @@ select{
 .hover{
     background-color: #ccc;
 }
+
+.formato table{
+    max-width: 500px;
+    
+}
+

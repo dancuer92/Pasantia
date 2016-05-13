@@ -102,11 +102,12 @@ function getRadio() {
 }
 
 function getTable() {
-    $msj = '<div class="formato ui-state-default">'
-            . '<label >Untitled </label>'
-            . '<table id="tabla"><thead><th>Titulo 1</th></thead>'
+    $msj = '<div class="responsive-table ui-state-default formato">'
+            . '<label >Untitled 1</label>'
+            . '<table class="table" id="tabla">'
+            . '<thead><th>Titulo 1</th></thead>'
             . '<tbody>'
-            . '<tr><td><p> </p><input id="tabla_0" name="tabla_0" type="text" disabled></td></tr>'
+            . '<tr><td><p> </p><input id="tabla_0_0" name="tabla_0_0" type="text" disabled></td></tr>'
             . '</tbody>'
             . '</table>'
             . '</div>';
@@ -114,28 +115,26 @@ function getTable() {
 }
 
 function getOpcion() {
-    $id = $_POST['id'];    
-    $tipo = $_POST['tipo'];    
-    if($tipo=="checkbox"){
-        $msj = '<input id="'.$id.'" type="checkbox" name="'.$id.'" value="Untitled" disabled/><p>Untitled</p>';    
-    }
-    elseif ($tipo=="radio"){
-        $msj = '<input type="radio" id="'.$id.'"  name="radio" value="Untitled" disabled/><p>Untitled</p>';
-    }
-    else{
-        $msj='<option value="opcion-1">opcion 1</option>';
+    $id = $_POST['id'];
+    $tipo = $_POST['tipo'];
+    if ($tipo == "checkbox") {
+        $msj = '<input id="' . $id . '" type="checkbox" name="' . $id . '" value="Untitled" disabled/><p>Untitled</p>';
+    } elseif ($tipo == "radio") {
+        $msj = '<input type="radio" id="' . $id . '"  name="radio" value="Untitled" disabled/><p>Untitled</p>';
+    } else {
+        $msj = '<option value="opcion-1">opcion 1</option>';
     }
     echo $msj;
 }
 
-function getSectionBreak(){
-    $msj='<div class="formato ui-state-default" style="width:100%;">'
+function getSectionBreak() {
+    $msj = '<div class="formato ui-state-default" style="width:100%;">'
             . '<label>Separador</label>'
             . '</div>';
     echo $msj;
 }
 
-function getFecha(){
+function getFecha() {
     $msj = '<div class="formato form-group ui-state-default ">'
             . '<label >Fecha</label>'
             . '<input id="fecharegistro" name="fecharegistro" type="date" disabled/>'
@@ -143,7 +142,7 @@ function getFecha(){
     echo $msj;
 }
 
-function getHora(){
+function getHora() {
     $msj = '<div class="formato form-group ui-state-default ">'
             . '<label >Hora</label>'
             . '<input id="horaregistro" name="horaregistro" type="time" disabled/>'

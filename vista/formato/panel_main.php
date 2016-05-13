@@ -63,7 +63,7 @@
         </div>               
     </div>
     <div class="col-lg-8 col-sm-12 col-md-12 divMayor" id="formBuilder">
-        <table id="encabezado" style="width:100%;text-align: center">
+        <table id="encabezado" style="width:100%;">
             <tr>
                 <td ><h2> Nombre: <?php echo $_POST['nombreFormato']; ?></h2></td>
                 <td ><h2> Codigo: <?php echo $_POST['codigoFormato']; ?> </h2></td>                    
