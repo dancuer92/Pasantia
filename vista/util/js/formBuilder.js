@@ -44,6 +44,7 @@ $(document).ready(function () {
         //Se selecciona el nuevo elemento.
         $(this).addClass('isSelected');
         currentlySelected = $(this);
+        $('#pestañaPropiedades').click();
         //Se muestran las configuraciones dependiendo del elemento seleccionado.
         mostrarConfiguraciones(currentlySelected);
         //Función para cambiar la posición en el formato
@@ -184,7 +185,7 @@ function cambiarTitulo() {
         }
 
         if (elem.is('table')) {
-            var tabla=elem.attr('id', titulo);
+            var tabla = elem.attr('id', titulo);
             cambiarNombreCeldas(titulo);
         }
     }
@@ -218,6 +219,8 @@ function nombrarElementos() {
  */
 function limpiarTitulo() {
     $('#cambiarTitulo').val('');
+    $('#nombreUrl').val('');
+    $('#direccionEnlace').val('');
 }
 
 /**
@@ -226,13 +229,13 @@ function limpiarTitulo() {
  * @param {type} titulo
  * @returns {undefined}
  */
-function cambiarNombreCeldas(titulo){
-    var tabla='#'+titulo+' input';
-    $(tabla).each(function(i){
-        var input=$(this);
-        var nombre = titulo+"_"+i;
-        $(input).attr('id',nombre);
-        $(input).attr('name',nombre);
+function cambiarNombreCeldas(titulo) {
+    var tabla = '#' + titulo + ' input';
+    $(tabla).each(function (i) {
+        var input = $(this);
+        var nombre = titulo + "_" + i;
+        $(input).attr('id', nombre);
+        $(input).attr('name', nombre);
     });
 }
 
@@ -291,6 +294,15 @@ function mostrarConfiguraciones(div) {
             $('#requerido').hide();
             $('#opciones').show();
         }
+    }
+    
+    //Carga las opciones para un enlace 
+    if (elemento.children().is('a')) {
+//        console.log('enlace creado');
+        cargarOpcionesLink();
+        $('#requerido').hide();
+        $('#titulo').hide();
+        $('#opciones').show();
     }
 }
 
@@ -419,6 +431,36 @@ function cargarOpcionesCelda() {
 }
 
 /**
+ * Metodo que carga las opciones para modificar un enlace.
+ * Contiene dos input que son para modificar el nombre del enlace y la dirección de la página web respectivamente.
+ * @returns {undefined}
+ */
+function cargarOpcionesLink() {
+    var msj = '<label>URL</label><br>\n\
+            <input id="nombreUrl" type="text" class="form-control" placeholder="Nombre de la página" onkeyup="cambiarNombreURL();" onblur="limpiarTitulo();"/>\n\
+            <input id="direccionEnlace" type="text" class="form-control" placeholder="Dirección URL" onkeyup="cambiarURL();" onblur="limpiarTitulo();"/>';
+    $('#opciones').html(msj);
+}
+
+/**
+ * Cambia la dirección de la página web, indique aquí la ruta absoluta.
+ * @returns {undefined}
+ */
+function cambiarURL() {
+    var url = $('#direccionEnlace').val();
+    $('.isSelected').children('a').attr('href', url);
+}
+
+/**
+ * Cambia el título de la dirección web
+ * @returns {undefined}
+ */
+function cambiarNombreURL() {
+    var alt = $('#nombreUrl').val();
+    $('.isSelected').children('a').text(alt);
+}
+
+/**
  * Método para cambiar el estado de una celda, si es seleccinado o no
  * @returns {undefined}
  */
@@ -510,7 +552,7 @@ function eliminar() {
  */
 function agregarFila() {
     //se toma el nombre de la tabla
-    var nomTabla=$('.isSelected table').attr('id');
+    var nomTabla = $('.isSelected table').attr('id');
     //Se buscan las columnas de la última fila
     var columnasTabla = $('.isSelected table tr:last td');
     //Se toma el número de filas y columnas que tiene la última fila
@@ -522,7 +564,7 @@ function agregarFila() {
     //Se recorre el número de columnas
     for (var y = 0; y < totalCol; y++) {
         //Se adiciona una nueva celda por cada columna que se recorre
-        col += "<td><p> <p><input id='"+nomTabla +"_"+ (f - 1) + "_" + y + "' name='"+nomTabla +"_" + (f - 1) + "_" + y + "' type='text' disabled></td>";
+        col += "<td><p> <p><input id='" + nomTabla + "_" + (f - 1) + "_" + y + "' name='" + nomTabla + "_" + (f - 1) + "_" + y + "' type='text' disabled></td>";
     }
     //Se añade la nueva fila creada al final de la tabla.
     var row = fila + col + "</tr>";
@@ -533,9 +575,9 @@ function agregarFila() {
  * Permite adicionar una nueva columna a la tabla
  * @returns {undefined}
  */
-function agregarColumna() {    
+function agregarColumna() {
     //se toma el nombre de la tabla
-    var nomTabla=$('.isSelected table').attr('id');
+    var nomTabla = $('.isSelected table').attr('id');
     //Se seleccionan todas las filas de la tabla y se recorren.
     var filasTabla = $('.isSelected table tr');
     var c = ($('.isSelected table tr:last td').length);
@@ -546,7 +588,7 @@ function agregarColumna() {
         }
         //Se adiciona una celda que pertenezca al cuerpo de la tabla.
         else {
-            $(this).append("<td><p> </p><input id='"+nomTabla +"_" + (i - 1) + "_" + c + "' name='"+nomTabla +"_" + (i - 1) + "_" + c + "' type='text' disabled></td>");
+            $(this).append("<td><p> </p><input id='" + nomTabla + "_" + (i - 1) + "_" + c + "' name='" + nomTabla + "_" + (i - 1) + "_" + c + "' type='text' disabled></td>");
         }
     });
 }

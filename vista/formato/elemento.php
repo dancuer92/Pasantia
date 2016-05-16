@@ -47,6 +47,9 @@ switch ($opcion) {
     case("element-time"):
         getHora();
         break;
+    case("element-link"):
+        getLink();
+        break;
 }
 
 function getInputText() {
@@ -146,6 +149,13 @@ function getHora() {
     $msj = '<div class="formato form-group ui-state-default ">'
             . '<label >Hora</label>'
             . '<input id="horaregistro" name="horaregistro" type="time" disabled/>'
+            . '</div>';
+    echo $msj;
+}
+
+function getLink(){
+    $msj='<div class="formato form-group ui-state-default ">'
+            . '<a href="">Click me!</a>'
             . '</div>';
     echo $msj;
 }

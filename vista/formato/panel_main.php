@@ -17,6 +17,7 @@
                         <button class="btn btn-default  btn-block new-element" data-type="element-paragraph-text" style="width: 100%;">Área de texto</button>
                         <button class="btn btn-default  btn-block new-element" data-type="element-multiple-choice" style="width: 100%;">Opciones</button>
                         <button class="btn btn-default  btn-block new-element" data-type="element-date" style="width: 100%;">Fecha</button>
+                        <button class="btn btn-default  btn-block new-element" data-type="element-link" style="width: 100%;">Enlace</button>
                         <button class="btn btn-default  btn-block new-element" data-type="element-section-break" style="width: 100%;">Separador</button>
                     </div>
                     <div class="col-sm-6">
