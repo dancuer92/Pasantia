@@ -12,15 +12,8 @@ if ($_SESSION["tipo"] !== "asistente") {
     <head>
         <title>Crear Formato</title>
         <?php
-            include 'head.php';
+        include 'head.php';
         ?>
-        <script>
-            $(document).ready(function () {
-                $('#formulario').hide();
-                $('#pestañaFormulario').hide();                
-            });
-        </script>
-
     </head>
     <body>
         <!-- Encabezado -->
@@ -49,6 +42,17 @@ if ($_SESSION["tipo"] !== "asistente") {
         <footer>
             <?php include_once './panel_footer.php'; ?>
         </footer>
+
+        <!-- Script -->
+        <?php
+        include 'script.php';
+        ?>  
+        <script>
+            $(document).ready(function () {
+                $('#formulario').hide();
+                $('#pestañaFormulario').hide();
+            });
+        </script>
 
     </body> 
 

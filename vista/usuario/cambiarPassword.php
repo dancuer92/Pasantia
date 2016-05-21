@@ -1,5 +1,5 @@
 <div id="cambiarPassword" class="contenido">
-    <form class="s12 m4" id="formRegUser" method="post">
+    <form class="s12 m4" id="formCamPass" method="post">
         <input id="codigoSesion" name="codigoSesion" type="hidden" value="<?php echo $_SESSION['codigo']; ?>">
 
         <div class="center" >
@@ -8,12 +8,12 @@
                 <div class="row">
                     <div class="input-field col s12 m12 l12">
                         <i class="material-icons prefix">lock_open</i>
-                        <input id="passAnt" name="passAnt" type="password" maxlength="30" class="validate" required>
+                        <input id="passAnt" name="passAnt" type="password" maxlength="30" class="validate" pattern="(?=.*\d)(?=.*[+-._,*/])(?=.*[a-z]).{8,}" title="La contraseña debe ser mayor a ocho(8) caracteres y debe contener al menos un número y un caracter especial(+-._,*/)" required>
                         <label for="passAnt">Contraseña anterior</label>                           
                     </div>
                     <div class="input-field col s12 m12 l12">
                         <i class="material-icons prefix">lock_outline</i>
-                        <input id="passNew" name="passNew" type="password" maxlength="30" class="validate" required>
+                        <input id="passNew" name="passNew" type="password" maxlength="30" class="validate" pattern="(?=.*\d)(?=.*[+-._,*/])(?=.*[a-z]).{8,}" title="La contraseña debe ser mayor a ocho(8) caracteres y debe contener al menos un número y un caracter especial(+-._,*/)" required>
                         <label for="passNew">Nueva contraseña</label>                           
                     </div>
                     <div class="input-field col s12 m12 l12">
@@ -23,9 +23,9 @@
                     </div>
                 </div>
             </div>         
-            <a id="cambiarPass" class="btn waves-effect waves-light hoverable" onclick="cambiarPass()">Cambiar
+            <button id="cambiarPass" class="btn waves-effect waves-light hoverable" type="submit" name="action">Cambiar
                 <i class="material-icons right">send</i>
-            </a>           
+            </button>           
             <a class="waves-effect waves-red btn-flat hoverable" onclick="limpiar()">Limpiar
                 <i class="material-icons right">cancel</i></a>        
         </div>

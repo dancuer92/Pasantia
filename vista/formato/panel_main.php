@@ -29,23 +29,18 @@
                     </div>
                 </div>
                 <div role="tabpanel" class="tab-pane" id="propiedades">
-                    <br>
                     <div id="titulo">
                         <label>Nombre del campo</label>
+                        <br>
+                        <p>Digite aquí el nombre que se quiere para el elemento</p>
                         <input type="text" class="form-control" id="cambiarTitulo" value="" onkeyup="cambiarTitulo();" onblur="limpiarTitulo();"/>
                     </div>
-                    <br>
                     <div id="requerido">
-                        <label>Este campo será obligatorio</label> <input id="obligatorio" value="false" type="checkbox"/> 
+                        <label>Este campo será obligatorio</label><input id="obligatorio" value="false" type="checkbox"/> 
                     </div>
-                    <br>
-                    <div id="opciones">                                
-                    </div>
-                    <div id="celdas">
-                        
-                    </div>
-                    <br>
-                    <div>
+                    <div id="opciones"></div>
+                    <div id="celdas"></div>
+                    <div id="eliminarElemento">
                         <button class="btn btn-danger btn-block" id="eliminar" name="eliminar" onclick="eliminar();">Eliminar elemento</button>
                     </div>                            
                 </div>
@@ -64,10 +59,10 @@
         </div>               
     </div>
     <div class="col-lg-8 col-sm-12 col-md-12 divMayor" id="formBuilder">
-        <table id="encabezado" style="width:100%;">
+        <table id="encabezado">
             <tr>
-                <td ><h2> Nombre: <?php echo $_POST['nombreFormato']; ?></h2></td>
-                <td ><h2> Codigo: <?php echo $_POST['codigoFormato']; ?> </h2></td>                    
+                <td ><h3> Nombre: <?php echo $_POST['nombreFormato']; ?></h3></td>
+                <td ><h3> Código: <?php echo $_POST['codigoFormato']; ?> </h3></td>                    
                 <td ><img class="img-responsive" src="../util/images/corporativo/logo_ceramica.png" alt="Cerámica Italia"></td>
             </tr>
         </table>

@@ -14,16 +14,7 @@ if ($_SESSION["tipo"] !== "asistente") {
         <?php
             include 'head.php';
         ?>
-        <script>
-            $(document).ready(function () {
-                var formato = sessionStorage.getItem('formato');
-                console.log(formato);
-                $.post("../../controlador/Formato_controller.php", {formato: formato, opcion: "visualizarFormato"},
-                function (mensaje) {
-                    $('#formBuilder').html(mensaje);
-                });
-            });
-        </script>
+        
 
 
     </head>
@@ -48,6 +39,21 @@ if ($_SESSION["tipo"] !== "asistente") {
         <footer>
             <?php include_once './panel_footer.php'; ?>
         </footer>
+        
+        <!--script-->
+        <?php
+            include 'script.php';
+        ?>
+        <script>
+            $(document).ready(function () {
+                var formato = sessionStorage.getItem('formato');
+                console.log(formato);
+                $.post("../../controlador/Formato_controller.php", {formato: formato, opcion: "visualizarFormato"},
+                function (mensaje) {
+                    $('#formBuilder').html(mensaje);
+                });
+            });
+        </script>
 
     </body> 
 

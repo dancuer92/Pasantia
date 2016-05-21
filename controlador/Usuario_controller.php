@@ -1,4 +1,5 @@
 <?php
+
 //header("Content-Type: text/html;charset=utf-8");
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -54,13 +55,13 @@ if ($opcion == 'cambiar') {
 
 if ($opcion == 'asignar') {
     $cod = $_POST['codigo'];
-    $Usuario_controller->autocompletar_usuario($cod, 'asignar','');
+    $Usuario_controller->autocompletar_usuario($cod, 'asignar', '');
 }
 
 if ($opcion == 'desasignar') {
     $cod = $_POST['codigo'];
     $formato = $_POST['formato'];
-    $Usuario_controller->autocompletar_usuario($cod, 'desasignar',$formato);
+    $Usuario_controller->autocompletar_usuario($cod, 'desasignar', $formato);
 }
 
 class Usuario_controller {
@@ -78,7 +79,7 @@ class Usuario_controller {
 
     public function buscar_usuario($consultaBusqueda) {
         $mensaje = '';
-        $usuarios = $this->facade->buscar_usuario($consultaBusqueda,'','');
+        $usuarios = $this->facade->buscar_usuario($consultaBusqueda, '', '');
         if (is_null($usuarios)) {
             $mensaje = '<p>No hay ningún usuario con ese criterio de búsqueda</p>';
         } else {
@@ -115,7 +116,7 @@ class Usuario_controller {
                 }
             }
         }
-        $mensaje=  str_replace("&","'", $mensaje);
+        $mensaje = str_replace("&", "'", $mensaje);
         echo $mensaje;
     }
 
@@ -129,13 +130,13 @@ class Usuario_controller {
         if (!is_null($json)) {
             $array = json_decode($json, true);
             $mensaje.='<h5> <strong>Código de usuario: </strong>' . $array['codigo_usuario'] . '</h5>
-                        <h5> <strong>Nombre: </strong> <input id="nombre_usuario" disabled value="' . $array['nombre_usuario'] . '" onblur="edit(&nombre_usuario&,&' . $array['codigo_usuario'] . '&)"></h5>
-                        <h5> <strong>Apellido: </strong><input id="apellido_usuario" disabled value="' . $array['apellido_usuario'] . '" onblur="edit(&apellido_usuario&,&' . $array['codigo_usuario'] . '&)"></h5>
-                        <h5> <strong>Cédula: </strong><input id="cedula_usuario" disabled value="' . $array['cedula_usuario'] . '" onblur="edit(&cedula_usuario&,&' . $array['codigo_usuario'] . '&)"></h5>
-                        <h5> <strong>Correo: </strong><input id="correo_usuario" disabled value="' . $array['correo_usuario'] . '" onblur="edit(&correo_usuario&,&' . $array['codigo_usuario'] . '&)"></h5>
-                        <h5> <strong>Cargo: </strong><input id="cargo_usuario" disabled value="' . $array['cargo_usuario'] . '" onblur="edit(&cargo_usuario&,&' . $array['codigo_usuario'] . '&)"></h5>
-                        <h5> <strong>Departamento o área de trabajo:</strong> <input id="departamento_usuario" disabled value=" ' . $array['departamento_usuario'] . '" onblur="edit(&departamento_usuario&,&' . $array['codigo_usuario'] . '&)"></h5>
-                        <h5> <strong>Teléfono:</strong> <input id="telefono_usuario" disabled value="' . $array['telefono_usuario'] . '" onblur="edit(&telefono_usuario&,&' . $array['codigo_usuario'] . '&)"></h5>
+                        <h5> <strong>Nombre: </strong> <input id="nombre_usuario" pattern="[^a-zA-Z\s]{1,30}" title="Digitar sólo letras" disabled value="' . $array['nombre_usuario'] . '" onblur="edit(&nombre_usuario&,&' . $array['codigo_usuario'] . '&)"></h5>
+                        <h5> <strong>Apellido: </strong><input id="apellido_usuario" pattern="[^a-zA-Z\s]{1,30}" title="Digitar sólo letras" disabled value="' . $array['apellido_usuario'] . '" onblur="edit(&apellido_usuario&,&' . $array['codigo_usuario'] . '&)"></h5>
+                        <h5> <strong>Cédula: </strong><input id="cedula_usuario" pattern="[^0-9]{1,15}" title="Digitar sólo números" disabled value="' . $array['cedula_usuario'] . '" onblur="edit(&cedula_usuario&,&' . $array['codigo_usuario'] . '&)"></h5>
+                        <h5> <strong>Correo: </strong><input id="correo_usuario" pattern="[^a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" title="Digitar correo. Ejemplo: ejemplo@cisa.com" disabled value="' . $array['correo_usuario'] . '" onblur="edit(&correo_usuario&,&' . $array['codigo_usuario'] . '&)"></h5>
+                        <h5> <strong>Cargo: </strong><input id="cargo_usuario" pattern="[^a-zA-Z\s]{1,30}" title="Digitar sólo letras" disabled value="' . $array['cargo_usuario'] . '" onblur="edit(&cargo_usuario&,&' . $array['codigo_usuario'] . '&)"></h5>
+                        <h5> <strong>Departamento o área de trabajo: </strong><input id="departamento_usuario" pattern="[^a-zA-Z\s]{1,30}" title="Digitar sólo letras" disabled value="' . $array['departamento_usuario'] . '" onblur="edit(&departamento_usuario&,&' . $array['codigo_usuario'] . '&)"></h5>
+                        <h5> <strong>Teléfono:</strong> <input id="telefono_usuario" pattern="[^0-9]{1,15}" title="Digitar sólo números" disabled value="' . $array['telefono_usuario'] . '" onblur="edit(&telefono_usuario&,&' . $array['codigo_usuario'] . '&)"></h5>
                         <h5> <strong>Tipo de usuario en el sistema: </strong>' . $array['tipo_usuario'] . '</h5>';
         }
 
@@ -148,22 +149,22 @@ class Usuario_controller {
         echo $msj;
     }
 
-    public function autocompletar_usuario($codigo, $opc,$formato) {
+    public function autocompletar_usuario($codigo, $opc, $formato) {
         $mensaje = '';
-        $usuarios = $this->facade->buscar_usuario($codigo, $opc,$formato);
+        $usuarios = $this->facade->buscar_usuario($codigo, $opc, $formato);
         if (is_null($usuarios)) {
             $mensaje = '<p>No hay ningún usuario con ese criterio de búsqueda</p>';
         } else {
             foreach ($usuarios as $user) {
                 $array = json_decode($user, true);
-                $msj='';
+                $msj = '';
                 if ($opc == 'asignar') {
                     $msj = "setA('" . $array['codigo_usuario'] . "')";
                 } else {
                     $msj = "setD('" . $array['codigo_usuario'] . "')";
                 }
 
-                $mensaje .= '<a class="collection-item black-text" onclick="' .$msj. '"><strong>Código: </strong>'
+                $mensaje .= '<a class="collection-item black-text" onclick="' . $msj . '"><strong>Código: </strong>'
                         . $array["codigo_usuario"] . '. <strong>Usuario: </strong>' . $array["nombre_usuario"] . ' ' . $array["apellido_usuario"] . '</a>';
             }
         }

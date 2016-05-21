@@ -105,12 +105,12 @@ function getRadio() {
 }
 
 function getTable() {
-    $msj = '<div class="responsive-table ui-state-default formato">'
+    $msj = '<div class="ui-state-default formato">'
             . '<label >Untitled 1</label>'
-            . '<table class="table" id="tabla">'
-            . '<thead><th>Titulo 1</th></thead>'
+            . '<table id="tabla">'
+            . '<thead><td><p>Titulo 1</p></td></thead>'
             . '<tbody>'
-            . '<tr><td><p> </p><input id="tabla_0_0" name="tabla_0_0" type="text" disabled></td></tr>'
+            . '<tr><td><input id="tabla_0_0" name="tabla_0_0" type="text" disabled></td></tr>'
             . '</tbody>'
             . '</table>'
             . '</div>';

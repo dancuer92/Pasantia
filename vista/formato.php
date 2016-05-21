@@ -18,18 +18,7 @@ and open the template in the editor.
         <title>Administrador</title>      
         <!--import de la cabecera de la pagina -->
         <?php include './user/headHtml.php'; ?>
-
-        <!-- Scripts de la pagina -->
-        <?php
-        include './user/scripts.php';
-        ?>
-        <script src="./util/js/jsUser.js"></script>
-        <script src="./util/js/jsFormat.js"></script>
-        <script>
-            $(document).ready(function () {
-                autocompletarFormato();
-            })
-        </script>
+        
 
     </head>  
     <body>
@@ -41,6 +30,7 @@ and open the template in the editor.
             include './user/header.php';
             ?>
         </header>
+        <!--Contenido de la página-->
         <main>
             <?php
             $tipo = $_SESSION['tipo'];
@@ -51,12 +41,24 @@ and open the template in the editor.
             }
             ?> 
 
-        </main>
+        </main>        
         <!-- Footer de la pagina -->
         <footer>
             <?php
             include './user/footer.php';
             ?>
         </footer>
+        
+        <!-- Scripts de la pagina -->
+        <?php
+        include './user/scripts.php';
+        ?>
+        <script src="./util/js/jsUser.js"></script>
+        <script src="./util/js/jsFormat.js"></script>
+        <script>
+            $(document).ready(function () {
+                autocompletarFormato();
+            })
+        </script>
     </body>
 </html>

@@ -12,12 +12,7 @@ if (!isset($_SESSION["tipo"])) {
         <title>Visualizar Formato</title>
         <?php
             include 'head.php';
-        ?>        
-        <script>
-            $(document).ready(function () {
-                verFormato();
-            });
-        </script>
+        ?>
     </head>
     <body>
         <!-- Encabezado-->
@@ -42,5 +37,14 @@ if (!isset($_SESSION["tipo"])) {
                     <br>+57-7-5829800 - 018000111568</h6>                    
             </div>
         </footer>
+        <!--script-->
+        <?php
+            include 'script.php';
+        ?>        
+        <script>
+            $(document).ready(function () {
+                verFormato();
+            });
+        </script>
     </body>
 </html>

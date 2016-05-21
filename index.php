@@ -17,12 +17,6 @@ and open the template in the editor.
         <link href="vista/util/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
         <!--<link href="vista/util/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>-->
         <link rel="shortcut icon" href="vista/util/images/corporativo/icono_ceramica.ico">
-
-        <!--  Scripts-->
-        <script src="vista/util/js/jquery-2.1.4.min.js"></script>
-        <script src="vista/util/js/materialize.js"></script>
-        <script src="vista/util/js/init.js"></script>
-
     </head>
     <body>       
 
@@ -49,8 +43,11 @@ and open the template in the editor.
         <?php
         $ruta = "vista/util/images/corporativo/";
         include 'vista/index/footer.php';
-        ?>     
+        ?>
 
-
+        <!--  Scripts-->
+        <script src="vista/util/js/jquery-2.1.4.min.js"></script>
+        <script src="vista/util/js/materialize.js"></script>
+        <script src="vista/util/js/init.js"></script>
     </body>
 </html>

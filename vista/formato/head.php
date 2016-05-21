@@ -7,9 +7,4 @@
 <link rel="stylesheet" href="../util/css/formBuilder.css" type="text/css">
 <link rel="stylesheet" href="../util/css/style.css" type="text/css">
 
-<script type="text/javascript" src="../util/js/jquery-2.1.4.min.js"></script>
-<script type="text/javascript" src="../util/js/bootstrap.js"></script>
-<script type="text/javascript" src="../util/js/formBuilder.js"></script>
-<script type="text/javascript" src="../util/js/jquery-ui.js"></script>
-<script type="text/javascript" src="../util/js/jsFormat.js"></script>
 

@@ -18,12 +18,7 @@ and open the template in the editor.
         <title><?php echo $_SESSION['tipo']; ?></title>      
         <!--import de la cabecera de la pagina -->
         <?php include './user/headHtml.php'; ?>
-
-        <!-- Scripts de la pagina -->
-        <?php
-        include './user/scripts.php';
-        ?>
-        <script src="./util/js/jsUser.js"></script>
+       
 
     </head>  
     <body>
@@ -35,6 +30,7 @@ and open the template in the editor.
             include './user/header.php';
             ?>
         </header>
+        <!--contenido de la página-->
         <main>
             <?php
             $tipo = $_SESSION['tipo'];            
@@ -46,12 +42,18 @@ and open the template in the editor.
             }
             ?> 
 
-        </main>
+        </main>        
         <!-- Footer de la pagina -->
         <footer>
             <?php
             include './user/footer.php';
             ?>
         </footer>
+        
+         <!-- Scripts de la pagina -->
+        <?php
+        include './user/scripts.php';
+        ?>
+        <script src="./util/js/jsUser.js"></script>
     </body>
 </html>

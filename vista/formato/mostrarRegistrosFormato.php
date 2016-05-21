@@ -16,28 +16,7 @@ if ($_SESSION["tipo"] !== "supervisor" && $_SESSION["tipo"] !== "operario") {
         <?php
         include 'head.php';
         ?>
-
-        <link rel="stylesheet" type="text/css" href="../util/css/datatables.css"/>
-        <script type="text/javascript" src="../util/js/datatables.js"></script>
-
-
-        <script>
-            $(document).ready(function () {
-                var formato = sessionStorage.getItem('formato');
-                console.log(formato);
-
-                $.post("../../controlador/Formato_controller.php", {formato: formato, opcion: "mostrarRegistrosFormato"},
-                function (mensaje) {
-                    $('#mostrarRegFormato tbody').append(mensaje);
-                    $('#mostrarRegFormato').DataTable({responsive: true});
-                });
-
-
-            });
-        </script>
-
-
-
+        <link rel="stylesheet" type="text/css" href="../util/css/datatables.css"/>        
     </head>
     <body>
         <!-- Encabezado-->
@@ -49,19 +28,19 @@ if ($_SESSION["tipo"] !== "supervisor" && $_SESSION["tipo"] !== "operario") {
             <h1 class="titulo"><i class="material-icons prefix" style="font-size: 43px">find_in_page</i> Mostrar histórico de registros del formato</h1>
             <div id="master-container" class="container">
                 <!--<div class="table-responsive">-->
-                    <table id="mostrarRegFormato" class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th>Fecha de registro en el sistema</th>
-                                <th>Fecha del formato</th>
-                                <th>Usuario encargado</th>
-                                <th>Estado del registro</th>
-                                <th>Observaciones</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>  
+                <table id="mostrarRegFormato" class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Fecha de registro en el sistema</th>
+                            <th>Fecha del formato</th>
+                            <th>Usuario encargado</th>
+                            <th>Estado del registro</th>
+                            <th>Observaciones</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>  
                 <!--</div>-->
             </div>
         </main>
@@ -75,5 +54,22 @@ if ($_SESSION["tipo"] !== "supervisor" && $_SESSION["tipo"] !== "operario") {
             </div>
         </footer>
 
+        <!--script-->
+        <?php
+        include 'head.php';
+        ?>
+        <script type="text/javascript" src="../util/js/datatables.js"></script>
+        <script>
+            $(document).ready(function () {
+                var formato = sessionStorage.getItem('formato');
+                console.log(formato);
+
+                $.post("../../controlador/Formato_controller.php", {formato: formato, opcion: "mostrarRegistrosFormato"},
+                function (mensaje) {
+                    $('#mostrarRegFormato tbody').append(mensaje);
+                    $('#mostrarRegFormato').DataTable({responsive: true});
+                });
+            });
+        </script>
     </body>
 </html>

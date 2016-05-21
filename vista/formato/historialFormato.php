@@ -13,18 +13,14 @@ if ($_SESSION["tipo"] !== "asistente") {
             include 'head.php';
         ?>
         <link rel="stylesheet" href="../util/css/datatables.css" type="text/css">
-        <script type="text/javascript" src="../util/js/datatables.js"></script>
-        <script>
-            $(document).ready(function () {
-                var formato = sessionStorage.getItem('formato');
-                cargarHistorial(formato);
-            });
-        </script>
+        
     </head>
     <body>
+        <!--encabezado-->
         <header>
             <?php include './panel_header.php'; ?> 
         </header>
+        <!--contenido-->
         <main>
             <h1 class="titulo"><i class="material-icons prefix" style="font-size: 43px">history</i> Historial de modificaciones en el formato</h1>
             <div id="master-container" class="container">
@@ -44,8 +40,21 @@ if ($_SESSION["tipo"] !== "asistente") {
                 <!--</div>-->               
             </div>
         </main>
+        <!--pie de pagina-->
         <footer>
             <?php include './panel_footer.php'; ?>           
         </footer>
+        
+        <!--script-->
+        <?php
+            include 'script.php';
+        ?>
+        <script type="text/javascript" src="../util/js/datatables.js"></script>
+        <script>
+            $(document).ready(function () {
+                var formato = sessionStorage.getItem('formato');
+                cargarHistorial(formato);
+            });
+        </script>
     </body>
 </html>

@@ -8,6 +8,13 @@ and open the template in the editor.
     Author     : pinformatica
 */
 
+#encabezado{
+    width: 100%;
+}
+#encabezado tr{
+    vertical-align: top;
+}
+
 #master-container{
     margin-top: 5%;
 }
@@ -23,6 +30,7 @@ div .formato{
     border-style:dashed;
     border-width: 0.5px;
     padding: 10px;
+    vertical-align: text-top;
 }
 
 input{
@@ -96,3 +104,8 @@ select{
     
 }
 
+#titulo,#requerido,#opciones,#celdas,#eliminarElemento{
+    display: inline-block;
+    margin-top: 12%;
+    width: 100%;
+}

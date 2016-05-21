@@ -39,7 +39,7 @@ $(document).ready(function () {
      * Método que selecciona cualquier div del formato a construir para cambiar su panel de configuraciones.
      */
     $('#formBuilder').on("click", "div", function () {
-        //Se quitan los elementos previamentes seleccionados.
+        //Se quitan los elementos previamentes seleccionados
         clearElementSelected();
         //Se selecciona el nuevo elemento.
         $(this).addClass('isSelected');
@@ -198,6 +198,7 @@ function cambiarTitulo() {
  */
 function clearElementSelected() {
     $('.isSelected').removeClass('isSelected');
+    removerCeldasSeleccionadas();
 }
 ;
 
@@ -207,7 +208,7 @@ function clearElementSelected() {
  */
 function nombrarElementos() {
     $('#formBuilder div').each(function (i) {
-        var id = 'element-'.i;
+        var id = 'element-' + i;
         $(this).attr('id', id);
     });
 }
@@ -265,6 +266,8 @@ function mostrarConfiguraciones(div) {
     $('#titulo').show();
     $('#requerido').show();
     $('#eliminar').show();
+    $('#celdas').hide();
+
     var elemento = div;
 
     //Selecciona el tipo de entrada
@@ -286,16 +289,16 @@ function mostrarConfiguraciones(div) {
         }
         else if (elemento.children('table').html()) {
             $('table').on('dblclick', 'td', function () {
-                removerCeldasSeleccionadas();
                 $(this).addClass('hover');
                 cargarOpcionesCelda();
+                $('#celdas').show();
             });
             cargarOpcionesTabla();
             $('#requerido').hide();
             $('#opciones').show();
         }
     }
-    
+
     //Carga las opciones para un enlace 
     if (elemento.children().is('a')) {
 //        console.log('enlace creado');
@@ -314,6 +317,7 @@ function ocultarConfiguraciones() {
     $('#titulo').hide();
     $('#requerido').hide();
     $('#opciones').hide();
+    $('#celdas').hide();
     $('#eliminar').hide();
 }
 
@@ -410,24 +414,49 @@ function adicionarOptionSelect() {
  * @returns {undefined}
  */
 function cargarOpcionesTabla() {
-    var msj = '<label>Configuración de opciones</label><br>\n\
-                <div class="col-sm-6">\n\
+    var msj = '<label>Configuración de opciones de tabla</label>\n\
+                <br><div class="col-sm-6">\n\
                     <button class="btn btn-default" onclick="agregarFila();"style="width: 100%;">Adicionar fila</button>\n\
-                    <button class="btn btn-default" onclick="agregarColumna();"style="width: 100%;">Adicionar columna</button><br>\n\
+                    <button class="btn btn-default" onclick="agregarColumna();"style="width: 100%;">Adicionar columna</button>\n\
                 </div>\n\
                 <div class="col-sm-6">\n\
                     <button class="btn btn-default" onclick="eliminarFila();"style="width: 100%;">Eliminar Fila</button>\n\
-                    <button class="btn btn-default" onclick="eliminarColumna();"style="width: 100%;">Eliminar columna</button><br>\n\
-                </div>';
+                    <button class="btn btn-default" onclick="eliminarColumna();"style="width: 100%;">Eliminar columna</button>\n\
+                </div>\n\
+                <p>Por favor hacer doble clic en la celda para ver el panel de configuraciones de una celda.</p>';
     $('#opciones').html(msj);
 }
 
-/**
- * 
- * @returns {undefined}
- */
 function cargarOpcionesCelda() {
+    var msj = '<label>Configuración de opciones de la celda</label>\n\
+                    <div class="col-sm-12">\n\
+                        <p>Por favor hacer clic en el botón para cambiar el campo a etiqueta de texto</p>\n\
+                        <button class="btn btn-default" onclick="cambiarALabel();" style="width:100%">Etiqueta</button>\n\
+                        <input id="nombreEtiquetaCelda" type="text" class="form-control" placeholder="Nombre celda" onkeyup="cambiarNombreCelda();" />\n\
+                    </div><div class="col-sm-12">\n\
+                    <p>Por favor hacer clic en el botón para cambiar el campo a una entrada de texto</p>\n\
+                    <button class="btn btn-default" onclick="cambiarAInput();" style="width:100%">Campo de texto</button>\n\
+                </div>\n\
+                </div>';
+    $('#celdas').html(msj);
+}
 
+function cambiarALabel() {
+    var celda = $('.hover');
+    var titulo = celda.parent('table').attr('id');
+    celda.empty();
+    celda.append('<p>Nombre celda</p>');
+    cambiarNombreCeldas(titulo);
+
+}
+
+function cambiarAInput() {
+    var celda = $('.hover');
+    celda.empty();
+    var titulo = celda.parent('table').attr('id');
+    var input = '<input id="' + titulo + '_n" name="' + titulo + '_n" type="text" disabled></td>';
+    celda.append(input);
+    cambiarNombreCeldas(titulo);
 }
 
 /**
@@ -440,6 +469,11 @@ function cargarOpcionesLink() {
             <input id="nombreUrl" type="text" class="form-control" placeholder="Nombre de la página" onkeyup="cambiarNombreURL();" onblur="limpiarTitulo();"/>\n\
             <input id="direccionEnlace" type="text" class="form-control" placeholder="Dirección URL" onkeyup="cambiarURL();" onblur="limpiarTitulo();"/>';
     $('#opciones').html(msj);
+}
+
+function cambiarNombreCelda() {
+    var valor = $('#nombreEtiquetaCelda').val();
+    $('.hover').children('p').text(valor);
 }
 
 /**
@@ -564,7 +598,7 @@ function agregarFila() {
     //Se recorre el número de columnas
     for (var y = 0; y < totalCol; y++) {
         //Se adiciona una nueva celda por cada columna que se recorre
-        col += "<td><p> <p><input id='" + nomTabla + "_" + (f - 1) + "_" + y + "' name='" + nomTabla + "_" + (f - 1) + "_" + y + "' type='text' disabled></td>";
+        col += "<td><input id='" + nomTabla + "_" + (f - 1) + "_" + y + "' name='" + nomTabla + "_" + (f - 1) + "_" + y + "' type='text' disabled></td>";
     }
     //Se añade la nueva fila creada al final de la tabla.
     var row = fila + col + "</tr>";
@@ -584,11 +618,11 @@ function agregarColumna() {
     $(filasTabla).each(function (i) {
         //Se adiciona una celda que pertenezca al encabezado de la tabla.
         if (i == 0) {
-            $(this).append("<th><p>Nueva columna</p></th>");
+            $(this).append("<td><p>Nueva columna</p></td>");
         }
         //Se adiciona una celda que pertenezca al cuerpo de la tabla.
         else {
-            $(this).append("<td><p> </p><input id='" + nomTabla + "_" + (i - 1) + "_" + c + "' name='" + nomTabla + "_" + (i - 1) + "_" + c + "' type='text' disabled></td>");
+            $(this).append("<td><input id='" + nomTabla + "_" + (i - 1) + "_" + c + "' name='" + nomTabla + "_" + (i - 1) + "_" + c + "' type='text' disabled></td>");
         }
     });
 }
@@ -616,12 +650,13 @@ function eliminarColumna() {
         //Se recorren todas las filas.
         $('.isSelected table tr').each(function (i) {
             //El encabezado de la columna también se elimina.
-            if (i == 0) {
-                $(this).children('th:last').remove();
-            }
-            else {
-                $(this).children('td:last').remove();
-            }
+            $(this).children('td:last').remove();
+//            if (i == 0) {
+//                $(this).children('td:last').remove();
+//            }
+//            else {
+//                $(this).children('td:last').remove();
+//            }
         });
     }
     else {

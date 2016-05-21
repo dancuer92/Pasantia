@@ -14,17 +14,7 @@ if ($_SESSION["tipo"] !== "supervisor" && $_SESSION["tipo"] !== "operario") {
 
         <?php
             include 'head.php';
-        ?>
-        
-        <script>
-            $(document).ready(function () {
-                cargarRegistro();
-                $('#guardarRegistro').hide();
-            });
-        </script>
-
-
-
+        ?>        
     </head>
     <body>
         <!-- Encabezado-->
@@ -32,6 +22,7 @@ if ($_SESSION["tipo"] !== "supervisor" && $_SESSION["tipo"] !== "operario") {
             <?php include_once './panel_header.php'; ?>
         </header>
 
+        <!--contenido-->
         <main>
             <h1 class="titulo"><i class="material-icons prefix" style="font-size: 43px">find_in_page</i> Mostrar registro del formato</h1>
             <div class="container center">   
@@ -52,5 +43,15 @@ if ($_SESSION["tipo"] !== "supervisor" && $_SESSION["tipo"] !== "operario") {
             </div>
         </footer>
 
+        <!--script-->
+        <?php
+            include 'head.php';
+        ?>
+        <script>
+            $(document).ready(function () {
+                cargarRegistro();
+                $('#guardarRegistro').hide();
+            });
+        </script>
     </body>
 </html>

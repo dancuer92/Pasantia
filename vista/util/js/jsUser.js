@@ -6,62 +6,17 @@ $(document).ready(function () {
     $('select').material_select();
     $('#mobileFormatos').show();
     $('#mobileUsuarios').show();
-
-
-    /*
-     $('#registrarF').click(function () {
-     $('.contenido').hide();
-     $('#registrarFormat').show();
-     });
-     $('#registrarFM').click(function () {
-     $('.contenido').hide();
-     $('#registrarFormat').show();
-     });
-     $('#modificarF').click(function () {
-     $('.contenido').hide();
-     $('#modificarFormat').show();
-     });
-     $('#modificarFM').click(function () {
-     $('.contenido').hide();
-     $('#modificarFormat').show();
-     });
-     $('#asignarF').click(function () {
-     $('.contenido').hide();
-     $('#asignarFormat').show();
-     });
-     $('#asignarFM').click(function () {
-     $('.contenido').hide();
-     $('#asignarFormat').show();
-     });
-     $('#consultarF').click(function () {
-     $('.contenido').hide();
-     $('#consultarFormat').show();
-     });
-     $('#consultarFM').click(function () {
-     $('.contenido').hide();
-     $('#consultarFormat').show();
-     });
-     $('#diligenciarF').click(function () {
-     $('.contenido').hide();
-     $('#diligenciarFormat').show();
-     });
-     $('#diligenciarFM').click(function () {
-     $('.contenido').hide();
-     $('#diligenciarFormat').show();
-     });
-     
-     
-     
-     
-     //consultarUsuario.php
-     $('#busCli').click(function () {
-     $('.contenido').hide();
-     $('#buscarUsuario').show();
-     $('#busquedaUsuario').val('');
-     $("#resultadoBusquedaUsuario").html("");
-     });*/
-
 });
+
+$('#formRegUser').submit(function (event) {
+    event.preventDefault();
+    registrarUser();
+});
+
+$('#formCamPass').submit(function(event){
+    event.preventDefault();
+    cambiarPass();
+})
 
 function cargarPerfil() {
     $('#guardar').hide();
@@ -89,7 +44,15 @@ function guardarModificacionesPerfil() {
 function edit(item, cod) {
     var x = '#' + item;
     var valor = $(x).val();
-    if (valor !== '') {
+    var patron=$(x).attr('pattern');
+    var titulo=$(x).attr('title');
+    var re= new RegExp(patron);
+    console.log(re);
+    console.log(valor);
+    var res=(re.test(valor));
+    console.log(res);
+    
+    if (!res && valor!=='') {
         $.post("../controlador/Usuario_controller.php", {valor: valor, clave: item, codigo: cod, opcion: "editar"},
         function () {
             Materialize.toast('Campo actualizado con éxito', 5000, 'rounded');
@@ -97,7 +60,7 @@ function edit(item, cod) {
     }
     else {
         $(x).focus();
-        Materialize.toast('Favor diligenciar el campo', 5000, 'rounded');
+        Materialize.toast(titulo, 5000, 'rounded');
     }
 }
 
@@ -162,20 +125,20 @@ function registrarUser() {
     var estado = $('#estado').val();
 
     if (crearPass()) {
-        if (codigo != "" && nombre != "" && apellido != "" && numDoc != "" && correo != "" &&
-                pass != "" && cargo != "" && departamento != "" && telefono != "" && rol != "" && estado != "") {
-            $.post("../controlador/Usuario_controller.php", {codigo: codigo, nombre: nombre,
-                apellido: apellido, numDoc: numDoc, correo: correo, pass: pass, cargo: cargo,
-                departamento: departamento, telefono: telefono, rol: rol, estado: estado, opcion: "registrar_usuario"},
-            function (mensaje) {
-                $('#regUserForm').html(mensaje);
-                Materialize.toast(mensaje, 5000, 'rounded');
-                limpiar();
-            });
-        } else {
-            $('#regUserForm').html('Favor digitar todos los campos');
-            Materialize.toast('Favor digitar todos los campos', 5000, 'rounded');
-        }
+//        if (codigo != "" && nombre != "" && apellido != "" && numDoc != "" && correo != "" &&
+//                pass != "" && cargo != "" && departamento != "" && telefono != "" && rol != "" && estado != "") {
+        $.post("../controlador/Usuario_controller.php", {codigo: codigo, nombre: nombre,
+            apellido: apellido, numDoc: numDoc, correo: correo, pass: pass, cargo: cargo,
+            departamento: departamento, telefono: telefono, rol: rol, estado: estado, opcion: "registrar_usuario"},
+        function (mensaje) {
+            $('#regUserForm').html(mensaje);
+            Materialize.toast(mensaje, 5000, 'rounded');
+            limpiar();
+        });
+//        } else {
+//            $('#regUserForm').html('Favor digitar todos los campos');
+//            Materialize.toast('Favor digitar todos los campos', 5000, 'rounded');
+//        }
     }
     else {
         Materialize.toast('Favor confirmar el password', 5000, 'rounded');
@@ -262,12 +225,12 @@ function autocompletarUsuario() {
 }
 
 function usuariosDesasignar() {
-    var formato=$('#formatoDesasignar').val();
+    var formato = $('#formatoDesasignar').val();
     $('#desasignarFormatoButton').attr('disabled', true);
     var min_length = 0; // min caracters to display the autocomplete
     var keyword = $('#cod_usuarioDes').val();
     if (keyword.length >= min_length && keyword !== "") {
-        $.post("../controlador/Usuario_controller.php", {formato:formato, codigo: keyword, opcion: "desasignar"},
+        $.post("../controlador/Usuario_controller.php", {formato: formato, codigo: keyword, opcion: "desasignar"},
         function (mensaje) {
             $('#usuariosD').html(mensaje);
         });
