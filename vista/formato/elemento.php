@@ -54,7 +54,7 @@ switch ($opcion) {
 
 function getInputText() {
     $msj = '<div class="formato form-group ui-state-default ">'
-            . '<label >Untitled </label>'
+            . '<label >Título del campo de texto</label>'
             . '<input id="untitled" name="untitled" type="text" length="30" disabled/>'
             . '</div>';
     echo $msj;
@@ -62,8 +62,8 @@ function getInputText() {
 
 function getInputNumber() {
     $msj = '<div class="formato  form-group ui-state-default ">'
-            . '<label>Untitled </label>'
-            . '<input id="untitled" name="untitled" type="number" length="15" disabled/>'
+            . '<label>Título del campo numérico</label>'
+            . '<input id="untitled" name="untitled" type="number" length="15" step="any" disabled/>'
             . '</label>'
             . '</div>';
     echo $msj;
@@ -71,7 +71,7 @@ function getInputNumber() {
 
 function getAreaText() {
     $msj = '<div class="formato ui-state-default " >'
-            . '<label>Untitled</label>'
+            . '<label>Título del área de texto</label>'
             . '<textarea id="untitled" name="untitled" type="text" disabled>'
             . '</textarea>'
             . '</div>';
@@ -80,7 +80,7 @@ function getAreaText() {
 
 function getCheckboxes() {
     $msj = '<div class="formato ui-state-default ">'
-            . '<label>Untitled</label> <br>'
+            . '<label>Título de casillas de verificación</label> <br>'
             . '<input id="Untitled-0" type="checkbox" name="Untitled-0" value="untitled" disabled/><p>Untitled</p>'
             . '</div>';
     echo $msj;
@@ -88,7 +88,7 @@ function getCheckboxes() {
 
 function getDropdown() {
     $msj = '<div class="formato ui-state-default ">'
-            . '<label>Untitled </label>'
+            . '<label>Título de lista desplegable</label>'
             . '<select id="select" name="select">'
             . '<option value="opcion-1" selected>Option 1</option>'
             . '</select>'
@@ -98,7 +98,7 @@ function getDropdown() {
 
 function getRadio() {
     $msj = '<div class="formato ui-state-default ">'
-            . '<label>Untitled</label><br>'
+            . '<label>Título de opciones</label><br>'
             . '<input type="radio" id="Untitled-0" name="radio" value="Untitled" disabled/><p>Untitled</p> '
             . '</div>';
     echo $msj;
@@ -106,7 +106,7 @@ function getRadio() {
 
 function getTable() {
     $msj = '<div class="ui-state-default formato">'
-            . '<label >Untitled 1</label>'
+            . '<label >Título de la tabla</label>'
             . '<table id="tabla">'
             . '<thead><td><p>Titulo 1</p></td></thead>'
             . '<tbody>'
@@ -132,7 +132,7 @@ function getOpcion() {
 
 function getSectionBreak() {
     $msj = '<div class="formato ui-state-default" style="width:100%;">'
-            . '<label>Separador</label>'
+            . '<label>Título del separador</label>'
             . '</div>';
     echo $msj;
 }
@@ -155,7 +155,7 @@ function getHora() {
 
 function getLink(){
     $msj='<div class="formato form-group ui-state-default ">'
-            . '<a href="">Click me!</a>'
+            . '<a href="">Enlace</a>'
             . '</div>';
     echo $msj;
 }

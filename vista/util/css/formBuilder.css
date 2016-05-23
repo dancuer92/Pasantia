@@ -109,3 +109,7 @@ select{
     margin-top: 12%;
     width: 100%;
 }
+
+.requerido{
+    color:red;
+}

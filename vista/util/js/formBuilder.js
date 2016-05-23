@@ -99,41 +99,26 @@ $(document).ready(function () {
     }
 
     //Modificar la opción si es requerido o no 
-    $('#obligatorio').on('click', function () {
-        //Si la opción está desactivada se procede a activarse y agregar el indicador si es obligatoria o no.
-        if ($('#obligatorio').val() === "false") {
-            //Inicialización del indicador obligatorio.
-            var p = '<p style="color:red;">*</p>';
-            var div = $('.isSelected');
-            div.children('label').append(p);
-            //Se activa la opción obligatoria en el formulario del formato, solo funcionará para ciertos input.
-            var tipo = div.children('input').attr('type');
-            if (tipo === 'text' || tipo === 'number') {
-                div.children('input').attr('required', '');
+    $('#obligatorio').change(function () {
+        //se selecciona el div que será obligatorio
+        var div = $('.isSelected');
+        var tipo = div.children('input').attr('type');
+        //se verifica si es obligatorio
+        if (this.checked) {
+            //se verifica sino son radios o checkbox para que no creen conflicto sobre los otros input
+            if (tipo !== 'radio' || tipo !== 'checkbox') {
+                //se adiciona un identificador visual al formulario, se le adiciona la propiedad al input.
+                div.children('label').children('p').remove();
+                div.children('input').prop('required', true);
+                div.children('label').append('<p class="requerido">*</p>');
             }
-            //Se chequea la opción obligatoria como true.
-            $('#obligatorio').val("true");
         }
         else {
-            //Se remueve la opción obligatoria y el indicador obligatorio.
-            var p = $('.isSelected label p');
-            $('.isSelected').children('input').removeAttr('required');
-            p.remove();
-            $('#obligatorio').val("false");
+            //sino es obligatorio y tiene la propiedad se elimina y se retira el identificador visual
+            div.children('input').removeAttr('required');
+            div.children('label').children('p').remove();
         }
-    });
-
-
-//    $(".isSelected").on( "mouseenter",
-//        
-//            function () {
-//                $(this).addClass("hover");
-//                console.log($(this));
-//            },
-//            function () {
-//                $(this).removeClass("hover");
-//            }
-//    );
+    }) 
 
 });
 
@@ -158,6 +143,11 @@ function cambiarTitulo() {
         //Se selecciona la etiqueta con el texto que representa la entrada y se reemplaza por el nuevo titulo.
         var label = div.children('label');
         label.html(titulo);
+        $('#cambiarTitulo').attr('placeholder',titulo);
+
+        //Se borra si es requerido el campo
+        div.children('input').removeAttr('required');
+        
 
         //Se modifica el titulo para que no contenga espacios 
         titulo = titulo.replace(/ /g, "_");
@@ -167,7 +157,7 @@ function cambiarTitulo() {
         var elem = label.next();
         var tipo = elem.attr('type');
         //Se modifica el nombre según el tipo de entrada que posee el formato.
-        if (tipo === 'text' || tipo === 'number') {
+        if (tipo !== 'radio' || tipo !== 'checkbox') {
             elem.attr('id', titulo);
             elem.attr('name', titulo);
         }
@@ -184,8 +174,9 @@ function cambiarTitulo() {
             elem.attr('name', titulo);
         }
 
+        //Si el elemento es una tabla se le da un nombre de identificación del elemento
         if (elem.is('table')) {
-            var tabla = elem.attr('id', titulo);
+            elem.attr('id', titulo);
             cambiarNombreCeldas(titulo);
         }
     }
@@ -222,22 +213,7 @@ function limpiarTitulo() {
     $('#cambiarTitulo').val('');
     $('#nombreUrl').val('');
     $('#direccionEnlace').val('');
-}
-
-/**
- * Método que permite cambiar el nombre de los input de la tabla
- * el título corresponde al nombre de la tabla
- * @param {type} titulo
- * @returns {undefined}
- */
-function cambiarNombreCeldas(titulo) {
-    var tabla = '#' + titulo + ' input';
-    $(tabla).each(function (i) {
-        var input = $(this);
-        var nombre = titulo + "_" + i;
-        $(input).attr('id', nombre);
-        $(input).attr('name', nombre);
-    });
+    $('#obligatorio').removeAttr('checked');
 }
 
 /**
@@ -251,7 +227,7 @@ function requerir(div) {
     console.log(tipo);
 //    Queda requerido solo para los tipo text y number
     if (tipo === 'text' || tipo === 'number') {
-        div.children('input').attr('required', '');
+        div.children('input').attr('required', true);
     }
 }
 
@@ -264,39 +240,51 @@ function requerir(div) {
 function mostrarConfiguraciones(div) {
 //    Muestra las configuraciones por defecto
     $('#titulo').show();
-    $('#requerido').show();
+    $('#requerido').hide();
     $('#eliminar').show();
     $('#celdas').hide();
+    $('#opciones').hide();
 
     var elemento = div;
 
+    //cargo el titulo del elemento para modificarlo en el panel de configuraciones
+    $('#cambiarTitulo').attr('placeholder', ($(elemento).children('label').text()));
+
     //Selecciona el tipo de entrada
     var tipo = elemento.children('input').attr('type');
-//    console.log(tipo);
+
+    //carga la opcion si es requerido o no.
+    if (elemento.children().is('input')) {
+        $('#requerido').show();
+        $('#obligatorio').removeAttr('checked');
+    }
+
+    //carga las opciones de un checkbox o radio
     if (tipo === 'checkbox' || tipo === 'radio') {
         $('#opciones').show();
         $('#requerido').hide();
         cargarOpciones(elemento);
     }
-    else {
-        $('#opciones').hide();
-        //carga las opciones sino son tipos de entrada de texto, es decir, listas y tablas.
-        if (elemento.children('select').html()) {
-            cargarOpcionesSelect(elemento);
-            $('#opciones').show();
-            $('#requerido').hide();
 
-        }
-        else if (elemento.children('table').html()) {
-            $('table').on('dblclick', 'td', function () {
-                $(this).addClass('hover');
-                cargarOpcionesCelda();
-                $('#celdas').show();
-            });
-            cargarOpcionesTabla();
-            $('#requerido').hide();
-            $('#opciones').show();
-        }
+    //carga las opciones para una lista desplegable
+    if (elemento.children().is('select')) {
+        cargarOpcionesSelect(elemento);
+        $('#opciones').show();
+        $('#requerido').show();
+        $('#requerido').hide();
+    }
+
+    //carga las opciones para una tabla
+    if (elemento.children().is('table')) {
+        var tabla = '#' + elemento.children('table').attr('id');
+        $(tabla).on('dblclick', 'td', function () {
+            $(this).addClass('hover');
+            cargarOpcionesCelda();
+            $('#celdas').show();
+        });
+        cargarOpcionesTabla();
+        $('#requerido').hide();
+        $('#opciones').show();
     }
 
     //Carga las opciones para un enlace 
@@ -423,40 +411,131 @@ function cargarOpcionesTabla() {
                     <button class="btn btn-default" onclick="eliminarFila();"style="width: 100%;">Eliminar Fila</button>\n\
                     <button class="btn btn-default" onclick="eliminarColumna();"style="width: 100%;">Eliminar columna</button>\n\
                 </div>\n\
-                <p>Por favor hacer doble clic en la celda para ver el panel de configuraciones de una celda.</p>';
+                <br><p>Por favor hacer doble clic en la celda para ver el panel de configuraciones de una celda.</p>';
     $('#opciones').html(msj);
 }
 
+/**
+ * Cargar las opciones de una celda al hacer doble clic sobre ellas.
+ * permite crear una etiqueta (<p>) para identificar la columna o fila o dar un nombre a una celda en la tabla como referencia.
+ * cambiar a campo de entrada (<input>) ya sea un tipo texto o numérico cualquier etiqueta dentro de la tabla, si es numérico permite establecer un valor máximo y un valor mínimo.
+ * Además, permite crear un enlace de contenido externo (<a>) para redireccionar el formato. La ruta debe contener la dirección completa del servidor.
+ * @returns {undefined}
+ */
 function cargarOpcionesCelda() {
-    var msj = '<label>Configuración de opciones de la celda</label>\n\
+    var msj = '<label>Configuración de opciones de la celda</label><br>\n\
+                    <p>Por favor hacer clic en el botón para cambiar el campo a etiqueta de texto</p><br>\n\
                     <div class="col-sm-12">\n\
-                        <p>Por favor hacer clic en el botón para cambiar el campo a etiqueta de texto</p>\n\
                         <button class="btn btn-default" onclick="cambiarALabel();" style="width:100%">Etiqueta</button>\n\
                         <input id="nombreEtiquetaCelda" type="text" class="form-control" placeholder="Nombre celda" onkeyup="cambiarNombreCelda();" />\n\
-                    </div><div class="col-sm-12">\n\
-                    <p>Por favor hacer clic en el botón para cambiar el campo a una entrada de texto</p>\n\
-                    <button class="btn btn-default" onclick="cambiarAInput();" style="width:100%">Campo de texto</button>\n\
-                </div>\n\
-                </div>';
+                    </div>\n\
+                    <p>Por favor hacer clic en el botón para cambiar el campo a una entrada de texto o números</p><br>\n\
+                    <div class="col-sm-6">\n\
+                        <button class="btn btn-default" onclick="cambiarAInput(\'text\');" style="width:100%">Campo de texto</button>\n\
+                    </div>\n\
+                    <div class="col-sm-6">\n\
+                        <button class="btn btn-default" onclick="cambiarAInput(\'number\');" style="width:100%">Campo numérico</button>\n\
+                        Máximo valor: <input id="maxVal" type="text" class="form-control" placeholder="Valor máximo" onkeyup="cambiarValMax();" />\n\
+                        Mínimo valor: <input id="minVal" type="text" class="form-control" placeholder="Valor mínimo" onkeyup="cambiarValMin();" />\n\
+                    </div>\n\
+                    <p>Por favor hacer clic en el botón para cambiar a un enlace externo</p><br>\n\
+                    <div class="col-sm-12">\n\
+                        <button class="btn btn-default" onclick="cambiarALink();" style="width:100%">Enlace</button>\n\
+                        <input id="nombreUrl" type="text" class="form-control" placeholder="Nombre de la página" onkeyup="cambiarNombreURL();" onblur="limpiarTitulo();"/>\n\
+                        <input id="direccionEnlace" type="text" class="form-control" placeholder="Dirección URL" onkeyup="cambiarURL();" onblur="limpiarTitulo();"/>\n\
+                    </div>';
     $('#celdas').html(msj);
 }
 
 function cambiarALabel() {
+    //Se toma la celda en la que se trabaja
     var celda = $('.hover');
-    var titulo = celda.parent('table').attr('id');
+    //se busca el nombre de la tabla
+    var titulo = celda.parents('table').attr('id');
+    //se vacía el contenido inicial de la celda
     celda.empty();
+    //Se agrega el elemento correspondiente a una etiqueta
     celda.append('<p>Nombre celda</p>');
+    //Se renombran los input de la tabla.
     cambiarNombreCeldas(titulo);
 
 }
 
-function cambiarAInput() {
+/**
+ * Se cambia el contenido de la celda por una entrada de texto de tipo numérica o textual
+ * El parámetro recibido es el tipo del input.
+ * @param {type} tipo
+ * @returns {undefined}
+ */
+function cambiarAInput(tipo) {
+    //Se toma la celda en la que se trabaja
     var celda = $('.hover');
+    //se vacía el contenido inicial de la celda
     celda.empty();
-    var titulo = celda.parent('table').attr('id');
-    var input = '<input id="' + titulo + '_n" name="' + titulo + '_n" type="text" disabled></td>';
+    //se busca el nombre de la tabla
+    var titulo = celda.parents('table').attr('id');
+    //Se agrega el elemento correspondiente a un input
+    var input = '<input id="' + titulo + '_n" name="' + titulo + '_n" type="' + tipo + '" disabled></td>';
     celda.append(input);
+    //Se renombran los input de la tabla.
     cambiarNombreCeldas(titulo);
+}
+
+/**
+ * Metodo que cambia el valor máximo de un input tipo numérico
+ * @returns {undefined}
+ */
+function cambiarValMax() {
+    var max = $('#maxVal').val();
+    $('.hover').children('input[type=number]').attr('step', 'any');
+    $('.hover').children('input[type=number]').attr('max', max);
+}
+
+/**
+ * Metodo que cambia el valor mínimo de un input tipo numérico
+ * @returns {undefined}
+ */
+function cambiarValMin() {
+    var min = $('#minVal').val();
+    $('.hover').children('input[type=number]').attr('step', 'any');
+    $('.hover').children('input[type=number]').attr('min', min);
+}
+
+/**
+ * Se cambia el contenido de la tabla por un enlace externo en el que el usuario le da el nombre de la dirección y la dirección misma
+ * @returns {undefined}
+ */
+function cambiarALink() {
+    //Se toma la celda en la que se trabaja
+    var celda = $('.hover');
+    //se busca el nombre de la tabla
+    var titulo = celda.parents('table').attr('id');
+    //se vacía el contenido inicial de la celda
+    celda.empty();
+    //Se agrega el elemento correspondiente a un enlace
+    celda.append('<a href="">¡Hacer clic aquí!</a>');
+    //Se renombran los input de la tabla.
+    cambiarNombreCeldas(titulo);
+}
+
+/**
+ * Método que permite cambiar el nombre de los input de la tabla
+ * el título corresponde al nombre de la tabla
+ * @param {type} titulo
+ * @returns {undefined}
+ */
+function cambiarNombreCeldas(titulo) {
+    //Se toma el nombre de la tabla
+    var tabla = '#' + titulo + ' input';
+    //Se recorren todos los input de la tabla
+    $(tabla).each(function (i) {
+        //Se toma el input actual
+        var input = $(this);
+        //Se actualiza el nombre del input con el nombre de la tabla mas el identificador de la celda
+        var nombre = titulo + "_" + i;
+        $(input).attr('id', nombre);
+        $(input).attr('name', nombre);
+    });
 }
 
 /**
@@ -471,8 +550,14 @@ function cargarOpcionesLink() {
     $('#opciones').html(msj);
 }
 
+/**
+ * Cambia el nombre de la etiqueta de la celda en la tabla
+ * @returns {undefined}
+ */
 function cambiarNombreCelda() {
+    //Se toma el nombre de la celda ingresada por el usuario    
     var valor = $('#nombreEtiquetaCelda').val();
+    //se actualiza el nombre de la etiqueta en la tabla
     $('.hover').children('p').text(valor);
 }
 
@@ -481,8 +566,13 @@ function cambiarNombreCelda() {
  * @returns {undefined}
  */
 function cambiarURL() {
+    //Se toma la direccion del enlance que ingresa el usuario
     var url = $('#direccionEnlace').val();
+    //Se actualiza el atributo de refeencia del elemento <a> con la direccion ingresada
+    //caso para un enlace dentro de un div
     $('.isSelected').children('a').attr('href', url);
+    //caso para un enlace dentro de una celda.
+    $('.hover').children('a').attr('href', url);
 }
 
 /**
@@ -490,8 +580,12 @@ function cambiarURL() {
  * @returns {undefined}
  */
 function cambiarNombreURL() {
+    //se toma el nombre de la url ingresada por el usuario
     var alt = $('#nombreUrl').val();
+    //se busca el elemento si el caso es dentro de un div seleccionado.
     $('.isSelected').children('a').text(alt);
+    //se busca el elemento si el caso es dentro de una celda seleccionada.
+    $('.hover').children('a').text(alt);
 }
 
 /**
@@ -499,6 +593,7 @@ function cambiarNombreURL() {
  * @returns {undefined}
  */
 function removerCeldasSeleccionadas() {
+    //remueve la clase hover de todos los elementos que la contienen.
     $('.hover').removeClass('hover');
 }
 

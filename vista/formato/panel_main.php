@@ -36,7 +36,7 @@
                         <input type="text" class="form-control" id="cambiarTitulo" value="" onkeyup="cambiarTitulo();" onblur="limpiarTitulo();"/>
                     </div>
                     <div id="requerido">
-                        <label>Este campo será obligatorio</label><input id="obligatorio" value="false" type="checkbox"/> 
+                        <label>Este campo será obligatorio</label><input id="obligatorio" type="checkbox"/> 
                     </div>
                     <div id="opciones"></div>
                     <div id="celdas"></div>
