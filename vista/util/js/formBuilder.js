@@ -256,7 +256,7 @@ function mostrarConfiguraciones(div) {
     //carga la opcion si es requerido o no.
     if (elemento.children().is('input')) {
         $('#requerido').show();
-        $('#obligatorio').removeAttr('checked');
+        $('#obligatorio').removeAttr('checked');               
     }
 
     //carga las opciones de un checkbox o radio
