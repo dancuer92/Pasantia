@@ -55,7 +55,7 @@ switch ($opcion) {
 function getInputText() {
     $msj = '<div class="formato form-group ui-state-default ">'
             . '<label >Título del campo de texto</label>'
-            . '<input id="untitled" name="untitled" type="text" length="30" disabled/>'
+            . '<input id="untitled" name="untitled" type="text" length="30" pattern="[a-zA-zñÑáÁéÉíÍóÓúÚ \s]{1,30}" title="Digite sólo letras" disabled/>'
             . '</div>';
     echo $msj;
 }
@@ -110,7 +110,7 @@ function getTable() {
             . '<table id="tabla">'
             . '<thead><td><p>Titulo 1</p></td></thead>'
             . '<tbody>'
-            . '<tr><td><input id="tabla_0_0" name="tabla_0_0" type="text" disabled></td></tr>'
+            . '<tr><td><input id="tabla_0_0" name="tabla_0_0" type="text" length="30" disabled></td></tr>'
             . '</tbody>'
             . '</table>'
             . '</div>';
@@ -138,9 +138,11 @@ function getSectionBreak() {
 }
 
 function getFecha() {
+    $dateMin=date( "Y-m-d",mktime(0, 0, 0, date("m"),date("d"), date("Y")-1));
+    $dateMax=date( "Y-m-d",mktime(0, 0, 0, date("m"),date("d"), date("Y")+1));
     $msj = '<div class="formato form-group ui-state-default ">'
             . '<label >Fecha</label>'
-            . '<input id="fecharegistro" name="fecharegistro" type="date" disabled/>'
+            . '<input id="fecharegistro" name="fecharegistro" type="date" min="'.$dateMin.'" max="'.$dateMax.'" disabled/>'
             . '</div>';
     echo $msj;
 }

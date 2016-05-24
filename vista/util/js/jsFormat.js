@@ -126,28 +126,29 @@ function diligenciarFormato(cod) {
     location.href = ('formato/diligenciarFormato.php');
 }
 
-function guardarDiligenciaFormato(opcion, info) {
+function guardarDiligenciaFormato(opcion) {
     var formato = sessionStorage.getItem('formato');
-    var requeridos = validarRequeridos();
+    var requeridos = validarRequeridos(); 
+    console.log(requeridos+"7");
     if (requeridos) {
-
-//        var info = $('#visualizarFormato').serialize();
+        var info = $('#visualizarFormato').serialize();
         console.log(info);
         var observaciones = $('#observaciones').val();
         if (opcion === 'registrar') {
-            info = $('#visualizarFormato').serialize();
-            console.log(info);
+//            info = $('#visualizarFormato').serialize();
+//            console.log(info);
 
             var fechaFormato = $('#fecharegistro').val();
             if (fechaFormato === '') {
-                fechaFormato = '---';
+                var f = new Date();
+                fechaFormato = f.getFullYear() + "-" + (f.getMonth() + 1) + "-" + f.getDate();
             }
-            $.post('../../controlador/Formato_controller.php', {formato: formato, fechaFormato: fechaFormato, observaciones: observaciones, info: info, opcion: 'diligenciarFormato'},
-            function (mensaje) {
-//            confirm(mensaje);
-                $('#res1').html(mensaje);
-//            console.log(mensaje);
-            });
+//            $.post('../../controlador/Formato_controller.php', {formato: formato, fechaFormato: fechaFormato, observaciones: observaciones, info: info, opcion: 'diligenciarFormato'},
+//            function (mensaje) {
+////            confirm(mensaje);
+//                $('#res1').html(mensaje);
+////            console.log(mensaje);
+//            });
         }
         if (opcion === 'modificar') {
             console.log('modificar');
@@ -155,32 +156,25 @@ function guardarDiligenciaFormato(opcion, info) {
             console.log(info);
             $.post('../../controlador/Formato_controller.php', {formato: formato, fechaFormato: fecha, observaciones: observaciones, info: info, opcion: 'modificarRegistroFormato'},
             function (mensaje) {
-//            confirm(mensaje);
                 $('#res1').html(mensaje);
-//            console.log(mensaje);
             });
         }
     }
 }
 
-function validarRequeridos() {
-    $('#myModal').modal('hide');
-    var requeridos = true;
-    $('input[required]').each(function () {
-        var input = $(this);
-//        console.log($(this).attr('id'));
-        var value = $(input).val();
-        if (value !== '') {
-            requeridos = true;
-        }
-        else {
+function validarRequeridos(){
+    var requeridos=true;
+    $('input[required]').each(function(){
+        var input=$(this);
+        if(input.val()==''){
+            $('#myModal').modal('hide');
             $('#myModal').on('hidden.bs.modal', function () {
-                $(input).focus();
-                var msj = 'Favor digitar el campo obligatorio:<br>' + input.attr('id');
-                $('#res1').html(msj);
-                requeridos = false;
-                return requeridos;
+                input.focus();
             });
+            var msj = 'Favor digitar el campo obligatorio:<br>' + input.attr('id');
+            $('#res1').html(msj);
+            requeridos=false;
+            return false;
         }
     });
     return requeridos;
@@ -216,7 +210,7 @@ function cargarRegistro() {
             var div = arreglo[i].split('=');
             var clave = '#' + div[0];
             var valor = div[1];
-            
+
             var name = 'input[name=' + div[0] + ']';
             $(name).prop('checked', true);
 
@@ -258,7 +252,7 @@ function guardarMR() {
     $('input').attr('disabled', true);
     $('textarea').attr('disabled', true);
     $('select').attr('disabled', true);
-    guardarDiligenciaFormato('modificar', info);
+    guardarDiligenciaFormato('modificar');
     $('#guardarRegistro').hide();
     $('#modificarRegistro').show();
 }

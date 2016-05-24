@@ -33,7 +33,7 @@
                         <label>Nombre del campo</label>
                         <br>
                         <p>Digite aquí el nombre que se quiere para el elemento</p>
-                        <input type="text" class="form-control" id="cambiarTitulo" value="" onkeyup="cambiarTitulo();" onblur="limpiarTitulo();"/>
+                        <input type="text" class="form-control" id="cambiarTitulo" onkeyup="cambiarTitulo();" onblur="limpiarTitulo();" />
                     </div>
                     <div id="requerido">
                         <label>Este campo será obligatorio</label><input id="obligatorio" type="checkbox"/> 

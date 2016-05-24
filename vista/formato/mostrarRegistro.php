@@ -45,7 +45,7 @@ if ($_SESSION["tipo"] !== "supervisor" && $_SESSION["tipo"] !== "operario") {
 
         <!--script-->
         <?php
-            include 'head.php';
+            include 'script.php';
         ?>
         <script>
             $(document).ready(function () {

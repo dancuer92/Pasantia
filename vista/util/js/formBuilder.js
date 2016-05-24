@@ -118,7 +118,7 @@ $(document).ready(function () {
             div.children('input').removeAttr('required');
             div.children('label').children('p').remove();
         }
-    }) 
+    })
 
 });
 
@@ -143,15 +143,23 @@ function cambiarTitulo() {
         //Se selecciona la etiqueta con el texto que representa la entrada y se reemplaza por el nuevo titulo.
         var label = div.children('label');
         label.html(titulo);
-        $('#cambiarTitulo').attr('placeholder',titulo);
+        $('#cambiarTitulo').attr('placeholder', titulo);
 
         //Se borra si es requerido el campo
         div.children('input').removeAttr('required');
-        
 
-        //Se modifica el titulo para que no contenga espacios 
-        titulo = titulo.replace(/ /g, "_");
+
+        //Se modifica el titulo para que no contenga espacios, ni acentos, ni ñ, ni sea mayúscula
         titulo = titulo.toLowerCase();
+        titulo = titulo.replace(/[áàäâå]/g, 'a');
+        titulo = titulo.replace(/[éèëê]/g, 'e');
+        titulo = titulo.replace(/[íìïî]/g, 'i');
+        titulo = titulo.replace(/[óòöô]/g, 'o');
+        titulo = titulo.replace(/[úùüû]/g, 'u');
+        titulo = titulo.replace(/[ñ]/g, 'n');
+        titulo = titulo.replace(/[ç]/g, 'c');
+        titulo = titulo.replace(/[^a-z0-9\s]/g, '');
+        titulo = titulo.replace(/ /g, "_");
 
         //Se selecciona el tipo de entrada del formato.
         var elem = label.next();
@@ -182,6 +190,7 @@ function cambiarTitulo() {
     }
 
 }
+
 
 /**
  * Quitar el elemento seleccionado
@@ -256,7 +265,12 @@ function mostrarConfiguraciones(div) {
     //carga la opcion si es requerido o no.
     if (elemento.children().is('input')) {
         $('#requerido').show();
-        $('#obligatorio').removeAttr('checked');               
+        $('#obligatorio').removeAttr('checked');
+    }
+
+    if (tipo === 'number') {
+        $('#opciones').show();
+        cargarOpcionesNumber();
     }
 
     //carga las opciones de un checkbox o radio
@@ -308,6 +322,42 @@ function ocultarConfiguraciones() {
     $('#celdas').hide();
     $('#eliminar').hide();
 }
+
+/**
+ * Carga las opciones de loc campos numéricos las cuales son un rango mínimo y un rango máximo.
+ * @returns {undefined}
+ */
+function cargarOpcionesNumber() {
+    var msj = '<label>Configuración de rango</label><br>\n\
+            <p>Indique aquí el rango de valores del input</p><br>\n\
+            <div class="col-sm-6">\n\
+                Mínimo valor:<br><input id="minVal" type="number" step="any" class="form-control" placeholder="Valor mínimo" onkeyup="cambiarMin();" style="width:100%"/>\n\
+            </div>\n\
+            <div class="col-sm-6">\n\
+                Máximo valor:<br><input id="maxVal" type="number" step="any" class="form-control" placeholder="Valor máximo" onkeyup="cambiarMax();" style="width:100%"/><br>\n\
+            </div>';
+    $('#opciones').html(msj);
+}
+
+/**
+ * Metodo que cambia el valor máximo de un input tipo numérico
+ * @returns {undefined}
+ */
+function cambiarMax() {
+    var max = $('#maxVal').val();
+    $('.isSelected').children('input').attr('max', max);
+}
+
+/**
+ * Metodo que cambia el valor mínimo de un input tipo numérico
+ * @returns {undefined}
+ */
+function cambiarMin() {
+    var min = $('#minVal').val();
+    $('.isSelected').children('input').attr('min', min);
+}
+
+
 
 /**
  * Carga las opciones del elemento seleccionado si es el caso de un checkbox o radio.
@@ -435,8 +485,8 @@ function cargarOpcionesCelda() {
                     </div>\n\
                     <div class="col-sm-6">\n\
                         <button class="btn btn-default" onclick="cambiarAInput(\'number\');" style="width:100%">Campo numérico</button>\n\
-                        Máximo valor: <input id="maxVal" type="text" class="form-control" placeholder="Valor máximo" onkeyup="cambiarValMax();" />\n\
-                        Mínimo valor: <input id="minVal" type="text" class="form-control" placeholder="Valor mínimo" onkeyup="cambiarValMin();" />\n\
+                        Máximo valor: <input id="maxVal" type="number" step="any" class="form-control" placeholder="Valor máximo" onkeyup="cambiarValMax();" />\n\
+                        Mínimo valor: <input id="minVal" type="number" step="any" class="form-control" placeholder="Valor mínimo" onkeyup="cambiarValMin();" />\n\
                     </div>\n\
                     <p>Por favor hacer clic en el botón para cambiar a un enlace externo</p><br>\n\
                     <div class="col-sm-12">\n\
@@ -447,6 +497,11 @@ function cargarOpcionesCelda() {
     $('#celdas').html(msj);
 }
 
+/**
+ * Cambia el contenido de una celda por una etiqueta para representar una fila o una columna o 
+ * simplemente para establecer un espacio entre celdas.
+ * @returns {undefined}
+ */
 function cambiarALabel() {
     //Se toma la celda en la que se trabaja
     var celda = $('.hover');
@@ -482,7 +537,7 @@ function cambiarAInput(tipo) {
 }
 
 /**
- * Metodo que cambia el valor máximo de un input tipo numérico
+ * Metodo que cambia el valor máximo de un input tipo numérico en una tabla
  * @returns {undefined}
  */
 function cambiarValMax() {
@@ -492,7 +547,7 @@ function cambiarValMax() {
 }
 
 /**
- * Metodo que cambia el valor mínimo de un input tipo numérico
+ * Metodo que cambia el valor mínimo de un input tipo numérico en una tabla
  * @returns {undefined}
  */
 function cambiarValMin() {

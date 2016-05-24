@@ -56,7 +56,7 @@ if ($_SESSION["tipo"] !== "supervisor" && $_SESSION["tipo"] !== "operario") {
 
         <!--script-->
         <?php
-        include 'head.php';
+        include 'script.php';
         ?>
         <script type="text/javascript" src="../util/js/datatables.js"></script>
         <script>
