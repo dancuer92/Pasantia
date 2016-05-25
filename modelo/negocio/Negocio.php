@@ -79,15 +79,18 @@ class Negocio {
 
     public function cambiar_password_usuario($newPass, $prevPass, $cod) {
         $bandera = $this->usuario->cambiar($newPass, $prevPass, $cod);
-        $msj = '';
+        $msj="";
         switch ($bandera) {
-            case "0": $msj = 'La contraseña no ha sido actualizada, por favor vuelva a intetarlo';
-                break;
-            case "1": $msj = 'La contraseña ha sido actualizada';
-                break;
-            case "2": $msj = 'La contraseña anterior no coincide en la base de datos';
-                break;
-        }
+                case "0":
+                    $msj = 'La contraseña no ha sido actualizada, por favor vuelva a intetarlo';
+                    break;
+                case "1":
+                    $msj = 'La contraseña ha sido actualizada';
+                    break;
+                case "2":
+                    $msj='La contraseña anterior no coincide en la base de datos';
+                    break;
+            }
         return $msj;
     }
 
@@ -197,8 +200,8 @@ class Negocio {
         $msj = '';
         foreach ($arr as $var) {
             $arreglo2 = explode('=', $var);
-            if ($arreglo2[1] !== '') {
-                $msj.=$var . ';';
+            if ($arreglo2[1]!=='') {
+                $msj.=$var . '&';
             }
         }
         return $msj;

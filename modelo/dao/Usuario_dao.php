@@ -184,7 +184,7 @@ class Usuario_dao {
             $mensaje.= $this->mysqli->error;
         }
         if (!$sentencia->execute()) {
-            $mensaje .= "0";
+            $mensaje = "0";
         } else {
             $mensaje = "1";
             if ($sentencia->affected_rows === 0) {

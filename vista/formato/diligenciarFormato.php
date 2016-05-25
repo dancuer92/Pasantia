@@ -64,7 +64,7 @@ if ($_SESSION["tipo"] !== "supervisor" && $_SESSION["tipo"] !== "operario") {
                     </div>
                     <div class="modal-footer">
                         <a type="button" class="btn btn-default" data-dismiss="modal">CANCELAR</a>
-                        <a type="button" class="btn btn-danger" onclick="guardarDiligenciaFormato('registrar');">ACEPTAR</a>
+                        <a type="button" class="btn btn-danger" onclick="guardarDiligenciaFormato('registrar','');">ACEPTAR</a>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
@@ -76,7 +76,7 @@ if ($_SESSION["tipo"] !== "supervisor" && $_SESSION["tipo"] !== "operario") {
         ?>
         <script>
             $(document).ready(function () {
-                verFormato();
+                verFormato('diligenciar');                
             });
         </script>
     </body>

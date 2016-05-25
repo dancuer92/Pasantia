@@ -33,7 +33,7 @@ function btnAsignar() {
     console.log(formato + " " + usuario);
     $.post("../controlador/Formato_controller.php", {formato: formato, usuario: usuario, opcion: "asignarFormato"},
     function (mensaje) {
-        Materialize.toast(mensaje, 5000, 'rounded');
+        toastr["info"](mensaje);
     });
 
 }
@@ -44,8 +44,7 @@ function btnDesasignar() {
     console.log(formato + " " + usuario);
     $.post("../controlador/Formato_controller.php", {formato: formato, usuario: usuario, opcion: "desasignarFormato"},
     function (mensaje) {
-        console.log(mensaje);
-        Materialize.toast(mensaje, 5000, 'rounded');
+        toastr["info"](mensaje);
     });
 }
 
@@ -71,11 +70,13 @@ function guardarRegistroFormato() {
                 {codigoF: codigoF, nombreF: nombreF, procedimientoF: procedimientoF, directorF: directorF, frecuenciaF: frecuenciaF, tipoF: tipoF, descripcionF: descripcionF, codigoHTML: formato, opcion: 'guardarFormato'},
         function (mensaje) {
             res.html(mensaje);
+            toastr["info"](mensaje);
 //        Materialize.toast(mensaje, 5000, 'rounded');
         })
     }
     else {
         res.html('Por favor adicione elementos al nuevo formato');
+        toastr["info"]('Por favor adicione elementos al nuevo formato');
     }
 
 
@@ -104,6 +105,7 @@ function guardarModificacionFormato() {
         $.post("../../controlador/Formato_controller.php", {formato: formato, detalle: detalle, observaciones: observaciones, html: html, opcion: 'modificarFormato'},
         function (mensaje) {
             $('#res1').html(mensaje);
+            toastr["info"](mensaje);
         });
     }
 }
@@ -126,29 +128,27 @@ function diligenciarFormato(cod) {
     location.href = ('formato/diligenciarFormato.php');
 }
 
-function guardarDiligenciaFormato(opcion) {
+function guardarDiligenciaFormato(opcion, info) {
     var formato = sessionStorage.getItem('formato');
-    var requeridos = validarRequeridos(); 
-    console.log(requeridos+"7");
+    var requeridos = validarRequeridos();
+    console.log(requeridos + "7");
     if (requeridos) {
-        var info = $('#visualizarFormato').serialize();
-        console.log(info);
         var observaciones = $('#observaciones').val();
         if (opcion === 'registrar') {
-//            info = $('#visualizarFormato').serialize();
-//            console.log(info);
-
+            info = $('#visualizarFormato').serialize();
+            console.log(info);
             var fechaFormato = $('#fecharegistro').val();
             if (fechaFormato === '') {
                 var f = new Date();
                 fechaFormato = f.getFullYear() + "-" + (f.getMonth() + 1) + "-" + f.getDate();
             }
-//            $.post('../../controlador/Formato_controller.php', {formato: formato, fechaFormato: fechaFormato, observaciones: observaciones, info: info, opcion: 'diligenciarFormato'},
-//            function (mensaje) {
-////            confirm(mensaje);
-//                $('#res1').html(mensaje);
-////            console.log(mensaje);
-//            });
+            $.post('../../controlador/Formato_controller.php', {formato: formato, fechaFormato: fechaFormato, observaciones: observaciones, info: info, opcion: 'diligenciarFormato'},
+            function (mensaje) {
+//            confirm(mensaje);
+                $('#res1').html(mensaje);
+                toastr["info"](mensaje);
+//            console.log(mensaje);
+            });
         }
         if (opcion === 'modificar') {
             console.log('modificar');
@@ -157,23 +157,25 @@ function guardarDiligenciaFormato(opcion) {
             $.post('../../controlador/Formato_controller.php', {formato: formato, fechaFormato: fecha, observaciones: observaciones, info: info, opcion: 'modificarRegistroFormato'},
             function (mensaje) {
                 $('#res1').html(mensaje);
+                toastr["info"](mensaje);
             });
         }
     }
 }
 
-function validarRequeridos(){
-    var requeridos=true;
-    $('input[required]').each(function(){
-        var input=$(this);
-        if(input.val()==''){
+function validarRequeridos() {
+    var requeridos = true;
+    $('input[required]').each(function () {
+        var input = $(this);
+        if (input.val() == '') {
             $('#myModal').modal('hide');
             $('#myModal').on('hidden.bs.modal', function () {
                 input.focus();
             });
             var msj = 'Favor digitar el campo obligatorio:<br>' + input.attr('id');
             $('#res1').html(msj);
-            requeridos=false;
+            toastr["info"](msj);
+            requeridos = false;
             return false;
         }
     });
@@ -205,7 +207,7 @@ function cargarRegistro() {
     $.post("../../controlador/Formato_controller.php", {formato: formato, fecha: fecha, opcion: "verDatos"},
     function (mensaje) {
         console.log(mensaje);
-        var arreglo = mensaje.split(';');
+        var arreglo = mensaje.split('&');
         for (i = 0; i < arreglo.length - 1; i++) {
             var div = arreglo[i].split('=');
             var clave = '#' + div[0];
@@ -225,16 +227,34 @@ function visualizarFormato(cod) {
     location.href = ('formato/visualizarFormato.php');
 }
 
-function verFormato() {
+function verFormato(opcion) {
     var formato = sessionStorage.getItem('formato');
-    console.log(formato);
+    console.log(opcion);
 
     $.post("../../controlador/Formato_controller.php", {formato: formato, opcion: "visualizarFormato"},
     function (mensaje) {
         $('#visualizarFormato').prepend(mensaje);
         $('div').css('border-style', 'none');
-        $('input').attr('disabled', false);
-        $('textarea').attr('disabled', false);
+        $('select').attr('disabled', true);
+        if (opcion === 'diligenciar') {
+            $('select').attr('disabled', false);
+            $('input').attr('disabled', false);
+            $('textarea').attr('disabled', false);
+            var date = new Date();
+            var day = date.getDate();
+            var month = date.getMonth() + 1;
+            var year = date.getFullYear();
+            if (month < 10)
+                month = "0" + month;
+            if (day < 10)
+                day = "0" + day;
+            var today = year + "-" + month + "-" + day;
+            $('input[type="date"]').val(today);
+        }
+        if (opcion === 'analizar') {
+            $('input').attr('disabled', false);
+            $('input').attr('type', 'button');
+        }
     });
 }
 
@@ -252,7 +272,12 @@ function guardarMR() {
     $('input').attr('disabled', true);
     $('textarea').attr('disabled', true);
     $('select').attr('disabled', true);
-    guardarDiligenciaFormato('modificar');
+    guardarDiligenciaFormato('modificar', info);
     $('#guardarRegistro').hide();
     $('#modificarRegistro').show();
+}
+
+function analizarFormato(cod) {
+    sessionStorage.setItem('formato', cod);
+    location.href = ('formato/trazabilidadFormato.php');
 }

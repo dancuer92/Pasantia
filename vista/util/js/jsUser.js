@@ -13,10 +13,10 @@ $('#formRegUser').submit(function (event) {
     registrarUser();
 });
 
-$('#formCamPass').submit(function(event){
+$('#formCamPass').submit(function (event) {
     event.preventDefault();
     cambiarPass();
-})
+});
 
 function cargarPerfil() {
     $('#guardar').hide();
@@ -44,23 +44,23 @@ function guardarModificacionesPerfil() {
 function edit(item, cod) {
     var x = '#' + item;
     var valor = $(x).val();
-    var patron=$(x).attr('pattern');
-    var titulo=$(x).attr('title');
-    var re= new RegExp(patron);
+    var patron = $(x).attr('pattern');
+    var titulo = $(x).attr('title');
+    var re = new RegExp(patron);
     console.log(re);
     console.log(valor);
-    var res=(re.test(valor));
+    var res = (re.test(valor));
     console.log(res);
-    
-    if (!res && valor!=='') {
+
+    if (!res && valor !== '') {
         $.post("../controlador/Usuario_controller.php", {valor: valor, clave: item, codigo: cod, opcion: "editar"},
         function () {
-            Materialize.toast('Campo actualizado con éxito', 5000, 'rounded');
+            toastr["success"]("Campo actualizado con éxito");
         });
     }
     else {
         $(x).focus();
-        Materialize.toast(titulo, 5000, 'rounded');
+        toastr["error"](titulo);
     }
 }
 
@@ -78,7 +78,7 @@ function buscarUsuario() {
         });
     } else {
         $("#resultadoBusquedaUsuario").html("");
-        Materialize.toast('Favor digitar el número de documento', 5000, 'rounded');
+        toastr["info"]('Digitar un número de documento o nombre');
     }
 }
 ;
@@ -92,20 +92,20 @@ function estadoUsuario(item, estado) {
             $.post("../controlador/Usuario_controller.php", {valor: 0, clave: "estado_usuario", codigo: codUser, opcion: "editar"},
             function () {
                 $("#resultadoBusquedaUsuario").html("<p>El usuario " + codUser + " ya se encuentra INACTIVO</p>");
-                Materialize.toast('El usuario ha sido desactivado', 5000, 'rounded');
+                toastr["success"]("El usuario ha sido desactivado");
             });
         }
         else if (estado != '0') {
             $.post("../controlador/Usuario_controller.php", {valor: 1, clave: "estado_usuario", codigo: codUser, opcion: "editar"},
             function () {
                 $("#resultadoBusquedaUsuario").html("<p>El usuario " + codUser + " ya se encuentra ACTIVO</p>");
-                Materialize.toast('El usuario ha sido activado', 5000, 'rounded');
+                toastr["success"]("El usuario ha sido activado");
             });
         }
     }
     else {
         $("#resultadoBusquedaUsuario").html("<strong>Para desactivar su cuenta tiene que hacerlo a través de la cuenta de otro usuario administrador del sistema</strong>");
-        Materialize.toast('El usuario no ha podido ser activado o desactivado', 5000, 'rounded');
+        toastr["error"]("El usuario no ha podido ser activado o desactivado");
     }
     $('#busquedaUsuario').val('');
 }
@@ -132,7 +132,7 @@ function registrarUser() {
             departamento: departamento, telefono: telefono, rol: rol, estado: estado, opcion: "registrar_usuario"},
         function (mensaje) {
             $('#regUserForm').html(mensaje);
-            Materialize.toast(mensaje, 5000, 'rounded');
+            toastr["info"](mensaje);
             limpiar();
         });
 //        } else {
@@ -141,7 +141,7 @@ function registrarUser() {
 //        }
     }
     else {
-        Materialize.toast('Favor confirmar el password', 5000, 'rounded');
+        toastr["info"]("Favor confirmar el password");
         $('#confirmPass').focus();
     }
 
@@ -152,7 +152,7 @@ function crearPass() {
     var pass = $('#pass').val();
     var confirm = $('#confirmPass').val();
     if (pass.length === 0 || confirm.length === 0) {
-        Materialize.toast('Los campos de password no pueden quedar vacios', 5000, 'rounded');
+        toastr["info"]("Los campos de password no pueden quedar vacios");
         return false;
     }
     if (pass === confirm) {
@@ -172,8 +172,24 @@ function cambiarPass() {
     if (passConfirm()) {
         $.post("../controlador/Usuario_controller.php", {codigo: codigo, passAnt: passAnt, passNew: passNew, opcion: "cambiar"},
         function (mensaje) {
+            console.log(mensaje);
+//            var msj;
+//            switch (mensaje) {
+//                case 0:
+//                    msj = 'La contraseña no ha sido actualizada, por favor vuelva a intetarlo';
+//                    toastr["error"](msj);
+//                    break;
+//                case 1:
+//                    msj = 'La contraseña ha sido actualizada';
+//                    toastr["success"](msj);
+//                    break;
+//                case 2:
+//                    msj='La contraseña anterior no coincide en la base de datos';
+//                    toastr["info"](msj);
+//                    break;
+//            }
+            toastr["info"](mensaje);
             $('#cambiarContraseña').html(mensaje);
-            Materialize.toast(mensaje, 5000, 'rounded');
             limpiar();
         });
     }
@@ -185,22 +201,22 @@ function passConfirm() {
     var pass = $('#passNew').val();
     var confirm = $('#passConfirm').val();
     if (pass.length === 0 || confirm.length === 0) {
-        Materialize.toast('Favor digitar los campos vacíos', 5000, 'rounded');
+        toastr["info"]('Favor digitar los campos vacíos');
         $('#passNew').focus();
         return false;
     }
     else if (pass !== confirm) {
-        Materialize.toast('Favor verificar la nueva contraseña', 5000, 'rounded');
+        toastr["info"]('Favor verificar la nueva contraseña');
         $('#passConfirm').focus();
         return false;
     }
     else if (passAnt === pass) {
-        Materialize.toast('Contraseña igual a la anterior, ¡Favor cambiarla!', 5000, 'rounded');
+        toastr["info"]('Contraseña igual a la anterior, ¡Favor cambiarla!');
         $('#passNew').focus();
         return false;
     }
     else if (passAnt === "") {
-        Materialize.toast('Favor escribir contraseña anterior', 5000, 'rounded');
+        toastr["info"]('Favor escribir contraseña anterior');
         $('#passAnt').focus();
         return false;
     }
@@ -220,7 +236,7 @@ function autocompletarUsuario() {
         });
     } else {
         $('#usuarios').html('');
-        Materialize.toast("Error seleccionando un usuario", 3000, 'rounded');
+        toastr["error"]("Error seleccionando un usuario");
     }
 }
 
@@ -236,7 +252,7 @@ function usuariosDesasignar() {
         });
     } else {
         $('#usuariosD').html('');
-        Materialize.toast("Error seleccionando un usuario", 3000, 'rounded');
+        toastr["error"]("Error seleccionando un usuario");
     }
 }
 
