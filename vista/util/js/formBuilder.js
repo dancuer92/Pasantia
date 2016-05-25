@@ -164,12 +164,13 @@ function cambiarTitulo() {
         //Se selecciona el tipo de entrada del formato.
         var elem = label.next();
         var tipo = elem.attr('type');
+        console.log(tipo);
         //Se modifica el nombre según el tipo de entrada que posee el formato.
-        if (tipo !== 'radio' || tipo !== 'checkbox') {
+        if (tipo === 'text' || tipo ==='number') {
             elem.attr('id', titulo);
             elem.attr('name', titulo);
         }
-        else {
+        if (tipo === 'radio' || tipo === 'checkbox') {
             //Modificación de otros tipos de entrada.
             rename();
         }

@@ -80,7 +80,7 @@ function getAreaText() {
 
 function getCheckboxes() {
     $msj = '<div class="formato ui-state-default ">'
-            . '<label>Título de casillas de verificación</label> <br>'
+            . '<label>Título de casillas de verificación</label>'
             . '<input id="Untitled-0" type="checkbox" name="Untitled-0" value="untitled" disabled/><p>Untitled</p>'
             . '</div>';
     echo $msj;
@@ -98,7 +98,7 @@ function getDropdown() {
 
 function getRadio() {
     $msj = '<div class="formato ui-state-default ">'
-            . '<label>Título de opciones</label><br>'
+            . '<label>Título de opciones</label>'
             . '<input type="radio" id="Untitled-0" name="radio" value="Untitled" disabled/><p>Untitled</p> '
             . '</div>';
     echo $msj;

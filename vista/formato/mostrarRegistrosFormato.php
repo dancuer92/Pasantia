@@ -62,7 +62,7 @@ if ($_SESSION["tipo"] !== "supervisor" && $_SESSION["tipo"] !== "operario") {
         <script>
             $(document).ready(function () {
                 var formato = sessionStorage.getItem('formato');
-                console.log(formato);
+//                console.log(formato);
 
                 $.post("../../controlador/Formato_controller.php", {formato: formato, opcion: "mostrarRegistrosFormato"},
                 function (mensaje) {

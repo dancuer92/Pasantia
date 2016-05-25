@@ -21,11 +21,12 @@ if (!isset($_SESSION["tipo"])) {
         </header>
         <main>
             <h1 class="titulo"><i class="material-icons prefix" style="font-size: 43px">visibility</i> Ver formato</h1>
-            <div class="container center">
-                <div id="visualizarFormato">
-                    <div class="col-lg-12 col-sm-12 col-md-12 divMayor" id="atras">
-                        <button onclick="window.history.back();" class=" btn btn-default btn-lg center-block">ATRAS</button>
-                    </div>
+            <div class="container">
+                <form id="visualizarFormato">                    
+                </form>
+                <div class="col-lg-12 col-sm-12 col-md-12 divMayor " id="atras">
+                    <a class=" btn btn-default btn-lg " onclick="window.history.back();" >ATRAS</a>
+                    <a class=" btn btn-danger btn-lg " onclick="printDiv('visualizarFormato');">IMPRIMIR</a>
                 </div>
             </div>
         </main>
@@ -43,8 +44,15 @@ if (!isset($_SESSION["tipo"])) {
         ?>        
         <script>
             $(document).ready(function () {
-                verFormato('ver');                
+                verFormato('ver');
             });
+            function printDiv(divName) {
+                var printContents = document.getElementById(divName).innerHTML;
+                var originalContents = document.body.innerHTML;
+                document.body.innerHTML = printContents;
+                window.print();
+                document.body.innerHTML = originalContents;
+            }
         </script>
     </body>
 </html>
