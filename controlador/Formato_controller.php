@@ -27,9 +27,9 @@ switch ($option) {
         $director = $_POST['directorF'];
         $frecuencia = $_POST['frecuenciaF'];
         $tipo = $_POST['tipoF'];
-        $descripcion = $_POST['descripcionF'];
+        $version = $_POST['versionF'];
         $html = $_POST['codigoHTML'];
-        $formato_controller->guardarFormato($codigo, $nombre, $procedimiento, $director, $frecuencia, $tipo, $descripcion, $html);
+        $formato_controller->guardarFormato($codigo, $nombre, $procedimiento, $director, $frecuencia, $tipo, $version, $html);
         break;
     case 'asignarFormato':
         $usuario = $_POST['usuario'];
@@ -51,9 +51,8 @@ switch ($option) {
         $usuario = $_SESSION['codigo'];
         $formato = $_POST['formato'];
         $detalle = $_POST['detalle'];
-        $observaciones = $_POST['observaciones'];
         $html = $_POST['html'];
-        $formato_controller->modificarFormato($usuario, $formato, $detalle, $observaciones, $html);
+        $formato_controller->modificarFormato($usuario, $formato, $detalle, $html);
         break;
     case 'historialFormato':
         $formato = $_POST['formato'];
@@ -83,6 +82,12 @@ switch ($option) {
         $info = $_POST['info'];
         $usuario = $_SESSION['codigo'];
         $formato_controller->modificarRegistroFormato($fechaFormato, $usuario, $formato, $info, $observaciones);
+        break;
+    case 'verVersionFormato':
+        $formato= $_POST['formato'];
+        $version= $_POST['version'];
+        $formato_controller->verVersionFormato($formato, $version);
+        break;
 }
 
 class Formato_controller {
@@ -106,21 +111,19 @@ class Formato_controller {
                 $array = json_decode($format, true);
                 $cod = $array["cod_formato"];
                 $nombre = $array["nombre"];
-                $observaciones = $array["observaciones"];
+                $version = $array["version"];
                 $procedimiento = $array["procedimiento"];
                 $jefe = $array["jefe_procedimiento"];
                 $tipo = $array["descripcion"];
-                $frecuencia = $array["frecuencia"];
-                $html = $array["codigo_html"];
 
-                $mensaje .= $this->cargarBotones($cod, $nombre, $observaciones, $procedimiento, $jefe);
+                $mensaje .= $this->cargarBotones($cod, $nombre, $version, $procedimiento, $jefe);
             }
             $mensaje = str_replace("&", "'", $mensaje);
         }
         echo $mensaje;
     }
 
-    public function cargarBotones($cod, $nombre, $observaciones, $procedimiento, $jefe) {
+    public function cargarBotones($cod, $nombre, $version, $procedimiento, $jefe) {
         $mensaje = '<li class="collection-item avatar">
                             <div class="col l2 m3 s12 hide-on-small-only">
                                 <a class="grey-text text-lighten-1 tooltipped " data-position="bottom" data-delay="50" data-tooltip="VER" onclick="visualizarFormato(&' . $cod . '&)"><i class="large material-icons">description</i></a>
@@ -128,7 +131,7 @@ class Formato_controller {
                             <div class="col l10 m9 s12">
                                 <p><strong>' . $cod . '</strong></p>
                                 <p>' . $nombre . '</p>
-                                <p>' . $observaciones . '</p>
+                                <p>' . $version . '</p>
                                 <p>' . $procedimiento . '</p>
                                 <p>' . $jefe . '</p>
                             </div>';
@@ -155,9 +158,9 @@ class Formato_controller {
         return $mensaje;
     }
 
-    public function guardarFormato($codigo, $nombre, $procedimiento, $director, $frecuencia, $tipo, $descripcion, $html) {
+    public function guardarFormato($codigo, $nombre, $procedimiento, $director, $frecuencia, $tipo, $version, $html) {
         $mensaje = '';
-        $mensaje = $this->facade->guardarFormato($codigo, $nombre, $procedimiento, $director, $frecuencia, $tipo, $descripcion, $html);
+        $mensaje = $this->facade->guardarFormato($codigo, $nombre, $procedimiento, $director, $frecuencia, $tipo, $version, $html);
         echo $mensaje;
     }
 
@@ -179,9 +182,9 @@ class Formato_controller {
         echo $mensaje;
     }
 
-    public function modificarFormato($usuario, $formato, $detalle, $observaciones, $html) {
+    public function modificarFormato($usuario, $formato, $detalle, $html) {
         $mensaje = '';
-        $mensaje = $this->facade->modificarFormato($usuario, $formato, $detalle, $observaciones, $html);
+        $mensaje = $this->facade->modificarFormato($usuario, $formato, $detalle, $html);
         echo $mensaje;
     }
 
@@ -197,23 +200,23 @@ class Formato_controller {
                 $fecha = $array["fecha_modificacion"];
                 $detalle = $array["detalle_modificacion"];
                 $usuario = $array["id_usuario"];
-                $observaciones = $array["observaciones"];
+                $version = $array["version_formato"];
 
-                $mensaje .= $this->cargarFilas($fecha, $detalle, $usuario, $observaciones);
+                $mensaje .= $this->cargarFilas($formato, $fecha, $detalle, $usuario, $version);
             }
             $mensaje = str_replace("&", "'", $mensaje);
         }
         echo $mensaje;
     }
 
-    public function cargarFilas($fecha, $detalle, $usuario, $observaciones) {
+    public function cargarFilas($formato, $fecha, $detalle, $usuario, $version) {
         $mensaje = '<tr>'
                 . '<td>' . $fecha . '</td>'
                 . '<td>' . $detalle . '</td>'
                 . '<td>' . $usuario . '</td>'
-                . '<td>' . $observaciones . '</td>'
+                . '<td>' . $version . '</td>'
                 . '<td>'
-                . '<a class="hoverable" href="#visualizar"> Ver</a>'
+                . '<a class="hoverable" onclick="verVersion(&' . $formato . '&,&' . $version . '&)"> Ver</a>'
                 . '</td>'
                 . '</tr>';
         return $mensaje;
@@ -263,22 +266,27 @@ class Formato_controller {
     }
 
     public function verDatos($formato, $fecha) {
-        $mensaje = '';
+        $info = '';
         $informacion = $this->facade->verDatos($formato, $fecha);
 
         if (count($informacion) == 0) {
-            $mensaje = '<strong> No existe el registro con la fecha ' . $fecha . ' </Strong>';
+            $info = '<strong> No existe el registro con la fecha ' . $fecha . ' </Strong>';
         } else {
-            foreach ($informacion as $info) {
-                echo $info;
+            foreach ($informacion as $info2) {
+                echo $info2;
             }
         }
+        echo $info;
     }
 
     public function modificarRegistroFormato($fechaFormato, $usuario, $formato, $info, $observaciones) {
-        $mensaje = '';
         $tipo = $_SESSION['tipo'];
         $mensaje = $this->facade->modificarRegistroFormato($fechaFormato, $usuario, $formato, $info, $observaciones, $tipo);
+        echo $mensaje;
+    }
+    
+    public function verVersionFormato($formato, $version) {
+        $mensaje = $this->facade->verVersionFormato($formato, $version);
         echo $mensaje;
     }
 

@@ -11,7 +11,7 @@ class Formato_dto {
 
     private $cod_formato;
     private $nombre;
-    private $observaciones;
+    private $version;
     private $procedimiento;
     private $jefe_procedimiento;
     private $descripcion;
@@ -30,8 +30,8 @@ class Formato_dto {
         return $this->nombre;
     }
 
-    public function getObservaciones() {
-        return $this->observaciones;
+    public function getVersion() {
+        return $this->version;
     }
 
     public function getProcedimiento() {
@@ -62,8 +62,8 @@ class Formato_dto {
         $this->nombre = $nombre;
     }
 
-    public function setObservaciones($observaciones) {
-        $this->observaciones = $observaciones;
+    public function setVersion($version) {
+        $this->version = $version;
     }
 
     public function setProcedimiento($procedimiento) {
@@ -86,10 +86,10 @@ class Formato_dto {
         $this->html = $html;
     }
 
-    public function crear($cod_formato, $nombre, $observaciones, $procedimiento, $jefe_procedimiento, $descripcion_contenido, $frecuencia_uso, $html) {
+    public function crear($cod_formato, $nombre, $version, $procedimiento, $jefe_procedimiento, $descripcion_contenido, $frecuencia_uso, $html) {
         $this->cod_formato = $cod_formato;
         $this->nombre = $nombre;
-        $this->observaciones = $observaciones;
+        $this->version = $version;
         $this->procedimiento = $procedimiento;
         $this->jefe_procedimiento = $jefe_procedimiento;
         $this->descripcion = $descripcion_contenido;
@@ -100,7 +100,7 @@ class Formato_dto {
     public function toJSON() {
         $arr = array("cod_formato" => $this->cod_formato,
             "nombre" => $this->nombre,
-            "observaciones" => $this->observaciones,
+            "version" => $this->version,
             "procedimiento" => $this->procedimiento,
             "jefe_procedimiento" => $this->jefe_procedimiento,
             "descripcion" => $this->descripcion,

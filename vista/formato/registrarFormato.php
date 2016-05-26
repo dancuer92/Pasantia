@@ -6,27 +6,27 @@
                 <div class="row">
                     <div class="input-field col s12 m12 l6">
                         <i class="material-icons prefix">info_outline</i>
-                        <input id="codigoFormato" name="codigoFormato" type="text" maxlength="30" class="validate" pattern="[/-\w]{1,30}" title="Digite un código válido"required>
+                        <input id="codigoFormato" name="codigoFormato" type="text" maxlength="50" class="validate" pattern="[/-\w]{1,50}" title="Digite un código válido"required>
                         <label for="codigoFormato">Código del formato</label>                           
                     </div>
                     <div class="input-field col s12 m12 l6">
                         <i class="material-icons prefix">info_outline</i>
-                        <input id="nombreFormato" name="nombreFormato" type="text" maxlength="30" class="validate" pattern="[a-zA-zñÑáÁéÉíÍóÓúÚ \s]{1,30}" title="Digite sólo letras" required>
+                        <input id="nombreFormato" name="nombreFormato" type="text" maxlength="50" class="validate" pattern="[a-zA-zñÑáÁéÉíÍóÓúÚüÜ \s]{1,50}" title="Digite sólo letras" required>
                         <label for="nombreFormato">Nombre del formato</label>                           
                     </div>
                     <div class="input-field col s12 m12 l6">
                         <i class="material-icons prefix">content_paste</i>
-                        <input id="procedimiento" name="procedimiento" type="text" maxlength="30" class="validate" pattern="[a-zA-ZñÑáÁéÉíÍóÓúÚ \s]{1,30}" title="Digite sólo letras" required>
+                        <input id="procedimiento" name="procedimiento" type="text" maxlength="50" class="validate" pattern="[a-zA-ZñÑáÁéÉíÍóÓúÚüÜ \s]{1,50}" title="Digite sólo letras" required>
                         <label for="procedimiento">Procedimiento de trabajo</label>                                                      
                     </div>                               
                     <div class="input-field col s12 m12 l6">
                         <i class="material-icons prefix">supervisor_account</i>
-                        <input id="directorProcedimiento" name="directorProcedimiento" type="text" maxlength="30" class="validate" pattern="[a-zA-ZñÑáÁéÉíÍóÓúÚ \s]{1,30}" title="Digite sólo letras" required>
+                        <input id="directorProcedimiento" name="directorProcedimiento" type="text" maxlength="50" class="validate" pattern="[a-zA-ZñÑáÁéÉíÍóÓúÚüÜ \s]{1,50}" title="Digite sólo letras" required>
                         <label for="directorProcedimiento">Director del procedimiento</label>                                                      
                     </div>                    
                     <div class="input-field col s12 m12 l6">
                         <i class="material-icons prefix">list</i>
-                        <input id="tipoFormato" name="tipoFormato" type="text" maxlength="30" class="validate" pattern="[a-zA-zñÑáÁéÉíÍóÓúÚ \s]{1,30}" title="Digite sólo letras" required>
+                        <input id="tipoFormato" name="tipoFormato" type="text" maxlength="50" class="validate" pattern="[a-zA-zñÑáÁéÉíÍóÓúÚüÜ \s]{1,50}" title="Digite sólo letras" required>
                         <label for="tipoFormato">tipo de contenido</label>                                                      
                     </div>  
                     <div class="input-field col s12 m12 l6">   
@@ -43,8 +43,8 @@
                     </div>
                     <div class="input-field col s12 m12 l12">
                         <i class="material-icons prefix">description</i>
-                        <input id="descripcionFormato" name="descripcionFormato" type="text" class="validate" >
-                        <label for="descripcionFormato">Versión del formato</label>                                                      
+                        <input id="versionFormato" name="versionFormato" type="text" maxlength="50" class="validate" value="Versión 1" placeholder="Versión 1">
+                        <label for="version">Versión del formato</label>                                                      
                     </div>
                     <input id="cod_html" name="cod_html" type="hidden" value="">
                 </div>

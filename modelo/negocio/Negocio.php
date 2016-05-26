@@ -79,18 +79,18 @@ class Negocio {
 
     public function cambiar_password_usuario($newPass, $prevPass, $cod) {
         $bandera = $this->usuario->cambiar($newPass, $prevPass, $cod);
-        $msj="";
+        $msj = "";
         switch ($bandera) {
-                case "0":
-                    $msj = 'La contraseña no ha sido actualizada, por favor vuelva a intetarlo';
-                    break;
-                case "1":
-                    $msj = 'La contraseña ha sido actualizada';
-                    break;
-                case "2":
-                    $msj='La contraseña anterior no coincide en la base de datos';
-                    break;
-            }
+            case "0":
+                $msj = 'La contraseña no ha sido actualizada, por favor vuelva a intetarlo';
+                break;
+            case "1":
+                $msj = 'La contraseña ha sido actualizada';
+                break;
+            case "2":
+                $msj = 'La contraseña anterior no coincide en la base de datos';
+                break;
+        }
         return $msj;
     }
 
@@ -104,8 +104,8 @@ class Negocio {
         }
     }
 
-    public function guardarFormato($codigo, $nombre, $procedimiento, $director, $frecuencia, $tipo, $descripcion, $html) {
-        $formato = $this->formato->guardarFormato($codigo, $nombre, $procedimiento, $director, $frecuencia, $tipo, $descripcion, $html);
+    public function guardarFormato($codigo, $nombre, $procedimiento, $director, $frecuencia, $tipo, $version, $html) {
+        $formato = $this->formato->guardarFormato($codigo, $nombre, $procedimiento, $director, $frecuencia, $tipo, $version, $html);
 //        echo $formato;
         if (!is_null($formato)) {
             $this->formato->crearTablaInfo($codigo);
@@ -147,18 +147,19 @@ class Negocio {
             return null;
         }
     }
+    
+    public function verVersionFormato($formato, $version) {
+        $html = $this->formato->verVersionFormato($formato, $version);
+        return $html;
+    }
 
-    public function modificarFormato($usuario, $formato, $detalle, $observaciones, $html) {
-        $msj = '';
-        $buscar_modificacion = $this->formato->buscar_modificacion($formato);
-//        if (count($buscar_modificacion) <= 1) {
-//            echo count($buscar_modificacion);
-//        } else {
-//            return 0;
-//        }
+    public function modificarFormato($usuario, $formato, $detalle, $html) {
+        $buscar_modificacion = $this->formato->buscar_modificacion($formato);        
+        $version = $this->buscarVersion($formato);
+
         if ($buscar_modificacion <= 1) {
-            echo $buscar_modificacion;
-            $flag = $this->formato->modificarFormato($usuario, $formato, $detalle, $observaciones, $html);
+            $flag = $this->formato->modificarFormato($usuario, $formato, $detalle, $version, $html);
+            echo $flag;
             if ($flag > 0) {
                 return 'El formato ha sido modificado';
             } else {
@@ -167,6 +168,19 @@ class Negocio {
         } else {
             return 'El formato ya fue modificado el día de hoy, pruebe mañana nuevamente.';
         }
+    }
+
+    public function buscarVersion($formato) {
+        $version='';
+        $formatos = $this->formato->buscar_formato($formato);
+        if (count($formatos) !== 0) {
+            foreach ($formatos as $formato) {
+                $array = json_decode($formato, true);
+                $v=  explode(' ', $array["version"]);
+                $version=$v[0].' '.($v[1]+1);
+            }
+        }        
+        return $version;
     }
 
     public function historialFormato($formato) {
@@ -200,7 +214,7 @@ class Negocio {
         $msj = '';
         foreach ($arr as $var) {
             $arreglo2 = explode('=', $var);
-            if ($arreglo2[1]!=='') {
+            if ($arreglo2[1] !== '') {
                 $msj.=$var . '&';
             }
         }
@@ -239,16 +253,14 @@ class Negocio {
         $diferencia = $ff->diff($fs);
         $d = $diferencia->format('%d');
 //        echo $info;
-        
+
 
         if ($d <= $f) {
             $reg = $this->info->buscarRegistro($formato, $fechaFormato);
             $u = explode('-', $reg);
             $estado = (int) $u[1];
             $user = $u[0];
-            
-            
-            
+
             $info2 = $this->validarInformacion($info);
 //            echo $info2;
             $observaciones.=' El registro ha sido mofificado por el usuario ' . $usuario;
@@ -257,7 +269,7 @@ class Negocio {
                 $flag = $this->info->modificarRegistroFormato($fechaFormato, $usuario, $formato, $info2, $observaciones);
                 if ($flag > 0) {
                     return 'El registro ha sido modificado';
-                } 
+                }
                 echo 'Aqui va el codigo de modificar registro por el supervisor';
             } else {
                 if ($usuario === $user && $estado === 0) {

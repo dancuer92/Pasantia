@@ -25,11 +25,11 @@ class Formato_dao {
         $sql = '';
         $formatos = array();
         if ($tipo == 'administrador' || $tipo == 'asistente') {
-            $sql = "SELECT `cod_formato`, `nombre`, `observaciones`, `procedimiento`, `jefe_procedimiento`, `descripcion_contenido`, `frecuencia_uso`, `codigo_html`"
+            $sql = "SELECT `cod_formato`, `nombre`, `version`, `procedimiento`, `jefe_procedimiento`, `descripcion_contenido`, `frecuencia_uso`, `codigo_html`"
                     . "FROM `formato` "
                     . "WHERE `cod_formato` COLLATE utf8_spanish_ci LIKE '%$ref_formato%'  OR `nombre` COLLATE utf8_spanish_ci LIKE '%$ref_formato%';";
         } else {
-            $sql = "SELECT f.cod_formato, f.nombre, f.observaciones, f.procedimiento, f.jefe_procedimiento, f.descripcion_contenido, f.frecuencia_uso, f.codigo_html 
+            $sql = "SELECT f.cod_formato, f.nombre, f.version, f.procedimiento, f.jefe_procedimiento, f.descripcion_contenido, f.frecuencia_uso, f.codigo_html 
                     FROM formato f, usuario_formato uf
                     WHERE f.cod_formato = uf.id_formato AND uf.id_usuario='" . $codigo . "' AND uf.accion='asignado' 
                     AND (f.cod_formato COLLATE utf8_spanish_ci LIKE '%$ref_formato%'  OR f.nombre COLLATE utf8_spanish_ci LIKE '%$ref_formato%')";
@@ -45,9 +45,9 @@ class Formato_dao {
         }
 
         if ($sentencia->execute()) {
-            $sentencia->bind_result($cod_formato, $nombre, $observaciones, $procedimiento, $jefe_procedimiento, $descripcion_contenido, $frecuencia_uso, $codigo_html);
+            $sentencia->bind_result($cod_formato, $nombre, $version, $procedimiento, $jefe_procedimiento, $descripcion_contenido, $frecuencia_uso, $codigo_html);
             while ($sentencia->fetch()) {
-                $this->formato->crear($cod_formato, $nombre, $observaciones, $procedimiento, $jefe_procedimiento, $descripcion_contenido, $frecuencia_uso, $codigo_html);
+                $this->formato->crear($cod_formato, $nombre, $version, $procedimiento, $jefe_procedimiento, $descripcion_contenido, $frecuencia_uso, $codigo_html);
                 $formatos[] = $this->formato->toJSON();
             }
         }
@@ -56,19 +56,19 @@ class Formato_dao {
         return $formatos;
     }
 
-    function guardarFormato($codigo, $nombre, $procedimiento, $director, $frecuencia, $tipo, $descripcion, $html) {
+    function guardarFormato($codigo, $nombre, $procedimiento, $director, $frecuencia, $tipo, $version, $html) {
         $mensaje = '';
-        $sql = 'INSERT INTO `formato`(`cod_formato`, `nombre`, `observaciones`, `procedimiento`, `jefe_procedimiento`, `descripcion_contenido`, `frecuencia_uso`, `codigo_html`) VALUES (?,?,?,?,?,?,?,?);';
+        $sql = 'INSERT INTO `formato`(`cod_formato`, `nombre`, `version`, `procedimiento`, `jefe_procedimiento`, `descripcion_contenido`, `frecuencia_uso`, `codigo_html`) VALUES (?,?,?,?,?,?,?,?);';
         if (!$sentencia = $this->mysqli->prepare($sql)) {
             $mensaje.=$this->mysqli->error;
         }
 
-        if (!$sentencia->bind_param("ssssssss", $codigo, $nombre, $descripcion, $procedimiento, $director, $tipo, $frecuencia, $html)) {
+        if (!$sentencia->bind_param("ssssssss", $codigo, $nombre, $version, $procedimiento, $director, $tipo, $frecuencia, $html)) {
             echo $this->mysqli->error;
         }
 
         if ($sentencia->execute()) {
-            $this->formato->crear($codigo, $nombre, $descripcion, $procedimiento, $director, $tipo, $frecuencia, $html);
+            $this->formato->crear($codigo, $nombre, $version, $procedimiento, $director, $tipo, $frecuencia, $html);
         } else {
 //            echo $sentencia->error;
             $this->formato = null;
@@ -133,15 +133,16 @@ class Formato_dao {
         return $filas;
     }
 
-    public function modificarFormato($usuario, $formato, $detalle, $observaciones, $html) {
-        $sql = "INSERT INTO `modificaciones_formato`(`id_usuario`, `id_formato`, `detalle_modificacion`, `observaciones_formato`, `html`) VALUES (?,?,?,?,?);";
+    public function modificarFormato($usuario, $formato, $detalle, $version, $html) {
+        $sql = "INSERT INTO `modificaciones_formato`(`id_usuario`, `id_formato`, `detalle_modificacion`, `version_formato`, `html`) "
+                . " VALUES (?,?,?,?,?);";
         $filas = 0;
 
         if (!$sentencia = $this->mysqli->prepare($sql)) {
             echo $this->mysqli->error;
         }
 
-        if (!$sentencia->bind_param("sssss", $usuario, $formato, $detalle, $observaciones, $html)) {
+        if (!$sentencia->bind_param("sssss", $usuario, $formato, $detalle, $version, $html)) {
             echo $this->mysqli->error;
         }
 
@@ -158,8 +159,7 @@ class Formato_dao {
         $fecha = date('Y-m-d', time());
 //        $json=array();
         $json = 0;
-        $sql = "SELECT `fecha_modificacion`, `id_usuario`, `id_formato` FROM `modificaciones_formato` 
-            WHERE `fecha_modificacion` LIKE '%$fecha%' AND `id_formato`=?;";
+        $sql = "SELECT `fecha_modificacion`, `id_usuario`, `id_formato` FROM `modificaciones_formato` WHERE `fecha_modificacion` LIKE '%$fecha%' AND `id_formato`=?;";
 
         if (!$sentencia = $this->mysqli->prepare($sql)) {
             echo $this->mysqli->error;
@@ -170,25 +170,40 @@ class Formato_dao {
         }
 
         if ($sentencia->execute()) {
-//            echo $sql;
             $sentencia->store_result();
             $json = $sentencia->affected_rows;
-//            echo $json;
-//            $sentencia->bind_result($fecha_modificacion, $id_usuario, $id_formato);
-//            while ($sentencia->fetch()) {
-//                $arr = array("fecha_modificacion" => $fecha_modificacion,
-//                    "id_usuario" => $id_usuario,
-//                    "id_formato" => $id_formato);
-//                $json []= json_encode($arr);
-//            }            
         }
-//        $sentencia->close();
-//        $this->mysqli->close();
+
         return $json;
     }
 
+    public function buscar_formato($formato) {
+        $formatos = array();
+        $sql = "SELECT `cod_formato`, `nombre`, `version`, `procedimiento`, `jefe_procedimiento`,"
+                . " `descripcion_contenido`, `frecuencia_uso`, `codigo_html` FROM `formato` WHERE cod_formato=?";
+
+        if (!$sentencia = $this->mysqli->prepare($sql)) {
+            echo $this->mysqli->error;
+        }
+
+        if (!$sentencia->bind_param("s", $formato)) {
+            echo $this->mysqli->error;
+        }
+
+        if ($sentencia->execute()) {
+            $sentencia->bind_result($cod_formato, $nombre, $version, $procedimiento, $jefe_procedimiento, $descripcion_contenido, $frecuencia_uso, $codigo_html);
+            while ($sentencia->fetch()) {
+                $this->formato->crear($cod_formato, $nombre, $version, $procedimiento, $jefe_procedimiento, $descripcion_contenido, $frecuencia_uso, $codigo_html);
+                $formatos[] = $this->formato->toJSON();
+            }
+        }      
+        $sentencia->close();
+//        $this->mysqli->close();
+        return $formatos;
+    }
+
     public function historialFormato($formato) {
-        $sql = "SELECT `fecha_modificacion`,`detalle_modificacion`,`id_usuario`,`observaciones_formato` "
+        $sql = "SELECT `fecha_modificacion`,`detalle_modificacion`,`id_usuario`,`version_formato` "
                 . "FROM `modificaciones_formato` WHERE id_formato=?;";
 
         $json = array();
@@ -201,12 +216,12 @@ class Formato_dao {
             echo $this->mysqli->error;
         }
         if ($sentencia->execute()) {
-            $sentencia->bind_result($fecha_modificacion, $detalle_modificacion, $id_usuario, $observaciones);
+            $sentencia->bind_result($fecha_modificacion, $detalle_modificacion, $id_usuario, $version);
             while ($sentencia->fetch()) {
                 $arr = array("fecha_modificacion" => $fecha_modificacion,
                     "detalle_modificacion" => $detalle_modificacion,
                     "id_usuario" => $id_usuario,
-                    "observaciones" => $observaciones);
+                    "version_formato" => $version);
 
                 $json [] = json_encode($arr);
             }
@@ -217,10 +232,10 @@ class Formato_dao {
     }
 
     public function buscarDiasModificacion($formato) {
-        $dias=0;
+        $dias = 0;
         $sql = "SELECT fre.`dias_modificacion` FROM `frecuencia_formato` fre, `formato`f "
                 . "WHERE f.`cod_formato`=? AND f.`frecuencia_uso`=fre.`id`";
-        
+
         if (!$sentencia = $this->mysqli->prepare($sql)) {
             echo $this->mysqli->error;
         }
@@ -228,7 +243,7 @@ class Formato_dao {
         if (!$sentencia->bind_param("s", $formato)) {
             echo $this->mysqli->error;
         }
-        
+
         if ($sentencia->execute()) {
             $sentencia->bind_result($dias);
             while ($sentencia->fetch()) {
@@ -238,6 +253,29 @@ class Formato_dao {
         $sentencia->close();
         $this->mysqli->close();
         return $dias;
+    }
+    
+    public function verVersionformato($formato, $version) {
+        $html='';
+        $sql = "SELECT `html` FROM `modificaciones_formato` WHERE `id_formato`=? AND `version_formato`=?";
+
+        if (!$sentencia = $this->mysqli->prepare($sql)) {
+            echo $this->mysqli->error;
+        }
+
+        if (!$sentencia->bind_param("ss", $formato, $version)) {
+            echo $this->mysqli->error;
+        }
+
+        if ($sentencia->execute()) {
+            $sentencia->bind_result($codigo_html);
+            while ($sentencia->fetch()) {
+                $html = $codigo_html;
+            }
+        }  
+        $sentencia->close();
+        $this->mysqli->close();
+        return $html;
     }
 
 }

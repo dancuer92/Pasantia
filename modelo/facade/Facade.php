@@ -50,8 +50,8 @@ class Facade {
         return $formatos;
     }
     
-    public function guardarFormato($codigo, $nombre, $procedimiento, $director, $frecuencia, $tipo, $descripcion, $html){
-        $formato= $this->negocio->guardarFormato($codigo, $nombre, $procedimiento, $director, $frecuencia, $tipo, $descripcion, $html);
+    public function guardarFormato($codigo, $nombre, $procedimiento, $director, $frecuencia, $tipo, $version, $html){
+        $formato= $this->negocio->guardarFormato($codigo, $nombre, $procedimiento, $director, $frecuencia, $tipo, $version, $html);
         return $formato;
     }
 
@@ -70,8 +70,8 @@ class Facade {
         return $msj;
     }
 
-    public function modificarFormato($usuario, $formato, $detalle, $observaciones, $html) {
-        $msj= $this->negocio->modificarFormato($usuario, $formato, $detalle, $observaciones, $html);
+    public function modificarFormato($usuario, $formato, $detalle, $html) {
+        $msj= $this->negocio->modificarFormato($usuario, $formato, $detalle, $html);
         return $msj;
     }
     
@@ -97,6 +97,11 @@ class Facade {
     
     public function modificarRegistroFormato($fechaFormato, $usuario, $formato, $info,$observaciones, $tipo){
         $msj=$this->negocio->modificarRegistroFormato($fechaFormato, $usuario, $formato, $info,$observaciones, $tipo);
+        return $msj;
+    }
+    
+    public function verVersionFormato($formato, $version){
+        $msj=$this->negocio->verVersionFormato($formato, $version);
         return $msj;
     }
 

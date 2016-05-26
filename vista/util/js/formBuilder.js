@@ -163,19 +163,19 @@ function cambiarTitulo() {
 
         //Se selecciona el tipo de entrada del formato.
         var elem = label.next();
-        var tipo = elem.attr('type');
-        console.log(tipo);
+
         //Se modifica el nombre según el tipo de entrada que posee el formato.
-        if (tipo === 'text' || tipo ==='number') {
+        if (elem.is('input[type="text"]') || elem.is('input[type="number"]')) {
             elem.attr('id', titulo);
             elem.attr('name', titulo);
         }
-        if (tipo === 'radio' || tipo === 'checkbox') {
+
+        if (elem.is('br')) {
             //Modificación de otros tipos de entrada.
             rename();
+            //Se renombran también las opciones del formulario para entradas de texto como listas u opciones.
+            renameOptions(titulo);
         }
-        //Se renombran también las opciones del formulario para entradas de texto como listas u opciones.
-        renameOptions(titulo);
 
         //Si es el caso de un texarea o de una lista desplegable
         if (elem.is('textarea') || elem.is('select')) {
@@ -388,10 +388,10 @@ function adicionar() {
     var pos = $('#opciones input').length;
     //Seleciona el nombre del último y se calcula la nueva posición que la nueva opción va a tener.
     var div = $('.isSelected input:last').attr('id').split('-');
-    var idOpcion = div[0] += "-" + pos;
+    var idOpcion = div[0] + "-" + pos;
     //Se adiciona la nueva opción al panel de configuraciones y se llama la función para agragra la opción al formato.
     $('#opciones').append('<input id="' + idOpcion + '" type="text" class="form-control" placeholder="Untitled" /> <a class="btn btn-default remover" >Eliminar</a>');
-    adicionarOpcion(idOpcion);
+    adicionarOpcion(idOpcion, div[0]);
 }
 
 
@@ -401,12 +401,12 @@ function adicionar() {
  * @param {type} idOpcion
  * @returns {undefined}
  */
-function adicionarOpcion(idOpcion) {
+function adicionarOpcion(idOpcion, name) {
     //Se identifica el tipo del input para posteriormente llamar la función que retorna el html de la nueva opción.
     var div = $('.isSelected');
     var tipo = div.children('input').attr('type');
     //método que envia el titulo y el tipo de opción que se adiciona al formato.
-    $.post("../formato/elemento.php", {opcion: "element-option", id: idOpcion, tipo: tipo},
+    $.post("../formato/elemento.php", {opcion: "element-option", id: idOpcion, tipo: tipo, name: name},
     function (mensaje) {
         $(div).append(mensaje);
     });
@@ -441,8 +441,9 @@ function adicionarOptionSelect() {
     $('#opciones').append('<input id="opcion-' + pos + '"type="text" class="form-control optionSelect" placeholder="Untitled" /> <a class="btn btn-default remover" >Eliminar</a>');
     //Se selecciona la lista desplegable perteneciente al div del formato
     var div = $('.isSelected select');
+//    var id=div.attr('id')+'-'+pos;
     //Se llama la función que permite añadir la nueva opción al input del formato.
-    $.post("../formato/elemento.php", {opcion: "element-option", id: "", tipo: "option"},
+    $.post("../formato/elemento.php", {opcion: "element-option", id: '', tipo: "option", name: ""},
     function (mensaje) {
         $(div).append(mensaje);
     });
@@ -689,8 +690,17 @@ function rename() {
     var div = $('.isSelected');
     //El titulo se toma de la etiqueta previa (label) para renombrar las opciones,además se reemplazan los espacios y las mayúsculas
     var titulo = div.children('label').text();
-    titulo = titulo.replace(/ /g, "_");
+    //Se modifica el titulo para que no contenga espacios, ni acentos, ni ñ, ni sea mayúscula
     titulo = titulo.toLowerCase();
+    titulo = titulo.replace(/[áàäâå]/g, 'a');
+    titulo = titulo.replace(/[éèëê]/g, 'e');
+    titulo = titulo.replace(/[íìïî]/g, 'i');
+    titulo = titulo.replace(/[óòöô]/g, 'o');
+    titulo = titulo.replace(/[úùüû]/g, 'u');
+    titulo = titulo.replace(/[ñ]/g, 'n');
+    titulo = titulo.replace(/[ç]/g, 'c');
+    titulo = titulo.replace(/[^a-z0-9\s]/g, '');
+    titulo = titulo.replace(/ /g, "_");
     //Se recorren todas las opciones y se cambian los atributos id y name con el nuevo nombre y posición
     div.children('input').each(function (i) {
         var nombreOpcion = titulo + "-" + i;
@@ -754,6 +764,7 @@ function agregarFila() {
     //Se añade la nueva fila creada al final de la tabla.
     var row = fila + col + "</tr>";
     $('.isSelected table').append(row);
+    cambiarNombreCeldas(nomTabla);
 }
 
 /**
@@ -776,6 +787,7 @@ function agregarColumna() {
             $(this).append("<td><input id='" + nomTabla + "_" + (i - 1) + "_" + c + "' name='" + nomTabla + "_" + (i - 1) + "_" + c + "' type='text' disabled></td>");
         }
     });
+    cambiarNombreCeldas(nomTabla);
 }
 
 /**
@@ -789,6 +801,8 @@ function eliminarFila() {
     else {
         alert('No se pueden eliminar mas filas');
     }
+    var nomTabla = $('.isSelected table').attr('id');
+    cambiarNombreCeldas(nomTabla);
 }
 
 /**
@@ -813,5 +827,7 @@ function eliminarColumna() {
     else {
         alert('No se pueden eliminar mas columnas');
     }
+    var nomTabla = $('.isSelected table').attr('id');
+    cambiarNombreCeldas(nomTabla);
 }
 

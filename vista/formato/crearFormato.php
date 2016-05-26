@@ -30,7 +30,7 @@ if ($_SESSION["tipo"] !== "asistente") {
             <input type="hidden" id="directorProcedimiento" name="directorProcedimiento" value="<?php echo $_POST['directorProcedimiento'] ?>"/>
             <input type="hidden" id="frecuenciaFormato" name="frecuenciaFormato" value="<?php echo $_POST['frecuenciaFormato'] ?>"/>
             <input type="hidden" id="tipoFormato" name="tipoFormato" value="<?php echo $_POST['tipoFormato'] ?>"/>
-            <input type="hidden" id="descripcionFormato" name="descripcionFormato" value="<?php echo $_POST['descripcionFormato'] ?>"/>
+            <input type="hidden" id="versionFormato" name="versionFormato" value="<?php echo $_POST['versionFormato'] ?>"/>
             <?php include_once './panel_main.php'; ?>
             <div class="col-lg-12 col-sm-12 col-md-12 divMayor" id="guardarFormato">
                 <button class="btn btn-danger btn-lg center-block" id="saveFormato" onclick="guardarRegistroFormato();">GUARDAR FORMATO</button>

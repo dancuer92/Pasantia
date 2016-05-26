@@ -23,10 +23,10 @@ class Informacion_dao {
         $this->info = new Informacion_dto();
     }
 
-    public function guardarInfo($fecha_formato, $usuario, $formato, $info, $observaciones) {
+    public function guardarInfo($fecha_formato, $usuario, $cod_formato, $info, $observaciones) {
         $mensaje = '';
         $estado = 0;
-        $formato = strtolower($formato);
+        $formato = strtolower($cod_formato);
         $sql = "INSERT INTO `info_$formato`(`id`, `fecha_registro_sistema`, `fecha_formato_diligenciado`, `usuario`, `estado`, `informacion`, `observaciones`) VALUES (null,CURRENT_TIMESTAMP,?,?,?,?,?);";
 
         if (!$sentencia = $this->mysqli->prepare($sql)) {

@@ -48,11 +48,7 @@
                     <div>
                         <label>Detalle de la modificación</label>
                         <textarea type="text" class="form-control" id="detForm" placeholder="Indique aquí la naturaleza del cambio y demas detalles de la modificación del contenido."></textarea>
-                    </div>
-                    <div>
-                        <label>Observaciones del formato</label>
-                        <textarea type="text" class="form-control" id="obsForm" placeholder="Escribir la nueva versión del formato"></textarea>
-                    </div>
+                    </div>                    
                 </div>
             </div>
 

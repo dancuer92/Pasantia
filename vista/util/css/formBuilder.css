@@ -46,7 +46,8 @@ p{
 }
 
 input[type=checkbox], input[type=radio]{
-    width: 40px;
+    width: 20px;
+    margin-left: 20px;
 }
 
 label{
@@ -114,6 +115,14 @@ select{
     color:red;
 }
 
-.analizar input[type=button]{
-    
+.analizar{
+    width: 60%;
+}
+
+.analizar input{
+    width:auto;
+}
+
+#graficas{
+    width: 100%;
 }

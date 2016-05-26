@@ -27,12 +27,12 @@
                     </div>
                     <div class="input-field col s6 m6 l3">
                         <i class="material-icons prefix">person_pin</i>
-                        <input id="nombre" name="nombre" type="text"  maxlength="30" class="validate" pattern="[a-zA-ZñÑáÁéÉíÍóÓúÚ\s]{1,30}" title="Digite sólo letras" required>
+                        <input id="nombre" name="nombre" type="text"  maxlength="50" class="validate" pattern="[a-zA-ZñÑáÁéÉíÍóÓúÚüÜ\s]{1,50}" title="Digite sólo letras" required>
                         <label for="nombre">Nombre</label>                           
                     </div>
                     <div class="input-field col s6 m6 l3">
                         <i class="material-icons prefix">person_pin</i>
-                        <input id="apellido" name="apellido" type="text"  maxlength="30" class="validate" pattern="[a-zA-ZñÑáÁéÉíÍóÓúÚ\s]{1,30}" title="Digite sólo letras" required>
+                        <input id="apellido" name="apellido" type="text"  maxlength="50" class="validate" pattern="[a-zA-ZñÑáÁéÉíÍóÓúÚüÜ\s]{1,50}" title="Digite sólo letras" required>
                         <label for="apellido">Apellido</label>                                                      
                     </div>                               
                     <div class="input-field col s12 m6 l3">
@@ -47,22 +47,22 @@
                     </div>
                     <div class="input-field col s6 m6 l3">
                         <i class="material-icons prefix">lock</i>
-                        <input id="pass" name="pass" type="password"  maxlength="30" class="validate" pattern="(?=.*\d)(?=.*[+-._,*/])(?=.*[a-z]).{8,}" title="La contraseña debe ser mayor a ocho(8) caracteres y debe contener al menos un número y un caracter especial(+-._,*/)" required>
+                        <input id="pass" name="pass" type="password"  maxlength="50" class="validate" pattern="(?=.*\d)(?=.*[+-._,*/])(?=.*[a-z]).{8,}" title="La contraseña debe ser mayor a ocho(8) caracteres y debe contener al menos un número y un caracter especial(+-._,*/)" required>
                         <label for="pass">Password</label>                                                      
                     </div>
                     <div class="input-field col s6 m6 l3">
                         <i class="material-icons prefix">lock</i>
-                        <input id="confirmPass" name="confirmPass" type="password"  maxlength="30" class="validate" required>
+                        <input id="confirmPass" name="confirmPass" type="password"  maxlength="50" class="validate" required>
                         <label for="confirmPass">Confirmar password</label>                                                      
                     </div>
                     <div class="input-field col s12 m6 l3">
                         <i class="material-icons prefix">work</i>
-                        <input id="cargo" name="cargo" type="text"  maxlength="50" class="validate" pattern="[a-zA-ZñÑáÁéÉíÍóÓúÚ\s]{1,50}" title="Digite sólo letras"required>
+                        <input id="cargo" name="cargo" type="text"  maxlength="50" class="validate" pattern="[a-zA-ZñÑáÁéÉíÍóÓúÚüÜ\s]{1,50}" title="Digite sólo letras"required>
                         <label for="cargo">Cargo</label>                                                      
                     </div>
                     <div class="input-field col s12 m6 l3">
                         <i class="material-icons prefix">work</i>
-                        <input id="departamento" name="departamento" type="text"  maxlength="30" class="validate" pattern="[a-zA-ZñÑáÁéÉíÍóÓúÚ\s]{1,30}" title="Digite sólo letras"required>
+                        <input id="departamento" name="departamento" type="text"  maxlength="50" class="validate" pattern="[a-zA-ZñÑáÁéÉíÍóÓúÚüÜ\s]{1,50}" title="Digite sólo letras"required>
                         <label for="departamento">Departamento</label>                                                      
                     </div>
                     <div class="input-field col s12 m6 l3">
