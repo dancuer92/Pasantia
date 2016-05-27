@@ -7,11 +7,12 @@
                 <div class="row">
                     <div class="input-field col s12">
                         <i class="material-icons prefix">account_circle</i>
-                        <input id="nombre" name="nombre" type="text" class="validate" required>
+                        <input id="nombre" name="nombre" type="text" class="validate" pattern="[a-z]{1,30}" title="Favor digitar un nombre válido" required>
                         <label for="nombre">Usuario</label>                            
                     </div>
                     <div class="input-field col s12">
                         <i class="material-icons prefix">lock</i>
+                        <!--<input id="password" name="password" type="password" pattern="(?=.*\d)(?=.*[+-._,*/])(?=.*[a-z]).{8,}" title="La contraseña debe ser mayor a ocho(8) caracteres y debe contener al menos un número y un caracter especial(+-._,*/)" class="validate" required>-->
                         <input id="password" name="password" type="password" class="validate" required>
                         <label for="password">Contraseña</label>                                                      
                     </div>

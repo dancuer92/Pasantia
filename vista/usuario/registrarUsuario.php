@@ -22,52 +22,52 @@
                     </div>
                     <div class="input-field col s12 m6 l3">
                         <i class="material-icons prefix">person_pin</i>
-                        <input id="codigo" name="codigo" type="text" maxlength="30" class="validate" pattern="[a-z]{1,30}" title="Digite sólo letras minúsculas y sin espacios" required>
+                        <input id="codigo" name="codigo" type="text" maxlength="30" length="30"class="validate" pattern="[a-z]{1,30}" title="Digite sólo letras minúsculas y sin espacios" required>
                         <label for="codigo">Usuario de red</label>                           
                     </div>
                     <div class="input-field col s6 m6 l3">
                         <i class="material-icons prefix">person_pin</i>
-                        <input id="nombre" name="nombre" type="text"  maxlength="50" class="validate" pattern="[a-zA-ZñÑáÁéÉíÍóÓúÚüÜ\s]{1,50}" title="Digite sólo letras" required>
+                        <input id="nombre" name="nombre" type="text"  maxlength="50" length="50" class="validate" pattern="[a-zA-ZñÑáÁéÉíÍóÓúÚüÜ\s]{1,50}" title="Digite sólo letras" required>
                         <label for="nombre">Nombre</label>                           
                     </div>
                     <div class="input-field col s6 m6 l3">
                         <i class="material-icons prefix">person_pin</i>
-                        <input id="apellido" name="apellido" type="text"  maxlength="50" class="validate" pattern="[a-zA-ZñÑáÁéÉíÍóÓúÚüÜ\s]{1,50}" title="Digite sólo letras" required>
+                        <input id="apellido" name="apellido" type="text"  maxlength="50" length="50" class="validate" pattern="[a-zA-ZñÑáÁéÉíÍóÓúÚüÜ\s]{1,50}" title="Digite sólo letras" required>
                         <label for="apellido">Apellido</label>                                                      
                     </div>                               
                     <div class="input-field col s12 m6 l3">
                         <i class="material-icons prefix">person_pin</i>
-                        <input id="numDoc" name="numDoc" type="text" maxlength="15" class="validate" pattern="[0-9]{1,15}" title="Digite sólo números" required>
+                        <input id="numDoc" name="numDoc" type="text" maxlength="15" length="15" class="validate" pattern="[0-9]{1,15}" title="Digite sólo números" required>
                         <label for="numDoc">Número de cédula</label>                                                      
                     </div>
                     <div class="input-field col s12 m6 l3">
                         <i class="material-icons prefix">email</i>
-                        <input id="correo" name="correo" type="email" maxlength="50" class="validate" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" title="ejemplo: ejemplo@cisa.com" required>
+                        <input id="correo" name="correo" type="email" maxlength="50" length="50" class="validate" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" title="ejemplo: ejemplo@cisa.com" required>
                         <label for="correo">Correo electrónico</label>                                                      
                     </div>
                     <div class="input-field col s6 m6 l3">
                         <i class="material-icons prefix">lock</i>
-                        <input id="pass" name="pass" type="password"  maxlength="50" class="validate" pattern="(?=.*\d)(?=.*[+-._,*/])(?=.*[a-z]).{8,}" title="La contraseña debe ser mayor a ocho(8) caracteres y debe contener al menos un número y un caracter especial(+-._,*/)" required>
+                        <input id="pass" name="pass" type="password"  maxlength="50" length="50" class="validate" pattern="(?=.*\d)(?=.*[+-._,*/])(?=.*[a-z]).{8,}" title="La contraseña debe ser mayor a ocho(8) caracteres y debe contener al menos un número y un caracter especial(+-._,*/)" required>
                         <label for="pass">Password</label>                                                      
                     </div>
                     <div class="input-field col s6 m6 l3">
                         <i class="material-icons prefix">lock</i>
-                        <input id="confirmPass" name="confirmPass" type="password"  maxlength="50" class="validate" required>
+                        <input id="confirmPass" name="confirmPass" type="password"  maxlength="50" length="50" class="validate" required>
                         <label for="confirmPass">Confirmar password</label>                                                      
                     </div>
                     <div class="input-field col s12 m6 l3">
                         <i class="material-icons prefix">work</i>
-                        <input id="cargo" name="cargo" type="text"  maxlength="50" class="validate" pattern="[a-zA-ZñÑáÁéÉíÍóÓúÚüÜ\s]{1,50}" title="Digite sólo letras"required>
+                        <input id="cargo" name="cargo" type="text"  maxlength="50" length="50" class="validate" pattern="[a-zA-ZñÑáÁéÉíÍóÓúÚüÜ\s]{1,50}" title="Digite sólo letras"required>
                         <label for="cargo">Cargo</label>                                                      
                     </div>
                     <div class="input-field col s12 m6 l3">
                         <i class="material-icons prefix">work</i>
-                        <input id="departamento" name="departamento" type="text"  maxlength="50" class="validate" pattern="[a-zA-ZñÑáÁéÉíÍóÓúÚüÜ\s]{1,50}" title="Digite sólo letras"required>
+                        <input id="departamento" name="departamento" type="text"  maxlength="50" length="50" class="validate" pattern="[a-zA-ZñÑáÁéÉíÍóÓúÚüÜ\s]{1,50}" title="Digite sólo letras"required>
                         <label for="departamento">Departamento</label>                                                      
                     </div>
                     <div class="input-field col s12 m6 l3">
                         <i class="material-icons prefix">phone</i>
-                        <input id="telefono" name="telefono" type="tel"  maxlength="20" class="validate" pattern="[0-9]{1,15}" title="Digite sólo números" required>
+                        <input id="telefono" name="telefono" type="tel"  maxlength="20" length="20" class="validate" pattern="[0-9]{1,15}" title="Digite sólo números" required>
                         <label for="telefono">Teléfono</label>                            
                     </div>                    
                 </div>
