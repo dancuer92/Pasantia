@@ -8238,22 +8238,15 @@ img.logo_pie{
     font-size:large;
 }
 
-#modalInicioSesion .btn-flat , a.btn-flat{
+.btn-flat{
     background-color: #FAFAFA;
     color: #E20613;
     font-size:large;
     margin-bottom: 20px;
-
-}
-
-#modalInicioSesion .btn{
-    background-color: #E20613; 
-    color: #FAFAFA;
-    font-size: large;    
 }
 
 #registroUsuario, #cambiarPass, #modificarPerfil, #guardar, #registroFormato, #asignoFormato, #consultoFormato,
-#asignarFormatoButton, #desasignarFormatoButton{
+#asignarFormatoButton, #desasignarFormatoButton, #cambiarContraseña{
     background-color: #E20613; 
     color: #FAFAFA;
     font-size: large;

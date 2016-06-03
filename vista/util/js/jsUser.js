@@ -18,6 +18,12 @@ $('#formCamPass').submit(function (event) {
     cambiarPass();
 });
 
+$('#modalCambio').submit(function (event) {
+    event.preventDefault();
+    var cod = sessionStorage.getItem('usuario');    
+    edit('password_usuario',cod);
+});
+
 function cargarPerfil() {
     $('#guardar').hide();
     $.post("../controlador/Usuario_controller.php", {opcion: "cargar"},
@@ -47,9 +53,14 @@ function edit(item, cod) {
     var patron = $(x).attr('pattern');
     var titulo = $(x).attr('title');
     var re = new RegExp(patron);
+    var res = (re.test(valor)); 
+    console.log(res);
+
+    if(item==='password_usuario' || item==='correo_usuario'){
+        res=!res;
+    }    
     console.log(re);
-    console.log(valor);
-    var res = (re.test(valor));
+    console.log(valor);    
     console.log(res);
 
     if (!res && valor !== '') {
@@ -75,6 +86,8 @@ function buscarUsuario() {
         $.post("../controlador/Usuario_controller.php", {valorBusqueda: textoBusqueda, opcion: "buscar"},
         function (mensaje) {
             $("#resultadoBusquedaUsuario").html(mensaje);
+            $('.tooltipped').tooltip();
+//            $('.modal-trigger').leanModal();
         });
     } else {
         $("#resultadoBusquedaUsuario").html("");
@@ -194,7 +207,18 @@ function cambiarPass() {
         });
     }
 }
+
+function cambiarPassAdmin(cod) {
+    $('#modalCambioContraseña').openModal();
+    $('#password_usuario').val('');
+    sessionStorage.setItem('usuario', cod);
+}
 ;
+
+function passAdmin(){
+    var cod = sessionStorage.getItem('usuario');    
+    edit('password_usuario',cod);
+}
 
 function passConfirm() {
     var passAnt = $('#passAnt').val();

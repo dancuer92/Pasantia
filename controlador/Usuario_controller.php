@@ -96,8 +96,9 @@ class Usuario_controller {
                         <p>Telefono: ' . $usuario['telefono_usuario'] . '</p>
                         <p>Correo: ' . $usuario['correo_usuario'] . '</p>';
                 if ($usuario["estado_usuario"] == "activo") {
-                    $mensaje.='<p>Tipo de Usuario: ' . $usuario['tipo_usuario'] . ' Activo</p>
-                        </div>
+                    $mensaje.='<p>Tipo de Usuario: ' . $usuario['tipo_usuario'] . ' Activo</p>';
+                    $mensaje.=$this->btnCambiar($usuario['codigo_usuario']);
+                    $mensaje.='</div>
                         <div class="card-reveal">
                             <span class="card-title grey-text text-darken-4">¿Desea desactivar el usuario?<i class="material-icons right">close</i></span>
                             <p><a id="act/desac" class="waves-effect waves-red btn-flat hoverable" onclick="estadoUsuario(&' . $usuario['codigo_usuario'] . '&,' . 0 . ')">Aceptar</a></p>                    
@@ -105,8 +106,9 @@ class Usuario_controller {
                     </div>               
                 </div>';
                 } else {
-                    $mensaje.='<p>Tipo de Usuario: ' . $usuario['tipo_usuario'] . ' Inactivo</p>
-                        </div>
+                    $mensaje.='<p>Tipo de Usuario: ' . $usuario['tipo_usuario'] . ' Inactivo</p>';
+                    $mensaje.=$this->btnCambiar($usuario['codigo_usuario']);
+                    $mensaje='</div>
                         <div class="card-reveal">
                             <span class="card-title grey-text text-darken-4">¿Desea activar el usuario?<i class="material-icons right">close</i></span>
                             <p><a id="act/desac" class="waves-effect waves-red btn-flat hoverable" onclick="estadoUsuario(&' . $usuario['codigo_usuario'] . '&,' . 1 . ')">Aceptar</a></p>                    
@@ -119,6 +121,14 @@ class Usuario_controller {
         $mensaje = str_replace("&", "'", $mensaje);
         echo $mensaje;
     }
+    
+    private function btnCambiar($cod){
+        $mensaje='';
+        if($cod!==$_SESSION['codigo']){
+            $mensaje.='<a onclick="cambiarPassAdmin(&'.$cod.'&);" class="btn-floating red waves-effect waves-red hoverable tooltipped" data-position="right" data-delay="50" data-tooltip="Cambiar contraseña"><i class="material-icons right">lock_open</i></a>';
+        }
+        return $mensaje=str_replace("&", "'", $mensaje);
+    }
 
     public function editar_usuario($clave, $valor, $cod) {
         $this->facade->editar_usuario($clave, $valor, $cod);
@@ -130,7 +140,7 @@ class Usuario_controller {
         if (!is_null($json)) {
             $array = json_decode($json, true);
             $mensaje.='<h5> <strong>Código de usuario: </strong>' . $array['codigo_usuario'] . '</h5>
-                        <h5> <strong>Nombre: </strong> <input id="nombre_usuario" pattern="[^a-zA-ZñÑáÁéÉíÍóÓúÚüÜ\s]{1,30}" title="Digitar sólo letras" disabled value="' . $array['nombre_usuario'] . '" onblur="edit(&nombre_usuario&,&' . $array['codigo_usuario'] . '&)"></h5>
+                        <h5> <strong>Nombre: </strong> <input id="nombre_usuario" pattern="[^a-zA-ZÁaÉéÍíÓóÚÜúü\s]{1,30}" title="Digitar sólo letras" disabled value="' . $array['nombre_usuario'] . '" onblur="edit(&nombre_usuario&,&' . $array['codigo_usuario'] . '&)"></h5>
                         <h5> <strong>Apellido: </strong><input id="apellido_usuario" pattern="[^a-zA-ZñÑáÁéÉíÍóÓúÚüÜ\s]{1,30}" title="Digitar sólo letras" disabled value="' . $array['apellido_usuario'] . '" onblur="edit(&apellido_usuario&,&' . $array['codigo_usuario'] . '&)"></h5>
                         <h5> <strong>Cédula: </strong><input id="cedula_usuario" pattern="[^0-9]{1,15}" title="Digitar sólo números" disabled value="' . $array['cedula_usuario'] . '" onblur="edit(&cedula_usuario&,&' . $array['codigo_usuario'] . '&)"></h5>
                         <h5> <strong>Correo: </strong><input id="correo_usuario" pattern="[a-z0-9._+-]+[@][a-z0-9.-]+[\.][a-z]{2,3}$" title="Digitar correo. Ejemplo: ejemplo@cisa.com" disabled value="' . $array['correo_usuario'] . '" onblur="edit(&correo_usuario&,&' . $array['codigo_usuario'] . '&)"></h5>

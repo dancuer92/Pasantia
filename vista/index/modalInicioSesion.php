@@ -23,7 +23,7 @@
 
         <!-- Modal Footer de Inicio de sesión-->
         <div class="modal-footer">
-            <button class="modal-action btn waves-effect waves-light hoverable colorButton" type="submit" name="action">Ingresar
+            <button class="modal-action btn red waves-effect waves-light hoverable colorButton" type="submit" name="action">Ingresar
                 <i class="material-icons right">send</i>
             </button>            
             <a class="modal-action modal-close waves-effect waves-red btn-flat hoverable colorFlat">Cancelar

@@ -116,7 +116,7 @@ class Usuario_dao {
                     . "OR u.nombre_usuario COLLATE utf8_spanish_ci LIKE '%$consultaBusqueda%' "
                     . "OR u.apellido_usuario COLLATE utf8_spanish_ci LIKE '%$consultaBusqueda%' "
                     . "OR concat(u.nombre_usuario,' ',u.apellido_usuario) COLLATE utf8_spanish_ci LIKE '%$consultaBusqueda%' "
-                    . "LIMIT 6;";
+                    . "LIMIT 9;";
         }
         if (!$sentencia = $this->mysqli->prepare($sql)) {
             echo $this->mysqli->error;

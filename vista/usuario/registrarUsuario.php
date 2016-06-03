@@ -28,12 +28,12 @@
                     <div class="input-field col s6 m6 l3">
                         <i class="material-icons prefix">person_pin</i>
                         <input id="nombre" name="nombre" type="text"  maxlength="50" length="50" class="validate" pattern="[a-zA-ZñÑáÁéÉíÍóÓúÚüÜ\s]{1,50}" title="Digite sólo letras" required>
-                        <label for="nombre">Nombre</label>                           
+                        <label for="nombre">Nombres</label>                           
                     </div>
                     <div class="input-field col s6 m6 l3">
                         <i class="material-icons prefix">person_pin</i>
                         <input id="apellido" name="apellido" type="text"  maxlength="50" length="50" class="validate" pattern="[a-zA-ZñÑáÁéÉíÍóÓúÚüÜ\s]{1,50}" title="Digite sólo letras" required>
-                        <label for="apellido">Apellido</label>                                                      
+                        <label for="apellido">Apellidos</label>                                                      
                     </div>                               
                     <div class="input-field col s12 m6 l3">
                         <i class="material-icons prefix">person_pin</i>
@@ -47,7 +47,7 @@
                     </div>
                     <div class="input-field col s6 m6 l3">
                         <i class="material-icons prefix">lock</i>
-                        <input id="pass" name="pass" type="password"  maxlength="50" length="50" class="validate" pattern="(?=.*\d)(?=.*[+-._,*/])(?=.*[a-z]).{8,}" title="La contraseña debe ser mayor a ocho(8) caracteres y debe contener al menos un número y un caracter especial(+-._,*/)" required>
+                        <input id="pass" name="pass" type="password"  maxlength="50" length="50" class="validate" pattern="(?=.*\d)(?=.*[-+._,*/])(?=.*[a-z]).{8,50}" title="La contraseña debe ser mayor a ocho(8) caracteres y debe contener al menos un número y un caracter especial(+-._,*/)" required>
                         <label for="pass">Password</label>                                                      
                     </div>
                     <div class="input-field col s6 m6 l3">

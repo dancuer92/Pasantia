@@ -67,7 +67,7 @@ function guardarRegistroFormato() {
 
     if (codigoF !== '') {
         $.post("../../controlador/Formato_controller.php",
-                {codigoF: codigoF, nombreF: nombreF, procedimientoF: procedimientoF, directorF: directorF, frecuenciaF: frecuenciaF, tipoF: tipoF, versionF:versionF, codigoHTML: formato, opcion: 'guardarFormato'},
+                {codigoF: codigoF, nombreF: nombreF, procedimientoF: procedimientoF, directorF: directorF, frecuenciaF: frecuenciaF, tipoF: tipoF, versionF: versionF, codigoHTML: formato, opcion: 'guardarFormato'},
         function (mensaje) {
             res.html(mensaje);
             toastr["info"](mensaje);
@@ -93,7 +93,7 @@ function guardarModificacionFormato() {
     if (detalle === '') {
         $('#pestañaFormulario').click();
         $('#detForm').focus();
-    }    
+    }
     else {
         $.post("../../controlador/Formato_controller.php", {formato: formato, detalle: detalle, html: html, opcion: 'modificarFormato'},
         function (mensaje) {
@@ -124,8 +124,9 @@ function diligenciarFormato(cod) {
 function guardarDiligenciaFormato(opcion, info) {
     var formato = sessionStorage.getItem('formato');
     var requeridos = validarRequeridos();
-    console.log(requeridos + "7");
+    console.log(requeridos);
     if (requeridos) {
+        $('#myModal').modal('hide');
         var observaciones = $('#observaciones').val();
         if (opcion === 'registrar') {
             opcRegistrar(formato, observaciones);
@@ -155,11 +156,11 @@ function opcRegistrar(formato, observaciones) {
 
 function opcModificar(formato, observaciones, info) {
     var fecha = sessionStorage.getItem('fecha');
-    console.log(info);
+    console.log(info);    
     $.post('../../controlador/Formato_controller.php', {formato: formato, fechaFormato: fecha, observaciones: observaciones, info: info, opcion: 'modificarRegistroFormato'},
     function (mensaje) {
-        $('#res1').html(mensaje);
-        toastr["info"](mensaje);
+        $('#res1').html(mensaje);        
+        toastr["info"](mensaje);        
     });
 }
 
@@ -245,7 +246,7 @@ function verFormato(opcion) {
 }
 
 function verDiligenciar() {
-    $('[disabled]').removeAttr('disabled');    
+    $('[disabled]').removeAttr('disabled');
     var date = new Date();
     var day = date.getDate();
     var month = date.getMonth() + 1;
@@ -260,26 +261,26 @@ function verDiligenciar() {
 
 function verAnalizar() {
     $('[disabled]').removeAttr('disabled');
-    $('input[type="text"]').attr("type","button");
-    $('input[type="number"]').attr("type","button");    
-    var opcion=$('input[type="radio"]:first');
-    opcion.attr('type','button');
-    $('input[type="radio"]').each(function(){        
-        var input=$(this);        
-        if(input.attr('name')===opcion.attr('name')){            
+    $('input[type="text"]').attr("type", "button");
+    $('input[type="number"]').attr("type", "button");
+    var opcion = $('input[type="radio"]:first');
+    opcion.attr('type', 'button');
+    $('input[type="radio"]').each(function () {
+        var input = $(this);
+        if (input.attr('name') === opcion.attr('name')) {
             input.next('p').remove();
             input.remove();
         }
-        else{            
-            opcion=input;
-            opcion.attr('type','button');
+        else {
+            opcion = input;
+            opcion.attr('type', 'button');
         }
-        opcion.attr('value','');
+        opcion.attr('value', '');
         opcion.next('p').remove();
     });
-    $('input[type="checkbox"]').each(function(){
+    $('input[type="checkbox"]').each(function () {
         $(this).next('p').remove();
-        $(this).attr("type","button");
+        $(this).attr("type", "button");
     })
 }
 
@@ -307,20 +308,20 @@ function analizarFormato(cod) {
     location.href = ('formato/trazabilidadFormato.php');
 }
 
-function verVersion(cod,version) {
+function verVersion(cod, version) {
     sessionStorage.setItem('formato', cod);
     sessionStorage.setItem('version', version);
     location.href = ('versionFormato.php');
 }
 
-function verVersionFormato(){
+function verVersionFormato() {
     var formato = sessionStorage.getItem('formato');
     var version = sessionStorage.getItem('version');
 
-    $.post("../../controlador/Formato_controller.php", {formato: formato, version:version, opcion: "verVersionFormato"},
+    $.post("../../controlador/Formato_controller.php", {formato: formato, version: version, opcion: "verVersionFormato"},
     function (mensaje) {
         $('#visualizarFormato').prepend(mensaje);
         $('div').css('border-style', 'none');
-        $('select').attr('disabled', true);        
+        $('select').attr('disabled', true);
     });
 }

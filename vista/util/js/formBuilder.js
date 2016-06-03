@@ -292,9 +292,21 @@ function mostrarConfiguraciones(div) {
     //carga las opciones para una tabla
     if (elemento.children().is('table')) {
         var tabla = '#' + elemento.children('table').attr('id');
+        //carga las opciones de la celda con doble clic
         $(tabla).on('dblclick', 'td', function () {
-            $(this).addClass('hover');
+            $(this).addClass('hover');            
+            var x=$(this).children().first();            
             cargarOpcionesCelda();
+            if(x.is('p')){
+                $('#nombreEtiquetaCelda').attr('placeholder',x.text());
+            }
+            if(x.is('input[type="number"]')){
+                $('#maxVal').attr('placeholder',x.attr('max'));
+                $('#minVal').attr('placeholder',x.attr('min'));
+            }
+            if(x.is('a')){
+                $('#nombreUrl').attr('placeholder',x.text());
+            }
             $('#celdas').show();
         });
         cargarOpcionesTabla();
