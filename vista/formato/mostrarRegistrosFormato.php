@@ -28,12 +28,12 @@ if ($_SESSION["tipo"] !== "supervisor" && $_SESSION["tipo"] !== "operario") {
             <h1 class="titulo"><i class="material-icons prefix" style="font-size: 43px">find_in_page</i> Mostrar histórico de registros del formato</h1>
             <div id="master-container" class="container">
                 <!--<div class="table-responsive">-->
-                <table id="mostrarRegFormato" class="table table-hover">
+                <table id="mostrarRegFormato" class="table table-hover compact cell-border">
                     <thead>
                         <tr>
                             <th>Fecha de registro en el sistema</th>
-                            <th>Fecha del formato</th>
-                            <th>Usuario encargado</th>
+                            <th>Usuario</th>
+                            <th>Fecha del formato según el usuario</th>
                             <th>Estado del registro</th>
                             <th>Observaciones</th>
                             <th></th>
@@ -62,12 +62,40 @@ if ($_SESSION["tipo"] !== "supervisor" && $_SESSION["tipo"] !== "operario") {
         <script>
             $(document).ready(function () {
                 var formato = sessionStorage.getItem('formato');
-//                console.log(formato);
-
+                var mensaje = sessionStorage.getItem('mensaje');
+                console.log(mensaje);
+                if (mensaje !== null) {
+                    toastr["info"](mensaje);
+                    sessionStorage.removeItem('mensaje');
+                }
                 $.post("../../controlador/Formato_controller.php", {formato: formato, opcion: "mostrarRegistrosFormato"},
                 function (mensaje) {
                     $('#mostrarRegFormato tbody').append(mensaje);
-                    $('#mostrarRegFormato').DataTable({responsive: true});
+                    
+                    debugger;
+                    $('#mostrarRegFormato').DataTable({
+                        responsive: true,
+                        order: [[0, "desc"]],
+                        language: {
+                            processing: "Procesando",
+                            lengthMenu: "Mostrar _MENU_ registros por página",
+                            zeroRecords: "Registros no encontrados",
+                            info: "Mostrar página _PAGE_ de _PAGES_",
+                            infoEmpty: "No hay registros disponibles",
+                            infoFiltered: "(Búsqueda realizada en _MAX_ registros)",
+                            search: "Buscar",
+                            paginate: {
+                                first: "Primero",
+                                last: "Último",
+                                next: "Siguiente",
+                                previous: "Anterior"
+                            },
+                            oAria: {
+                                sortAscending: ": Activar para ordenar la columna de manera ascendente",
+                                sortDescending: ": Activar para ordenar la columna de manera descendente"
+                            }
+                        }
+                    });
                 });
             });
         </script>

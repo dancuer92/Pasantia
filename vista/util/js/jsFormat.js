@@ -111,8 +111,29 @@ function historialFormato(cod) {
 function cargarHistorial(formato) {
     $.post('../../controlador/Formato_controller.php', {formato: formato, opcion: 'historialFormato'},
     function (mensaje) {
-        $('#tabla_historial tbody').append(mensaje);
-        $('#tabla_historial').DataTable({responsive: true});
+        $('#tabla_historial tbody').append(mensaje);        
+        $('#tabla_historial').DataTable({responsive: true,
+            order: [[0, "desc"]],
+            language: {
+                processing: "Procesando",
+                lengthMenu: "Mostrar _MENU_ registros por página",
+                zeroRecords: "Registros no encontrados",
+                info: "Mostrar página _PAGE_ de _PAGES_",
+                infoEmpty: "No hay registros disponibles",
+                infoFiltered: "(Búsqueda realizada en _MAX_ registros)",
+                search: "Buscar",
+                paginate: {
+                    first: "Primero",
+                    last: "Último",
+                    next: "Siguiente",
+                    previous: "Anterior"
+                },
+                oAria: {
+                    sortAscending: ": Activar para ordenar la columna de manera ascendente",
+                    sortDescending: ": Activar para ordenar la columna de manera descendente"
+                }
+            }
+        });
     });
 }
 
@@ -139,7 +160,7 @@ function guardarDiligenciaFormato(opcion, info) {
 
 function opcRegistrar(formato, observaciones) {
     var info = $('#visualizarFormato').serialize();
-    console.log(info);
+//    console.log(info);
     var fechaFormato = $('#fecharegistro').val();
     if (fechaFormato === '') {
         var f = new Date();
@@ -147,20 +168,18 @@ function opcRegistrar(formato, observaciones) {
     }
     $.post('../../controlador/Formato_controller.php', {formato: formato, fechaFormato: fechaFormato, observaciones: observaciones, info: info, opcion: 'diligenciarFormato'},
     function (mensaje) {
-//            confirm(mensaje);
-        $('#res1').html(mensaje);
-        toastr["info"](mensaje);
-//            console.log(mensaje);
+        sessionStorage.setItem('mensaje', mensaje);
+        location.href = ('mostrarRegistrosFormato.php');
     });
 }
 
 function opcModificar(formato, observaciones, info) {
     var fecha = sessionStorage.getItem('fecha');
-    console.log(info);    
+    console.log(info);
     $.post('../../controlador/Formato_controller.php', {formato: formato, fechaFormato: fecha, observaciones: observaciones, info: info, opcion: 'modificarRegistroFormato'},
     function (mensaje) {
-        $('#res1').html(mensaje);        
-        toastr["info"](mensaje);        
+        $('#res1').html(mensaje);
+        toastr["info"](mensaje);
     });
 }
 

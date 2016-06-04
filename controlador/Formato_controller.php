@@ -254,8 +254,8 @@ class Formato_controller {
     public function listar($fecha, $fechaFormato, $usuario, $estado, $observaciones) {
         $mensaje = '<tr>'
                 . '<td>' . $fecha . '</td>'
-                . '<td>' . $fechaFormato . '</td>'
                 . '<td>' . $usuario . '</td>'
+                . '<td>' . $fechaFormato . '</td>'
                 . '<td>' . $estado . '</td>'
                 . '<td>' . $observaciones . '</td>'
                 . '<td>'
