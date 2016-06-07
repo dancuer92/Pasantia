@@ -25,18 +25,37 @@ if ($_SESSION["tipo"] !== "supervisor") {
         <!--contenido-->
         <main>
             <h1 class="titulo"><i class="material-icons prefix" style="font-size: 43px">timeline</i> Trazabilidad del formato</h1>
-            <div class="col-lg-7">   
-                <form id="visualizarFormato" >
+            <div class="col-lg-7 col-xs-12 col-md-7">
+                <div class="form-inline" id="fechas">
+                    <?php
+                    $fechaMin = date("Y-m-d", mktime(0, 0, 0, date("m"), date("d")-1, date("Y") - 1));
+                    $fechaAct = date("Y-m-d", mktime(0, 0, 0, date("m"), date("d")-1, date("Y")));
+                    ?>
+                    <div class="form-group">
+                        <label>Fecha de inicio del análisis</label>
+                        <input type="date" id="fechaInicio" name="fechaInicio" min="<?php echo$fechaMin ?>" max="<?php echo $fechaAct ?>" value="<?php echo $fechaAct ?>"/>
+                    </div>
+                    <div class="form-group">
+                        <label>Fecha de finalización del análisis</label>
+                        <input type="date" id="fechaFin" name="fechaFin" min="<?php echo$fechaMin ?>" max="<?php echo $fechaAct ?>" value="<?php echo $fechaAct ?>"/>
+                    </div>
+                    <button onclick="mostrarForm();">Consultar</button>
+                </div>
+
+
+
+                <form id="visualizarFormato" hidden>
                 </form>
                 <!--<button id="modificarRegistro"type="button" class="btn btn-danger btn-lg center-block" onclick="">MODIFICAR</button>-->
             </div>
 
             <div class="col-lg-5">
                 <div  class="btn-group btn-group-justified" role="group">
-                    <a type="button" class="btn btn-default">Left</a>
-                    <a type="button" class="btn btn-default">Middle</a>
-                    <a type="button" class="btn btn-default">Right</a>
+                    <a type="button" class="btn btn-default">Izquierda</a>
+                    <a type="button" class="btn btn-default">Centro</a>
+                    <a type="button" class="btn btn-default">Derecha</a>
                 </div>
+                <div id="resultado"></div>
             </div>
             <div id="res1"></div>
         </main>
@@ -58,6 +77,35 @@ if ($_SESSION["tipo"] !== "supervisor") {
             $(document).ready(function () {
                 verFormato('analizar');
             });
+            var datos;
+
+            function mostrarForm() {
+                var fechaIni = $('#fechaInicio').val();
+                var fechaFin = $('#fechaFin').val();
+                var clave = $(this).attr('name');
+                console.log(fechaIni);
+                console.log(fechaFin);
+
+                var formato = sessionStorage.getItem('formato');
+                if (fechaFin < fechaIni) {
+                    toastr["error"]('Fecha de finalización mayor que la fecha de inicio');
+                }
+                else {
+                    toastr["info"]('Hacer lo correcto');
+                    $('#visualizarFormato').show();
+                    $.post("../../controlador/Formato_controller.php", {formato: formato, clave: clave, inicio: fechaIni, fin: fechaFin, opcion: "trazabilidadFormato"},
+                    function (mensaje) {
+//                        $('#resultado').html(mensaje);
+                        datos = mensaje;
+                    });
+                }
+            }
+
+            $('#visualizarFormato').on('click', 'input[type="button"]', function () {
+                console.log(datos[0]);
+                                              
+            });
+
         </script>
     </body>
 </html>

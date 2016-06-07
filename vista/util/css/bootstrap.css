@@ -6769,3 +6769,12 @@ button.close {
     color: #DE0000;
 }
 
+#fechas{
+    padding-top: 8%;
+    padding-bottom: 8%;
+}
+
+#visualizarFormato{
+    border-style: solid;
+    border-color: #c0c0c0;
+}

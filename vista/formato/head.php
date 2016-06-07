@@ -5,7 +5,7 @@
 <link href="../util/css/material-icons.css" rel="stylesheet">
 <link rel="stylesheet" href="../util/css/bootstrap.css" type="text/css">
 <link rel="stylesheet" href="../util/css/formBuilder.css" type="text/css">
-<link rel="stylesheet" href="../util/css/style.css" type="text/css">
+<!--<link rel="stylesheet" href="../util/css/style.css" type="text/css">-->
 <link rel="stylesheet" href="../util/css/toastr.css" type="text/css">
 
 

@@ -88,6 +88,13 @@ switch ($option) {
         $version= $_POST['version'];
         $formato_controller->verVersionFormato($formato, $version);
         break;
+    case 'trazabilidadFormato':
+        $formato= $_POST['formato'];
+        $clave=$_POST['clave'];
+        $inicio=$_POST['inicio'];
+        $fin=$_POST['fin'];
+        $formato_controller->trazabilidadFormato($formato, $clave, $inicio, $fin);
+        break;
 }
 
 class Formato_controller {
@@ -276,7 +283,6 @@ class Formato_controller {
                 echo $info2;
             }
         }
-        echo $info;
     }
 
     public function modificarRegistroFormato($fechaFormato, $usuario, $formato, $info, $observaciones) {
@@ -288,6 +294,11 @@ class Formato_controller {
     public function verVersionFormato($formato, $version) {
         $mensaje = $this->facade->verVersionFormato($formato, $version);
         echo $mensaje;
+    }
+    
+    public function trazabilidadFormato($formato, $clave, $inicio, $fin){
+        $arreglo= $this->facade->trazabilidadFormato($formato, $clave, $inicio, $fin);
+        echo $arreglo;
     }
 
 }

@@ -104,5 +104,10 @@ class Facade {
         $msj=$this->negocio->verVersionFormato($formato, $version);
         return $msj;
     }
+    
+    public function trazabilidadFormato($formato, $clave, $inicio, $fin){
+        $msj=$this->negocio->trazabilidadFormato($formato, $clave, $inicio, $fin);
+        return $msj;
+    }
 
 }

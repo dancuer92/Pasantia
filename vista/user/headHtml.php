@@ -4,7 +4,7 @@
 <!-- CSS  -->
 <link href="./util/css/material-icons.css" rel="stylesheet">
 <link href="./util/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-<link href="./util/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+<!--<link href="./util/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>-->
 <link href="./util/css/toastr.css" type="text/css" rel="stylesheet" media="screen,projection"/>
 
 <link rel="shortcut icon" href="./util/images/corporativo/icono_ceramica.ico">

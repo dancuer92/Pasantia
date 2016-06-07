@@ -147,14 +147,14 @@ class Negocio {
             return null;
         }
     }
-    
+
     public function verVersionFormato($formato, $version) {
         $html = $this->formato->verVersionFormato($formato, $version);
         return $html;
     }
 
     public function modificarFormato($usuario, $formato, $detalle, $html) {
-        $buscar_modificacion = $this->formato->buscar_modificacion($formato);        
+        $buscar_modificacion = $this->formato->buscar_modificacion($formato);
         $version = $this->buscarVersion($formato);
 
         if ($buscar_modificacion <= 1) {
@@ -171,15 +171,15 @@ class Negocio {
     }
 
     public function buscarVersion($formato) {
-        $version='';
+        $version = '';
         $formatos = $this->formato->buscar_formato($formato);
         if (count($formatos) !== 0) {
             foreach ($formatos as $formato) {
                 $array = json_decode($formato, true);
-                $v=  explode(' ', $array["version"]);
-                $version=$v[0].' '.($v[1]+1);
+                $v = explode(' ', $array["version"]);
+                $version = $v[0] . ' ' . ($v[1] + 1);
             }
-        }        
+        }
         return $version;
     }
 
@@ -265,25 +265,39 @@ class Negocio {
 //            echo $info2;
             $observaciones.=' El registro ha sido mofificado por el usuario ' . $usuario;
 
-            if ($tipo === 'supervisor' && $estado === 0) {
+            if ($tipo === 'supervisor' && $estado < 2) {
                 $flag = $this->info->modificarRegistroFormato($fechaFormato, $usuario, $formato, $info2, $observaciones);
                 if ($flag > 0) {
                     return 'El registro ha sido modificado';
                 }
-                echo 'Aqui va el codigo de modificar registro por el supervisor';
             } else {
-                if ($usuario === $user && $estado === 0) {
+                if ($usuario === $user && $estado < 2) {
                     $flag = $this->info->modificarRegistroFormato($fechaFormato, $usuario, $formato, $info2, $observaciones);
                     if ($flag > 0) {
                         return 'El registro ha sido modificado';
                     }
                     echo 'Aqui va el codigo de modificar registro por el operario';
                 } else {
-                    echo 'No puede modificar el formato porque usted no lo ha diligenciado inicialmente o en su defecto el formato ya fue modificado';
+                    if ($usuario !== $user) {
+                        echo 'No puede modificar el formato porque usted no lo ha diligenciado inicialmente';
+                    }
+                    if ($estado !== 0) {
+                        echo 'El registro ya fue modificado';
+                    }
                 }
             }
         } else {
             echo "el formato no puede ser modificado.<br>Se ha excedido la fecha límite del formato.";
+        }
+    }
+
+    public function trazabilidadFormato($formato, $clave, $inicio, $fin) {
+        $informacion = array();
+        $informacion = $this->info->mostrarInfoFechas($formato, $inicio, $fin);
+        if (count($informacion) == 0) {
+            return null;
+        } else {
+            return $informacion;
         }
     }
 

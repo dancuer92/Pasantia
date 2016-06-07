@@ -31,9 +31,9 @@ if ($_SESSION["tipo"] !== "supervisor" && $_SESSION["tipo"] !== "operario") {
                 <table id="mostrarRegFormato" class="table table-hover compact cell-border">
                     <thead>
                         <tr>
-                            <th>Fecha de registro en el sistema</th>
+                            <th>Fecha del sistema</th>
                             <th>Usuario</th>
-                            <th>Fecha del formato según el usuario</th>
+                            <th>Fecha del formato</th>
                             <th>Estado del registro</th>
                             <th>Observaciones</th>
                             <th></th>
@@ -72,7 +72,6 @@ if ($_SESSION["tipo"] !== "supervisor" && $_SESSION["tipo"] !== "operario") {
                 function (mensaje) {
                     $('#mostrarRegFormato tbody').append(mensaje);
                     
-                    debugger;
                     $('#mostrarRegFormato').DataTable({
                         responsive: true,
                         order: [[0, "desc"]],

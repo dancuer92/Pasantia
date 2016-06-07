@@ -97,7 +97,7 @@ class Informacion_dao {
     }
     
     public function modificarRegistroFormato($fecha_formato, $usuario, $formato, $info, $observaciones){
-        $sql = "UPDATE `info_$formato` SET `usuario`=?,`estado`=1,`informacion`=?,`observaciones`=?"
+        $sql = "UPDATE `info_$formato` SET `usuario`=?,`estado`=`estado`+1,`informacion`=?,`observaciones`=?"
                 . " WHERE `fecha_registro_sistema`=?";
         $filas = 0;
 
@@ -141,6 +141,31 @@ class Informacion_dao {
         $sentencia->close();
 //        $this->mysqli->close();
         return $mensaje;
+    }
+    
+    public function mostrarInfoFechas($formato, $inicio, $fin) {
+        $mensaje = '';
+        $informacion = array();
+        $formato2 = strtolower($formato);
+//        echo $formato;
+
+        $sql = "SELECT `fecha_registro_sistema`, `informacion` FROM `info_$formato2` WHERE `fecha_registro_sistema` BETWEEN '$inicio 00:00:00' AND '$fin 23:59:59';";
+
+        if (!$sentencia = $this->mysqli->prepare($sql)) {
+            $mensaje.=$this->mysqli->error;
+        }
+        
+
+        if ($sentencia->execute()) {
+            $sentencia->bind_result($fecha_sistema, $info);
+            while ($sentencia->fetch()) {
+                $informacion[]=array($fecha_sistema, $info);
+//                $mensaje.='sirve por ahora';
+            }
+        }
+        $sentencia->close();
+        $this->mysqli->close();
+        return $informacion;
     }
 
 }

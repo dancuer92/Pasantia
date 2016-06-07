@@ -253,6 +253,7 @@ function verFormato(opcion) {
     $.post("../../controlador/Formato_controller.php", {formato: formato, opcion: "visualizarFormato"},
     function (mensaje) {
         $('#visualizarFormato').prepend(mensaje);
+        $('.isSelected').removeClass('isSelected');
         $('div').css('border-style', 'none');
         $('select').attr('disabled', true);
         if (opcion === 'diligenciar') {
@@ -279,12 +280,12 @@ function verDiligenciar() {
 }
 
 function verAnalizar() {
-    $('[disabled]').removeAttr('disabled');
-    $('input[type="text"]').attr("type", "button");
-    $('input[type="number"]').attr("type", "button");
-    var opcion = $('input[type="radio"]:first');
+    $('#visualizarFormato [disabled]').removeAttr('disabled');
+    $('#visualizarFormato input[type="text"]').attr("type", "button");
+    $('#visualizarFormato input[type="number"]').attr("type", "button");
+    var opcion = $('#visualizarFormato input[type="radio"]:first');
     opcion.attr('type', 'button');
-    $('input[type="radio"]').each(function () {
+    $('#visualizarFormato input[type="radio"]').each(function () {
         var input = $(this);
         if (input.attr('name') === opcion.attr('name')) {
             input.next('p').remove();
@@ -297,10 +298,13 @@ function verAnalizar() {
         opcion.attr('value', '');
         opcion.next('p').remove();
     });
-    $('input[type="checkbox"]').each(function () {
+    $('#visualizarFormato input[type="checkbox"]').each(function () {
         $(this).next('p').remove();
         $(this).attr("type", "button");
-    })
+    });
+    $('#visualizarFormato input[type="date"]').each(function(){
+        $(this).parent().remove();
+    });
 }
 
 function modificarDiligenciaFormato() {
