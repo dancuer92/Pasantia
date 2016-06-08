@@ -145,7 +145,7 @@ class Informacion_dao {
     
     public function mostrarInfoFechas($formato, $inicio, $fin) {
         $mensaje = '';
-        $informacion = array();
+        $informacion='';
         $formato2 = strtolower($formato);
 //        echo $formato;
 
@@ -159,8 +159,7 @@ class Informacion_dao {
         if ($sentencia->execute()) {
             $sentencia->bind_result($fecha_sistema, $info);
             while ($sentencia->fetch()) {
-                $informacion[]=array($fecha_sistema, $info);
-//                $mensaje.='sirve por ahora';
+                $informacion.=$fecha_sistema."~".$info;
             }
         }
         $sentencia->close();

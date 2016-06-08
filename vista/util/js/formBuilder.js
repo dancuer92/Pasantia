@@ -507,7 +507,11 @@ function cargarOpcionesCelda() {
                         <button class="btn btn-default" onclick="cambiarALink();" style="width:100%">Enlace</button>\n\
                         <input id="nombreUrl" type="text" class="form-control" placeholder="Nombre de la página" onkeyup="cambiarNombreURL();" onblur="limpiarTitulo();"/>\n\
                         <input id="direccionEnlace" type="text" class="form-control" placeholder="Dirección URL" onkeyup="cambiarURL();" onblur="limpiarTitulo();"/>\n\
-                    </div>';
+                    </div>\n\
+                    <p>Por favor hacer clic en el boton para cambiar a una lista desplegable</p><br>\n\
+                    <div class="col-sm-12">\n\
+                        <button class="btn btn-default" onclick="cambiarALista();" style="width:100%">Lista</button>\n\
+                        <textarea id="opcionesLista" placeholder="Digite las opciones separadas por coma" style="width:100%" onblur="cambiarOpciones();"></textarea>';
     $('#celdas').html(msj);
 }
 
@@ -571,7 +575,7 @@ function cambiarValMin() {
 }
 
 /**
- * Se cambia el contenido de la tabla por un enlace externo en el que el usuario le da el nombre de la dirección y la dirección misma
+ * Se cambia el contenido de la celda por un enlace externo en el que el usuario le da el nombre de la dirección y la dirección misma
  * @returns {undefined}
  */
 function cambiarALink() {
@@ -583,6 +587,27 @@ function cambiarALink() {
     celda.empty();
     //Se agrega el elemento correspondiente a un enlace
     celda.append('<a href="">¡Hacer clic aquí!</a>');
+    //Se renombran los input de la tabla.
+    cambiarNombreCeldas(titulo);
+}
+
+/**
+ * Se cambia el contenido de la celda por una lista desplegable en el que el usuario digita las opciones separadas por una coma.
+ * @returns {undefined}
+ */
+function cambiarALista(){
+    //Se toma la celda en la que se trabaja
+    var celda = $('.hover');
+    //se busca el nombre de la tabla
+    var titulo = celda.parents('table').attr('id');
+    //se busca la cantidad de select
+    var cant= celda.parents('table select').length;
+    console.log('cantidad = '+cant);
+    //se vacía el contenido inicial de la celda
+    celda.empty();
+    //Se agrega el elemento correspondiente a un enlace
+    var lista='<select name="'+titulo+'_'+cant+'" id="'+titulo+'_'+cant+'"></select>';
+    celda.append(lista);
     //Se renombran los input de la tabla.
     cambiarNombreCeldas(titulo);
 }
@@ -655,6 +680,20 @@ function cambiarNombreURL() {
     $('.isSelected').children('a').text(alt);
     //se busca el elemento si el caso es dentro de una celda seleccionada.
     $('.hover').children('a').text(alt);
+}
+
+/**
+ * Método para agregar o quitar las opciones de la lista en la tabla
+ * @returns {undefined}
+ */
+function cambiarOpciones(){
+    var cadena=$('#opcionesLista').val();
+    var opciones=cadena.split(",");
+    var opc;
+    for(opc in opciones){
+        var opcion='<option value="'+opciones[opc]+'">'+opciones[opc]+'</option>';
+        $('.hover').children('select').append(opcion);
+    }
 }
 
 /**

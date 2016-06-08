@@ -28,8 +28,8 @@ if ($_SESSION["tipo"] !== "supervisor") {
             <div class="col-lg-7 col-xs-12 col-md-7">
                 <div class="form-inline" id="fechas">
                     <?php
-                    $fechaMin = date("Y-m-d", mktime(0, 0, 0, date("m"), date("d")-1, date("Y") - 1));
-                    $fechaAct = date("Y-m-d", mktime(0, 0, 0, date("m"), date("d")-1, date("Y")));
+                    $fechaMin = date("Y-m-d", mktime(0, 0, 0, date("m"), date("d"), date("Y") - 1));
+                    $fechaAct = date("Y-m-d", mktime(0, 0, 0, date("m"), date("d"), date("Y")));
                     ?>
                     <div class="form-group">
                         <label>Fecha de inicio del análisis</label>
@@ -55,7 +55,8 @@ if ($_SESSION["tipo"] !== "supervisor") {
                     <a type="button" class="btn btn-default">Centro</a>
                     <a type="button" class="btn btn-default">Derecha</a>
                 </div>
-                <div id="resultado"></div>
+                <div id="resultado">                    
+                </div>
             </div>
             <div id="res1"></div>
         </main>
@@ -95,15 +96,14 @@ if ($_SESSION["tipo"] !== "supervisor") {
                     $('#visualizarFormato').show();
                     $.post("../../controlador/Formato_controller.php", {formato: formato, clave: clave, inicio: fechaIni, fin: fechaFin, opcion: "trazabilidadFormato"},
                     function (mensaje) {
-//                        $('#resultado').html(mensaje);
+                        $('#resultado').html('');
                         datos = mensaje;
                     });
                 }
             }
 
             $('#visualizarFormato').on('click', 'input[type="button"]', function () {
-                console.log(datos[0]);
-                                              
+                $('#resultado').append(datos);
             });
 
         </script>

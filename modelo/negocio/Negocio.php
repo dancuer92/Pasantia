@@ -294,8 +294,8 @@ class Negocio {
     public function trazabilidadFormato($formato, $clave, $inicio, $fin) {
         $informacion = array();
         $informacion = $this->info->mostrarInfoFechas($formato, $inicio, $fin);
-        if (count($informacion) == 0) {
-            return null;
+        if ($informacion ==='') {
+            return 'No existen registros en ese rango de fechas';
         } else {
             return $informacion;
         }
