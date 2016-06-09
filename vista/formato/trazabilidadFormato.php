@@ -28,6 +28,7 @@ if ($_SESSION["tipo"] !== "supervisor") {
             <div class="col-lg-7 col-xs-12 col-md-7">
                 <div class="form-inline" id="fechas">
                     <?php
+                    date_default_timezone_set('America/Bogota');
                     $fechaMin = date("Y-m-d", mktime(0, 0, 0, date("m"), date("d"), date("Y") - 1));
                     $fechaAct = date("Y-m-d", mktime(0, 0, 0, date("m"), date("d"), date("Y")));
                     ?>
@@ -78,14 +79,12 @@ if ($_SESSION["tipo"] !== "supervisor") {
             $(document).ready(function () {
                 verFormato('analizar');
             });
-            var datos;
+            var datos= new Array();
 
             function mostrarForm() {
                 var fechaIni = $('#fechaInicio').val();
                 var fechaFin = $('#fechaFin').val();
                 var clave = $(this).attr('name');
-                console.log(fechaIni);
-                console.log(fechaFin);
 
                 var formato = sessionStorage.getItem('formato');
                 if (fechaFin < fechaIni) {
@@ -97,7 +96,25 @@ if ($_SESSION["tipo"] !== "supervisor") {
                     $.post("../../controlador/Formato_controller.php", {formato: formato, clave: clave, inicio: fechaIni, fin: fechaFin, opcion: "trazabilidadFormato"},
                     function (mensaje) {
                         $('#resultado').html('');
-                        datos = mensaje;
+                        var matriz = mensaje.split("||");
+                        var index;
+                        for (index in matriz) {
+                            var arr = matriz[index].split("~");
+                            var i= String(arr[1]);
+                            var info=i.split["&"];
+                            console.log(info);
+                            var index2;
+                            var arregloInfo=new Array();
+//                            for (index2 in info){
+//                                var dato=info[index2].split("=");
+//                                var clave=dato[0];
+//                                var valor=dato[1]; 
+//                                console.log(clave+"="+valor);
+//                                arregloInfo[clave]=valor; 
+//                                console(arregloInfo);
+//                            }
+                            datos.push(arr[0],arregloInfo);
+                        }
                     });
                 }
             }

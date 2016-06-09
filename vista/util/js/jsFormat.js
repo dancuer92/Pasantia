@@ -186,20 +186,6 @@ function opcModificar(formato, observaciones, info) {
 
 function validarRequeridos() {
     var requeridos = true;
-//    $('input[required]').each(function () {
-//        var input = $(this);
-//        if (input.val() == '') {
-//            $('#myModal').modal('hide');
-//            $('#myModal').on('hidden.bs.modal', function () {
-//                input.focus();
-//            });
-//            var msj = 'Favor digitar el campo obligatorio:<br>' + input.attr('id');
-//            $('#res1').html(msj);
-//            toastr["info"](msj);
-//            requeridos = false;
-//            return false;
-//        }
-//    });
     $('input').each(function () {
         $('#myModal').modal('hide');
         var input = $(this);
@@ -215,7 +201,12 @@ function validarRequeridos() {
                 return false;
             }
         }
-        requeridos = valorNoVacio(input);
+        if (input.val() !== '') {
+            requeridos = valorNoVacio(input);
+            if (!requeridos) {
+                return false;
+            }
+        }
     });
 
     return requeridos;
@@ -224,27 +215,29 @@ function validarRequeridos() {
 function valorNoVacio(input) {
     var valor = $(input).val();
     var type = $(input).attr('type');
+    console.log(type);
     var patron = $(input).attr('pattern');
     var titulo = $(input).attr('title');
     var re = new RegExp(patron);
-    var requeridos;
-    if (valor !== '') {
-        requeridos = (re.test(valor));
-        if (!requeridos) {
-            $('#myModal').on('hidden.bs.modal', function () {
-                input.focus();
-            });
-            toastr['info'](titulo);
-        }
+    var requeridos = true;
+
+    if (type === "text") {
+        requeridos = !(re.test(valor));
     }
-    if (type === 'number') {
-        if (valor <= input.attr('min') && valor >= input.attr('max')) {
-            $('#myModal').on('hidden.bs.modal', function () {
-                input.focus();
-            });
-            toastr['info']('Dato fuera del rango permitido');
+    if (type === "number") {
+        valor = Number(valor);
+        var min = Number(input.attr('min'));
+        var max = Number(input.attr('max'));
+        if (valor < min || valor > max) { 
+            titulo='Dato fuera del rango permitido';
             requeridos = false;
         }
+    }
+    if (!requeridos) {
+        $('#myModal').on('hidden.bs.modal', function () {
+            input.focus();
+        });
+        toastr['info'](titulo);
     }
     return requeridos;
 }

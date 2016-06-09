@@ -159,7 +159,7 @@ class Informacion_dao {
         if ($sentencia->execute()) {
             $sentencia->bind_result($fecha_sistema, $info);
             while ($sentencia->fetch()) {
-                $informacion.=$fecha_sistema."~".$info;
+                $informacion.=$fecha_sistema."~".$info."||";
             }
         }
         $sentencia->close();
