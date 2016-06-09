@@ -550,6 +550,11 @@ function cambiarAInput(tipo) {
     //Se agrega el elemento correspondiente a un input
     var input = '<input id="' + titulo + '_n" name="' + titulo + '_n" type="' + tipo + '" disabled></td>';
     celda.append(input);
+    if(tipo==='text'){
+        $(celda).children('input').attr('length','30');
+        $(celda).children('input').attr('pattern','[^a-zA-zñÑáÁéÉíÍóÓúÚüÜ\s]{1,30}');
+        $(celda).children('input').attr('title','Digite sólo letras');
+    }
     //Se renombran los input de la tabla.
     cambiarNombreCeldas(titulo);
 }
@@ -810,7 +815,7 @@ function agregarFila() {
     //Se recorre el número de columnas
     for (var y = 0; y < totalCol; y++) {
         //Se adiciona una nueva celda por cada columna que se recorre
-        col += "<td><input id='" + nomTabla + "_" + (f - 1) + "_" + y + "' name='" + nomTabla + "_" + (f - 1) + "_" + y + "' type='text' disabled></td>";
+        col += "<td><input id='" + nomTabla + "_" + (f - 1) + "_" + y + "' name='" + nomTabla + "_" + (f - 1) + "_" + y + "' type='text' length='30' pattern='[^a-zA-zñÑáÁéÉíÍóÓúÚüÜ.,\s]{1,30}' title='Digite sólo letras' disabled></td>";
     }
     //Se añade la nueva fila creada al final de la tabla.
     var row = fila + col + "</tr>";
@@ -835,7 +840,7 @@ function agregarColumna() {
         }
         //Se adiciona una celda que pertenezca al cuerpo de la tabla.
         else {
-            $(this).append("<td><input id='" + nomTabla + "_" + (i - 1) + "_" + c + "' name='" + nomTabla + "_" + (i - 1) + "_" + c + "' type='text' disabled></td>");
+            $(this).append("<td><input id='" + nomTabla + "_" + (i - 1) + "_" + c + "' name='" + nomTabla + "_" + (i - 1) + "_" + c + "' type='text' length='30' pattern='[^a-zA-zñÑáÁéÉíÍóÓúÚüÜ.,\s]{1,30}' title='Digite sólo letras' disabled></td>");
         }
     });
     cambiarNombreCeldas(nomTabla);

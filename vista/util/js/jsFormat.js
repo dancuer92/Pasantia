@@ -111,7 +111,7 @@ function historialFormato(cod) {
 function cargarHistorial(formato) {
     $.post('../../controlador/Formato_controller.php', {formato: formato, opcion: 'historialFormato'},
     function (mensaje) {
-        $('#tabla_historial tbody').append(mensaje);        
+        $('#tabla_historial tbody').append(mensaje);
         $('#tabla_historial').DataTable({responsive: true,
             order: [[0, "desc"]],
             language: {
@@ -150,7 +150,8 @@ function guardarDiligenciaFormato(opcion, info) {
         $('#myModal').modal('hide');
         var observaciones = $('#observaciones').val();
         if (opcion === 'registrar') {
-            opcRegistrar(formato, observaciones);
+            console.log('entró a regsitratr');
+//            opcRegistrar(formato, observaciones);
         }
         if (opcion === 'modificar') {
             opcModificar(formato, observaciones, info);
@@ -185,20 +186,66 @@ function opcModificar(formato, observaciones, info) {
 
 function validarRequeridos() {
     var requeridos = true;
-    $('input[required]').each(function () {
+//    $('input[required]').each(function () {
+//        var input = $(this);
+//        if (input.val() == '') {
+//            $('#myModal').modal('hide');
+//            $('#myModal').on('hidden.bs.modal', function () {
+//                input.focus();
+//            });
+//            var msj = 'Favor digitar el campo obligatorio:<br>' + input.attr('id');
+//            $('#res1').html(msj);
+//            toastr["info"](msj);
+//            requeridos = false;
+//            return false;
+//        }
+//    });
+    $('input').each(function () {
+        $('#myModal').modal('hide');
         var input = $(this);
-        if (input.val() == '') {
-            $('#myModal').modal('hide');
+        if (input.attr('required') === 'required') {
+            if (input.val() === '') {
+                $('#myModal').on('hidden.bs.modal', function () {
+                    input.focus();
+                });
+                var msj = 'Favor digitar el campo obligatorio:<br>' + input.attr('id');
+                $('#res1').html(msj);
+                toastr["info"](msj);
+                requeridos = false;
+                return false;
+            }
+        }
+        requeridos = valorNoVacio(input);
+    });
+
+    return requeridos;
+}
+
+function valorNoVacio(input) {
+    var valor = $(input).val();
+    var type = $(input).attr('type');
+    var patron = $(input).attr('pattern');
+    var titulo = $(input).attr('title');
+    var re = new RegExp(patron);
+    var requeridos;
+    if (valor !== '') {
+        requeridos = (re.test(valor));
+        if (!requeridos) {
             $('#myModal').on('hidden.bs.modal', function () {
                 input.focus();
             });
-            var msj = 'Favor digitar el campo obligatorio:<br>' + input.attr('id');
-            $('#res1').html(msj);
-            toastr["info"](msj);
-            requeridos = false;
-            return false;
+            toastr['info'](titulo);
         }
-    });
+    }
+    if (type === 'number') {
+        if (valor <= input.attr('min') && valor >= input.attr('max')) {
+            $('#myModal').on('hidden.bs.modal', function () {
+                input.focus();
+            });
+            toastr['info']('Dato fuera del rango permitido');
+            requeridos = false;
+        }
+    }
     return requeridos;
 }
 
@@ -302,7 +349,7 @@ function verAnalizar() {
         $(this).next('p').remove();
         $(this).attr("type", "button");
     });
-    $('#visualizarFormato input[type="date"]').each(function(){
+    $('#visualizarFormato input[type="date"]').each(function () {
         $(this).parent().remove();
     });
 }
