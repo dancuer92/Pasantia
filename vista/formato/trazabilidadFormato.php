@@ -56,7 +56,8 @@ if ($_SESSION["tipo"] !== "supervisor") {
                     <a type="button" class="btn btn-default">Centro</a>
                     <a type="button" class="btn btn-default">Derecha</a>
                 </div>
-                <div id="resultado">                    
+                <div id="resultado"> 
+                    <div id="timeline" style="height: auto;"></div>
                 </div>
             </div>
             <div id="res1"></div>
@@ -75,54 +76,82 @@ if ($_SESSION["tipo"] !== "supervisor") {
         <?php
         include 'script.php';
         ?>
+        <script type="text/javascript" src="../util/js/loader.js"></script>
         <script>
-            $(document).ready(function () {
-                verFormato('analizar');
-            });
-            var datos= new Array();
+                        $(document).ready(function () {
+                            verFormato('analizar');
+                        });
+                        var datos = new Array();
 
-            function mostrarForm() {
-                var fechaIni = $('#fechaInicio').val();
-                var fechaFin = $('#fechaFin').val();
-                var clave = $(this).attr('name');
+                        function mostrarForm() {
+                            var fechaIni = $('#fechaInicio').val();
+                            var fechaFin = $('#fechaFin').val();
+                            var clave = $(this).attr('name');
 
-                var formato = sessionStorage.getItem('formato');
-                if (fechaFin < fechaIni) {
-                    toastr["error"]('Fecha de finalización mayor que la fecha de inicio');
-                }
-                else {
-                    toastr["info"]('Hacer lo correcto');
-                    $('#visualizarFormato').show();
-                    $.post("../../controlador/Formato_controller.php", {formato: formato, clave: clave, inicio: fechaIni, fin: fechaFin, opcion: "trazabilidadFormato"},
-                    function (mensaje) {
-                        $('#resultado').html('');
-                        var matriz = mensaje.split("||");
-                        var index;
-                        for (index in matriz) {
-                            var arr = matriz[index].split("~");
-                            var i= String(arr[1]);
-                            var info=i.split["&"];
-                            console.log(info);
-                            var index2;
-                            var arregloInfo=new Array();
-//                            for (index2 in info){
-//                                var dato=info[index2].split("=");
-//                                var clave=dato[0];
-//                                var valor=dato[1]; 
-//                                console.log(clave+"="+valor);
-//                                arregloInfo[clave]=valor; 
-//                                console(arregloInfo);
-//                            }
-                            datos.push(arr[0],arregloInfo);
+                            var formato = sessionStorage.getItem('formato');
+                            if (fechaFin < fechaIni) {
+                                toastr["error"]('Fecha de finalización mayor que la fecha de inicio');
+                            }
+                            else {
+                                toastr["info"]('Hacer lo correcto');
+                                $('#visualizarFormato').show();
+                                $.post("../../controlador/Formato_controller.php", {formato: formato, clave: clave, inicio: fechaIni, fin: fechaFin, opcion: "trazabilidadFormato"},
+                                function (mensaje) {
+                                    $('#resultado').html('');
+                                    var matriz = mensaje.split("||");
+                                    var index;
+                                    for (index in matriz) {
+                                        var arr = matriz[index].split("~");
+                                        var i = arr[1];
+                                        var info = i.split("&");
+                                        var index2;
+                                        var arregloInfo = new Array();
+                                        for (index2 in info) {
+                                            var dato = info[index2].split("=");
+                                            var clave = dato[0];
+                                            var valor = dato[1];
+                                            arregloInfo[clave] = valor;
+                                        }
+//                            console.log(arregloInfo);                            
+                                        datos[i] = new Array(arr[0], arregloInfo);
+                                    }
+                                });
+                            }
                         }
-                    });
-                }
-            }
 
-            $('#visualizarFormato').on('click', 'input[type="button"]', function () {
-                $('#resultado').append(datos);
-            });
+                        $('#visualizarFormato').on('click', 'input[type="button"]', function () {
+//                console.log(datos);
+                            var input = $(this);
+                            var label = input.parent('div').children('label').text();
+                            var clave = input.attr('name');
+                            var mensaje = '<h3>Se ha seleccionado ' + label + ' para su análisis</h3><br>';
+                            var arregloInfo = new Array();
+                            for (var index in datos) {
+                                arregloInfo = datos[index][1];
+                                mensaje += datos[index][0] + '~' + arregloInfo[clave] + '<br>';
+                            }
+                            $('#resultado').html(mensaje);
 
+
+
+//                            google.charts.load('current', {'packages':['timeline']});
+//                            google.charts.setOnLoadCallback(drawChart);
+
+                        });
+
+//                        function drawChart() {
+//                            var dataTable = new google.visualization.DataTable();
+//                            dataTable.addColumn({type: 'string', id: 'Fecha de registro'});
+//                            dataTable.addColumn({type: 'date', id: 'Día'});
+//                            dataTable.addColumn({type: 'date', id: 'Día'});
+//                            var index;
+//                            for(index in datos){
+//                                dataTable.addRows( datos[index][1][clave],datos[index][0],datos[index][0] );
+//                            }                            
+//
+//                            var chart = new google.visualization.Timeline($('#timeline'));
+//                            chart.draw(dataTable);
+//                        }
         </script>
     </body>
 </html>
