@@ -55,7 +55,7 @@ switch ($opcion) {
 function getInputText() {
     $msj = '<div class="formato form-group ui-state-default ">'
             . '<label >Título del campo de texto</label>'
-            . '<input id="untitled" name="untitled" type="text" length="30" pattern="[^a-zA-zñÑáÁéÉíÍóÓúÚüÜ\s]{1,30}" title="Digite sólo letras" disabled/>'
+            . '<input id="untitled" name="untitled" type="text" length="30" pattern="[^0-9a-zA-zñÑáÁéÉíÍóÓúÚüÜ\s]{1,30}" title="Digite sólo letras" disabled/>'
             . '</div>';
     echo $msj;
 }
