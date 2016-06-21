@@ -43,11 +43,9 @@ if ($_SESSION["tipo"] !== "supervisor" && $_SESSION["tipo"] !== "operario") {
         </main>
         <!-- Pie de pagina-->
         <footer>
-            <div class="text-center text-muted">
-                <h6 >Copyright © Cerámica Italia S.A. 2015</h6>
-                <h6 >Avda 3 Calle 23AN Zona Industrial. Cúcuta, Norte de Santander, Colombia.
-                    <br>+57-7-5829800 - 018000111568</h6>                    
-            </div>
+            <?php
+            include 'footer.php';
+            ?>
         </footer>
 
         <!--Modal-->
@@ -64,7 +62,7 @@ if ($_SESSION["tipo"] !== "supervisor" && $_SESSION["tipo"] !== "operario") {
                     </div>
                     <div class="modal-footer">
                         <a type="button" class="btn btn-default" data-dismiss="modal">CANCELAR</a>
-                        <a type="button" class="btn btn-danger" onclick="guardarDiligenciaFormato('registrar','');">ACEPTAR</a>
+                        <a type="button" class="btn btn-danger" onclick="guardarDiligenciaFormato('registrar', '');">ACEPTAR</a>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
@@ -76,7 +74,7 @@ if ($_SESSION["tipo"] !== "supervisor" && $_SESSION["tipo"] !== "operario") {
         ?>
         <script>
             $(document).ready(function () {
-                verFormato('diligenciar');                
+                verFormato('diligenciar');
             });
         </script>
     </body>

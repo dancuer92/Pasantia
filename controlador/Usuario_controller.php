@@ -108,7 +108,7 @@ class Usuario_controller {
                 } else {
                     $mensaje.='<p>Tipo de Usuario: ' . $usuario['tipo_usuario'] . ' Inactivo</p>';
                     $mensaje.=$this->btnCambiar($usuario['codigo_usuario']);
-                    $mensaje='</div>
+                    $mensaje.='</div>
                         <div class="card-reveal">
                             <span class="card-title grey-text text-darken-4">¿Desea activar el usuario?<i class="material-icons right">close</i></span>
                             <p><a id="act/desac" class="waves-effect waves-red btn-flat hoverable" onclick="estadoUsuario(&' . $usuario['codigo_usuario'] . '&,' . 1 . ')">Aceptar</a></p>                    

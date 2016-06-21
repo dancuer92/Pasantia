@@ -490,15 +490,15 @@ function cargarOpcionesCelda() {
     var msj = '<label>Configuración de opciones de la celda</label><br>\n\
                     <p>Por favor hacer clic en el botón para cambiar el campo a etiqueta de texto</p><br>\n\
                     <div class="col-sm-12">\n\
-                        <button class="btn btn-default" onclick="cambiarALabel();" style="width:100%">Etiqueta</button>\n\
+                        <button class="btn btn-default" onclick="cambiarALabel();" style="width:100%">Cambiar a texto</button>\n\
                         <input id="nombreEtiquetaCelda" type="text" class="form-control" placeholder="Nombre celda" onkeyup="cambiarNombreCelda();" />\n\
                     </div>\n\
                     <p>Por favor hacer clic en el botón para cambiar el campo a una entrada de texto o números</p><br>\n\
                     <div class="col-sm-6">\n\
-                        <button class="btn btn-default" onclick="cambiarAInput(\'text\');" style="width:100%">Campo de texto</button>\n\
+                        <button class="btn btn-default" onclick="cambiarAInput(\'text\');" style="width:100%">Entrada de texto</button>\n\
                     </div>\n\
                     <div class="col-sm-6">\n\
-                        <button class="btn btn-default" onclick="cambiarAInput(\'number\');" style="width:100%">Campo numérico</button>\n\
+                        <button class="btn btn-default" onclick="cambiarAInput(\'number\');" style="width:100%">Entrada numérica</button>\n\
                         Máximo valor: <input id="maxVal" type="number" step="any" class="form-control" placeholder="Valor máximo" onkeyup="cambiarValMax();" />\n\
                         Mínimo valor: <input id="minVal" type="number" step="any" class="form-control" placeholder="Valor mínimo" onkeyup="cambiarValMin();" />\n\
                     </div>\n\

@@ -13,7 +13,7 @@ if ($_SESSION["tipo"] !== "supervisor" && $_SESSION["tipo"] !== "operario") {
         <title>Mostrar Registro</title>
 
         <?php
-            include 'head.php';
+        include 'head.php';
         ?>        
     </head>
     <body>
@@ -36,16 +36,14 @@ if ($_SESSION["tipo"] !== "supervisor" && $_SESSION["tipo"] !== "operario") {
 
         <!-- Pie de pagina-->
         <footer>
-            <div class="text-center text-muted">
-                <h6 >Copyright © Cerámica Italia S.A. 2015</h6>
-                <h6 >Avda 3 Calle 23AN Zona Industrial. Cúcuta, Norte de Santander, Colombia.
-                    <br>+57-7-5829800 - 018000111568</h6>                    
-            </div>
+            <?php
+            include 'footer.php';
+            ?>
         </footer>
 
         <!--script-->
         <?php
-            include 'script.php';
+        include 'script.php';
         ?>
         <script>
             $(document).ready(function () {
