@@ -50,24 +50,26 @@ if ($_SESSION["tipo"] !== "supervisor") {
                 <!--<button id="modificarRegistro"type="button" class="btn btn-danger btn-lg center-block" onclick="">MODIFICAR</button>-->
             </div>
 
-            <div class="col-lg-5">
+<!--            <div class="col-lg-5">
                 <div  class="btn-group btn-group-justified" role="group">
                     <a type="button" class="btn btn-default">Izquierda</a>
                     <a type="button" class="btn btn-default">Centro</a>
                     <a type="button" class="btn btn-default">Derecha</a>
-                </div>
-                <div id="resultado"> 
-                    <div id="timeline" style="height: auto;"></div>
-                </div>
+                </div>                
+            </div>-->
+            <div class="col-lg-5" id="resultado"> 
+                <div id="timeline" style="height: auto;"></div>
             </div>
-            <div id="res1"></div>
+            <div class="col-lg-5" id="res1"></div>
         </main>
 
         <!-- Pie de pagina-->
         <footer>
-            <?php
-            include 'footer.php';
-            ?>
+            <div class="col-lg-12" id="footer">
+                <?php
+                include 'footer.php';
+                ?>
+            </div>
         </footer>
 
         <!--script-->
@@ -79,6 +81,7 @@ if ($_SESSION["tipo"] !== "supervisor") {
                         $(document).ready(function () {
                             verFormato('analizar');
                         });
+
                         var datos = new Array();
 
                         function mostrarForm() {
@@ -91,6 +94,7 @@ if ($_SESSION["tipo"] !== "supervisor") {
                                 toastr["error"]('Fecha de finalización mayor que la fecha de inicio');
                             }
                             else {
+                                var d = new Array();
                                 toastr["info"]('Hacer lo correcto');
                                 $('#visualizarFormato').show();
                                 $.post("../../controlador/Formato_controller.php", {formato: formato, clave: clave, inicio: fechaIni, fin: fechaFin, opcion: "trazabilidadFormato"},
@@ -110,15 +114,36 @@ if ($_SESSION["tipo"] !== "supervisor") {
                                             var valor = dato[1];
                                             arregloInfo[clave] = valor;
                                         }
-//                            console.log(arregloInfo);                            
-                                        datos[i] = new Array(arr[0], arregloInfo);
+                                        console.log(arregloInfo);
+                                        d[i] = new Array(arr[0], arregloInfo);
                                     }
                                 });
+                                datos = d;
                             }
+
+
+//                            google.charts.load('current', {'packages': ['timeline']});
+//                            google.charts.setOnLoadCallback(drawChart);
+//
+//                            function drawChart() {
+//                                var dataTable = new google.visualization.DataTable();
+//                                dataTable.addColumn({type: 'string', id: 'Fecha de registro'});
+//                                dataTable.addColumn({type: 'date', id: 'Día'});
+//                                dataTable.addColumn({type: 'date', id: 'Día'});
+//                                var index;
+//                                for (index in datos) {
+//                                    dataTable.addRows(datos[index][1][clave], datos[index][0], datos[index][0]);
+//                                }
+//
+//                                var chart = new google.visualization.Timeline($('#timeline'));
+//                                chart.draw(dataTable);
+//                            }
+
+
                         }
 
                         $('#visualizarFormato').on('click', 'input[type="button"]', function () {
-//                console.log(datos);
+                            console.log(datos);
                             var input = $(this);
                             var label = input.parent('div').children('label').text();
                             var clave = input.attr('name');
@@ -130,26 +155,9 @@ if ($_SESSION["tipo"] !== "supervisor") {
                             }
                             $('#resultado').html(mensaje);
 
-
-
-//                            google.charts.load('current', {'packages':['timeline']});
-//                            google.charts.setOnLoadCallback(drawChart);
-
                         });
 
-//                        function drawChart() {
-//                            var dataTable = new google.visualization.DataTable();
-//                            dataTable.addColumn({type: 'string', id: 'Fecha de registro'});
-//                            dataTable.addColumn({type: 'date', id: 'Día'});
-//                            dataTable.addColumn({type: 'date', id: 'Día'});
-//                            var index;
-//                            for(index in datos){
-//                                dataTable.addRows( datos[index][1][clave],datos[index][0],datos[index][0] );
-//                            }                            
-//
-//                            var chart = new google.visualization.Timeline($('#timeline'));
-//                            chart.draw(dataTable);
-//                        }
+
         </script>
     </body>
 </html>
