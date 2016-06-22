@@ -50,13 +50,13 @@ if ($_SESSION["tipo"] !== "supervisor") {
                 <!--<button id="modificarRegistro"type="button" class="btn btn-danger btn-lg center-block" onclick="">MODIFICAR</button>-->
             </div>
 
-<!--            <div class="col-lg-5">
-                <div  class="btn-group btn-group-justified" role="group">
-                    <a type="button" class="btn btn-default">Izquierda</a>
-                    <a type="button" class="btn btn-default">Centro</a>
-                    <a type="button" class="btn btn-default">Derecha</a>
-                </div>                
-            </div>-->
+            <!--            <div class="col-lg-5">
+                            <div  class="btn-group btn-group-justified" role="group">
+                                <a type="button" class="btn btn-default">Izquierda</a>
+                                <a type="button" class="btn btn-default">Centro</a>
+                                <a type="button" class="btn btn-default">Derecha</a>
+                            </div>                
+                        </div>-->
             <div class="col-lg-5" id="resultado"> 
                 <div id="timeline" style="height: auto;"></div>
             </div>
@@ -77,7 +77,26 @@ if ($_SESSION["tipo"] !== "supervisor") {
         include 'script.php';
         ?>
         <script type="text/javascript" src="../util/js/loader.js"></script>
-        <script>
+        <script type="text/javascript">
+                        google.charts.load('current', {'packages': ['timeline']});
+                        google.charts.setOnLoadCallback(drawChart);
+                        function drawChart() {
+                            var container = document.getElementById('timeline');
+                            var chart = new google.visualization.Timeline(container);
+                            var dataTable = new google.visualization.DataTable();
+
+                            dataTable.addColumn({type: 'string', id: 'President'});
+                            dataTable.addColumn({type: 'date', id: 'Start'});
+                            dataTable.addColumn({type: 'date', id: 'End'});
+                            dataTable.addRows([
+                                ['Washington', new Date(1789, 3, 30), new Date(1797, 2, 4)],
+                                ['Adams', new Date(1797, 2, 4), new Date(1801, 2, 4)],
+                                ['Jefferson', new Date(1801, 2, 4), new Date(1809, 2, 4)]]);
+
+                            chart.draw(dataTable);
+                        }
+
+
                         $(document).ready(function () {
                             verFormato('analizar');
                         });
@@ -114,48 +133,12 @@ if ($_SESSION["tipo"] !== "supervisor") {
                                             var valor = dato[1];
                                             arregloInfo[clave] = valor;
                                         }
-                                        console.log(arregloInfo);
-                                        d[i] = new Array(arr[0], arregloInfo);
                                     }
                                 });
                                 datos = d;
                             }
-
-
-//                            google.charts.load('current', {'packages': ['timeline']});
-//                            google.charts.setOnLoadCallback(drawChart);
-//
-//                            function drawChart() {
-//                                var dataTable = new google.visualization.DataTable();
-//                                dataTable.addColumn({type: 'string', id: 'Fecha de registro'});
-//                                dataTable.addColumn({type: 'date', id: 'Día'});
-//                                dataTable.addColumn({type: 'date', id: 'Día'});
-//                                var index;
-//                                for (index in datos) {
-//                                    dataTable.addRows(datos[index][1][clave], datos[index][0], datos[index][0]);
-//                                }
-//
-//                                var chart = new google.visualization.Timeline($('#timeline'));
-//                                chart.draw(dataTable);
-//                            }
-
-
                         }
 
-                        $('#visualizarFormato').on('click', 'input[type="button"]', function () {
-                            console.log(datos);
-                            var input = $(this);
-                            var label = input.parent('div').children('label').text();
-                            var clave = input.attr('name');
-                            var mensaje = '<h3>Se ha seleccionado ' + label + ' para su análisis</h3><br>';
-                            var arregloInfo = new Array();
-                            for (var index in datos) {
-                                arregloInfo = datos[index][1];
-                                mensaje += datos[index][0] + '~' + arregloInfo[clave] + '<br>';
-                            }
-                            $('#resultado').html(mensaje);
-
-                        });
 
 
         </script>
