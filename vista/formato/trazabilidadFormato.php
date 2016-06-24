@@ -58,8 +58,9 @@ if ($_SESSION["tipo"] !== "supervisor") {
                             </div>                
                         </div>-->
             <div class="col-lg-5" id="resultado"> 
-                <div id="timeline" style="height: auto;"></div>
+                <div id="timeline" style="height: auto;"></div>                
             </div>
+            <div id="chart-container">FusionCharts XT will load here!</div>
             <div class="col-lg-5" id="res1"></div>
         </main>
 
@@ -76,27 +77,10 @@ if ($_SESSION["tipo"] !== "supervisor") {
         <?php
         include 'script.php';
         ?>
-        <script type="text/javascript" src="../util/js/loader.js"></script>
+        <script type="text/javascript" src="../util/js/fusioncharts.js"></script>
+        <script type="text/javascript" src="../util/js/fusioncharts-jquery-plugin.js"></script>
+
         <script type="text/javascript">
-                        google.charts.load('current', {'packages': ['timeline']});
-                        google.charts.setOnLoadCallback(drawChart);
-                        function drawChart() {
-                            var container = document.getElementById('timeline');
-                            var chart = new google.visualization.Timeline(container);
-                            var dataTable = new google.visualization.DataTable();
-
-                            dataTable.addColumn({type: 'string', id: 'President'});
-                            dataTable.addColumn({type: 'date', id: 'Start'});
-                            dataTable.addColumn({type: 'date', id: 'End'});
-                            dataTable.addRows([
-                                ['Washington', new Date(1789, 3, 30), new Date(1797, 2, 4)],
-                                ['Adams', new Date(1797, 2, 4), new Date(1801, 2, 4)],
-                                ['Jefferson', new Date(1801, 2, 4), new Date(1809, 2, 4)]]);
-
-                            chart.draw(dataTable);
-                        }
-
-
                         $(document).ready(function () {
                             verFormato('analizar');
                         });
@@ -133,14 +117,124 @@ if ($_SESSION["tipo"] !== "supervisor") {
                                             var valor = dato[1];
                                             arregloInfo[clave] = valor;
                                         }
+                                        console.log(arregloInfo);
+                                        d[i] = new Array(arr[0], arregloInfo);
                                     }
                                 });
                                 datos = d;
                             }
+
                         }
+                        ;
+
+                        $('#visualizarFormato').on('click', 'input[type="button"]', function () {
+                            console.log(datos);
+                            var input = $(this);
+                            var label = input.parent('div').children('label').text();
+                            var clave = input.attr('name');
+                            var mensaje = '<h3>Se ha seleccionado ' + label + ' para su análisis</h3><br>';
+                            var arregloInfo = new Array();
+                            for (var index in datos) {
+//                                arregloInfo = datos[index][1];
+                                arregloInfo[index] = new Array(datos[index][0], datos[index][1][clave]);
+                                mensaje += datos[index][0] + '~' + datos[index][1][clave] + '<br>';
+                            }
+                            $('#resultado').html(mensaje);
+                            timeLine(label, arregloInfo);
+                        });
 
 
+                        function timeLine(titulo, info) {
+                            var fechaIni = $('#fechaInicio').val();
+                            var fechaFin = $('#fechaFin').val();
+                            var categoria = '[';
+                            var tarea = '[';
+                            var procesos = new Array();
+                            for (var index in info) {
+                                var f = new Date(info[index][0]);
+                                var dd = (f.getDate() < 10 ? '0' : '') + f.getDate();
+                                var mm = ((f.getMonth() + 1) < 10 ? '0' : '') + (f.getMonth() + 1);
+                                var fecha1 = f.getFullYear() + '-' + mm + '-' + dd + ' 00:00:00';
+                                var fecha2 = f.getFullYear() + '-' + mm + '-' + dd + ' 23:59:59';
+                                categoria += '{"start":"' + fecha1 + '", "end":"' + fecha2 + '", "label":"' + f.getFullYear() + '-' + mm + '-' + dd + '"},';
+                                tarea += '{"processid":"' + info[index][1] + '","start":"' + fecha1 + '","end":"' + fecha2 + '","label":"' + info[index][0] + '"},';
 
+
+                                var flag = false;
+                                for (var p in procesos) {
+                                    if (procesos[p] === info[index][1]) {
+                                        flag = true;
+                                        break;
+                                    }
+                                }
+                                if (!flag) {
+                                    procesos.push(info[index][1]);
+                                }
+
+
+                            }
+                            tarea += ']';
+                            tarea += tarea.replace(',]', ']');
+//                            var tareas = JSON.parse(tarea);
+                            console.log(tarea);
+//                            console.log(tareas);
+
+                            categoria += ']';
+                            categoria = categoria.replace(',]', ']');
+                            var categorias = JSON.parse(categoria);
+                            console.log(categoria);
+
+                            var process = '[';
+                            for (var p in procesos) {
+                                process += '{"label": "' + procesos[p] + '","id": "' + procesos[p] + '"},';
+                            }
+                            process += ']';
+                            process = process.replace(',]', ']');
+                            var pro = JSON.parse(process);
+                            console.log(process);
+
+
+                            $("#chart-container").insertFusionCharts({
+                                type: 'gantt',
+                                renderAt: 'chart-container',
+                                width: '650',
+                                height: '400',
+                                dataFormat: 'json',
+                                dataSource: {
+                                    "chart": {
+                                        "caption": "Se ha seleccionado " + titulo + " para su análisis",
+                                        "subcaption": "Desde " + fechaIni + " hasta " + fechaFin,
+                                        "dateformat": "yyyy-mm-dd hh:mn:ss",
+                                        "outputDateFormat": "ddds mnl, yyyy hh12:mn ampm",
+                                        "canvasBorderAlpha": "30",
+                                        "theme": "fint"
+                                    },
+                                    "categories": [{
+                                            "category": categorias
+                                        }],
+                                    "processes": {
+                                        "fontsize": "12",
+                                        "isbold": "1",
+                                        "align": "left",
+                                        "headertext": "Employee",
+                                        "headerfontsize": "14",
+                                        "headervalign": "middle",
+                                        "headeralign": "left",
+                                        "process": pro
+                                    },
+                                    "tasks": {
+                                        "showlabels": "1",
+                                        "task": [{
+                                                "processid": "Daniel",
+                                                "start": "2016-06-03 00:00:00",
+                                                "end": "2016-06-03 23:59:59",
+                                                "label": "2016-06-03 18:38:15"
+                                            }]
+                                    }
+                                }
+                            });
+                        }
+                        ;
         </script>
     </body>
 </html>
