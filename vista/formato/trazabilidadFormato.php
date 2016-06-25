@@ -157,7 +157,7 @@ if ($_SESSION["tipo"] !== "supervisor") {
                                 var fecha1 = f.getFullYear() + '-' + mm + '-' + dd + ' 00:00:00';
                                 var fecha2 = f.getFullYear() + '-' + mm + '-' + dd + ' 23:59:59';
                                 categoria += '{"start":"' + fecha1 + '", "end":"' + fecha2 + '", "label":"' + f.getFullYear() + '-' + mm + '-' + dd + '"},';
-                                tarea += '{"processid":"' + info[index][1] + '","start":"' + fecha1 + '","end":"' + fecha2 + '","label":"' + info[index][0] + '"},';
+                                tarea += '{"processid":"' + info[index][1] + '","start":"' + fecha1 + '","end":"' + fecha2 + '","label":"' + info[index][0] + '", "id":"'+index+'","height":"25%","toppadding": "22%"},';
 
 
                                 var flag = false;
@@ -174,15 +174,14 @@ if ($_SESSION["tipo"] !== "supervisor") {
 
                             }
                             tarea += ']';
-                            tarea += tarea.replace(',]', ']');
-//                            var tareas = JSON.parse(tarea);
-                            console.log(tarea);
-//                            console.log(tareas);
+                            tarea = tarea.replace(',]', ']');
+                            var tareas = JSON.parse(tarea);
+//                            console.log(tarea);
 
                             categoria += ']';
                             categoria = categoria.replace(',]', ']');
                             var categorias = JSON.parse(categoria);
-                            console.log(categoria);
+//                            console.log(categoria);
 
                             var process = '[';
                             for (var p in procesos) {
@@ -191,7 +190,7 @@ if ($_SESSION["tipo"] !== "supervisor") {
                             process += ']';
                             process = process.replace(',]', ']');
                             var pro = JSON.parse(process);
-                            console.log(process);
+//                            console.log(process);
 
 
                             $("#chart-container").insertFusionCharts({
@@ -216,7 +215,7 @@ if ($_SESSION["tipo"] !== "supervisor") {
                                         "fontsize": "12",
                                         "isbold": "1",
                                         "align": "left",
-                                        "headertext": "Employee",
+                                        "headertext": titulo,
                                         "headerfontsize": "14",
                                         "headervalign": "middle",
                                         "headeralign": "left",
@@ -224,12 +223,7 @@ if ($_SESSION["tipo"] !== "supervisor") {
                                     },
                                     "tasks": {
                                         "showlabels": "1",
-                                        "task": [{
-                                                "processid": "Daniel",
-                                                "start": "2016-06-03 00:00:00",
-                                                "end": "2016-06-03 23:59:59",
-                                                "label": "2016-06-03 18:38:15"
-                                            }]
+                                        "task": tareas
                                     }
                                 }
                             });
