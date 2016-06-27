@@ -345,6 +345,13 @@ function verAnalizar() {
     $('#visualizarFormato input[type="date"]').each(function () {
         $(this).parent().remove();
     });
+    $('#visualizarFormato select').each(function () {
+        var name=$(this).attr('name');
+        var div=$(this).parent();
+        $(this).remove();
+        $(div).append('<input id="'+name+'" name="'+name+'" type="button"/>');        
+    });
+    
 }
 
 function modificarDiligenciaFormato() {
