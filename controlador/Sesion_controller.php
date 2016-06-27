@@ -22,6 +22,11 @@ class Sesion_controller{
         $this->facade=new Facade();
     }
     
+    /**
+     * Método que permite iniciar sesión de usuario
+     * @param type $nombre
+     * @param type $password
+     */
     public function iniciar_sesion($nombre,$password){
         $msj= $this->facade->iniciar_sesion($nombre, $password);
         header($msj);

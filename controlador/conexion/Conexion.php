@@ -1,5 +1,9 @@
 <?php
 //header("Content-Type: text/html;charset=utf-8");
+
+/**
+ * Clase de conexión a la base de datos.
+ */
 class Conexion extends mysqli {
 
 //    protected $host = 'sandbox2.ufps.edu.co';
@@ -11,6 +15,9 @@ class Conexion extends mysqli {
     protected $contraseña = '';
     protected $bd = 'pasantia';
 
+    /**
+     * Método constructor de la clase que representa una conexión entre PHP y la base de datos MySQL
+     */
     public function __construct() {
         parent::__construct($this->host, $this->usuario, $this->contraseña, $this->bd);
 
