@@ -10,17 +10,30 @@
 require_once '../modelo/dto/Usuario_dto.php';
 require_once '../controlador/conexion/Conexion.php';
 
+/**
+ * Clase para la gestión de los usuarios en la BD 
+ */
 class Usuario_dao {
 
     private $mysqli;
     private $usuario;
 
+    /**
+     * Constructor de la clase por defecto
+     */
     public function __construct() {
         $this->mysqli = new Conexion();
         mysqli_set_charset($this->mysqli, 'utf8');
         $this->usuario = new Usuario_dto();
     }
 
+    /**
+     * Método que comrpueba el inicio de sesión de un usuario garantizando que existe y está activo.
+     * retorna información del usuario para almacenar en la sesión
+     * @param type $nombre
+     * @param type $password
+     * @return \Usuario_dto
+     */
     public function iniciar_sesion($nombre, $password) {
         $usuario = new Usuario_dto();
 
@@ -58,6 +71,22 @@ class Usuario_dao {
         return $usuario;
     }
 
+    /**
+     * Método que permite registrar un usuario en el sistema.
+     * retorna null si el usuario no pudo ser registrado en la BD
+     * @param type $codigo
+     * @param type $nombre
+     * @param type $apellido
+     * @param type $cedula
+     * @param type $password
+     * @param type $correo
+     * @param type $cargo
+     * @param type $departamento
+     * @param type $telefono
+     * @param type $rol_usuario
+     * @param type $estado
+     * @return type
+     */
     public function registrar($codigo, $nombre, $apellido, $cedula, $password, $correo, $cargo, $departamento, $telefono, $rol_usuario, $estado) {
 
         $mensaje = '';
@@ -87,6 +116,15 @@ class Usuario_dao {
         return $this->usuario;
     }
 
+    /**
+     * Método que permite buscar un usuario en el sistema, o buscar los usuarios para que sean asignados a un formato,
+     * o los usuarios que estén asignados a un formato
+     * retorna un arreglo de usuarios
+     * @param type $consultaBusqueda
+     * @param type $opc
+     * @param type $formato
+     * @return type
+     */
     public function buscar($consultaBusqueda, $opc, $formato) {
         $usuarios = array();
         $sql = "";
@@ -135,6 +173,14 @@ class Usuario_dao {
         return $usuarios;
     }
 
+    /**
+     * método que permite modificar la información de un usuario en la BD
+     * retorna un true si la consulta se realizó correctamente
+     * @param type $clave
+     * @param type $valor
+     * @param type $cod
+     * @return type
+     */
     public function editar($clave, $valor, $cod) {
 
         $sql = "UPDATE usuario u SET u." . $clave . "=? WHERE u.codigo_usuario=? ;";
@@ -151,6 +197,12 @@ class Usuario_dao {
         return $mensaje;
     }
 
+    /**
+     * Método que permite cargar la información del perfil del usuario que inicia sesión
+     * Retorna un usuario_dto
+     * @param type $codigo
+     * @return type
+     */
     public function cargar($codigo) {
         $sql = "SELECT u.codigo_usuario, u.nombre_usuario, u.apellido_usuario, u.cedula_usuario, u.correo_usuario, u.cargo_usuario,"
                 . "u.departamento_usuario, u.telefono_usuario, u.rol_usuario "
@@ -174,6 +226,16 @@ class Usuario_dao {
         return $this->usuario;
     }
 
+    /**
+     * Método para actualizar la contraseña de un usuario en la BD
+     * retorna 0 si hubo un error en la operación
+     * retorna 1 si la contraseña fue actualizada
+     * retorna 2 si la contraseña anterior no coincide
+     * @param type $newPass
+     * @param type $prevPass
+     * @param type $cod
+     * @return string
+     */
     public function cambiar($newPass, $prevPass, $cod) {
         $sql = "UPDATE usuario u SET u.password_usuario=? WHERE u.password_usuario=? AND u.codigo_usuario=? ;";
 

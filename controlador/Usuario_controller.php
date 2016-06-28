@@ -5,87 +5,120 @@
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
+ * Controlador de usuario que requiere la clase Facade y permite entre otras cosas registrar, buscar, cargar, cambiar, 
+ * asignar y desasignar un usuario
  */
 
+//identificador de sesión activa
 session_start();
 require_once '../modelo/facade/Facade.php';
 
+//Opción recibida desde la vista
 $opcion = $_POST['opcion'];
 
 $Usuario_controller = new Usuario_controller();
 
-if ($opcion == "registrar_usuario") {
-    $codigo = $_POST['codigo'];
-    $nombre = $_POST['nombre'];
-    $apellido = $_POST['apellido'];
-    $cedula = $_POST['numDoc'];
-    $password = $_POST['pass'];
-    $correo = $_POST['correo'];
-    $cargo = $_POST['cargo'];
-    $departamento = $_POST['departamento'];
-    $telefono = $_POST['telefono'];
-    $rol_usuario = (int) $_POST['rol'];
-    $estado = (int) $_POST['estado'];
-    $Usuario_controller->registrar_usuario($codigo, $nombre, $apellido, $cedula, $password, $correo, $cargo, $departamento, $telefono, $rol_usuario, $estado);
+//Selección de la función de acuerdo a la opción
+switch ($opcion) {
+    case "registrar_usuario":
+        $codigo = $_POST['codigo'];
+        $nombre = $_POST['nombre'];
+        $apellido = $_POST['apellido'];
+        $cedula = $_POST['numDoc'];
+        $password = $_POST['pass'];
+        $correo = $_POST['correo'];
+        $cargo = $_POST['cargo'];
+        $departamento = $_POST['departamento'];
+        $telefono = $_POST['telefono'];
+        $rol_usuario = (int) $_POST['rol'];
+        $estado = (int) $_POST['estado'];
+        $Usuario_controller->registrar_usuario($codigo, $nombre, $apellido, $cedula, $password, $correo, $cargo, $departamento, $telefono, $rol_usuario, $estado);
+        break;
+    case "buscar":
+        $consultaBusqueda = $_POST['valorBusqueda'];
+        $Usuario_controller->buscar_usuario($consultaBusqueda);
+        break;
+    case "editar":
+        $clave = $_POST['clave'];
+        $valor = $_POST['valor'];
+        $cod = $_POST['codigo'];
+        $Usuario_controller->editar_usuario($clave, $valor, $cod);
+        break;
+    case "cargar":
+        $codigo = $_SESSION['codigo'];
+        $Usuario_controller->cargar_usuario($codigo);
+        break;
+    case "cambiar":
+        $newPass = $_POST['passNew'];
+        $prevPass = $_POST['passAnt'];
+        $cod = $_POST['codigo'];
+        $Usuario_controller->cambiar_password_usuario($newPass, $prevPass, $cod);
+        break;
+    case "asignar":
+        $cod = $_POST['codigo'];
+        $Usuario_controller->autocompletar_usuario($cod, 'asignar', '');
+        break;
+    case "desasignar":
+        $cod = $_POST['codigo'];
+        $formato = $_POST['formato'];
+        $Usuario_controller->autocompletar_usuario($cod, 'desasignar', $formato);
+        break;
 }
 
-if ($opcion == "buscar") {
-    $consultaBusqueda = $_POST['valorBusqueda'];
-    $Usuario_controller->buscar_usuario($consultaBusqueda);
-}
-
-if ($opcion == "editar") {
-    $clave = $_POST['clave'];
-    $valor = $_POST['valor'];
-    $cod = $_POST['codigo'];
-    $Usuario_controller->editar_usuario($clave, $valor, $cod);
-}
-
-if ($opcion == 'cargar') {
-    $codigo = $_SESSION['codigo'];
-    $Usuario_controller->cargar_usuario($codigo);
-}
-
-if ($opcion == 'cambiar') {
-    $newPass = $_POST['passNew'];
-    $prevPass = $_POST['passAnt'];
-    $cod = $_POST['codigo'];
-    $Usuario_controller->cambiar_password_usuario($newPass, $prevPass, $cod);
-}
-
-if ($opcion == 'asignar') {
-    $cod = $_POST['codigo'];
-    $Usuario_controller->autocompletar_usuario($cod, 'asignar', '');
-}
-
-if ($opcion == 'desasignar') {
-    $cod = $_POST['codigo'];
-    $formato = $_POST['formato'];
-    $Usuario_controller->autocompletar_usuario($cod, 'desasignar', $formato);
-}
-
+/**
+ * Clase usuario controller
+ */
 class Usuario_controller {
 
     private $facade;
 
+    /**
+     * Constructor vacío
+     */
     public function __construct() {
         $this->facade = new Facade();
     }
 
+    /**
+     * Método que permite registrar un usuario en el sistema. entre sus datos se encuentran, código, nombre,apellido,cedula,password,correo, 
+     * cargo, departamento, telefono, tipo de usuario y estado.
+     * @param type $codigo
+     * @param type $nombre
+     * @param type $apellido
+     * @param type $cedula
+     * @param type $password
+     * @param type $correo
+     * @param type $cargo
+     * @param type $departamento
+     * @param type $telefono
+     * @param type $rol_usuario
+     * @param type $estado
+     */
     public function registrar_usuario($codigo, $nombre, $apellido, $cedula, $password, $correo, $cargo, $departamento, $telefono, $rol_usuario, $estado) {
+        //retorna un mensaje de respuesta d ela operación
         $msj = $this->facade->registrar_usuario($codigo, $nombre, $apellido, $cedula, $password, $correo, $cargo, $departamento, $telefono, $rol_usuario, $estado);
         echo $msj;
     }
 
+    /**
+     * Permite realizar una búsqueda filtrada en la base de datos de un usuario.
+     * recibe el nombre o el código del usuario.
+     * @param type $consultaBusqueda
+     */
     public function buscar_usuario($consultaBusqueda) {
         $mensaje = '';
+        //se obtienen el usuario o los usuarios con posibles coicidencias de la base de datos en un JSON
         $usuarios = $this->facade->buscar_usuario($consultaBusqueda, '', '');
+        //se valida si existen usuarios
         if (is_null($usuarios)) {
             $mensaje = '<p>No hay ningún usuario con ese criterio de búsqueda</p>';
         } else {
+            //se recorre todo el JSON de usuarios
             foreach ($usuarios as $user) {
+                //Se decodifica el JSON en un arreglo
                 $usuario = json_decode($user, true);
 
+                //Se clasifican y se ordenan los usuarios en unas tarjetas de identificación html
                 $mensaje.='<div class="col s12 m7 l4">            
                 <div class="card">
                     <div class="card-content">
@@ -121,23 +154,44 @@ class Usuario_controller {
         $mensaje = str_replace("&", "'", $mensaje);
         echo $mensaje;
     }
-    
-    private function btnCambiar($cod){
-        $mensaje='';
-        if($cod!==$_SESSION['codigo']){
-            $mensaje.='<a onclick="cambiarPassAdmin(&'.$cod.'&);" class="btn-floating red waves-effect waves-red hoverable tooltipped" data-position="right" data-delay="50" data-tooltip="Cambiar contraseña"><i class="material-icons right">lock_open</i></a>';
+
+    /**
+     * Mpetodo que permite agregar el botón de cambio de contraseña desde un usuario administrador de contraseña.
+     * Recibe el código del usuario.
+     * retorna un string con el código html.
+     * @param type $cod
+     * @return type
+     */
+    private function btnCambiar($cod) {
+        $mensaje = '';
+        if ($cod !== $_SESSION['codigo']) {
+            $mensaje.='<a onclick="cambiarPassAdmin(&' . $cod . '&);" class="btn-floating red waves-effect waves-red hoverable tooltipped" data-position="right" data-delay="50" data-tooltip="Cambiar contraseña"><i class="material-icons right">lock_open</i></a>';
         }
-        return $mensaje=str_replace("&", "'", $mensaje);
+        return $mensaje = str_replace("&", "'", $mensaje);
     }
 
+    /**
+     * Método para editar la contraseña de un usuario desde el lado del administrador
+     * La clave corresponde al campo de la contraseña, el valor será la nueva contraseña y el código es el usuario.
+     * @param type $clave
+     * @param type $valor
+     * @param type $cod
+     */
     public function editar_usuario($clave, $valor, $cod) {
+        //método que edita la contraseña en la base de datos.
         $this->facade->editar_usuario($clave, $valor, $cod);
     }
 
+    /**
+     * Método que carga el perfil de cada usuario una vez inicia sesión.
+     * @param type $codigo
+     */
     public function cargar_usuario($codigo) {
+        //se consulta el usuario en la base de datos.
         $json = $this->facade->cargar_usuario($codigo);
         $mensaje = '';
         if (!is_null($json)) {
+            //Se transforma los datos obtenidos del JSON al código html
             $array = json_decode($json, true);
             $mensaje.='<h5> <strong>Código de usuario: </strong>' . $array['codigo_usuario'] . '</h5>
                         <h5> <strong>Nombre: </strong> <input id="nombre_usuario" pattern="[^a-zA-ZÁaÉéÍíÓóÚÜúü\s]{1,30}" title="Digitar sólo letras" disabled value="' . $array['nombre_usuario'] . '" onblur="edit(&nombre_usuario&,&' . $array['codigo_usuario'] . '&)"></h5>
@@ -153,14 +207,31 @@ class Usuario_controller {
         $mensaje2 = str_replace("&", "'", $mensaje);
         echo $mensaje2;
     }
-
+    
+    /**
+     * Método que permite cambiar la contraseña de un usuario
+     * recibe la contraseña anterior, y la nueva contraseña.
+     * @param type $newPass
+     * @param type $prevPass
+     * @param type $cod
+     */
     public function cambiar_password_usuario($newPass, $prevPass, $cod) {
+        //Retorna un mensaje de respuesta de la operación.
         $msj = $this->facade->cambiar_password_usuario($newPass, $prevPass, $cod);
         echo $msj;
     }
 
+    /**
+     * Método que devuelve una lista para autocompletar un usuario de acuerdo a una búsqueda filtrada
+     * para asignar o desasignar un usuario de un formato
+     * recibe el código de usuario y la opción si es asignar o desasignar
+     * @param type $codigo
+     * @param type $opc
+     * @param type $formato
+     */
     public function autocompletar_usuario($codigo, $opc, $formato) {
         $mensaje = '';
+        //Se busca el usuario de acuerdo a un criterio de búsqueda o los usuarios que coincidan con ese criterio.
         $usuarios = $this->facade->buscar_usuario($codigo, $opc, $formato);
         if (is_null($usuarios)) {
             $mensaje = '<p>No hay ningún usuario con ese criterio de búsqueda</p>';
@@ -168,6 +239,7 @@ class Usuario_controller {
             foreach ($usuarios as $user) {
                 $array = json_decode($user, true);
                 $msj = '';
+                //cadena html que depende de la opción de la función
                 if ($opc == 'asignar') {
                     $msj = "setA('" . $array['codigo_usuario'] . "')";
                 } else {

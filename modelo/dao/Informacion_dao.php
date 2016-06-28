@@ -12,17 +12,32 @@
 require_once '../modelo/dto/Informacion_dto.php';
 require_once '../controlador/conexion/Conexion.php';
 
+/**
+ * Clase para la representación de la información de un registro de un formato
+ */
 class Informacion_dao {
 
     private $mysqli;
     private $info;
 
+    /**
+     * Constructor por vacío
+     */
     public function __construct() {
         $this->mysqli = new Conexion();
         $this->mysqli->set_charset('utf8');
         $this->info = new Informacion_dto();
     }
 
+    /**
+     * Método que permite guardar la información de un registro
+     * @param type $fecha_formato
+     * @param type $usuario
+     * @param type $cod_formato
+     * @param type $info
+     * @param type $observaciones
+     * @return type
+     */
     public function guardarInfo($fecha_formato, $usuario, $cod_formato, $info, $observaciones) {
         $mensaje = '';
         $estado = 0;
@@ -47,6 +62,11 @@ class Informacion_dao {
         return $this->info;
     }
 
+    /**
+     * Método que retorna un registro. esto implica sus datos de información de interés.
+     * @param type $formato
+     * @return type
+     */
     public function mostrarInfo($formato) {
         $mensaje = '';
         $informacion = array();
@@ -71,6 +91,12 @@ class Informacion_dao {
         return $informacion;
     }
 
+    /**
+     * Método para ver la el contenido de información de calidad de un registro
+     * @param type $formato
+     * @param type $fecha
+     * @return type
+     */
     public function verDatos($formato, $fecha) {
         $mensaje = '';
         $formato = strtolower($formato);
@@ -96,6 +122,15 @@ class Informacion_dao {
         return $this->info;
     }
     
+    /**
+     * Método que permite modificar el contenido de un registro de un formato
+     * @param type $fecha_formato
+     * @param type $usuario
+     * @param type $formato
+     * @param type $info
+     * @param type $observaciones
+     * @return type
+     */
     public function modificarRegistroFormato($fecha_formato, $usuario, $formato, $info, $observaciones){
         $sql = "UPDATE `info_$formato` SET `usuario`=?,`estado`=`estado`+1,`informacion`=?,`observaciones`=?"
                 . " WHERE `fecha_registro_sistema`=?";
@@ -118,6 +153,12 @@ class Informacion_dao {
         return $filas;
     }
     
+    /**
+     * Método que permite buscar un registro de un formato por la fecha de creación en el sistema.
+     * @param type $formato
+     * @param type $fecha
+     * @return string
+     */
     public function buscarRegistro($formato, $fecha) {
         $mensaje = '';
         $formato = strtolower($formato);
@@ -143,6 +184,13 @@ class Informacion_dao {
         return $mensaje;
     }
     
+    /**
+     * Busca los registros dentro de un rango de fechas.
+     * @param type $formato
+     * @param type $inicio
+     * @param type $fin
+     * @return string
+     */
     public function mostrarInfoFechas($formato, $inicio, $fin) {
         $mensaje = '';
         $informacion='';

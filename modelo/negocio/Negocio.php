@@ -26,16 +26,25 @@ class Negocio {
         $this->info = new Informacion_dao();
     }
 
+    /**
+     * método para iniciar sesión de usuario
+     * @param type $nombre
+     * @param type $password
+     * @return type
+     */
     public function iniciar_sesion($nombre, $password) {
+        //realiza la consulta por el código y la contraseña
         $usuario = $this->usuario->iniciar_sesion($nombre, $password);
         $mensaje = '';
 
+        //redirecciona el inicio de sesión
         if ($usuario->estado_usuario == 'activo') {
             $mensaje = ('location: ../vista/index.php');
         } else {
             $mensaje = ('location: ../index.php');
         }
 
+        // crea variables de sesión
         $_SESSION['nombre'] = $usuario->nombre_usuario;
         $_SESSION['codigo'] = $usuario->codigo_usuario;
         $_SESSION['estado'] = $usuario->estado_usuario;
@@ -44,8 +53,26 @@ class Negocio {
         return $mensaje;
     }
 
+    /**
+     * Método que envía los datos a la calse controladora de usuario para registrar un usuario
+     * retorna un mensaje de respuesta si es exitosa la operación
+     * @param type $codigo
+     * @param type $nombre
+     * @param type $apellido
+     * @param type $cedula
+     * @param type $password
+     * @param type $correo
+     * @param type $cargo
+     * @param type $departamento
+     * @param type $telefono
+     * @param type $rol_usuario
+     * @param type $estado
+     * @return string
+     */
     public function registrar_usuario($codigo, $nombre, $apellido, $cedula, $password, $correo, $cargo, $departamento, $telefono, $rol_usuario, $estado) {
+        //Método para realizar el registro de un usuario en la clase que conecta a la BD
         $usuario = $this->usuario->registrar($codigo, $nombre, $apellido, $cedula, $password, $correo, $cargo, $departamento, $telefono, $rol_usuario, $estado);
+        //Se valida el resultado de la operación y se retorna el mensaje de respuesta.
         if (!is_null($usuario)) {
             return 'Usuario registrado con éxito';
         } else {
@@ -53,9 +80,18 @@ class Negocio {
         }
     }
 
+    /**
+     * Buscar un usuario por un criterio de busqueda, retorna una lista de usuarios o un valor nulo si no existe ninguno
+     * @param type $consultaBusqueda
+     * @param type $opc
+     * @param type $formato
+     * @return type
+     */
     public function buscar_usuario($consultaBusqueda, $opc, $formato) {
         $usuarios = array();
+        //Consulta los usuarios a la BD
         $usuarios = $this->usuario->buscar($consultaBusqueda, $opc, $formato);
+        //Valida si existe al menos uno.
         if (count($usuarios) == 0) {
             $usuarios = null;
         } else {
@@ -63,13 +99,30 @@ class Negocio {
         }
     }
 
+    /**
+     * Método que permite modificar algun dato del usuario.
+     * retorna true, si la acción se completó en la BD
+     * @param type $clave
+     * @param type $valor
+     * @param type $cod
+     * @return type
+     */
     public function editar_usuario($clave, $valor, $cod) {
+        //realizar la modificación enla BD
         $mensaje = $this->usuario->editar($clave, $valor, $cod);
         return $mensaje;
     }
 
+    /**
+     * Método para buscar la información básica del usuario para buscar sesión
+     * Retorna los datos en un JSON o null si no existe.
+     * @param type $codigo
+     * @return type
+     */
     public function cargar_usuario($codigo) {
+        //consulta el usuario
         $usuario = $this->usuario->cargar($codigo);
+        //validar si no es null
         if (!is_null($usuario)) {
             return $usuario->toJSON();
         } else {
@@ -77,9 +130,19 @@ class Negocio {
         }
     }
 
+    /**
+     * Método para cambiar la contraseña de usuario
+     * retorna un mensaje.
+     * @param type $newPass
+     * @param type $prevPass
+     * @param type $cod
+     * @return string
+     */
     public function cambiar_password_usuario($newPass, $prevPass, $cod) {
+        //Cambiar la contraseña
         $bandera = $this->usuario->cambiar($newPass, $prevPass, $cod);
         $msj = "";
+        //convertir el valor que retorna la operación en la clase usuario DAO
         switch ($bandera) {
             case "0":
                 $msj = 'La contraseña no ha sido actualizada, por favor vuelva a intetarlo';
@@ -94,9 +157,18 @@ class Negocio {
         return $msj;
     }
 
+    /**
+     * Método que carga los formatos según el tipo de usuario
+     * retorna un JSON desde la BD.
+     * @param type $formato
+     * @param type $tipo
+     * @param type $codigo
+     * @return type
+     */
     public function cargarFormatos($formato, $tipo, $codigo) {
-
+        //consulta a la base de datos
         $formatos = $this->formato->cargarFormatos($formato, $tipo, $codigo);
+        //retorna null si no existe o no tiene formatos asignados
         if (!is_null($formatos)) {
             return $formatos;
         } else {
@@ -104,9 +176,23 @@ class Negocio {
         }
     }
 
+    /**
+     * Método que registra un nuevo formato en la BD
+     * @param type $codigo
+     * @param type $nombre
+     * @param type $procedimiento
+     * @param type $director
+     * @param type $frecuencia
+     * @param type $tipo
+     * @param type $version
+     * @param type $html
+     * @return string
+     */
     public function guardarFormato($codigo, $nombre, $procedimiento, $director, $frecuencia, $tipo, $version, $html) {
+        //Método que registra el formato en la BD
         $formato = $this->formato->guardarFormato($codigo, $nombre, $procedimiento, $director, $frecuencia, $tipo, $version, $html);
 //        echo $formato;
+        //Se valida que crea la tabla de información del formato en la BD si el registro previo es exitoso.
         if (!is_null($formato)) {
             $this->formato->crearTablaInfo($codigo);
             return 'Formato registrado con éxito';
@@ -115,6 +201,12 @@ class Negocio {
         }
     }
 
+    /**
+     * 
+     * @param type $usuario
+     * @param type $formato
+     * @return string
+     */
     public function asignarFormato($usuario, $formato) {
         $bandera = $this->formato->asignarDesasignarFormato($usuario, $formato, 1);
         if ($bandera > 0) {

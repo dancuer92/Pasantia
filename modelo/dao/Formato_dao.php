@@ -9,17 +9,31 @@
 require_once '../modelo/dto/Formato_dto.php';
 require_once '../controlador/conexion/Conexion.php';
 
+/**
+ * Clase Formato DAO encarada de las conexiones a la base de datos cuando se trabaja sobre los formatos.
+ * Las consultas a la Base de Datos se realizan con consultas parametrizadas utilizando MySqli
+ */
 class Formato_dao {
 
     private $mysqli;
     private $formato;
 
+    /**
+     * Constructor vacío
+     */
     public function __construct() {
         $this->mysqli = new Conexion();
         mysqli_set_charset($this->mysqli, 'utf8');
         $this->formato = new Formato_dto();
     }
 
+    /**
+     * Consulta para cargar los formatos
+     * @param type $ref_formato
+     * @param type $tipo
+     * @param type $codigo
+     * @return type
+     */
     function cargarFormatos($ref_formato, $tipo, $codigo) {
         $mensaje = "";
         $sql = '';
@@ -56,6 +70,18 @@ class Formato_dao {
         return $formatos;
     }
 
+    /**
+     * Método que guarda un nuevo formato en el sistema
+     * @param type $codigo
+     * @param type $nombre
+     * @param type $procedimiento
+     * @param type $director
+     * @param type $frecuencia
+     * @param type $tipo
+     * @param type $version
+     * @param type $html
+     * @return type
+     */
     function guardarFormato($codigo, $nombre, $procedimiento, $director, $frecuencia, $tipo, $version, $html) {
         $mensaje = '';
         $sql = 'INSERT INTO `formato`(`cod_formato`, `nombre`, `version`, `procedimiento`, `jefe_procedimiento`, `descripcion_contenido`, `frecuencia_uso`, `codigo_html`) VALUES (?,?,?,?,?,?,?,?);';
@@ -78,6 +104,11 @@ class Formato_dao {
         return $this->formato;
     }
 
+    /**
+     * Método que crea un tabla en la base de datos por cada formato en la base de datos.
+     * @param type $formato
+     * @return string
+     */
     public function crearTablaInfo($formato) {
         $mensaje = '';
         $formato = strtolower($formato);
@@ -103,6 +134,13 @@ class Formato_dao {
         return $mensaje;
     }
 
+    /**
+     * Método que permite asignar o desasignar el formato a un usuario
+     * @param type $usuario
+     * @param type $formato
+     * @param type $opc
+     * @return int
+     */
     public function asignarDesasignarFormato($usuario, $formato, $opc) {
         $sql = '';
         $filas = 0;
@@ -133,6 +171,15 @@ class Formato_dao {
         return $filas;
     }
 
+    /**
+     * Método que permite modificar un formato existente en la BD
+     * @param type $usuario
+     * @param type $formato
+     * @param type $detalle
+     * @param type $version
+     * @param type $html
+     * @return type
+     */
     public function modificarFormato($usuario, $formato, $detalle, $version, $html) {
         $sql = "INSERT INTO `modificaciones_formato`(`id_usuario`, `id_formato`, `detalle_modificacion`, `version_formato`, `html`) "
                 . " VALUES (?,?,?,?,?);";
@@ -155,6 +202,11 @@ class Formato_dao {
         return $filas;
     }
 
+    /**
+     * Método que permite buscar las modificaciones de un formato
+     * @param type $formato
+     * @return type
+     */
     public function buscar_modificacion($formato) {
         $fecha = date('Y-m-d', time());
 //        $json=array();
@@ -177,6 +229,11 @@ class Formato_dao {
         return $json;
     }
 
+    /**
+     * Buscar el formato a través del código
+     * @param type $formato
+     * @return type
+     */
     public function buscar_formato($formato) {
         $formatos = array();
         $sql = "SELECT `cod_formato`, `nombre`, `version`, `procedimiento`, `jefe_procedimiento`,"
@@ -202,6 +259,11 @@ class Formato_dao {
         return $formatos;
     }
 
+    /**
+     * Método que retorna el historial de modificaciones del formato
+     * @param type $formato
+     * @return type
+     */
     public function historialFormato($formato) {
         $sql = "SELECT `fecha_modificacion`,`detalle_modificacion`,`id_usuario`,`version_formato` "
                 . "FROM `modificaciones_formato` WHERE id_formato=?;";
@@ -231,6 +293,11 @@ class Formato_dao {
         return $json;
     }
 
+    /**
+     * Busca los días permitidos de un formato para la modificación de un registro del mismo
+     * @param type $formato
+     * @return int
+     */
     public function buscarDiasModificacion($formato) {
         $dias = 0;
         $sql = "SELECT fre.`dias_modificacion` FROM `frecuencia_formato` fre, `formato`f "
@@ -255,6 +322,12 @@ class Formato_dao {
         return $dias;
     }
     
+    /**
+     * método que permite ver el contenido de una version anterior del formato
+     * @param type $formato
+     * @param type $version
+     * @return type
+     */
     public function verVersionformato($formato, $version) {
         $html='';
         $sql = "SELECT `html` FROM `modificaciones_formato` WHERE `id_formato`=? AND `version_formato`=?";

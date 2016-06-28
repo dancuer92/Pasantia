@@ -18,7 +18,7 @@
                     </div>
                     <div class="input-field col s12 m12 l12">
                         <i class="material-icons prefix">lock</i>
-                        <input id="passConfirm" name="passConfirm" type="password" maxlength="30" class="validate" required>
+                        <input id="passConfirm" name="passConfirm" type="password" maxlength="30" class="validate" pattern="(?=.*\d)(?=.*[-+._,*/])(?=.*[a-z]).{8,50}" title="La contraseña debe ser mayor a ocho(8) caracteres y debe contener al menos un número y un caracter especial(+-._,*/)" required>
                         <label for="passConfirm">Confirmar nueva contraseña</label>                                                      
                     </div>
                 </div>
