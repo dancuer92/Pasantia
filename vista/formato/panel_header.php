@@ -14,6 +14,7 @@
                 <li><a href="../index.php" > Inicio</a></li>
                 <li><a href="../usuario.php" > Usuario</a></li>
                 <li><a href="../formato.php" > Formato</a></li>
+                <li><a href="../ayuda.php" target="_blank"> Ayuda</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="font-size: xx-large;"><strong><?php echo $_SESSION['nombre'] ?><span class="caret"></span></strong></a>
                     <ul class="dropdown-menu">                        

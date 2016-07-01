@@ -202,7 +202,8 @@ class Negocio {
     }
 
     /**
-     * 
+     * Método que permite asignar un formato a un usuario de tipo supervisor u operario del sistema
+     * recibe el código del usuario y el código del formato y retorna un mensaje de respuesta de la operación
      * @param type $usuario
      * @param type $formato
      * @return string
@@ -216,6 +217,13 @@ class Negocio {
         }
     }
 
+    /**
+     * Método que permite desasignar un formato a un usuario de tipo supervisor u operario del sistema
+     * recibe el código del usuario y el código del formato y retorna un mensaje de respuesta de la operación
+     * @param type $usuario
+     * @param type $formato
+     * @return string
+     */
     public function desasignarFormato($usuario, $formato) {
         $bandera = $this->formato->asignarDesasignarFormato($usuario, $formato, 0);
         if ($bandera > 0) {
@@ -225,13 +233,25 @@ class Negocio {
         }
     }
 
+    /**
+     * método que permite visualizar el formato
+     * recibe el código del formato y adicionalmente el tipo y el código de usuario para restringir la carga de cualquier formato restingido por el sistema.
+     * retorna el formato representado en un formulario html
+     * @param type $formato
+     * @param type $tipo
+     * @param type $codigo
+     * @return type
+     */
     public function visualizarFormato($formato, $tipo, $codigo) {
         $html = '';
+        //Se consulta el formato
         $formatos = $this->formato->cargarFormatos($formato, $tipo, $codigo);
 
         if (!is_null($formatos)) {
             foreach ($formatos as $formato) {
+                //se carga el codigo html almacenado en la base de datos y guardado en un JSON durante la consulta
                 $array = json_decode($formato, true);
+                //Se convierte en una cadena el código html 
                 $html = $array['codigo_html'];
             }
             return $html;
@@ -240,18 +260,40 @@ class Negocio {
         }
     }
 
+    /**
+     * Método que permite ver el formato de acuerdo a una versión dada del mismo
+     * recibe el código del formato y la versión del formato
+     * retorna el código html del formato
+     * @param type $formato
+     * @param type $version
+     * @return type
+     */
     public function verVersionFormato($formato, $version) {
+        //Se realiza la consulta a la BD
         $html = $this->formato->verVersionFormato($formato, $version);
         return $html;
     }
 
+    /**
+     * Método que sirve para modificar el formato 
+     * Se reciben entre otros detalles, código de usuario, código de formato, el detalle del cambio y el mismo html del formato.
+     * @param type $usuario
+     * @param type $formato
+     * @param type $detalle
+     * @param type $html
+     * @return string
+     */
     public function modificarFormato($usuario, $formato, $detalle, $html) {
+        //Se buscan los días permitidos para realizar una modificación a un registro.
         $buscar_modificacion = $this->formato->buscar_modificacion($formato);
+        //Se busca la última versión del formato
         $version = $this->buscarVersion($formato);
 
         if ($buscar_modificacion <= 1) {
+            //Se realiza la modificaión en la BD y se almacena a respuesta.
             $flag = $this->formato->modificarFormato($usuario, $formato, $detalle, $version, $html);
             echo $flag;
+            //Se retorna el mensaje de la operación.
             if ($flag > 0) {
                 return 'El formato ha sido modificado';
             } else {
@@ -262,36 +304,67 @@ class Negocio {
         }
     }
 
+    //Método que realiza la busqueda de la última versión del formato.
     public function buscarVersion($formato) {
         $version = '';
+        //Se busca el formato
         $formatos = $this->formato->buscar_formato($formato);
+        //Si el resultado de la busqueda es diferente a cero
         if (count($formatos) !== 0) {
             foreach ($formatos as $formato) {
+                //se decodifica el JSON que trae el resultado de la búsqueda
                 $array = json_decode($formato, true);
+                //Se aumenta el consecutivo de la versión
                 $v = explode(' ', $array["version"]);
                 $version = $v[0] . ' ' . ($v[1] + 1);
             }
         }
+        //se retorna la versión nueva de la modificación al formato
         return $version;
     }
 
+    /**
+     * Método que consulta todas las versiones de un formato
+     * recibe el código del formato
+     * retorna todas las versiones del formato en un JSON
+     * @param type $formato
+     * @return type
+     */
     public function historialFormato($formato) {
         return $this->formato->historialFormato($formato);
     }
 
+    /**
+     * Método para diligenciar un formato por parte de un supervisor o de un operario,
+     * recibe la fecha del sistema, el usuario qeu lo diligencia, el código del formato, la información y las observaciones que se hacen en el momento de registrar.
+     * retorna un mensaje de la operación realizada
+     * @param type $fechaFormato
+     * @param type $usuario
+     * @param type $formato
+     * @param type $info
+     * @param type $observaciones
+     * @return string
+     */
     public function diligenciarFormato($fechaFormato, $usuario, $formato, $info, $observaciones) {
         $msj = '';
+        //Se valida la información ingresada
         $info2 = $this->validarInformacion($info);
+        //se verifica que la información corresponda al estandar
         if (is_null($info2)) {
             return 'Por favor ingrese los datos correspondientes al formato';
         }
+        //se verifica la fecha del formato nuevamente en caso de que la recibida sea vacía
         if ($fechaFormato == '---') {
+            //Zona horaria
             date_default_timezone_set('America/Bogota');
+            //fecha actual
             $fechaFormato = date('Y/m/d', time());
 //            echo date('Y/m/d H:i:s', time());
         }
 
+        //Se guarda la información en la BD
         $informacion = $this->info->guardarInfo($fechaFormato, $usuario, $formato, $info2, $observaciones);
+        //se valida la ejecución de la consulta para retornar el mensaje
         if (!is_null($informacion)) {
             $msj = 'Información registrada con éxito';
         } else {
@@ -300,22 +373,42 @@ class Negocio {
         return $msj;
     }
 
+    /**
+     * Método para validar y comprimir la información registrada en el sistema
+     * recibe la información de la vista y retorna una cadena con la información compresa
+     * @param type $info2
+     * @return string
+     */
     public function validarInformacion($info2) {
+        //Decodifica cualquier cifrado tipo %## en la cadena dada. Los símbolos ('+') son decodificados como el caracter espacio.
         $info = urldecode($info2);
+        //Separa la cadena por & y se almacena en un array
         $arr = explode('&', $info);
         $msj = '';
+        //se recorre el arreglo de la cadena separada
         foreach ($arr as $var) {
+            //se separa cada elemento por el = de tal forma que se crea un arreglo de dos posiciones que serán la clave y el valor
             $arreglo2 = explode('=', $var);
+            //Si el valor es vacío no se almacena como información en la base de datos
             if ($arreglo2[1] !== '') {
+                //Se almacena en una cadena con la nueva información de clave y valor (diferente de vacío)
                 $msj.=$var . '&';
             }
         }
         return $msj;
     }
 
+    /**
+     * Método para mostrar un listado de registros de un formato
+     * recibe el código del formato y retorna un arreglo con los registros.
+     * @param type $formato
+     * @return type
+     */
     public function mostrarRegistrosFormato($formato) {
         $informacion = array();
+        //Método que ejecuta la consulta en la base de datos
         $informacion = $this->info->mostrarInfo($formato);
+        //Se valida la información obtenida de la consulta
         if (count($informacion) == 0) {
             $informacion = null;
         } else {
@@ -324,69 +417,112 @@ class Negocio {
         return $informacion;
     }
 
+    /**
+     * Método para ver los datos de un registro de un formato 
+     * retorna una cadena con la información
+     * @param type $formato
+     * @param type $fecha
+     * @return type
+     */
     public function verDatos($formato, $fecha) {
         $json = $this->info->verDatos($formato, $fecha);
         return $json;
     }
 
+    /**
+     * Método para modificar un registro del formato
+     * recibe la fecha de modificación, el usuario que lo modifica, el código del formato, la nueva información, las observaciones y el tipo de usuario que lo modifica
+     * retorna un mensaje de confirmación de la operación
+     * @param type $fechaFormato
+     * @param type $usuario
+     * @param type $formato
+     * @param type $info
+     * @param string $observaciones
+     * @param type $tipo
+     * @return string
+     */
     public function modificarRegistroFormato($fechaFormato, $usuario, $formato, $info, $observaciones, $tipo) {
 
+        //Se buscan los días máximo de modificación del formato
         $f = (int) $this->formato->buscarDiasModificacion($formato);
 
+        //Zona horaria y fecha actual
         date_default_timezone_set('America/Bogota');
         $fechaSistema = date('Y/m/d H:i:s', time());
 
+        //Se toma la fecha actual
         $ff = new DateTime($fechaFormato);
         $fs = new DateTime($fechaSistema);
 
 //        echo $ff->format('Y/m/d H:i:s');
 //        echo $fs->format('Y/m/d H:i:s');
-
+//        Se toma la idferencia entre la fecha actual y la fecha del día de registro de la información
         $diferencia = $ff->diff($fs);
         $d = $diferencia->format('%d');
 //        echo $info;
-
-
+        //Se compara si la diferencia es menor al máximo de días permitidos para la modificación
         if ($d <= $f) {
+            //Se busca el registro por la fecha en el sistema y retorna el usuario y el estado del registro
             $reg = $this->info->buscarRegistro($formato, $fechaFormato);
+            //Se separa los datos obtenidos
             $u = explode('-', $reg);
             $estado = (int) $u[1];
             $user = $u[0];
 
+            //Se valida y se comprime la nueva información
             $info2 = $this->validarInformacion($info);
 //            echo $info2;
+            //Se guarda la observación de la modificación
             $observaciones.=' El registro ha sido mofificado por el usuario ' . $usuario;
 
+            //Se valida si e usuario es supervisor para sobrescribir el registro y si está dentro del rango de días permitidos para su modificación
             if ($tipo === 'supervisor' && $estado < 2) {
+                //Se modifica el registro
                 $flag = $this->info->modificarRegistroFormato($fechaFormato, $usuario, $formato, $info2, $observaciones);
+                //se valida que el usuario haya sido registrado
                 if ($flag > 0) {
                     return 'El registro ha sido modificado';
                 }
             } else {
+                //Si el usuario no es supervisor, se valida si es el mismo usuario encargado del primer registro y que esté dentro del rango de días permitidos
                 if ($usuario === $user && $estado < 2) {
+                    //Se modifica el registro
                     $flag = $this->info->modificarRegistroFormato($fechaFormato, $usuario, $formato, $info2, $observaciones);
+                    //Se valida la operación de modificación
                     if ($flag > 0) {
                         return 'El registro ha sido modificado';
                     }
-                    echo 'Aqui va el codigo de modificar registro por el operario';
                 } else {
+                    //si la operación no se cumple es por lo siguiente
                     if ($usuario !== $user) {
-                        echo 'No puede modificar el formato porque usted no lo ha diligenciado inicialmente';
+                        return 'el formato no puede ser modificado.<br>No puede modificar el formato porque usted no lo ha diligenciado inicialmente';
                     }
-                    if ($estado !== 0) {
-                        echo 'El registro ya fue modificado';
+                    if ($estado >= 2) {
+                        return 'el formato no puede ser modificado.<br>El registro ya fue modificado anteriormente';
                     }
                 }
             }
         } else {
-            echo "el formato no puede ser modificado.<br>Se ha excedido la fecha límite del formato.";
+            return "el formato no puede ser modificado.<br>Se ha excedido la fecha límite del formato.";
         }
     }
 
+    /**
+     * Método para mostrar los datos dentro de un renago de fechas que permiten analizar la trazabilidad posteriormente
+     * Recibe una fecha de inicio y una fecha de finalización
+     * retorna una cadena con los datos dentro de esas fechas
+     * @param type $formato
+     * @param type $clave
+     * @param type $inicio
+     * @param type $fin
+     * @return string
+     */
     public function trazabilidadFormato($formato, $clave, $inicio, $fin) {
         $informacion = array();
+        //COnsulta a la BD
         $informacion = $this->info->mostrarInfoFechas($formato, $inicio, $fin);
-        if ($informacion ==='') {
+        //Validación de la información retornada
+        if ($informacion === '') {
             return 'No existen registros en ese rango de fechas';
         } else {
             return $informacion;

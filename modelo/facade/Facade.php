@@ -7,6 +7,10 @@
  */
 require_once '../modelo/negocio/Negocio.php';
 
+/**
+ * Esta clase tiene todos sus métodos decoradores que a su vez tienen función en la clase negocio, 
+ * es una capa de transición entre vista y modelo del sistema.
+ */
 class Facade {
 
     private $negocio;
