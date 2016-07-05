@@ -531,6 +531,7 @@ function cambiarALabel() {
     celda.append('<p>Nombre celda</p>');
     //Se renombran los input de la tabla.
     cambiarNombreCeldas(titulo);
+    cambiarNombreSelect('#'+titulo+' select',titulo);
 
 }
 
@@ -557,6 +558,7 @@ function cambiarAInput(tipo) {
     }
     //Se renombran los input de la tabla.
     cambiarNombreCeldas(titulo);
+    cambiarNombreSelect('#'+titulo+' select',titulo);
 }
 
 /**
@@ -594,6 +596,7 @@ function cambiarALink() {
     celda.append('<a href="">¡Hacer clic aquí!</a>');
     //Se renombran los input de la tabla.
     cambiarNombreCeldas(titulo);
+    cambiarNombreSelect('#'+titulo+' select',titulo);
 }
 
 /**
@@ -606,15 +609,33 @@ function cambiarALista(){
     //se busca el nombre de la tabla
     var titulo = celda.parents('table').attr('id');
     //se busca la cantidad de select
-    var cant= celda.parents('table select').length;
-    console.log('cantidad = '+cant);
+    var cant= '#'+titulo+' select';
+    var x = $(cant).length;
     //se vacía el contenido inicial de la celda
     celda.empty();
     //Se agrega el elemento correspondiente a un enlace
-    var lista='<select name="'+titulo+'_'+cant+'" id="'+titulo+'_'+cant+'"></select>';
+    var lista='<select name="select_'+titulo+'_'+x+'" id="select_'+titulo+'_'+x+'"></select>';
     celda.append(lista);
-    //Se renombran los input de la tabla.
+    //Se renombran los input y select de la tabla.    
     cambiarNombreCeldas(titulo);
+    cambiarNombreSelect(cant,titulo);
+}
+
+/**
+ * Método que cambia automáticamente el nombre de un select en una tabla
+ * recibe la tabla con los select y el nombre de la tabla
+ * @param {type} tabla
+ * @param {type} titulo
+ * @returns {undefined}
+ */
+function cambiarNombreSelect(tabla,titulo){
+    //Se recorren los select
+    $(tabla).each(function (i){
+        //Se cambia el noombre y se actualiza
+        var nombre='select_'+titulo+'_'+i;
+        $(this).attr('id',nombre);
+        $(this).attr('name',nombre);
+    })
 }
 
 /**
@@ -821,6 +842,7 @@ function agregarFila() {
     var row = fila + col + "</tr>";
     $('.isSelected table').append(row);
     cambiarNombreCeldas(nomTabla);
+    cambiarNombreSelect('#'+nomTabla+' select',nomTabla);
 }
 
 /**
@@ -844,6 +866,7 @@ function agregarColumna() {
         }
     });
     cambiarNombreCeldas(nomTabla);
+    cambiarNombreSelect('#'+nomTabla+' select',nomTabla);
 }
 
 /**
@@ -859,6 +882,7 @@ function eliminarFila() {
     }
     var nomTabla = $('.isSelected table').attr('id');
     cambiarNombreCeldas(nomTabla);
+    cambiarNombreSelect('#'+nomTabla+' select',nomTabla);
 }
 
 /**
@@ -885,5 +909,6 @@ function eliminarColumna() {
     }
     var nomTabla = $('.isSelected table').attr('id');
     cambiarNombreCeldas(nomTabla);
+    cambiarNombreSelect('#'+nomTabla+' select',nomTabla);
 }
 
