@@ -76,7 +76,6 @@ function timeLine(titulo, info) {
     var categoria = '[';
     var tarea = '[';
     var procesos = new Array();
-    var task = new Array();
     for (var index in info) {
         var f = new Date(info[index][0]);
         var dd = (f.getDate() < 10 ? '0' : '') + f.getDate();
@@ -84,7 +83,8 @@ function timeLine(titulo, info) {
         var fecha1 = f.getFullYear() + '-' + mm + '-' + dd + ' 00:00:00';
         var fecha2 = f.getFullYear() + '-' + mm + '-' + dd + ' 23:59:59';
         categoria += '{"start":"' + fecha1 + '", "end":"' + fecha2 + '", "label":"' + f.getFullYear() + '-' + mm + '-' + dd + '"},';
-        tarea += '{"processid":"' + info[index][1] + '","start":"' + fecha1 + '","end":"' + fecha2 + '","label":"' + info[index][0] + '", "id":"' + index + '", "height":"15"},';
+//        tarea += '{"processid":"' + info[index][1] + '","start":"' + fecha1 + '","end":"' + fecha2 + '", "id":"' + index + '", "height":"15"},';
+        tarea += '{"processid":"' + info[index][1] + '","start":"' + fecha1 + '","end":"' + fecha2 + '","label":"' + (f.getHours()+':'+f.getMinutes()) + '", "id":"' + index + '", "height":"15"},';
 
 
         var flag = false;
@@ -125,15 +125,24 @@ function timeLine(titulo, info) {
         renderAt: 'chart-container',
         width: '100%',
         height: '400',
-        dataFormat: 'json',
+        dataFormat: 'json',        
         dataSource: {
             "chart": {
                 "caption": "Se ha seleccionado " + titulo + " para su análisis",
                 "subcaption": "Desde " + fechaIni + " hasta " + fechaFin,
                 "dateformat": "yyyy-mm-dd hh:mn:ss",
                 "outputDateFormat": "ddds mnl, yyyy hh12:mn ampm",
-                "canvasBorderAlpha": "30",
-                "theme": "fint"
+                "canvasBorderAlpha": "30",                
+                "theme": "fint",
+                "useVerticalScrolling": "1",
+                "scrollShowButtons": "1",
+                "ganttPaneDuration": "10",
+                "ganttPaneDurationUnit": "m",
+                "scrollColor": "#CCCCCC",
+                "scrollPadding": "4",
+                "scrollHeight": "20",
+                "scrollBtnWidth": "25",
+                "scrollBtnPadding": "5"
             },
             "categories": [{
                     "category": categorias
