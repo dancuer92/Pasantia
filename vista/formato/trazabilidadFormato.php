@@ -58,7 +58,9 @@ if ($_SESSION["tipo"] !== "supervisor") {
                             </div>                
                         </div>-->
             <div class="col-lg-12" id="resultado"></div>
+            <br>
             <div class="col-lg-12" id="res1"></div>
+            <br>
             <div id="chart-container" class="col-lg-12"></div>
             
         </main>
