@@ -486,6 +486,8 @@ function verFormato(opcion) {
         $('.isSelected').removeClass('isSelected');
         $('div').css('border-style', 'none');
         $('select').attr('disabled', true);
+        $('table').addClass('table-bordered');
+        $('table').addClass('table-hover');
         //Si la opcion es diligenciar
         if (opcion === 'diligenciar') {
             verDiligenciar();

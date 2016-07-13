@@ -57,10 +57,10 @@ if ($_SESSION["tipo"] !== "supervisor") {
                                 <a type="button" class="btn btn-default">Derecha</a>
                             </div>                
                         </div>-->
-            <div class="col-lg-6" id="resultado"> 
-            </div>
-            <div id="chart-container" class="col-lg-6"></div>
-            <div class="col-lg-6" id="res1"></div>
+            <div class="col-lg-12" id="resultado"></div>
+            <div class="col-lg-12" id="res1"></div>
+            <div id="chart-container" class="col-lg-12"></div>
+            
         </main>
 
         <!-- Pie de pagina-->

@@ -8,14 +8,11 @@
 $(document).ready(function () {
     verFormato('analizar');
 });
-
 var datos = new Array();
-
 function mostrarForm() {
     var fechaIni = $('#fechaInicio').val();
     var fechaFin = $('#fechaFin').val();
     var clave = $(this).attr('name');
-
     var formato = sessionStorage.getItem('formato');
     if (fechaFin < fechaIni) {
         toastr["error"]('Fecha de finalización mayor que la fecha de inicio');
@@ -50,6 +47,7 @@ function mostrarForm() {
 }
 ;
 
+
 $('#visualizarFormato').on('click', 'input[type="button"],select', function () {
 //                            console.log(datos);
     var input = $(this);
@@ -70,6 +68,104 @@ $('#visualizarFormato').on('click', 'input[type="button"],select', function () {
 });
 
 
+$('#visualizarFormato').on('click', 'table', function () {
+    $('#res1').html('');
+    var tabla = '#' + $(this).attr('id') + ' tr';
+    var msj = "";
+    var nombreTabla = '';
+
+    $(tabla).each(function (i) {
+        var fila = $(this);
+        if (!fila.has('input').length) {
+            nombreTabla = 'fila' + i;
+            msj = '<table id="' + nombreTabla + '" class="table-bordered table-hover">\n\
+                    <thead></thead><tbody></tbody></table>';
+            $('#res1').append(msj);
+//            var encabezado = '<tr><td>Fecha sistema</td>';
+            var encabezado = '<tr>';
+            $(fila).children('td').each(function () {
+                var td = $(this);
+                var col = td.text();
+                if (col !== '') {
+                    encabezado += '<td>' + col + '</td>';
+                }
+            });
+            encabezado += '</tr>';
+            $('#fila' + i + ' thead').append(encabezado);
+
+//            console.log(encabezado);
+
+        }
+        else {
+//            console.log('fila: ' + i);
+//            console.log(datos);
+
+            for (var d in datos) {
+//                console.log(d);
+                var flag = false;
+//                var row = '<tr><td>' + (datos[d][0]) + '</td>';
+                var row = '<tr>';
+//                console.log(datos[d][1]);
+                $(fila).children('td').each(function () {
+                    var td = $(this);
+                    var col = td.text();
+//                    console.log(td.html());
+                    if (col !== '') {
+                        row += '<td>' + col + '</td>';
+                    }
+                    else {
+                        var input = td.children('input').attr('name');
+//                        console.log(input);
+                        var valor = (datos[d][1][input]);
+//                        console.log(valor);
+                        if (valor !== undefined) {
+                            flag = true;
+//                            console.log(flag);
+                        }
+                        else {
+                            valor = '';
+                        }
+                        row += '<td>' + valor + '</td > ';
+                    }
+                });
+                row += '</tr>';
+                if (flag) {
+                    $('#' + nombreTabla + ' tbody').append(row);
+                }
+            }
+        }
+    });
+
+
+    pintarGrafica();
+})
+
+function pintarGrafica() {
+    $('#res1 table').each(function (i) {
+        var id="tabla_"+i;
+        $('#chart-container').append('<div id="tabla_' + i + '"></div>');
+        $(this).convertToFusionCharts({
+//            type: "mscolumn2d",
+//            type: "scrollstackedcolumn2d",
+//            type: "scrollColumn2d",
+            type: "scrollstackedcolumn2d",
+            width: "100%",
+            height: "350",
+            dataFormat: "htmltable",
+            renderAt: id
+        }, {
+            "chartAttributes": {
+                caption: id,
+                xAxisName: "Clave",
+                yAxisName: "Valor",
+                bgColor: "FFFFFF",
+                theme: "fint"
+            }
+        });
+    });
+}
+
+
 function timeLine(titulo, info) {
     var fechaIni = $('#fechaInicio').val();
     var fechaFin = $('#fechaFin').val();
@@ -82,11 +178,8 @@ function timeLine(titulo, info) {
         var mm = ((f.getMonth() + 1) < 10 ? '0' : '') + (f.getMonth() + 1);
         var fecha1 = f.getFullYear() + '-' + mm + '-' + dd + ' 00:00:00';
         var fecha2 = f.getFullYear() + '-' + mm + '-' + dd + ' 23:59:59';
-        categoria += '{"start":"' + fecha1 + '", "end":"' + fecha2 + '", "label":"' + f.getFullYear() + '-' + mm + '-' + dd + '"},';
-//        tarea += '{"processid":"' + info[index][1] + '","start":"' + fecha1 + '","end":"' + fecha2 + '", "id":"' + index + '", "height":"15"},';
-        tarea += '{"processid":"' + info[index][1] + '","start":"' + fecha1 + '","end":"' + fecha2 + '","label":"' + (f.getHours()+':'+f.getMinutes()) + '", "id":"' + index + '", "height":"15"},';
-
-
+        categoria += '{"start":"' + fecha1 + '", "end":"' + fecha2 + '", "label":"' + f.getFullYear() + '-' + mm + '-' + dd + '"},'; //        tarea += '{"processid":"' + info[index][1] + '","start":"' + fecha1 + '","end":"' + fecha2 + '", "id":"' + index + '", "height":"15"},';
+        tarea += '{"processid":"' + info[index][1] + '","start":"' + fecha1 + '","end":"' + fecha2 + '","label":"' + (f.getHours() + ':' + f.getMinutes()) + '", "id":"' + index + '", "height":"15"},';
         var flag = false;
         for (var p in procesos) {
             if (procesos[p] === info[index][1]) {
@@ -125,14 +218,14 @@ function timeLine(titulo, info) {
         renderAt: 'chart-container',
         width: '100%',
         height: '400',
-        dataFormat: 'json',        
+        dataFormat: 'json',
         dataSource: {
             "chart": {
                 "caption": "Se ha seleccionado " + titulo + " para su análisis",
                 "subcaption": "Desde " + fechaIni + " hasta " + fechaFin,
                 "dateformat": "yyyy-mm-dd hh:mn:ss",
                 "outputDateFormat": "ddds mnl, yyyy hh12:mn ampm",
-                "canvasBorderAlpha": "30",                
+                "canvasBorderAlpha": "30",
                 "theme": "fint",
                 "useVerticalScrolling": "1",
                 "scrollShowButtons": "1",
@@ -159,8 +252,7 @@ function timeLine(titulo, info) {
             },
             "tasks": {
                 "showlabels": "1",
-                "task": tareas
-            }
+                "task": tareas}
         }
     });
 }

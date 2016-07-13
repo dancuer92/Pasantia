@@ -56,11 +56,13 @@
     </div>
     <div class="col-lg-8 col-sm-12 col-md-12 divMayor" id="formBuilder">
         <table id="encabezado">
-            <tr>
-                <td ><h3> Nombre: <?php echo $_POST['nombreFormato']; ?></h3></td>
-                <td ><h3> Código: <?php echo $_POST['codigoFormato']; ?> </h3></td>                    
-                <td ><img class="img-responsive" src="../util/images/corporativo/logo_ceramica.png" alt="Cerámica Italia"></td>
-            </tr>
+            <thead>
+                <tr>
+                    <td ><h3> Nombre: <?php echo $_POST['nombreFormato']; ?></h3></td>
+                    <td ><h3> Código: <?php echo $_POST['codigoFormato']; ?> </h3></td>                    
+                    <td ><img class="img-responsive" src="../util/images/corporativo/logo_ceramica.png" alt="Cerámica Italia"></td>
+                </tr>
+            </thead>
         </table>
     </div>    
 </div>
