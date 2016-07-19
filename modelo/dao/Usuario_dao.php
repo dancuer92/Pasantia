@@ -38,8 +38,8 @@ class Usuario_dao {
         $usuario = new Usuario_dto();
 
         $sql = "SELECT u.nombre_usuario, u.apellido_usuario , u.codigo_usuario, 
-            u.rol_usuario, u.estado_usuario 
-            FROM usuario u WHERE u.codigo_usuario=? AND u.password_usuario =?";
+            u.rol_usuario, u.estado_usuario, u.caducidad_usuario 
+            FROM usuario u WHERE u.codigo_usuario=? AND u.password_usuario =?;";
 
         //PREPARAMOS EL PROCEDIMIENTO
         if (!$sentencia = $this->mysqli->prepare($sql)) {
@@ -57,9 +57,9 @@ class Usuario_dao {
             die("Falló la ejecucion de la consulta");
         }
         if ($sentencia->execute()) {
-            $sentencia->bind_result($nombre_usuario, $apellido_usuario, $codigo_usuario, $rol_usuario, $estado_usuario);
+            $sentencia->bind_result($nombre_usuario, $apellido_usuario, $codigo_usuario, $rol_usuario, $estado_usuario, $caducidad_usuario);
             while ($sentencia->fetch()) {
-                $usuario->sesion($nombre_usuario, $apellido_usuario, $codigo_usuario, $rol_usuario, $estado_usuario);
+                $usuario->sesion($nombre_usuario, $apellido_usuario, $codigo_usuario, $rol_usuario, $estado_usuario, $caducidad_usuario);
             }
         }
         

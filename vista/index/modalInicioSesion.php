@@ -1,6 +1,7 @@
 <!-- modal-fixed-footer -->
 <div id="modalInicioSesion" class="modal" >
-    <form class="s12" action="controlador/Sesion_controller.php" method="post">
+    <!--<form class="s12" action="controlador/Sesion_controller.php" method="post">-->
+    <form class="s12" id="formIniUser" method="post">
         <div class="modal-content" >
             <h4>Inicio de sesión</h4>
             <div>

@@ -37,12 +37,26 @@ class Negocio {
         $usuario = $this->usuario->iniciar_sesion($nombre, $password);
         $mensaje = '';
 
-        //redirecciona el inicio de sesión
-        if ($usuario->estado_usuario == 'activo') {
-            $mensaje = ('location: ../vista/index.php');
-        } else {
-            $mensaje = ('location: ../index.php');
-        }
+//        //redirecciona el inicio de sesión
+//        if ($usuario->estado_usuario == 'activo') {
+//            $mensaje = ('location: ../vista/index.php');
+//        } else {
+//            $mensaje = ('location: ../index.php');
+//        }
+
+       //Zona horaria y fecha actual
+        date_default_timezone_set('America/Bogota');
+        $fechaSistema = date('Y/m/d H:i:s', time());
+
+        //Se toma la fecha actual
+        $ff = new DateTime($usuario->caducidad_usuario);
+        $fs = new DateTime($fechaSistema);
+
+//        Se toma la idferencia entre la fecha actual y la fecha del día de registro de la información
+        $diferencia = $ff->diff($fs);
+        $d = $diferencia->format('%m');
+
+
 
         // crea variables de sesión
         $_SESSION['nombre'] = $usuario->nombre_usuario;

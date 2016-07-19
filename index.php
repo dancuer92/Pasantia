@@ -34,7 +34,7 @@ and open the template in the editor.
         <?php include 'vista/index/modalInicioSesion.php'; ?>
 
         <!-- modal-fixed-footer, cambio contraseña-->
-        <?php include 'vista/index/modalCambioPass.php'; ?>
+        <?php // include 'vista/index/modalCambioPass.php'; ?>
 
         <!-- container, informacion de la pagina-->
         <?php include 'vista/index/containerPageInfo.php'; ?>        
@@ -49,5 +49,6 @@ and open the template in the editor.
         <script src="vista/util/js/jquery-2.1.4.min.js"></script>
         <script src="vista/util/js/materialize.js"></script>
         <script src="vista/util/js/init.js"></script>
+        <script src="vista/util/js/jsUser.js"></script>
     </body>
 </html>

@@ -29,7 +29,8 @@ class Sesion_controller{
      */
     public function iniciar_sesion($nombre,$password){
         $msj= $this->facade->iniciar_sesion($nombre, $password);
-        header($msj);
+        echo $msj;
+//        header($msj);
     }
     
     

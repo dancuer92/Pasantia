@@ -19,6 +19,7 @@ class Usuario_dto {
     var $telefono_usuario;
     var $tipo_usuario;
     var $estado_usuario;
+    var $caducidad_usuario;
 
     public function __construct() {
         
@@ -67,6 +68,10 @@ class Usuario_dto {
     function getEstado_usuario() {
         return $this->estado_usuario;
     }
+    
+    function getCaducidad_usuario() {
+        return $this->caducidad_usuario;
+    }
 
     function setCodigo_usuario($codigo_usuario) {
         $this->codigo_usuario = $codigo_usuario;
@@ -112,7 +117,11 @@ class Usuario_dto {
         $this->estado_usuario = $estado_usuario;
     }
     
-    public function registrar($codigo, $nombre, $apellido, $cedula, $password, $correo, $cargo, $departamento, $telefono, $rol_usuario, $estado) {
+    function setCaducidad_usuario($caducidad_usuario) {
+        $this->caducidad_usuario = $caducidad_usuario;
+    }
+    
+    public function registrar($codigo, $nombre, $apellido, $cedula, $password, $correo, $cargo, $departamento, $telefono, $rol_usuario, $estado, $caducidad) {
 
         $this->codigo_usuario = $codigo;
         $this->nombre_usuario = $nombre;
@@ -125,16 +134,18 @@ class Usuario_dto {
         $this->telefono_usuario=$telefono;
         $this->tipo_usuario = $this->crearTipo($rol_usuario);        
         $this->estado_usuario = $this->crearEstado($estado); 
+        $this->caducidad_usuario = $caducidad; 
     }
 
     
-    public function sesion($nombre_usuario, $apellido_usuario, $codigo_usuario, $rol_usuario, $estado_usuario) {
+    public function sesion($nombre_usuario, $apellido_usuario, $codigo_usuario, $rol_usuario, $estado_usuario, $caducidad_usuario) {
 
         $this->codigo_usuario = $codigo_usuario;
         $this->nombre_usuario = $nombre_usuario;
         $this->apellido_usuario = $apellido_usuario;        
         $this->tipo_usuario = $this->crearTipo($rol_usuario);        
         $this->estado_usuario = $this->crearEstado($estado_usuario); 
+        $this->caducidad_usuario = $caducidad_usuario; 
     }
     
     public function crearTipo($rol_usuario){
@@ -173,7 +184,8 @@ class Usuario_dto {
                 "departamento_usuario"=>$this->departamento_usuario,
                 "telefono_usuario"=>$this->telefono_usuario,
                 "tipo_usuario"=>$this->tipo_usuario,
-                "estado_usuario"=>$this->estado_usuario);
+                "estado_usuario"=>$this->estado_usuario,
+                "caducidad_usuario"=>$this->caducidad_usuario);
         
         $json=  json_encode($arr);
         return $json;

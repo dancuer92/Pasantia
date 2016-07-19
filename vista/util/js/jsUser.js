@@ -13,6 +13,15 @@ $(document).ready(function () {
 });
 
 /**
+ * Acción para enviar el formulario de inicio de sesión de un usuario
+ * @param {type} param
+ */
+$('#formIniUser').submit(function (event) {
+    event.preventDefault();
+    initUser();
+});
+
+/**
  * Acción para enviar el formulario de registro de un usuario
  * @param {type} param
  */
@@ -38,6 +47,13 @@ $('#modalCambio').submit(function (event) {
     edit('password_usuario',cod);
 });
 
+function initUser(){
+    var nombre=$('#nombre');
+    var pass=$('#password');
+    
+    console.log(nombre.val());
+    console.log(pass.val());
+}
 
 /**
  * método para cargar el perfil de un usuario
