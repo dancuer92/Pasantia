@@ -13,15 +13,6 @@ $(document).ready(function () {
 });
 
 /**
- * Acción para enviar el formulario de inicio de sesión de un usuario
- * @param {type} param
- */
-$('#formIniUser').submit(function (event) {
-    event.preventDefault();
-    initUser();
-});
-
-/**
  * Acción para enviar el formulario de registro de un usuario
  * @param {type} param
  */
@@ -43,17 +34,9 @@ $('#formCamPass').submit(function (event) {
  */
 $('#modalCambio').submit(function (event) {
     event.preventDefault();
-    var cod = sessionStorage.getItem('usuario');    
-    edit('password_usuario',cod);
+    var cod = sessionStorage.getItem('usuario');
+    edit('password_usuario', cod);
 });
-
-function initUser(){
-    var nombre=$('#nombre');
-    var pass=$('#password');
-    
-    console.log(nombre.val());
-    console.log(pass.val());
-}
 
 /**
  * método para cargar el perfil de un usuario
@@ -114,15 +97,15 @@ function edit(item, cod) {
     var titulo = $(x).attr('title');
     //Se crea y se compara con la expresión regular tomada del dominio del campo
     var re = new RegExp(patron);
-    var res = (re.test(valor)); 
+    var res = (re.test(valor));
     console.log(res);
 
     //Si es password o correo se niega el resultado
-    if(item==='password_usuario' || item==='correo_usuario'){
-        res=!res;
-    }    
+    if (item === 'password_usuario' || item === 'correo_usuario') {
+        res = !res;
+    }
     console.log(re);
-    console.log(valor);    
+    console.log(valor);
     console.log(res);
 
     //Se valida el resultado de la comparación
@@ -282,7 +265,7 @@ function crearPass() {
     if (pass === confirm) {
         return true;
     }
-    
+
     //sino son iguales
     else {
         return false;
@@ -348,11 +331,11 @@ function cambiarPassAdmin(cod) {
  * Cambiar la contraseña desde el administrador
  * @returns {undefined}
  */
-function passAdmin(){
+function passAdmin() {
     //se toma el código del usuario
-    var cod = sessionStorage.getItem('usuario');    
+    var cod = sessionStorage.getItem('usuario');
     //se cambia la contraseña
-    edit('password_usuario',cod);
+    edit('password_usuario', cod);
 }
 
 /**
@@ -457,7 +440,7 @@ function setA(value) {
 function setD(value) {
     //Se toma el valor del usuario
     $('#cod_usuarioDes').val(value);
-        //Se carga el mensaje de la operación a realizar
+    //Se carga el mensaje de la operación a realizar
 
     var mensaje = '<strong>Usuario ' + value + ' seleccionado para asignar</strong>';
     $('#usuariosD').html(mensaje);

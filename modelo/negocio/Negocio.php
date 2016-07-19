@@ -35,36 +35,31 @@ class Negocio {
     public function iniciar_sesion($nombre, $password) {
         //realiza la consulta por el código y la contraseña
         $usuario = $this->usuario->iniciar_sesion($nombre, $password);
-        $mensaje = '';
-
-//        //redirecciona el inicio de sesión
-//        if ($usuario->estado_usuario == 'activo') {
-//            $mensaje = ('location: ../vista/index.php');
-//        } else {
-//            $mensaje = ('location: ../index.php');
-//        }
-
-       //Zona horaria y fecha actual
-        date_default_timezone_set('America/Bogota');
-        $fechaSistema = date('Y/m/d H:i:s', time());
-
-        //Se toma la fecha actual
-        $ff = new DateTime($usuario->caducidad_usuario);
-        $fs = new DateTime($fechaSistema);
-
-//        Se toma la idferencia entre la fecha actual y la fecha del día de registro de la información
-        $diferencia = $ff->diff($fs);
-        $d = $diferencia->format('%m');
-
-
-
-        // crea variables de sesión
-        $_SESSION['nombre'] = $usuario->nombre_usuario;
-        $_SESSION['codigo'] = $usuario->codigo_usuario;
-        $_SESSION['estado'] = $usuario->estado_usuario;
-        $_SESSION['tipo'] = $usuario->tipo_usuario;
-//        echo $_SERVER['HTTP_HOST'];
-        return $mensaje;
+        if($usuario->codigo_usuario==''){
+            return (-1);
+        }
+        
+        //Validación usuario activo
+        else if ($usuario->estado_usuario == 'activo') {
+            //Zona horaria y fecha actual
+            date_default_timezone_set('America/Bogota');
+            $fechaSistema = strtotime(date('Y/m/d H:i:s', time()));
+            //Se toma la fecha de caducidad
+            $fc = strtotime($usuario->caducidad_usuario);
+            if ($fechaSistema < $fc) {
+                //crea variables de sesión
+                $_SESSION['nombre'] = $usuario->nombre_usuario;
+                $_SESSION['codigo'] = $usuario->codigo_usuario;
+                $_SESSION['estado'] = $usuario->estado_usuario;
+                $_SESSION['tipo'] = $usuario->tipo_usuario;                
+                return 1;
+            }
+            else{
+                return 2;
+            }
+        } else {
+            return 0;
+        }
     }
 
     /**

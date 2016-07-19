@@ -15,6 +15,7 @@ and open the template in the editor.
         <!-- CSS  -->
         <link href="vista/util/css/material-icons.css" rel="stylesheet">
         <link href="vista/util/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+        <link href="vista/util/css/toastr.css" type="text/css" rel="stylesheet"/>
         <!--<link href="vista/util/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>-->
         <link rel="shortcut icon" href="vista/util/images/corporativo/icono_ceramica.ico">
     </head>
@@ -49,6 +50,46 @@ and open the template in the editor.
         <script src="vista/util/js/jquery-2.1.4.min.js"></script>
         <script src="vista/util/js/materialize.js"></script>
         <script src="vista/util/js/init.js"></script>
-        <script src="vista/util/js/jsUser.js"></script>
+        <script src="vista/util/js/toastr.js"></script>
+        <script type="text/javascript">
+            
+
+            /**
+             * Acción para enviar el formulario de inicio de sesión de un usuario
+             * @param {type} param
+             */
+            $('#formIniUser').submit(function (event) {
+                event.preventDefault();
+                initUser();
+            });
+
+            function initUser() {
+                var nombre = $('#nombre').val();
+                var pass = $('#password').val();
+
+                $.post("controlador/Sesion_controller.php", {nombre: nombre, pass: pass},
+                function (mensaje) {
+                    var msj;
+                    switch(mensaje){
+                        case '-1':
+                            msj='Nombre de usuario o contraseña incorrectos';
+                            break;
+                        case '0':
+                            msj='Usuario inactivo en el sistema';
+                            break;
+                        case '1':
+                            location.href="vista/index.php";
+                            msj='Inicio de sesión exitoso';
+                            break;
+                        case '2':
+                            msj='Su contraseña ha caducado';
+                            break;
+                    }
+                    toastr["info"](msj);
+                });
+
+
+            }
+        </script>
     </body>
 </html>

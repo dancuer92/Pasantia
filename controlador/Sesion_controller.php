@@ -10,7 +10,7 @@ require_once('./conexion/Conexion.php');
 require_once '../modelo/facade/Facade.php';
 
 $nombre = $_POST['nombre']; //TOMAMOS usuario DE TEXTO FORMULARIO
-$password = $_POST['password']; //TOMAMOS password.
+$password = $_POST['pass']; //TOMAMOS password.
 
 $sesion_controller=new Sesion_controller();
 $sesion_controller->iniciar_sesion($nombre, $password);
