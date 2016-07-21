@@ -127,7 +127,8 @@ class Usuario_controller {
                         <p>' . $usuario['cargo_usuario'] . '</p>
                         <p>Área: ' . $usuario['departamento_usuario'] . '</p>                        
                         <p>Telefono: ' . $usuario['telefono_usuario'] . '</p>
-                        <p>Correo: ' . $usuario['correo_usuario'] . '</p>';
+                        <p>Correo: ' . $usuario['correo_usuario'] . '</p>
+                        <p>Caducidad contraseña: ' . $usuario['caducidad_usuario'] . '</p>';
                 if ($usuario["estado_usuario"] == "activo") {
                     $mensaje.='<p>Tipo de Usuario: ' . $usuario['tipo_usuario'] . ' Activo</p>';
                     $mensaje.=$this->btnCambiar($usuario['codigo_usuario']);

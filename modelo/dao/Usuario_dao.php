@@ -130,7 +130,7 @@ class Usuario_dao {
         $sql = "";
         if ($opc === 'asignar') {
             $sql = "SELECT u.codigo_usuario, u.nombre_usuario, u.apellido_usuario, u.correo_usuario, u.cargo_usuario, "
-                    . "u.departamento_usuario, u.telefono_usuario, u.rol_usuario, u.estado_usuario, u.fecha_registro "
+                    . "u.departamento_usuario, u.telefono_usuario, u.rol_usuario, u.estado_usuario, u.fecha_registro, u.caducidad_usuario "
                     . "FROM usuario u WHERE (u.rol_usuario=0 OR u.rol_usuario=3) AND( "
                     . "u.codigo_usuario COLLATE utf8_spanish_ci LIKE '%$consultaBusqueda%' "
                     . "OR u.nombre_usuario COLLATE utf8_spanish_ci LIKE '%$consultaBusqueda%' "
@@ -139,7 +139,7 @@ class Usuario_dao {
                     . "LIMIT 6;";
         } else if ($opc === 'desasignar') {
             $sql = "SELECT u.codigo_usuario, u.nombre_usuario, u.apellido_usuario, u.correo_usuario, u.cargo_usuario, "
-                    . "u.departamento_usuario, u.telefono_usuario, u.rol_usuario, u.estado_usuario, u.fecha_registro "
+                    . "u.departamento_usuario, u.telefono_usuario, u.rol_usuario, u.estado_usuario, u.fecha_registro, u.caducidad_usuario  "
                     . "FROM usuario u, usuario_formato uf WHERE uf.id_formato='$formato' AND uf.accion='asignado' AND u.codigo_usuario=uf.id_usuario "
                     . "AND (u.rol_usuario=0 OR u.rol_usuario=3)"
                     . "AND (u.codigo_usuario COLLATE utf8_spanish_ci LIKE '%$consultaBusqueda%' "
@@ -149,7 +149,7 @@ class Usuario_dao {
                     . "LIMIT 6;";
         } else {
             $sql = "SELECT u.codigo_usuario, u.nombre_usuario, u.apellido_usuario, u.correo_usuario, u.cargo_usuario, "
-                    . "u.departamento_usuario, u.telefono_usuario, u.rol_usuario, u.estado_usuario, u.fecha_registro "
+                    . "u.departamento_usuario, u.telefono_usuario, u.rol_usuario, u.estado_usuario, u.fecha_registro, u.caducidad_usuario  "
                     . "FROM usuario u WHERE u.codigo_usuario COLLATE utf8_spanish_ci LIKE '%$consultaBusqueda%' "
                     . "OR u.nombre_usuario COLLATE utf8_spanish_ci LIKE '%$consultaBusqueda%' "
                     . "OR u.apellido_usuario COLLATE utf8_spanish_ci LIKE '%$consultaBusqueda%' "
@@ -161,9 +161,9 @@ class Usuario_dao {
         }
 
         if ($sentencia->execute()) {
-            $sentencia->bind_result($codigo_usuario, $nombre_usuario, $apellido_usuario, $correo_usuario, $cargo_usuario, $departamento_usuario, $telefono_usuario, $rol_usuario, $estado_usuario, $fecha_registro);
+            $sentencia->bind_result($codigo_usuario, $nombre_usuario, $apellido_usuario, $correo_usuario, $cargo_usuario, $departamento_usuario, $telefono_usuario, $rol_usuario, $estado_usuario, $fecha_registro, $caducidad_usuario);
             while ($sentencia->fetch()) {
-                $this->usuario->registrar($codigo_usuario, $nombre_usuario, $apellido_usuario, '', '', $correo_usuario, $cargo_usuario, $departamento_usuario, $telefono_usuario, $rol_usuario, $estado_usuario);
+                $this->usuario->registrar($codigo_usuario, $nombre_usuario, $apellido_usuario, '', '', $correo_usuario, $cargo_usuario, $departamento_usuario, $telefono_usuario, $rol_usuario, $estado_usuario, $caducidad_usuario);
                 $usuarios[] = $this->usuario->toJSON();
             }
         }
@@ -205,7 +205,7 @@ class Usuario_dao {
      */
     public function cargar($codigo) {
         $sql = "SELECT u.codigo_usuario, u.nombre_usuario, u.apellido_usuario, u.cedula_usuario, u.correo_usuario, u.cargo_usuario,"
-                . "u.departamento_usuario, u.telefono_usuario, u.rol_usuario "
+                . "u.departamento_usuario, u.telefono_usuario, u.rol_usuario, u.caducidad_usuario "
                 . "FROM usuario u WHERE u.codigo_usuario = ?";
 
 
@@ -216,9 +216,9 @@ class Usuario_dao {
             $mensaje.= $this->mysqli->error;
         }
         if ($sentencia->execute()) {
-            $sentencia->bind_result($codigo_usuario, $nombre_usuario, $apellido_usuario, $cedula_usuario, $correo_usuario, $cargo_usuario, $departamento_usuario, $telefono_usuario, $rol_usuario);
+            $sentencia->bind_result($codigo_usuario, $nombre_usuario, $apellido_usuario, $cedula_usuario, $correo_usuario, $cargo_usuario, $departamento_usuario, $telefono_usuario, $rol_usuario, $caducidad_usuario);
             while ($sentencia->fetch()) {
-                $this->usuario->registrar($codigo_usuario, $nombre_usuario, $apellido_usuario, $cedula_usuario, '', $correo_usuario, $cargo_usuario, $departamento_usuario, $telefono_usuario, $rol_usuario, 1);
+                $this->usuario->registrar($codigo_usuario, $nombre_usuario, $apellido_usuario, $cedula_usuario, '', $correo_usuario, $cargo_usuario, $departamento_usuario, $telefono_usuario, $rol_usuario, 1, $caducidad_usuario);
             }
         }
         $sentencia->close();
