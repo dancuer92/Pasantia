@@ -62,12 +62,12 @@ class Usuario_dao {
                 $usuario->sesion($nombre_usuario, $apellido_usuario, $codigo_usuario, $rol_usuario, $estado_usuario, $caducidad_usuario);
             }
         }
-        
+
 //        echo $this->mysqli->host_info;
         $sentencia->close();
-        $this->mysqli->close();        
+        $this->mysqli->close();
 //        echo $formato->toJSON().'DAO';
-        
+
         return $usuario;
     }
 
@@ -182,8 +182,16 @@ class Usuario_dao {
      * @return type
      */
     public function editar($clave, $valor, $cod) {
-
-        $sql = "UPDATE usuario u SET u." . $clave . "=? WHERE u.codigo_usuario=? ;";
+        $sql;
+        if ($clave === 'password_usuario') {
+            //Zona horaria y fecha actual
+            date_default_timezone_set('America/Bogota');
+            $fechaSistema = strtotime(date('Y/m/d H:i:s', time()));
+            $fechaCaducidad = date('Y-m-d H:i:s',strtotime('+3 months', $fechaSistema));
+            $sql = "UPDATE usuario u SET u.password_usuario=?, u.caducidad_usuario='".$fechaCaducidad."' WHERE u.codigo_usuario=? ;";
+        } else {
+            $sql = "UPDATE usuario u SET u." . $clave . "=? WHERE u.codigo_usuario=? ;";
+        }        
 
         if (!$sentencia = $this->mysqli->prepare($sql)) {
             $mensaje.= $this->mysqli->error;

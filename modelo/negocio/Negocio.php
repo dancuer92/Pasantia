@@ -111,10 +111,10 @@ class Negocio {
     /**
      * Método que permite modificar algun dato del usuario.
      * retorna true, si la acción se completó en la BD
-     * @param type $clave
-     * @param type $valor
-     * @param type $cod
-     * @return type
+     * @param String $clave campo a actualizar en la BD
+     * @param String $valor nuevo valor del campo en la BD
+     * @param String $cod código del usuario en la BD
+     * @return boolean true si la operació se realiza correctamente
      */
     public function editar_usuario($clave, $valor, $cod) {
         //realizar la modificación enla BD
