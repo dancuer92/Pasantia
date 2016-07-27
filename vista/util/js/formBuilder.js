@@ -294,18 +294,18 @@ function mostrarConfiguraciones(div) {
         var tabla = '#' + elemento.children('table').attr('id');
         //carga las opciones de la celda con doble clic
         $(tabla).on('dblclick', 'td', function () {
-            $(this).addClass('hover');            
-            var x=$(this).children().first();            
+            $(this).addClass('hover');
+            var x = $(this).children().first();
             cargarOpcionesCelda();
-            if(x.is('p')){
-                $('#nombreEtiquetaCelda').attr('placeholder',x.text());
+            if (x.is('p')) {
+                $('#nombreEtiquetaCelda').attr('placeholder', x.text());
             }
-            if(x.is('input[type="number"]')){
-                $('#maxVal').attr('placeholder',x.attr('max'));
-                $('#minVal').attr('placeholder',x.attr('min'));
+            if (x.is('input[type="number"]')) {
+                $('#maxVal').attr('placeholder', x.attr('max'));
+                $('#minVal').attr('placeholder', x.attr('min'));
             }
-            if(x.is('a')){
-                $('#nombreUrl').attr('placeholder',x.text());
+            if (x.is('a')) {
+                $('#nombreUrl').attr('placeholder', x.text());
             }
             $('#celdas').show();
         });
@@ -387,6 +387,9 @@ function cargarOpciones(div) {
         msj += '<input id="' + $(this).attr('id') + '" type="text" class="form-control" placeholder="' + $(this).attr('value') + '"/>\n\
                 <a class="btn btn-default remover" >Eliminar</a>';
     });
+    //
+    msj += '<br><p>Área de texto para colocar las opciones separadas por coma</p>\n\
+                <textarea id="opcionesLista2" placeholder="Digite las opciones separadas por coma exceptuando la última" style="width:100%" onblur="cambiarOpcionesSplit(\'input\');"></textarea>';
     //Se anexan al panel de opciones en configuraciones.
     $('#opciones').html(msj);
 }
@@ -421,6 +424,7 @@ function adicionarOpcion(idOpcion, name) {
     $.post("../formato/elemento.php", {opcion: "element-option", id: idOpcion, tipo: tipo, name: name},
     function (mensaje) {
         $(div).append(mensaje);
+        $(div).click();
     });
 
 }
@@ -439,6 +443,8 @@ function cargarOpcionesSelect(div) {
         msj += '<input id="opcion-' + i + '" type="text" class="form-control optionSelect" placeholder="' + $(this).attr('value') + '"/>\n\
                 <a class="btn btn-default remover" >Eliminar</a>';
     });
+    msj += '<br><p>Área de texto para colocar las opciones separadas por coma</p>\n\
+                <textarea id="opcionesLista2" placeholder="Digite las opciones separadas por coma exceptuando la última" style="width:100%" onblur="cambiarOpcionesSplit(\'lista\');"></textarea>';
     $('#opciones').html(msj);
 }
 
@@ -458,6 +464,7 @@ function adicionarOptionSelect() {
     $.post("../formato/elemento.php", {opcion: "element-option", id: '', tipo: "option", name: ""},
     function (mensaje) {
         $(div).append(mensaje);
+        $(div).click();
     });
 }
 
@@ -531,7 +538,7 @@ function cambiarALabel() {
     celda.append('<p>Nombre celda</p>');
     //Se renombran los input de la tabla.
     cambiarNombreCeldas(titulo);
-    cambiarNombreSelect('#'+titulo+' select',titulo);
+    cambiarNombreSelect('#' + titulo + ' select', titulo);
 
 }
 
@@ -551,14 +558,14 @@ function cambiarAInput(tipo) {
     //Se agrega el elemento correspondiente a un input
     var input = '<input id="' + titulo + '_n" name="' + titulo + '_n" type="' + tipo + '" disabled></td>';
     celda.append(input);
-    if(tipo==='text'){
-        $(celda).children('input').attr('length','30');
-        $(celda).children('input').attr('pattern','[^a-zA-zñÑáÁéÉíÍóÓúÚüÜ\s]{1,30}');
-        $(celda).children('input').attr('title','Digite sólo letras');
+    if (tipo === 'text') {
+        $(celda).children('input').attr('length', '30');
+        $(celda).children('input').attr('pattern', '[^a-zA-zñÑáÁéÉíÍóÓúÚüÜ\s]{1,30}');
+        $(celda).children('input').attr('title', 'Digite sólo letras');
     }
     //Se renombran los input de la tabla.
     cambiarNombreCeldas(titulo);
-    cambiarNombreSelect('#'+titulo+' select',titulo);
+    cambiarNombreSelect('#' + titulo + ' select', titulo);
 }
 
 /**
@@ -596,29 +603,29 @@ function cambiarALink() {
     celda.append('<a href="">¡Hacer clic aquí!</a>');
     //Se renombran los input de la tabla.
     cambiarNombreCeldas(titulo);
-    cambiarNombreSelect('#'+titulo+' select',titulo);
+    cambiarNombreSelect('#' + titulo + ' select', titulo);
 }
 
 /**
  * Se cambia el contenido de la celda por una lista desplegable en el que el usuario digita las opciones separadas por una coma.
  * @returns {undefined}
  */
-function cambiarALista(){
+function cambiarALista() {
     //Se toma la celda en la que se trabaja
     var celda = $('.hover');
     //se busca el nombre de la tabla
     var titulo = celda.parents('table').attr('id');
     //se busca la cantidad de select
-    var cant= '#'+titulo+' select';
+    var cant = '#' + titulo + ' select';
     var x = $(cant).length;
     //se vacía el contenido inicial de la celda
     celda.empty();
     //Se agrega el elemento correspondiente a un enlace
-    var lista='<select name="select_'+titulo+'_'+x+'" id="select_'+titulo+'_'+x+'"></select>';
+    var lista = '<select name="select_' + titulo + '_' + x + '" id="select_' + titulo + '_' + x + '"></select>';
     celda.append(lista);
     //Se renombran los input y select de la tabla.    
     cambiarNombreCeldas(titulo);
-    cambiarNombreSelect(cant,titulo);
+    cambiarNombreSelect(cant, titulo);
 }
 
 /**
@@ -628,13 +635,13 @@ function cambiarALista(){
  * @param {type} titulo
  * @returns {undefined}
  */
-function cambiarNombreSelect(tabla,titulo){
+function cambiarNombreSelect(tabla, titulo) {
     //Se recorren los select
-    $(tabla).each(function (i){
+    $(tabla).each(function (i) {
         //Se cambia el noombre y se actualiza
-        var nombre='select_'+titulo+'_'+i;
-        $(this).attr('id',nombre);
-        $(this).attr('name',nombre);
+        var nombre = 'select_' + titulo + '_' + i;
+        $(this).attr('id', nombre);
+        $(this).attr('name', nombre);
     })
 }
 
@@ -712,14 +719,62 @@ function cambiarNombreURL() {
  * Método para agregar o quitar las opciones de la lista en la tabla
  * @returns {undefined}
  */
-function cambiarOpciones(){
-    var cadena=$('#opcionesLista').val();
-    var opciones=cadena.split(",");
+function cambiarOpciones() {
+    var cadena = $('#opcionesLista').val();
+    var opciones = cadena.split(",");
     var opc;
-    for(opc in opciones){
-        var opcion='<option value="'+opciones[opc]+'">'+opciones[opc]+'</option>';
+    for (opc in opciones) {
+        var opcion = '<option value="' + opciones[opc] + '">' + opciones[opc] + '</option>';
         $('.hover').children('select').append(opcion);
     }
+}
+
+/**
+ * Método para agregar o quitar las opciones de la lista en el formulario
+ * @returns {undefined}
+ */
+function cambiarOpcionesSplit(tipo) {
+    var cadena = $('#opcionesLista2').val();
+    cadena= cadena.replace(/,/g, "|");
+    cadena= cadena.replace(/,,/g, "|");
+    cadena= cadena.replace(/, ,/g, "|");
+    cadena= cadena.replace(/,$/, "");
+    console.log(cadena);
+    var opciones = cadena.split("|");
+    var opc;
+    if (tipo === 'lista') {
+        var opcion;
+        for (opc in opciones) {
+            opcion += '<option value="' + opciones[opc] + '">' + opciones[opc] + '</option>';
+        }
+        $('.isSelected').children('select').html(opcion);
+        $('.isSelected').click();
+    }
+    var div = $('.isSelected').children('input');
+    tipo = div.attr('type');
+    var name = div.attr('name');
+    if (tipo === 'radio') {
+        var opcion='';
+        var i = div.length;
+        for (opc in opciones) {
+            opcion += '<input type="radio" id="' + name + '-' + i + '"  name="' + name + '" value="'+opciones[opc]+'" disabled/><p>'+opciones[opc]+'</p>';
+            i++;
+        }
+        $('.isSelected').append(opcion);
+        $('.isSelected').click();
+    }
+    else if (tipo === 'checkbox') {
+        var opcion='';
+        var i = div.length;
+        var id=name.split('-');
+        for (opc in opciones) {
+            opcion += '<input id="' + id[0] + '-' + i + '" type="checkbox" name="' + id[0] + '-' + i + '" value="'+opciones[opc]+'" disabled/><p>'+opciones[opc]+'</p>';
+            i++;
+        }
+        $('.isSelected').append(opcion);
+        $('.isSelected').click();
+    }
+
 }
 
 /**
@@ -842,7 +897,7 @@ function agregarFila() {
     var row = fila + col + "</tr>";
     $('.isSelected table').append(row);
     cambiarNombreCeldas(nomTabla);
-    cambiarNombreSelect('#'+nomTabla+' select',nomTabla);
+    cambiarNombreSelect('#' + nomTabla + ' select', nomTabla);
 }
 
 /**
@@ -866,7 +921,7 @@ function agregarColumna() {
         }
     });
     cambiarNombreCeldas(nomTabla);
-    cambiarNombreSelect('#'+nomTabla+' select',nomTabla);
+    cambiarNombreSelect('#' + nomTabla + ' select', nomTabla);
 }
 
 /**
@@ -882,7 +937,7 @@ function eliminarFila() {
     }
     var nomTabla = $('.isSelected table').attr('id');
     cambiarNombreCeldas(nomTabla);
-    cambiarNombreSelect('#'+nomTabla+' select',nomTabla);
+    cambiarNombreSelect('#' + nomTabla + ' select', nomTabla);
 }
 
 /**
@@ -909,6 +964,6 @@ function eliminarColumna() {
     }
     var nomTabla = $('.isSelected table').attr('id');
     cambiarNombreCeldas(nomTabla);
-    cambiarNombreSelect('#'+nomTabla+' select',nomTabla);
+    cambiarNombreSelect('#' + nomTabla + ' select', nomTabla);
 }
 

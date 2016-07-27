@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-05-2016 a las 18:54:11
--- Versión del servidor: 10.1.9-MariaDB
--- Versión de PHP: 5.6.15
+-- Tiempo de generación: 22-07-2016 a las 15:58:03
+-- Versión del servidor: 10.1.13-MariaDB
+-- Versión de PHP: 5.6.23
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -232,18 +232,19 @@ CREATE TABLE `usuario` (
   `telefono_usuario` varchar(20) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `rol_usuario` int(1) NOT NULL,
   `estado_usuario` tinyint(1) NOT NULL,
-  `fecha_registro` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `fecha_registro` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `caducidad_usuario` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`codigo_usuario`, `nombre_usuario`, `apellido_usuario`, `cedula_usuario`, `password_usuario`, `correo_usuario`, `cargo_usuario`, `departamento_usuario`, `telefono_usuario`, `rol_usuario`, `estado_usuario`, `fecha_registro`) VALUES
-('admin', 'piformatica', 'pasante', '123456789', 'admin', 'admin@cisa.com', 'administrador TI', 'TI', '119', 1, 1, '2016-05-27 16:53:33'),
-('asis', 'asis_name', 'asis_last', '369', 'asis', 'asis@cisa.com', 'asistente TI', 'TI', '119', 2, 1, '2016-04-11 19:25:57'),
-('oper', 'oper_name', 'oper_last', '147', 'oper', 'oper@cisa.com', 'operario TI', 'TI', '119', 0, 1, '2016-05-26 21:35:13'),
-('super', 'super_name', 'super_last', '2334', 'super', 'das@cisa.com', 'supervisor TI', ' TI', '119', 3, 1, '2016-05-27 16:39:26');
+INSERT INTO `usuario` (`codigo_usuario`, `nombre_usuario`, `apellido_usuario`, `cedula_usuario`, `password_usuario`, `correo_usuario`, `cargo_usuario`, `departamento_usuario`, `telefono_usuario`, `rol_usuario`, `estado_usuario`, `fecha_registro`, `caducidad_usuario`) VALUES
+('admin', 'piformatica', 'pasante', '123456789', 'admin', 'admin@cisa.com', 'administrador TI', 'TI', '119', 1, 1, '2016-07-21 23:30:56', '2016-10-01 05:00:00'),
+('asis', 'asis_name', 'asis_last', '369', 'asis', 'asis@cisa.com', 'asistente TI', 'TI', '119', 2, 1, '2016-04-11 19:25:57', '0000-00-00 00:00:00'),
+('oper', 'oper_name', 'oper_last', '147', 'oper', 'oper@cisa.com', 'operario TI', 'TI', '119', 0, 1, '2016-05-26 21:35:13', '0000-00-00 00:00:00'),
+('super', 'super_name', 'super_last', '2334', 'super', 'das@cisa.com', 'supervisor TI', ' TI', '119', 3, 1, '2016-05-27 16:39:26', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
