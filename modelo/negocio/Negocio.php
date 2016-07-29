@@ -79,8 +79,12 @@ class Negocio {
      * @return string
      */
     public function registrar_usuario($codigo, $nombre, $apellido, $cedula, $password, $correo, $cargo, $departamento, $telefono, $rol_usuario, $estado) {
+        //Zona horaria y fecha actual
+            date_default_timezone_set('America/Bogota');
+            $fechaSistema = strtotime(date('Y/m/d H:i:s', time()));
+            $fechaCaducidad = date('Y-m-d H:i:s',strtotime('+3 months', $fechaSistema));
         //Método para realizar el registro de un usuario en la clase que conecta a la BD
-        $usuario = $this->usuario->registrar($codigo, $nombre, $apellido, $cedula, $password, $correo, $cargo, $departamento, $telefono, $rol_usuario, $estado);
+        $usuario = $this->usuario->registrar($codigo, $nombre, $apellido, $cedula, $password, $correo, $cargo, $departamento, $telefono, $rol_usuario, $estado,$fechaCaducidad);
         //Se valida el resultado de la operación y se retorna el mensaje de respuesta.
         if (!is_null($usuario)) {
             return 'Usuario registrado con éxito';

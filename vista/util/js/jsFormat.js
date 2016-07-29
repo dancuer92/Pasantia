@@ -363,7 +363,7 @@ function valorNoVacio(input) {
     //si el input es de tipo texto
     if (type === "text") {
         //Se compara con la expresion regular
-        requeridos = !(re.test(valor));
+        requeridos = (re.test(valor));
     }
     // si es número
     if (type === "number") {

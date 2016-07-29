@@ -87,13 +87,13 @@ class Usuario_dao {
      * @param type $estado
      * @return type
      */
-    public function registrar($codigo, $nombre, $apellido, $cedula, $password, $correo, $cargo, $departamento, $telefono, $rol_usuario, $estado) {
+    public function registrar($codigo, $nombre, $apellido, $cedula, $password, $correo, $cargo, $departamento, $telefono, $rol_usuario, $estado,$fecha_caducidad) {
 
         $mensaje = '';
         $sql = "INSERT INTO `usuario`(`codigo_usuario`, `nombre_usuario`, `apellido_usuario`, `cedula_usuario`, "
                 . "`password_usuario`, `correo_usuario`, `cargo_usuario`, `departamento_usuario`, `telefono_usuario`, "
-                . "`rol_usuario`, `estado_usuario`) "
-                . "VALUES (?,?,?,?,?,?,?,?,?,?,?);";
+                . "`rol_usuario`, `estado_usuario`, `fecha_caducidad`) "
+                . "VALUES (?,?,?,?,?,?,?,?,?,?,?,?);";
 
         //PREPARAMOS EL PROCEDIMIENTO
         if (!$sentencia = $this->mysqli->prepare($sql)) {
