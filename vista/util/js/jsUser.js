@@ -306,7 +306,7 @@ function cambiarPass() {
 //            }
             //Se muestra el mensaje de la operación
             toastr["info"](mensaje);
-            $('#cambiarContraseña').html(mensaje);
+            $('#cambiarContraseña2').html(mensaje);
             limpiar();
         });
     }

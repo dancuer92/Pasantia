@@ -30,6 +30,6 @@
                 <i class="material-icons right">cancel</i></a>        
         </div>
     </form>
-    <div id="cambiarContraseña"></div>
+    <div id="cambiarContraseña2"></div>
 
 </div>
