@@ -471,7 +471,7 @@ class Negocio {
 //        echo $fs->format('Y/m/d H:i:s');
 //        Se toma la idferencia entre la fecha actual y la fecha del día de registro de la información
         $diferencia = $ff->diff($fs);
-        $d = $diferencia->format('%d');
+        $d = $diferencia->format('%h');
 //        echo $info;
         //Se compara si la diferencia es menor al máximo de días permitidos para la modificación
         if ($d <= $f) {

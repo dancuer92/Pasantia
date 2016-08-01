@@ -300,7 +300,7 @@ class Formato_dao {
      */
     public function buscarDiasModificacion($formato) {
         $dias = 0;
-        $sql = "SELECT fre.`dias_modificacion` FROM `frecuencia_formato` fre, `formato`f "
+        $sql = "SELECT fre.`tiempo_modificacion` FROM `frecuencia_formato` fre, `formato`f "
                 . "WHERE f.`cod_formato`=? AND f.`frecuencia_uso`=fre.`id`";
 
         if (!$sentencia = $this->mysqli->prepare($sql)) {
