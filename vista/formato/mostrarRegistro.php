@@ -57,11 +57,12 @@ if ($_SESSION["tipo"] !== "supervisor" && $_SESSION["tipo"] !== "operario") {
                 });
 
                 $("#visualizarFormato").on('blur', 'input', function () {
+                    var observaciones=sessionStorage.getItem('observaciones');
                     var nombre = $(this).attr("name");
                     var valorNuevo = $(this).val();
                     if (valorNuevo !== valorAnterior) {
                         var observacion = " Se ha actualizado el campo: " + nombre + ", cuyo valor anterior es: " + valorAnterior + ", y su valor actual es: " + valorNuevo;
-                        var observaciones += sessionStorage.getItem('observaciones') + observacion;
+                        observaciones+= observaciones + observacion;
                         sessionStorage.setItem('observaciones', observacion);
 //                        console.log(observacion);
                     }
