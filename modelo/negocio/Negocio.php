@@ -486,7 +486,7 @@ class Negocio {
             $info2 = $this->validarInformacion($info);
 //            echo $info2;
             //Se guarda la observación de la modificación
-            $observaciones.=' El registro ha sido mofificado por el usuario ' . $usuario;
+            $observaciones.=' El registro ha sido modificado por el usuario ' . $usuario;
 
             //Se valida si e usuario es supervisor para sobrescribir el registro y si está dentro del rango de días permitidos para su modificación
             if ($tipo === 'supervisor' && $estado < 2) {

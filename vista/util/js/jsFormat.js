@@ -236,8 +236,9 @@ function guardarDiligenciaFormato(opcion, info) {
         //se oculta el modal
         $('#myModal').modal('hide');
         //Se toman las observaciones por el usuario o por defecto del sistema
-        var observaciones = $('#observaciones').val();
-        if (observaciones !== '') {
+        var observaciones = sessionStorage.getItem('observaciones');
+        console.log(observaciones);
+        if (observaciones === '') {
             observaciones = 'Sin observaciones';
         }
         //Si la opción es registrar
@@ -447,11 +448,16 @@ function cargarRegistro() {
             var valor = div[1];
 
             //Se agrega el valor al input que tenga por nombre la clave
-            var name = 'input[name=' + div[0] + ']';
-            //Si es de tipo radio o checkbox
-            $(name).prop('checked', true);
+            var name = 'input[value="' + div[1] + '"]';
             $(clave).val(valor);
-//            $(name).val(valor);
+
+            //Si es de tipo checkbox o una lista
+            $(name).prop('checked', true);
+            $(name).prop('selected', true);
+            
+            //Si es de tipo radio
+//            var radio = 'input[value=' + div[1] + ']';
+//            $(radio).prop('checked', true);
 
         }
     });
@@ -600,7 +606,7 @@ function guardarMR() {
     //Se obtiene la información del formato
     var info = $('#visualizarFormato').serialize();
 //    console.log(info);
-    //Se activan los cmapos, listas y opciones
+    //Se inactivan los cmapos, listas y opciones
     $('input').attr('disabled', true);
     $('textarea').attr('disabled', true);
     $('select').attr('disabled', true);

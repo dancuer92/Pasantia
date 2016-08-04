@@ -49,6 +49,25 @@ if ($_SESSION["tipo"] !== "supervisor" && $_SESSION["tipo"] !== "operario") {
             $(document).ready(function () {
                 cargarRegistro();
                 $('#guardarRegistro').hide();
+                var valorAnterior;
+                sessionStorage.setItem('observaciones', '');
+                $('#visualizarFormato').on('click', 'input', function () {
+                    valorAnterior = $(this).val();
+                    console.log(valorAnterior);
+                });
+
+                $("#visualizarFormato").on('blur', 'input', function () {
+                    var nombre = $(this).attr("name");
+                    var valorNuevo = $(this).val();
+                    if (valorNuevo !== valorAnterior) {
+                        var observacion = " Se ha actualizado el campo: " + nombre + ", cuyo valor anterior es: " + valorAnterior + ", y su valor actual es: " + valorNuevo;
+                        var observaciones += sessionStorage.getItem('observaciones') + observacion;
+                        sessionStorage.setItem('observaciones', observacion);
+//                        console.log(observacion);
+                    }
+                });
+
+
             });
         </script>
     </body>

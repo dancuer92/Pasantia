@@ -57,17 +57,17 @@ if ($_SESSION["tipo"] !== "supervisor") {
                                 <a type="button" class="btn btn-default">Derecha</a>
                             </div>                
                         </div>-->
-            <div class="col-lg-12" id="resultado"></div>
+            <div class="col-lg-12 col-xs-12 col-md-12" id="resultado"></div>
             <br>
-            <div class="col-lg-12" id="res1"></div>
+            <div class="col-lg-12 col-xs-12 col-md-12" id="res1"></div>
             <br>
-            <div id="chart-container" class="col-lg-12"></div>
+            <div id="chart-container" class="col-lg-12 col-xs-12 col-md-12"></div>
             
         </main>
 
         <!-- Pie de pagina-->
         <footer>
-            <div class="col-lg-12" id="footer">
+            <div class="col-lg-12 col-xs-12 col-md-12" id="footer">
                 <?php
                 include 'footer.php';
                 ?>
