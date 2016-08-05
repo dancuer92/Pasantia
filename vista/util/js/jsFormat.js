@@ -528,6 +528,12 @@ function verDiligenciar() {
     var today = year + "-" + month + "-" + day;
     //Se actualizan todos los input
     $('input[type="date"]').val(today);
+    var user=sessionStorage.getItem('user');
+    $('#nombre').val(user);
+    $('#operario').val(user);
+    $('#operador').val(user);
+    $('#nombre_operador').val(user);
+    $('#nombre_operario').val(user);
 }
 
 /**

@@ -75,6 +75,7 @@ if ($_SESSION["tipo"] !== "supervisor" && $_SESSION["tipo"] !== "operario") {
         <script>
             $(document).ready(function () {
                 verFormato('diligenciar');
+                sessionStorage.setItem('user', '<?php echo $_SESSION["codigo"]?>' );
             });
         </script>
     </body>
