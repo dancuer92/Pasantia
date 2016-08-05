@@ -15,7 +15,7 @@ and open the template in the editor.
 -->
 <html> 
     <head> 
-        <title>Administrador</title>      
+        <title>Formato</title>      
         <!--import de la cabecera de la pagina -->
         <?php include './user/headHtml.php'; ?>
         
