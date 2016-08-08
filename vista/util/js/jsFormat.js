@@ -263,7 +263,7 @@ function opcRegistrar(formato, observaciones) {
     var info = $('#visualizarFormato').serialize();
 //    console.log(info);
     //Se toma la fecha del sistema
-    var fechaFormato = $('#fecharegistro').val();
+    var fechaFormato = $('input[type="date"]:first').val();
     //se valida que no sea nula, de lo contrario se toma la actual
     if (fechaFormato === '') {
         var f = new Date();
