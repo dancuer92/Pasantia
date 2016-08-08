@@ -110,7 +110,7 @@ function getTable() {
             . '<table id="tabla">'
             . '<thead><td><p>Titulo 1</p></td></thead>'
             . '<tbody>'
-            . '<tr><td><input id="tabla_0" name="tabla_0" type="text" length="30" pattern="[a-zA-ZñÑáÁéÉíÍóÓúÚüÜ\s]{1,30}" title="Digite sólo letras" disabled></td></tr>'
+            . '<tr><td><input id="tabla_0" name="tabla_0" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., \s]{1,30}" title="Digite sólo letras" disabled></td></tr>'
             . '</tbody>'
             . '</table>'
             . '</div>';

@@ -515,19 +515,23 @@ function verDiligenciar() {
     //Se cargan fechas actuales por defecto en el sistema
     //Se inicializa el tipo Date
     var date = new Date();
-    //Se crea el año, mes, día
+    //Se crea el año, mes, día, hora, minuto
     var day = date.getDate();
     var month = date.getMonth() + 1;
     var year = date.getFullYear();
+    var hour = date.getHours();
+    var min = date.getMinutes();
     //Se añaden cerosa la izquierda a datos menores de 10
     if (month < 10)
         month = "0" + month;
     if (day < 10)
         day = "0" + day;
-    //Se actualiza la fecha de hoy
+    //Se actualiza la fecha y hora de hoy
     var today = year + "-" + month + "-" + day;
+    var hora= hour+":"+min;
     //Se actualizan todos los input
     $('input[type="date"]').val(today);
+    $('input[type="time"]').val(hora);
     var user=sessionStorage.getItem('user');
     $('#nombre').val(user);
     $('#operario').val(user);
