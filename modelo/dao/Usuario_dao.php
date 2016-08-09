@@ -87,13 +87,18 @@ class Usuario_dao {
      * @param type $estado
      * @return type
      */
-    public function registrar($codigo, $nombre, $apellido, $cedula, $password, $correo, $cargo, $departamento, $telefono, $rol_usuario, $estado,$fecha_caducidad) {
+    public function registrar($codigo, $nombre, $apellido, $cedula, $password, $correo, $cargo, $departamento, $telefono, $rol_usuario, $estado, $fecha_caducidad) {
 
         $mensaje = '';
         $sql = "INSERT INTO `usuario`(`codigo_usuario`, `nombre_usuario`, `apellido_usuario`, `cedula_usuario`, "
                 . "`password_usuario`, `correo_usuario`, `cargo_usuario`, `departamento_usuario`, `telefono_usuario`, "
-                . "`rol_usuario`, `estado_usuario`, `fecha_caducidad`) "
+                . "`rol_usuario`, `estado_usuario`, `caducidad_usuario`) "
                 . "VALUES (?,?,?,?,?,?,?,?,?,?,?,?);";
+
+        //Zona horaria y fecha actual
+        date_default_timezone_set('America/Bogota');
+        $fechaSistema = strtotime(date('Y/m/d H:i:s', time()));
+        $caducidad = date('Y-m-d H:i:s', strtotime('+3 months', $fechaSistema));
 
         //PREPARAMOS EL PROCEDIMIENTO
         if (!$sentencia = $this->mysqli->prepare($sql)) {
@@ -101,13 +106,13 @@ class Usuario_dao {
         }
 
         //LE PASAMOS LOS PARAMETROS; "SS" SIGNIFICA QUE SON STRINGS
-        if (!$sentencia->bind_param("sssssssssii", $codigo, $nombre, $apellido, $cedula, $password, $correo, $cargo, $departamento, $telefono, $rol_usuario, $estado)) {
+        if (!$sentencia->bind_param("sssssssssiis", $codigo, $nombre, $apellido, $cedula, $password, $correo, $cargo, $departamento, $telefono, $rol_usuario, $estado, $caducidad)) {
             echo $this->mysqli->error;
         }
 
         //EJECUTAMOS LA CONSULTA
         if ($sentencia->execute()) {
-            $this->usuario->registrar($codigo, $nombre, $apellido, $cedula, $password, $correo, $cargo, $departamento, $telefono, $rol_usuario, $estado);
+            $this->usuario->registrar($codigo, $nombre, $apellido, $cedula, $password, $correo, $cargo, $departamento, $telefono, $rol_usuario, $estado, $caducidad);
         } else {
             $this->usuario = NULL;
         }
@@ -187,11 +192,11 @@ class Usuario_dao {
             //Zona horaria y fecha actual
             date_default_timezone_set('America/Bogota');
             $fechaSistema = strtotime(date('Y/m/d H:i:s', time()));
-            $fechaCaducidad = date('Y-m-d H:i:s',strtotime('+3 months', $fechaSistema));
-            $sql = "UPDATE usuario u SET u.password_usuario=?, u.caducidad_usuario='".$fechaCaducidad."' WHERE u.codigo_usuario=? ;";
+            $fechaCaducidad = date('Y-m-d H:i:s', strtotime('+3 months', $fechaSistema));
+            $sql = "UPDATE usuario u SET u.password_usuario=?, u.caducidad_usuario='" . $fechaCaducidad . "' WHERE u.codigo_usuario=? ;";
         } else {
             $sql = "UPDATE usuario u SET u." . $clave . "=? WHERE u.codigo_usuario=? ;";
-        }        
+        }
 
         if (!$sentencia = $this->mysqli->prepare($sql)) {
             $mensaje.= $this->mysqli->error;

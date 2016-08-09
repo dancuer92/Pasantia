@@ -55,7 +55,7 @@ switch ($opcion) {
 function getInputText() {
     $msj = '<div class="formato form-group ui-state-default ">'
             . '<label >Título del campo de texto</label>'
-            . '<input id="untitled" name="untitled" type="text" length="30" pattern="[a-zA-ZñÑáÁéÉíÍóÓúÚüÜ \s]{1,30}" title="Digite sólo letras" disabled/>'
+            . '<input id="untitled" name="untitled" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ,.-/ \s]{1,30}" title="Digite sólo letras" disabled/>'
             . '</div>';
     echo $msj;
 }
@@ -110,7 +110,7 @@ function getTable() {
             . '<table id="tabla">'
             . '<thead><td><p>Titulo 1</p></td></thead>'
             . '<tbody>'
-            . '<tr><td><input id="tabla_0" name="tabla_0" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., \s]{1,30}" title="Digite sólo letras" disabled></td></tr>'
+            . '<tr><td><input id="tabla_0" name="tabla_0" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,-/ \s]{1,30}" title="Digite sólo letras" disabled></td></tr>'
             . '</tbody>'
             . '</table>'
             . '</div>';

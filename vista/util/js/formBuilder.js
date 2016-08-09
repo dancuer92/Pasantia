@@ -556,7 +556,7 @@ function cambiarAInput(tipo) {
     //se busca el nombre de la tabla
     var titulo = celda.parents('table').attr('id');
     //Se agrega el elemento correspondiente a un input
-    var input = '<input id="' + titulo + '_n" name="' + titulo + '_n" type="' + tipo + '" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., \s]{1,30}" title="Digite solo carácteres alfanuméricos" disabled></td>';
+    var input = '<input id="' + titulo + '_n" name="' + titulo + '_n" type="' + tipo + '" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ \s]{1,30}" title="Digite solo carácteres alfanuméricos" disabled></td>';
     celda.append(input);
     if (tipo === 'number') {
         $(celda).children("input").removeAttr("length");
@@ -897,7 +897,7 @@ function agregarFila() {
     //Se recorre el número de columnas
     for (var y = 0; y < totalCol; y++) {
         //Se adiciona una nueva celda por cada columna que se recorre
-        col += '<td><input id="' + nomTabla + '_' + (f - 1) + '_' + y + '" name="' + nomTabla + '_' + (f - 1) + '_' + y + '" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., \s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled></td>';
+        col += '<td><input id="' + nomTabla + '_' + (f - 1) + '_' + y + '" name="' + nomTabla + '_' + (f - 1) + '_' + y + '" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ \s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled></td>';
     }
     //Se añade la nueva fila creada al final de la tabla.
     var row = fila + col + "</tr>";
@@ -923,7 +923,7 @@ function agregarColumna() {
         }
         //Se adiciona una celda que pertenezca al cuerpo de la tabla.
         else {
-            $(this).append('<td><input id="' + nomTabla + '_' + (i - 1) + '_' + c +  '" name="' + nomTabla + '_' + (i - 1) + '_' + c + ' "type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., \s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled></td>');
+            $(this).append('<td><input id="' + nomTabla + '_' + (i - 1) + '_' + c +  '" name="' + nomTabla + '_' + (i - 1) + '_' + c + ' "type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ \s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled></td>');
         }
     });
     cambiarNombreCeldas(nomTabla);
