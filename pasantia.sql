@@ -1,20 +1,20 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
+-- version 3.5.1
 -- http://www.phpmyadmin.net
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 09-08-2016 a las 22:03:22
--- Versión del servidor: 10.1.13-MariaDB
--- Versión de PHP: 5.6.23
+-- Servidor: localhost
+-- Tiempo de generación: 16-08-2016 a las 20:30:50
+-- Versión del servidor: 5.5.24-log
+-- Versión de PHP: 5.3.13
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8 */;
 
 --
 -- Base de datos: `pasantia`
@@ -26,7 +26,7 @@ SET time_zone = "+00:00";
 -- Estructura de tabla para la tabla `formato`
 --
 
-CREATE TABLE `formato` (
+CREATE TABLE IF NOT EXISTS `formato` (
   `cod_formato` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `nombre` varchar(50) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `version` varchar(50) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
@@ -34,7 +34,9 @@ CREATE TABLE `formato` (
   `jefe_procedimiento` varchar(50) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `descripcion_contenido` varchar(50) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `frecuencia_uso` int(11) NOT NULL,
-  `codigo_html` text CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL
+  `codigo_html` text CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  PRIMARY KEY (`cod_formato`),
+  KEY `frecuencia_uso` (`frecuencia_uso`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -63,10 +65,11 @@ INSERT INTO `formato` (`cod_formato`, `nombre`, `version`, `procedimiento`, `jef
 -- Estructura de tabla para la tabla `frecuencia_formato`
 --
 
-CREATE TABLE `frecuencia_formato` (
+CREATE TABLE IF NOT EXISTS `frecuencia_formato` (
   `id` int(11) NOT NULL,
   `descripcion` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
-  `tiempo_modificacion` int(11) NOT NULL
+  `tiempo_modificacion` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -88,13 +91,16 @@ INSERT INTO `frecuencia_formato` (`id`, `descripcion`, `tiempo_modificacion`) VA
 -- Estructura de tabla para la tabla `historial_usuario_formato`
 --
 
-CREATE TABLE `historial_usuario_formato` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `historial_usuario_formato` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_usuario` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `id_formato` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `fecha` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `accion` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `accion` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `usuario` (`id_usuario`),
+  KEY `formato` (`id_formato`) USING BTREE
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=38 ;
 
 --
 -- Volcado de datos para la tabla `historial_usuario_formato`
@@ -120,15 +126,16 @@ INSERT INTO `historial_usuario_formato` (`id`, `id_usuario`, `id_formato`, `fech
 -- Estructura de tabla para la tabla `info_res-1710`
 --
 
-CREATE TABLE `info_res-1710` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `info_res-1710` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `fecha_registro_sistema` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `fecha_formato_diligenciado` date NOT NULL,
   `usuario` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `estado` tinyint(4) NOT NULL,
   `informacion` text CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
-  `observaciones` text CHARACTER SET utf8 COLLATE utf8_spanish_ci
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `observaciones` text CHARACTER SET utf8 COLLATE utf8_spanish_ci,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -136,15 +143,16 @@ CREATE TABLE `info_res-1710` (
 -- Estructura de tabla para la tabla `info_res-1715`
 --
 
-CREATE TABLE `info_res-1715` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `info_res-1715` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `fecha_registro_sistema` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `fecha_formato_diligenciado` date NOT NULL,
   `usuario` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `estado` tinyint(4) NOT NULL,
   `informacion` text CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
-  `observaciones` text CHARACTER SET utf8 COLLATE utf8_spanish_ci
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `observaciones` text CHARACTER SET utf8 COLLATE utf8_spanish_ci,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -152,15 +160,25 @@ CREATE TABLE `info_res-1715` (
 -- Estructura de tabla para la tabla `info_res-1720`
 --
 
-CREATE TABLE `info_res-1720` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `info_res-1720` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `fecha_registro_sistema` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `fecha_formato_diligenciado` date NOT NULL,
   `usuario` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `estado` tinyint(4) NOT NULL,
   `informacion` text CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
-  `observaciones` text CHARACTER SET utf8 COLLATE utf8_spanish_ci
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `observaciones` text CHARACTER SET utf8 COLLATE utf8_spanish_ci,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
+
+--
+-- Volcado de datos para la tabla `info_res-1720`
+--
+
+INSERT INTO `info_res-1720` (`id`, `fecha_registro_sistema`, `fecha_formato_diligenciado`, `usuario`, `estado`, `informacion`, `observaciones`) VALUES
+(1, '2016-08-09 20:15:31', '2016-08-09', 'rrodriguez', 0, 'orden_de_produccion=1234&fecharegistro=2016-08-09&operador_de_cargue=Ramon&producto=RD235&tiempo_de_molienda=1&hora_inicio=08:30&hora_parada=09:30&select_tabla_de_componentes_0=Frita&tabla_de_componentes_0=2147&tabla_de_componentes_1=300&tabla_de_componentes_2=300&tabla_de_componentes_3=160523&select_tabla_de_componentes_1= Vehículo&tabla_de_componentes_4=VBP832&tabla_de_componentes_5=160&tabla_de_componentes_6=160&select_tabla_de_componentes_2= Tinta pelika&tabla_de_componentes_9=0.2&tabla_de_componentes_10=0.2&select_tabla_de_componentes_3= Agua&tabla_de_componentes_13=85&tabla_de_componentes_14=85&select_tabla_de_componentes_4=Frita&select_tabla_de_componentes_5=Frita&select_tabla_de_componentes_6=Frita&select_tabla_de_componentes_7=Frita&select_tabla_de_componentes_8=Frita&select_tabla_de_componentes_9=Frita&select_tabla_de_componentes_10=Frita&select_tabla_de_componentes_11=Frita&select_tabla_de_componentes_12=Frita&tabla_de_componentes_98=545.2&tabla_de_componentes_99=545.2&fecha_de_ajuste=2016-08-09&hora_de_ajuste=15:12&condiciones_de_ajuste_0=1540/1560&condiciones_de_ajuste_2=1541&condiciones_de_ajuste_3=20/30&condiciones_de_ajuste_5=21&fecha_de_aprobacion=2016-08-09&fecha_de_descargue=2016-08-09&', ''),
+(2, '2016-08-10 22:44:08', '2016-08-10', 'rrodriguez', 0, 'orden_de_produccion=..&fecharegistro=2016-08-10&operador_de_cargue=Ramon&producto=RD235&tiempo_de_molienda=1&hora_inicio=08:30&hora_parada=09:30&select_tabla_de_componentes_0=Frita&tabla_de_componentes_0=2147&tabla_de_componentes_1=300&tabla_de_componentes_2=300&tabla_de_componentes_3=160523&select_tabla_de_componentes_1= Vehículo&tabla_de_componentes_4=VBP832&tabla_de_componentes_5=160&tabla_de_componentes_6=160&select_tabla_de_componentes_2= Tinta pelika&tabla_de_componentes_9=0.2&tabla_de_componentes_10=0.2&select_tabla_de_componentes_3= Agua&tabla_de_componentes_13=85&tabla_de_componentes_14=85&select_tabla_de_componentes_4=Frita&select_tabla_de_componentes_5=Frita&select_tabla_de_componentes_6=Frita&select_tabla_de_componentes_7=Frita&select_tabla_de_componentes_8=Frita&select_tabla_de_componentes_9=Frita&select_tabla_de_componentes_10=Frita&select_tabla_de_componentes_11=Frita&select_tabla_de_componentes_12=Frita&tabla_de_componentes_52=Semfax&tabla_de_componentes_54=20&tabla_de_componentes_55=20&tabla_de_componentes_98=565.2&tabla_de_componentes_99=565.2&fecha_de_ajuste=2016-08-10&operador_de_ajuste=Ramon&quien_toma_condiciones=Ramon&hora_de_ajuste=09:30&condiciones_de_ajuste_0=1540/1560&condiciones_de_ajuste_2=1541&condiciones_de_ajuste_3=20/30&condiciones_de_ajuste_5=21&fecha_de_aprobacion=2016-08-10&fecha_de_descargue=2016-08-10&', 'Sin observaciones'),
+(3, '2016-08-10 22:49:23', '2016-08-10', 'rrodriguez', 0, 'orden_de_produccion=..&fecharegistro=2016-08-10&operador_de_cargue=Ramon&producto=RD235&tiempo_de_molienda=2&hora_inicio=12:00&hora_parada=14:00&select_tabla_de_componentes_0=Frita&tabla_de_componentes_0=2147&tabla_de_componentes_1=600&tabla_de_componentes_2=600&select_tabla_de_componentes_1= Vehículo&tabla_de_componentes_4=04111&tabla_de_componentes_5=54.5&tabla_de_componentes_6=54.5&select_tabla_de_componentes_2= Vehículo&tabla_de_componentes_8=VBP832&tabla_de_componentes_9=325&tabla_de_componentes_10=325&select_tabla_de_componentes_3= Tinta pelika&tabla_de_componentes_13=0.4&tabla_de_componentes_14=0.4&select_tabla_de_componentes_4= Agua&tabla_de_componentes_17=160&tabla_de_componentes_18=160&select_tabla_de_componentes_5=Frita&select_tabla_de_componentes_6=Frita&select_tabla_de_componentes_7=Frita&select_tabla_de_componentes_8=Frita&select_tabla_de_componentes_9=Frita&select_tabla_de_componentes_10=Frita&select_tabla_de_componentes_11=Frita&select_tabla_de_componentes_12=Frita&tabla_de_componentes_98=1139.9&tabla_de_componentes_99=1139.9&fecha_de_ajuste=2016-08-10&operador_de_ajuste=Ramon&quien_toma_condiciones=Ramon&hora_de_ajuste=13:00&condiciones_de_ajuste_0=1540/1560&condiciones_de_ajuste_2=1542&condiciones_de_ajuste_3=20/30&condiciones_de_ajuste_5=21&fecha_de_aprobacion=2016-08-10&fecha_de_descargue=2016-08-10&', 'Sin observaciones');
 
 -- --------------------------------------------------------
 
@@ -168,15 +186,16 @@ CREATE TABLE `info_res-1720` (
 -- Estructura de tabla para la tabla `info_rho-1500`
 --
 
-CREATE TABLE `info_rho-1500` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `info_rho-1500` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `fecha_registro_sistema` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `fecha_formato_diligenciado` date NOT NULL,
   `usuario` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `estado` tinyint(4) NOT NULL,
   `informacion` text CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
-  `observaciones` text CHARACTER SET utf8 COLLATE utf8_spanish_ci
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `observaciones` text CHARACTER SET utf8 COLLATE utf8_spanish_ci,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -184,15 +203,16 @@ CREATE TABLE `info_rho-1500` (
 -- Estructura de tabla para la tabla `info_rle-1400`
 --
 
-CREATE TABLE `info_rle-1400` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `info_rle-1400` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `fecha_registro_sistema` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `fecha_formato_diligenciado` date NOT NULL,
   `usuario` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `estado` tinyint(4) NOT NULL,
   `informacion` text CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
-  `observaciones` text CHARACTER SET utf8 COLLATE utf8_spanish_ci
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `observaciones` text CHARACTER SET utf8 COLLATE utf8_spanish_ci,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -200,15 +220,16 @@ CREATE TABLE `info_rle-1400` (
 -- Estructura de tabla para la tabla `info_rle-1407`
 --
 
-CREATE TABLE `info_rle-1407` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `info_rle-1407` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `fecha_registro_sistema` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `fecha_formato_diligenciado` date NOT NULL,
   `usuario` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `estado` tinyint(4) NOT NULL,
   `informacion` text CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
-  `observaciones` text CHARACTER SET utf8 COLLATE utf8_spanish_ci
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `observaciones` text CHARACTER SET utf8 COLLATE utf8_spanish_ci,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -216,15 +237,16 @@ CREATE TABLE `info_rle-1407` (
 -- Estructura de tabla para la tabla `info_rle-1411`
 --
 
-CREATE TABLE `info_rle-1411` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `info_rle-1411` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `fecha_registro_sistema` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `fecha_formato_diligenciado` date NOT NULL,
   `usuario` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `estado` tinyint(4) NOT NULL,
   `informacion` text CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
-  `observaciones` text CHARACTER SET utf8 COLLATE utf8_spanish_ci
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `observaciones` text CHARACTER SET utf8 COLLATE utf8_spanish_ci,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -232,15 +254,16 @@ CREATE TABLE `info_rle-1411` (
 -- Estructura de tabla para la tabla `info_rmo-1100`
 --
 
-CREATE TABLE `info_rmo-1100` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `info_rmo-1100` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `fecha_registro_sistema` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `fecha_formato_diligenciado` date NOT NULL,
   `usuario` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `estado` tinyint(4) NOT NULL,
   `informacion` text CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
-  `observaciones` text CHARACTER SET utf8 COLLATE utf8_spanish_ci
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `observaciones` text CHARACTER SET utf8 COLLATE utf8_spanish_ci,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=38 ;
 
 --
 -- Volcado de datos para la tabla `info_rmo-1100`
@@ -270,15 +293,16 @@ INSERT INTO `info_rmo-1100` (`id`, `fecha_registro_sistema`, `fecha_formato_dili
 -- Estructura de tabla para la tabla `info_rpp-1902`
 --
 
-CREATE TABLE `info_rpp-1902` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `info_rpp-1902` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `fecha_registro_sistema` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `fecha_formato_diligenciado` date NOT NULL,
   `usuario` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `estado` tinyint(4) NOT NULL,
   `informacion` text CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
-  `observaciones` text CHARACTER SET utf8 COLLATE utf8_spanish_ci
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `observaciones` text CHARACTER SET utf8 COLLATE utf8_spanish_ci,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -286,15 +310,16 @@ CREATE TABLE `info_rpp-1902` (
 -- Estructura de tabla para la tabla `info_rpr-1300`
 --
 
-CREATE TABLE `info_rpr-1300` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `info_rpr-1300` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `fecha_registro_sistema` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `fecha_formato_diligenciado` date NOT NULL,
   `usuario` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `estado` tinyint(4) NOT NULL,
   `informacion` text CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
-  `observaciones` text CHARACTER SET utf8 COLLATE utf8_spanish_ci
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `observaciones` text CHARACTER SET utf8 COLLATE utf8_spanish_ci,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -302,15 +327,16 @@ CREATE TABLE `info_rpr-1300` (
 -- Estructura de tabla para la tabla `info_test`
 --
 
-CREATE TABLE `info_test` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `info_test` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `fecha_registro_sistema` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `fecha_formato_diligenciado` date NOT NULL,
   `usuario` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `estado` tinyint(4) NOT NULL,
   `informacion` text CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
-  `observaciones` text CHARACTER SET utf8 COLLATE utf8_spanish_ci
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `observaciones` text CHARACTER SET utf8 COLLATE utf8_spanish_ci,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=13 ;
 
 --
 -- Volcado de datos para la tabla `info_test`
@@ -331,21 +357,26 @@ INSERT INTO `info_test` (`id`, `fecha_registro_sistema`, `fecha_formato_diligenc
 -- Estructura de tabla para la tabla `modificaciones_formato`
 --
 
-CREATE TABLE `modificaciones_formato` (
+CREATE TABLE IF NOT EXISTS `modificaciones_formato` (
   `fecha_modificacion` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `id_usuario` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `id_formato` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `detalle_modificacion` text CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `version_formato` varchar(50) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
-  `html` text CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL
+  `html` text CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  PRIMARY KEY (`fecha_modificacion`,`id_usuario`,`id_formato`),
+  KEY `id_formato` (`id_formato`),
+  KEY `id_usuario` (`id_usuario`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Disparadores `modificaciones_formato`
 --
-DELIMITER $$
-CREATE TRIGGER `actualizacion_formato` AFTER INSERT ON `modificaciones_formato` FOR EACH ROW UPDATE `formato` SET `version`=new.version_formato,`codigo_html`=new.html WHERE  `cod_formato`=new.id_formato
-$$
+DROP TRIGGER IF EXISTS `actualizacion_formato`;
+DELIMITER //
+CREATE TRIGGER `actualizacion_formato` AFTER INSERT ON `modificaciones_formato`
+ FOR EACH ROW UPDATE `formato` SET `version`=new.version_formato,`codigo_html`=new.html WHERE  `cod_formato`=new.id_formato
+//
 DELIMITER ;
 
 -- --------------------------------------------------------
@@ -354,10 +385,11 @@ DELIMITER ;
 -- Estructura de tabla para la tabla `tipo_usuario`
 --
 
-CREATE TABLE `tipo_usuario` (
-  `id_tipo` int(1) NOT NULL,
-  `descripcion_tipo` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+CREATE TABLE IF NOT EXISTS `tipo_usuario` (
+  `id_tipo` int(1) NOT NULL AUTO_INCREMENT,
+  `descripcion_tipo` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  PRIMARY KEY (`id_tipo`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
 
 --
 -- Volcado de datos para la tabla `tipo_usuario`
@@ -375,7 +407,7 @@ INSERT INTO `tipo_usuario` (`id_tipo`, `descripcion_tipo`) VALUES
 -- Estructura de tabla para la tabla `usuario`
 --
 
-CREATE TABLE `usuario` (
+CREATE TABLE IF NOT EXISTS `usuario` (
   `codigo_usuario` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `nombre_usuario` varchar(50) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `apellido_usuario` varchar(50) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
@@ -388,7 +420,10 @@ CREATE TABLE `usuario` (
   `rol_usuario` int(1) NOT NULL,
   `estado_usuario` tinyint(1) NOT NULL,
   `fecha_registro` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `caducidad_usuario` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+  `caducidad_usuario` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`codigo_usuario`) USING BTREE,
+  UNIQUE KEY `cedula_usuario` (`cedula_usuario`),
+  KEY `rol_usuario` (`rol_usuario`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -415,11 +450,14 @@ INSERT INTO `usuario` (`codigo_usuario`, `nombre_usuario`, `apellido_usuario`, `
 -- Estructura de tabla para la tabla `usuario_formato`
 --
 
-CREATE TABLE `usuario_formato` (
+CREATE TABLE IF NOT EXISTS `usuario_formato` (
   `id_usuario` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `id_formato` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `fecha_accion` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `accion` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL
+  `accion` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  PRIMARY KEY (`id_usuario`,`id_formato`),
+  KEY `id_usuario` (`id_usuario`),
+  KEY `id_formato` (`id_formato`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -443,202 +481,14 @@ INSERT INTO `usuario_formato` (`id_usuario`, `id_formato`, `fecha_accion`, `acci
 --
 -- Disparadores `usuario_formato`
 --
-DELIMITER $$
-CREATE TRIGGER `historial_cambios` AFTER UPDATE ON `usuario_formato` FOR EACH ROW INSERT INTO  `historial_usuario_formato` (`id_usuario`,`id_formato`,`fecha`,`accion`)
+DROP TRIGGER IF EXISTS `historial_cambios`;
+DELIMITER //
+CREATE TRIGGER `historial_cambios` AFTER UPDATE ON `usuario_formato`
+ FOR EACH ROW INSERT INTO  `historial_usuario_formato` (`id_usuario`,`id_formato`,`fecha`,`accion`)
 VALUES (OLD.id_usuario, OLD.id_formato, OLD.fecha_accion, OLD.accion)
-$$
+//
 DELIMITER ;
 
---
--- Índices para tablas volcadas
---
-
---
--- Indices de la tabla `formato`
---
-ALTER TABLE `formato`
-  ADD PRIMARY KEY (`cod_formato`),
-  ADD KEY `frecuencia_uso` (`frecuencia_uso`);
-
---
--- Indices de la tabla `frecuencia_formato`
---
-ALTER TABLE `frecuencia_formato`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `historial_usuario_formato`
---
-ALTER TABLE `historial_usuario_formato`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `usuario` (`id_usuario`),
-  ADD KEY `formato` (`id_formato`) USING BTREE;
-
---
--- Indices de la tabla `info_res-1710`
---
-ALTER TABLE `info_res-1710`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `info_res-1715`
---
-ALTER TABLE `info_res-1715`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `info_res-1720`
---
-ALTER TABLE `info_res-1720`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `info_rho-1500`
---
-ALTER TABLE `info_rho-1500`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `info_rle-1400`
---
-ALTER TABLE `info_rle-1400`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `info_rle-1407`
---
-ALTER TABLE `info_rle-1407`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `info_rle-1411`
---
-ALTER TABLE `info_rle-1411`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `info_rmo-1100`
---
-ALTER TABLE `info_rmo-1100`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `info_rpp-1902`
---
-ALTER TABLE `info_rpp-1902`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `info_rpr-1300`
---
-ALTER TABLE `info_rpr-1300`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `info_test`
---
-ALTER TABLE `info_test`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `modificaciones_formato`
---
-ALTER TABLE `modificaciones_formato`
-  ADD PRIMARY KEY (`fecha_modificacion`,`id_usuario`,`id_formato`),
-  ADD KEY `id_formato` (`id_formato`),
-  ADD KEY `id_usuario` (`id_usuario`) USING BTREE;
-
---
--- Indices de la tabla `tipo_usuario`
---
-ALTER TABLE `tipo_usuario`
-  ADD PRIMARY KEY (`id_tipo`);
-
---
--- Indices de la tabla `usuario`
---
-ALTER TABLE `usuario`
-  ADD PRIMARY KEY (`codigo_usuario`) USING BTREE,
-  ADD UNIQUE KEY `cedula_usuario` (`cedula_usuario`),
-  ADD KEY `rol_usuario` (`rol_usuario`);
-
---
--- Indices de la tabla `usuario_formato`
---
-ALTER TABLE `usuario_formato`
-  ADD PRIMARY KEY (`id_usuario`,`id_formato`),
-  ADD KEY `id_usuario` (`id_usuario`),
-  ADD KEY `id_formato` (`id_formato`) USING BTREE;
-
---
--- AUTO_INCREMENT de las tablas volcadas
---
-
---
--- AUTO_INCREMENT de la tabla `historial_usuario_formato`
---
-ALTER TABLE `historial_usuario_formato`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
---
--- AUTO_INCREMENT de la tabla `info_res-1710`
---
-ALTER TABLE `info_res-1710`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT de la tabla `info_res-1715`
---
-ALTER TABLE `info_res-1715`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT de la tabla `info_res-1720`
---
-ALTER TABLE `info_res-1720`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT de la tabla `info_rho-1500`
---
-ALTER TABLE `info_rho-1500`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT de la tabla `info_rle-1400`
---
-ALTER TABLE `info_rle-1400`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT de la tabla `info_rle-1407`
---
-ALTER TABLE `info_rle-1407`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT de la tabla `info_rle-1411`
---
-ALTER TABLE `info_rle-1411`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT de la tabla `info_rmo-1100`
---
-ALTER TABLE `info_rmo-1100`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
---
--- AUTO_INCREMENT de la tabla `info_rpp-1902`
---
-ALTER TABLE `info_rpp-1902`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT de la tabla `info_rpr-1300`
---
-ALTER TABLE `info_rpr-1300`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT de la tabla `info_test`
---
-ALTER TABLE `info_test`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
---
--- AUTO_INCREMENT de la tabla `tipo_usuario`
---
-ALTER TABLE `tipo_usuario`
-  MODIFY `id_tipo` int(1) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- Restricciones para tablas volcadas
 --
