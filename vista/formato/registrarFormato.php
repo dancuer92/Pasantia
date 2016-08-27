@@ -15,18 +15,47 @@
                         <label for="nombreFormato">Nombre del formato</label>                           
                     </div>
                     <div class="input-field col s12 m12 l6">
-                        <i class="material-icons prefix">content_paste</i>
-                        <input id="procedimiento" name="procedimiento" type="text" maxlength="50" length="50" class="validate" pattern="[a-zA-ZñÑáÁéÉíÍóÓúÚüÜ \s]{1,50}" title="Digite sólo letras" required>
+<!--                        <i class="material-icons prefix">content_paste</i>
+                        <input id="procedimiento" name="procedimiento" type="text" maxlength="50" length="50" class="validate" pattern="[a-zA-ZñÑáÁéÉíÍóÓúÚüÜ \s]{1,50}" title="Digite sólo letras" required>-->
+                        <select id="procedimiento" name="procedimiento" class="validate" required >                        
+                            <option value="Preparación pasta" >Preparación pasta</option>
+                            <option value="Preparación esmalte">Preparación esmalte</option>                        
+                            <option value="Líneas de ensamble">Líneas de ensamble</option>                        
+                            <option value="Hornos">Hornos</option>                        
+                            <option value="Materia prima">Materia prima</option>                        
+                            <option value="Auditores de calidad">Auditores de calidad</option>                        
+                            <option value="Certificación de producto">Certificación de producto</option>                        
+                        </select>
                         <label for="procedimiento">Procedimiento de trabajo</label>                                                      
-                    </div>                               
+                    </div>                    
                     <div class="input-field col s12 m12 l6">
-                        <i class="material-icons prefix">supervisor_account</i>
-                        <input id="directorProcedimiento" name="directorProcedimiento" type="text" maxlength="50" length="50" class="validate" pattern="[a-zA-ZñÑáÁéÉíÍóÓúÚüÜ \s]{1,50}" title="Digite sólo letras" required>
+<!--                        <i class="material-icons prefix">supervisor_account</i>
+                        <input id="directorProcedimiento" name="directorProcedimiento" type="text" maxlength="50" length="50" class="validate" pattern="[a-zA-ZñÑáÁéÉíÍóÓúÚüÜ \s]{1,50}" title="Digite sólo letras" required>-->
+                        <select id="directorProcedimiento" name="directorProcedimiento" class="validate" required >                        
+                            <option value="Félix García" >Félix García</option>
+                            <option value="Fabián Ríos" >Fabián Ríos</option>
+                            <option value="Víctor González" >Víctor González</option>
+                            <option value="Jaime Poveda">Jaime Poveda</option>                        
+                            <option value="Hellar Gutiérrez">Hellar Gutiérrez</option>                                        
+                            <option value="Carlos Jáuregui">Carlos Jáuregui</option>                                        
+                            <option value="Duvín Blanco">Duvín Blanco</option>                                        
+                            <option value="Isley Espitia">Isley Espitia</option>                                        
+                        </select>
                         <label for="directorProcedimiento">Director del procedimiento</label>                                                      
                     </div>                    
                     <div class="input-field col s12 m12 l6">
-                        <i class="material-icons prefix">list</i>
-                        <input id="tipoFormato" name="tipoFormato" type="text" maxlength="50" length="50" class="validate" pattern="[a-zA-zñÑáÁéÉíÍóÓúÚüÜ \s]{1,50}" title="Digite sólo letras" required>
+<!--                        <i class="material-icons prefix">list</i>
+                        <input id="tipoFormato" name="tipoFormato" type="text" maxlength="50" length="50" class="validate" pattern="[a-zA-zñÑáÁéÉíÍóÓúÚüÜ \s]{1,50}" title="Digite sólo letras" required>-->
+                        <select id="tipoFormato" name="tipoFormato" class="validate" required >                        
+                            <option value="Campos de entrada" >Campos de entrada</option>
+                            <option value="Listas desplegables">Listas desplegables</option>                        
+                            <option value="Casillas de opciones">Casillas de opciones</option>                        
+                            <option value="Tablas de datos">Tablas de datos</option>                        
+                            <option value="Tablas de listas">Tablas de listas</option>                        
+                            <option value="Tablas mixtas">Tablas mixtas</option>                        
+                            <option value="Múltiples tablas">Múltiples tablas</option>                        
+                            <option value="Todas las opciones">Todas las opciones</option>                        
+                        </select>
                         <label for="tipoFormato">tipo de contenido</label>                                                      
                     </div>  
                     <div class="input-field col s12 m12 l6">   

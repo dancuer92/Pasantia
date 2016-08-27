@@ -1,20 +1,20 @@
 -- phpMyAdmin SQL Dump
--- version 3.5.1
+-- version 4.5.1
 -- http://www.phpmyadmin.net
 --
--- Servidor: localhost
--- Tiempo de generación: 16-08-2016 a las 20:30:50
--- Versión del servidor: 5.5.24-log
--- Versión de PHP: 5.3.13
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 20-08-2016 a las 01:17:01
+-- Versión del servidor: 10.1.13-MariaDB
+-- Versión de PHP: 5.6.23
 
-SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Base de datos: `pasantia`
@@ -23,10 +23,69 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `contenido`
+--
+
+CREATE TABLE `contenido` (
+  `id_contenido` int(11) NOT NULL,
+  `descripcion_contenido` varchar(80) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `contenido`
+--
+
+INSERT INTO `contenido` (`id_contenido`, `descripcion_contenido`) VALUES
+(1, 'Campos de entrada de texto'),
+(2, 'Listas desplegables'),
+(3, 'Casillas de opciones'),
+(4, 'Tablas de datos'),
+(5, 'Tablas con enlaces'),
+(6, 'Tablas con listas'),
+(7, 'Múltiples tablas'),
+(8, 'Tablas mixtas'),
+(9, 'Formatos mixtos'),
+(10, 'Campos de entrada de texto'),
+(11, 'Listas desplegables'),
+(12, 'Casillas de opciones'),
+(13, 'Tablas de datos'),
+(14, 'Tablas con enlaces'),
+(15, 'Tablas con listas'),
+(16, 'Múltiples tablas'),
+(17, 'Tablas mixtas'),
+(18, 'Formatos mixtos');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `direccion`
+--
+
+CREATE TABLE `direccion` (
+  `id_direccion` int(11) NOT NULL,
+  `descripcion_direccion` varchar(50) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `direccion`
+--
+
+INSERT INTO `direccion` (`id_direccion`, `descripcion_direccion`) VALUES
+(1, 'Preparación pasta'),
+(2, 'Preparación esmalte'),
+(3, 'Líneas de ensamble'),
+(4, 'Hornos'),
+(5, 'Materia prima'),
+(6, 'Auditores de calidad'),
+(7, 'Certificación de producto');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `formato`
 --
 
-CREATE TABLE IF NOT EXISTS `formato` (
+CREATE TABLE `formato` (
   `cod_formato` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `nombre` varchar(50) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `version` varchar(50) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
@@ -34,9 +93,7 @@ CREATE TABLE IF NOT EXISTS `formato` (
   `jefe_procedimiento` varchar(50) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `descripcion_contenido` varchar(50) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `frecuencia_uso` int(11) NOT NULL,
-  `codigo_html` text CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
-  PRIMARY KEY (`cod_formato`),
-  KEY `frecuencia_uso` (`frecuencia_uso`)
+  `codigo_html` text CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -45,7 +102,7 @@ CREATE TABLE IF NOT EXISTS `formato` (
 
 INSERT INTO `formato` (`cod_formato`, `nombre`, `version`, `procedimiento`, `jefe_procedimiento`, `descripcion_contenido`, `frecuencia_uso`, `codigo_html`) VALUES
 ('RES-1710', 'Orden de producción esmaltes', 'Versión 3', 'Preparación esmaltes', 'Victor González', 'Tabla', 2, '\n        <table id="encabezado" class="ui-sortable-handle">\n            <tbody><tr>\n                <td><h3> Nombre: Orden de producción esmaltes</h3></td>\n                <td><h3> Código: RES-1710 </h3></td>                    \n                <td><img class="img-responsive" src="../util/images/corporativo/logo_ceramica.png" alt="Cerámica Italia"></td>\n            </tr>\n        </tbody></table>\n    <div class="formato form-group ui-state-default ui-sortable-handle" id="element-0"><label>Orden de producción<p class="requerido">*</p></label><input id="orden_de_produccion" name="orden_de_produccion" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ,.-/ \\s]{1,30}" title="Digite sólo letras" disabled="" required=""></div><div class="formato ui-state-default ui-sortable-handle" id="element-1"><label>Turno</label><br><input type="radio" id="turno-0" name="turno" value="6-2" disabled=""><p>6-2</p> <input type="radio" id="turno-1" name="turno" value="2-10" disabled=""><p>2-10</p><input type="radio" id="turno-2" name="turno" value="10-6" disabled=""><p>10-6</p></div><div class="formato form-group ui-state-default ui-sortable-handle" id="element-2"><label>Fecha<p class="requerido">*</p></label><input id="fecha" name="fecha" type="date" min="2015-05-27" max="2017-05-27" disabled="" required=""></div><div class="formato form-group ui-state-default" id="element-3"><label>Operador<p class="requerido">*</p></label><input id="operador" name="operador" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ,.-/ \\s]{1,30}" title="Digite sólo letras" disabled="" required=""></div><div class="formato  form-group ui-state-default ui-sortable-handle" id="element-4"><label>Altura libre molino</label><input id="altura_libre_molino" name="altura_libre_molino" type="number" length="15" step="any" disabled="" min="0"></div><div class="formato form-group ui-state-default" id="element-5"><label>Producto<p class="requerido">*</p></label><input id="producto" name="producto" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ,.-/ \\s]{1,30}" title="Digite sólo letras" disabled="" required=""></div><div class="formato ui-state-default ui-sortable-handle" id="element-6"><label>Revestimiento molino</label><br><input type="radio" id="revestimiento_molino-0" name="revestimiento_molino" value="Bien" disabled=""><p>Bien</p> <input type="radio" id="revestimiento_molino-1" name="revestimiento_molino" value="Mal" disabled=""><p>Mal</p></div><div class="formato ui-state-default ui-sortable-handle" id="element-7"><label>Lavado molino</label><br><input type="radio" id="lavado_molino-0" name="lavado_molino" value="Si" disabled=""><p>Si</p> <input type="radio" id="lavado_molino-1" name="lavado_molino" value="No" disabled=""><p>No</p></div><div class="formato  form-group ui-state-default ui-sortable-handle" id="element-8"><label>Tiempo molienda<p class="requerido">*</p></label><input id="tiempo_molienda" name="tiempo_molienda" type="number" length="15" step="any" disabled="" min="0" required=""></div><div class="formato form-group ui-state-default ui-sortable-handle" id="element-9"><label>Hora inicio</label><input id="hora_inicio" name="hora_inicio" type="time" disabled=""></div><div class="formato form-group ui-state-default ui-sortable-handle" id="element-10"><label>Hora parada</label><input id="hora_parada" name="hora_parada" type="time" disabled=""></div><div class="formato ui-state-default ui-sortable-handle" id="element-11"><label>Molino No.</label><br><input type="radio" id="molino_no-0" name="molino_no" value="1" disabled=""><p>1</p> <input type="radio" id="molino_no-1" name="molino_no" value="2" disabled=""><p>2</p><input type="radio" id="molino_no-2" name="molino_no" value="3" disabled=""><p>3</p><input type="radio" id="molino_no-3" name="molino_no" value="4" disabled=""><p>4</p><input type="radio" id="molino_no-4" name="molino_no" value="5" disabled=""><p>5</p><input type="radio" id="molino_no-5" name="molino_no" value="6" disabled=""><p>6</p><input type="radio" id="molino_no-6" name="molino_no" value="7" disabled=""><p>7</p><input type="radio" id="molino_no-7" name="molino_no" value="8" disabled=""><p>8</p><input type="radio" id="molino_no-8" name="molino_no" value="9" disabled=""><p>9</p></div><div class="ui-state-default formato ui-sortable-handle" id="element-12"><label>Tabla de componentes</label><table id="tabla_de_componentes"><thead><tr><td class=""><p>Componentes</p></td><td class=""><p>Ref.</p></td><td class=""><p>Kg. a cargar</p></td><td class=""><p>Kg. cargados</p></td><td class=""><p>Lote</p></td></tr></thead><tbody><tr><td class=""><p>Aluminia</p></td><td><input id="tabla_de_componentes_0" name="tabla_de_componentes_0" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_1" name="tabla_de_componentes_1" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_2" name="tabla_de_componentes_2" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_3" name="tabla_de_componentes_3" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td></tr><tr><td class=""><p>Corindon</p></td><td><input id="tabla_de_componentes_4" name="tabla_de_componentes_4" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_5" name="tabla_de_componentes_5" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_6" name="tabla_de_componentes_6" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_7" name="tabla_de_componentes_7" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td></tr><tr><td class=""><p>Arcilla arcabuco</p></td><td><input id="tabla_de_componentes_8" name="tabla_de_componentes_8" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_9" name="tabla_de_componentes_9" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_10" name="tabla_de_componentes_10" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_11" name="tabla_de_componentes_11" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td></tr><tr><td class=""><p>Feldespato (piedra roja)</p></td><td><input id="tabla_de_componentes_12" name="tabla_de_componentes_12" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_13" name="tabla_de_componentes_13" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_14" name="tabla_de_componentes_14" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_15" name="tabla_de_componentes_15" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td></tr><tr><td class=""><p>Arena blanca</p></td><td><input id="tabla_de_componentes_16" name="tabla_de_componentes_16" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_17" name="tabla_de_componentes_17" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_18" name="tabla_de_componentes_18" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_19" name="tabla_de_componentes_19" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td></tr><tr><td class=""><p>Oxido de zinc</p></td><td><input id="tabla_de_componentes_20" name="tabla_de_componentes_20" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_21" name="tabla_de_componentes_21" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_22" name="tabla_de_componentes_22" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_23" name="tabla_de_componentes_23" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td></tr><tr><td class=""><p>Ultrox</p></td><td><input id="tabla_de_componentes_24" name="tabla_de_componentes_24" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_25" name="tabla_de_componentes_25" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_26" name="tabla_de_componentes_26" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_27" name="tabla_de_componentes_27" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td></tr><tr><td class=""><p>Frita</p></td><td><input id="tabla_de_componentes_28" name="tabla_de_componentes_28" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_29" name="tabla_de_componentes_29" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_30" name="tabla_de_componentes_30" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_31" name="tabla_de_componentes_31" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td></tr><tr><td class=""><p>Compuesto</p></td><td><input id="tabla_de_componentes_32" name="tabla_de_componentes_32" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_33" name="tabla_de_componentes_33" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_34" name="tabla_de_componentes_34" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_35" name="tabla_de_componentes_35" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td></tr><tr><td class=""><p>Bentonita</p></td><td><input id="tabla_de_componentes_36" name="tabla_de_componentes_36" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_37" name="tabla_de_componentes_37" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_38" name="tabla_de_componentes_38" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_39" name="tabla_de_componentes_39" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td></tr><tr><td class=""><p>Caolin</p></td><td><input id="tabla_de_componentes_40" name="tabla_de_componentes_40" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_41" name="tabla_de_componentes_41" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_42" name="tabla_de_componentes_42" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_43" name="tabla_de_componentes_43" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td></tr><tr><td class=""><p>Frinal</p></td><td><input id="tabla_de_componentes_44" name="tabla_de_componentes_44" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_45" name="tabla_de_componentes_45" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_46" name="tabla_de_componentes_46" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_47" name="tabla_de_componentes_47" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td></tr><tr><td class=""><p>Caliza</p></td><td><input id="tabla_de_componentes_48" name="tabla_de_componentes_48" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_49" name="tabla_de_componentes_49" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_50" name="tabla_de_componentes_50" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_51" name="tabla_de_componentes_51" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td></tr><tr><td class=""><p>Wollastonita</p></td><td><input id="tabla_de_componentes_52" name="tabla_de_componentes_52" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_53" name="tabla_de_componentes_53" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_54" name="tabla_de_componentes_54" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_55" name="tabla_de_componentes_55" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td></tr><tr><td class=""><p>CMC</p></td><td><input id="tabla_de_componentes_56" name="tabla_de_componentes_56" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_57" name="tabla_de_componentes_57" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_58" name="tabla_de_componentes_58" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_59" name="tabla_de_componentes_59" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td></tr><tr><td class=""><p>TPF</p></td><td><input id="tabla_de_componentes_60" name="tabla_de_componentes_60" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_61" name="tabla_de_componentes_61" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_62" name="tabla_de_componentes_62" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_63" name="tabla_de_componentes_63" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td></tr><tr><td class=""><p>Agua</p></td><td><input id="tabla_de_componentes_64" name="tabla_de_componentes_64" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_65" name="tabla_de_componentes_65" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_66" name="tabla_de_componentes_66" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_67" name="tabla_de_componentes_67" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td></tr><tr><td class=""><p>Bolsas de alumina</p></td><td><input id="tabla_de_componentes_68" name="tabla_de_componentes_68" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_69" name="tabla_de_componentes_69" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_70" name="tabla_de_componentes_70" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_71" name="tabla_de_componentes_71" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td></tr><tr><td><input id="tabla_de_componentes_72" name="tabla_de_componentes_72" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_73" name="tabla_de_componentes_73" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_74" name="tabla_de_componentes_74" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_75" name="tabla_de_componentes_75" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_76" name="tabla_de_componentes_76" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td></tr><tr><td><input id="tabla_de_componentes_77" name="tabla_de_componentes_77" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_78" name="tabla_de_componentes_78" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_79" name="tabla_de_componentes_79" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_80" name="tabla_de_componentes_80" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_81" name="tabla_de_componentes_81" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td></tr></tbody></table></div><div class="formato ui-state-default ui-sortable-handle" id="element-13"><label>Observaciones</label><textarea id="observaciones" name="observaciones" type="text" disabled="" style="margin: 0px; width: 161px; height: 53px;"></textarea></div><div class="formato ui-state-default ui-sortable-handle" style="width:100%;" id="element-14"><label>Datos de ajuste</label></div><div class="formato form-group ui-state-default ui-sortable-handle" id="element-15"><label>Fecha ajuste</label><input id="fecha_ajuste" name="fecha_ajuste" type="date" min="2015-05-27" max="2017-05-27" disabled=""></div><div class="formato form-group ui-state-default" id="element-16"><label>Operador ajuste</label><input id="operador_ajuste" name="operador_ajuste" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ,.-/ \\s]{1,30}" title="Digite sólo letras" disabled=""></div><div class="formato ui-state-default ui-sortable-handle" id="element-17"><label>Turno ajuste</label><br> <input type="radio" id="turno_ajuste-0" name="turno_ajuste" value="10-6" disabled=""><p>10-6</p><input type="radio" id="turno_ajuste-1" name="turno_ajuste" value="6-2" disabled=""><p>6-2</p><input type="radio" id="turno_ajuste-2" name="turno_ajuste" value="2-10" disabled=""><p>2-10</p></div><div class="formato form-group ui-state-default" id="element-24"><label>Quien toma condiciones</label><input id="quien_toma_condiciones" name="quien_toma_condiciones" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ,.-/ \\s]{1,30}" title="Digite sólo letras" disabled=""></div><div class="formato form-group ui-state-default ui-sortable-handle" id="element-19"><label>Hora ajuste</label><input id="hora_ajuste" name="hora_ajuste" type="time" disabled=""></div><div class="ui-state-default formato ui-sortable-handle" id="element-20"><label>Condiciones de ajuste</label><table id="condiciones_de_ajuste"><thead><tr><td class=""><p>Parámetros</p></td><td class=""><p>Objetivo</p></td><td class=""><p>Quedó</p></td></tr></thead><tbody><tr><td class=""><p>Densidad (gr/100 c.c.)</p></td><td class=""><input id="condiciones_de_ajuste_0" name="condiciones_de_ajuste_0" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite solo carácteres alfanuméricos" disabled=""></td><td class=""><input id="condiciones_de_ajuste_1" name="condiciones_de_ajuste_1" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite solo carácteres alfanuméricos" disabled=""></td></tr><tr><td class=""><p>Viscocidad (seg)</p></td><td class=""><input id="condiciones_de_ajuste_2" name="condiciones_de_ajuste_2" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite solo carácteres alfanuméricos" disabled=""></td><td class=""><input id="condiciones_de_ajuste_3" name="condiciones_de_ajuste_3" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite solo carácteres alfanuméricos" disabled=""></td></tr><tr><td class=""><p>Residuo (malla 325)</p></td><td class=""><input id="condiciones_de_ajuste_4" name="condiciones_de_ajuste_4" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite solo carácteres alfanuméricos" disabled=""></td><td class=""><input id="condiciones_de_ajuste_5" name="condiciones_de_ajuste_5" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite solo carácteres alfanuméricos" disabled=""></td></tr></tbody></table></div><div class="ui-state-default formato ui-sortable-handle" id="element-21"><label>Aditivos del ajuste</label><table id="aditivos_del_ajuste"><thead><tr><td class=""><p>Componente</p></td><td class=""><p>Total</p></td></tr></thead><tbody><tr><td class=""><p>C.M.C. (Kg)</p></td><td class=""><input id="aditivos_del_ajuste_0" name="aditivos_del_ajuste_0" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite solo carácteres alfanuméricos" disabled=""></td></tr><tr><td class=""><p>T.P.F. (Kg)</p></td><td class=""><input id="aditivos_del_ajuste_1" name="aditivos_del_ajuste_1" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite solo carácteres alfanuméricos" disabled=""></td></tr><tr><td class=""><p>Bentonita (kg)</p></td><td class=""><input id="aditivos_del_ajuste_2" name="aditivos_del_ajuste_2" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite solo carácteres alfanuméricos" disabled=""></td></tr><tr><td class=""><p>Agua (lt)</p></td><td class=""><input id="aditivos_del_ajuste_3" name="aditivos_del_ajuste_3" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite solo carácteres alfanuméricos" disabled=""></td></tr><tr><td class=""><p>Molienda (min)</p></td><td class=""><input id="aditivos_del_ajuste_4" name="aditivos_del_ajuste_4" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite solo carácteres alfanuméricos" disabled=""></td></tr><tr><td class=""><input id="aditivos_del_ajuste_5" name="aditivos_del_ajuste_5" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite solo carácteres alfanuméricos" disabled=""></td><td class=""><input id="aditivos_del_ajuste_6" name="aditivos_del_ajuste_6" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite solo carácteres alfanuméricos" disabled=""></td></tr></tbody></table></div><div class="formato ui-state-default ui-sortable-handle" id="element-22"><label>Observaciones</label><textarea id="observaciones" name="observaciones" type="text" disabled="" style="margin: 0px; height: 75px; width: 300px;"></textarea></div><div class="formato ui-state-default ui-sortable-handle isSelected" style="width: 100%;" id="element-23"><label>Naturaleza del cambio. Actualizar documentos SGC 00.940.056</label></div>\n\n\n\n\n'),
-('RES-1715', 'Control de productos coloreados por dispersión', 'Versión 2', 'Preparación de esmaltes', 'Félix García', 'Tabla', 2, '\n        <table id="encabezado" class="ui-sortable-handle">\n            <tbody><tr>\n                <td><h3> Nombre: Control de productos coloreados por dispersión</h3></td>\n                <td><h3> Código: RES-1715 </h3></td>                    \n                <td><img class="img-responsive" src="../util/images/corporativo/logo_ceramica.png" alt="Cerámica Italia"></td>\n            </tr>\n        </tbody></table>\n    <div class="formato form-group ui-state-default ui-sortable-handle" id="element-0"><label>Fecha<p class="requerido">*</p></label><input id="fecha" name="fecha" type="date" min="2015-06-13" max="2017-06-13" disabled="" required=""></div><div class="formato form-group ui-state-default" id="element-1"><label>Operador<p class="requerido">*</p></label><input id="operador" name="operador" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ,.-/ \\s]{1,30}" title="Digite sólo letras" disabled="" required=""></div><div class="formato ui-state-default ui-sortable-handle" id="element-2"><label>Turno</label><br> <input type="radio" id="turno-0" name="turno" value="10-6" disabled=""><p>10-6</p><input type="radio" id="turno-1" name="turno" value="6-2" disabled=""><p>6-2</p><input type="radio" id="turno-2" name="turno" value="2-10" disabled=""><p>2-10</p></div><div class="formato form-group ui-state-default" id="element-3"><label>Referencia esmalte sin color</label><input id="referencia_esmalte_sin_color" name="referencia_esmalte_sin_color" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ,.-/ \\s]{1,30}" title="Digite sólo letras" disabled=""></div><div class="formato form-group ui-state-default" id="element-4"><label>Cantidad/tanques</label><input id="cantidadtanques" name="cantidadtanques" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ,.-/ \\s]{1,30}" title="Digite sólo letras" disabled=""></div><div class="formato form-group ui-state-default" id="element-5"><label>Referencia esmalte a colorear</label><input id="referencia_esmalte_a_colorear" name="referencia_esmalte_a_colorear" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ,.-/ \\s]{1,30}" title="Digite sólo letras" disabled=""></div><div class="formato  form-group ui-state-default" id="element-6"><label>Número de tanques</label><input id="numero_de_tanques" name="numero_de_tanques" type="number" length="15" step="any" disabled=""></div><div class="ui-state-default formato ui-sortable-handle" id="element-7"><label>Productos</label><table id="productos"><thead><tr><td class=""><p>Referencia</p></td><td class=""><p>Cantidad Kg</p></td><td class=""><p>Ajuste Kg</p></td><td class=""><p>Ajuste Kg</p></td><td class=""><p>Lote</p></td></tr></thead><tbody><tr><td class=""><p>F.V.C 10666 O C.C. 25001</p></td><td class=""><input id="productos_0" name="productos_0" type="number" disabled=""></td><td class=""><input id="productos_1" name="productos_1" type="number" disabled=""></td><td class=""><input id="productos_2" name="productos_2" type="number" disabled=""></td><td><input id="productos_3" name="productos_3" type="text" disabled=""></td></tr><tr><td class=""><p>F.V.C. 10177</p></td><td class=""><input id="productos_4" name="productos_4" type="number" disabled=""></td><td class=""><input id="productos_5" name="productos_5" type="number" disabled=""></td><td class=""><input id="productos_6" name="productos_6" type="number" disabled=""></td><td><input id="productos_7" name="productos_7" type="text" disabled=""></td></tr><tr><td class=""><p>F.V.C. 10355 O C.C. 43</p></td><td class=""><input id="productos_8" name="productos_8" type="number" disabled=""></td><td class=""><input id="productos_9" name="productos_9" type="number" disabled=""></td><td class=""><input id="productos_10" name="productos_10" type="number" disabled=""></td><td><input id="productos_11" name="productos_11" type="text" disabled=""></td></tr><tr><td class=""><p>F.V.C. 10577 O C.C. 700</p></td><td class=""><input id="productos_12" name="productos_12" type="number" disabled=""></td><td class=""><input id="productos_13" name="productos_13" type="number" disabled=""></td><td class=""><input id="productos_14" name="productos_14" type="number" disabled=""></td><td><input id="productos_15" name="productos_15" type="text" disabled=""></td></tr><tr><td class=""><p>F.V.C. 20077 O C.C. 730</p></td><td class=""><input id="productos_16" name="productos_16" type="number" disabled=""></td><td class=""><input id="productos_17" name="productos_17" type="number" disabled=""></td><td class=""><input id="productos_18" name="productos_18" type="number" disabled=""></td><td><input id="productos_19" name="productos_19" type="text" disabled=""></td></tr><tr><td class=""><p>F.V.C. 20122 O C.C. 224</p></td><td class=""><input id="productos_20" name="productos_20" type="number" disabled=""></td><td class=""><input id="productos_21" name="productos_21" type="number" disabled=""></td><td class=""><input id="productos_22" name="productos_22" type="number" disabled=""></td><td><input id="productos_23" name="productos_23" type="text" disabled=""></td></tr><tr><td class=""><p>F.V.C. 20255 O C.C. 45</p></td><td class=""><input id="productos_24" name="productos_24" type="number" disabled=""></td><td class=""><input id="productos_25" name="productos_25" type="number" disabled=""></td><td class=""><input id="productos_26" name="productos_26" type="number" disabled=""></td><td><input id="productos_27" name="productos_27" type="text" disabled=""></td></tr><tr><td class=""><p>F.V.C.20355 O C.C. 54</p></td><td class=""><input id="productos_28" name="productos_28" type="number" disabled=""></td><td class=""><input id="productos_29" name="productos_29" type="number" disabled=""></td><td class=""><input id="productos_30" name="productos_30" type="number" disabled=""></td><td><input id="productos_31" name="productos_31" type="text" disabled=""></td></tr><tr><td class=""><p>F.V.C. 20444</p></td><td class=""><input id="productos_32" name="productos_32" type="number" disabled=""></td><td class=""><input id="productos_33" name="productos_33" type="number" disabled=""></td><td class=""><input id="productos_34" name="productos_34" type="number" disabled=""></td><td><input id="productos_35" name="productos_35" type="text" disabled=""></td></tr><tr><td class=""><p>F.V.C. 20466 O C.C. 25002</p></td><td class=""><input id="productos_36" name="productos_36" type="number" disabled=""></td><td class=""><input id="productos_37" name="productos_37" type="number" disabled=""></td><td class=""><input id="productos_38" name="productos_38" type="number" disabled=""></td><td><input id="productos_39" name="productos_39" type="text" disabled=""></td></tr><tr><td class=""><p>F.V.C. 20477 O C.C.263</p></td><td class=""><input id="productos_40" name="productos_40" type="number" disabled=""></td><td class=""><input id="productos_41" name="productos_41" type="number" disabled=""></td><td class=""><input id="productos_42" name="productos_42" type="number" disabled=""></td><td><input id="productos_43" name="productos_43" type="text" disabled=""></td></tr><tr><td class=""><p>F.V.C. 20499 O C.C.21000</p></td><td class=""><input id="productos_44" name="productos_44" type="number" disabled=""></td><td class=""><input id="productos_45" name="productos_45" type="number" disabled=""></td><td class=""><input id="productos_46" name="productos_46" type="number" disabled=""></td><td><input id="productos_47" name="productos_47" type="text" disabled=""></td></tr><tr><td class=""><p>F.V.C. 20644 O C.C.62</p></td><td class=""><input id="productos_48" name="productos_48" type="number" disabled=""></td><td class=""><input id="productos_49" name="productos_49" type="number" disabled=""></td><td class=""><input id="productos_50" name="productos_50" type="number" disabled=""></td><td><input id="productos_51" name="productos_51" type="text" disabled=""></td></tr><tr><td class=""><p>F.V.C. 20844 O C.C.26002</p></td><td class=""><input id="productos_52" name="productos_52" type="number" disabled=""></td><td class=""><input id="productos_53" name="productos_53" type="number" disabled=""></td><td class=""><input id="productos_54" name="productos_54" type="number" disabled=""></td><td><input id="productos_55" name="productos_55" type="text" disabled=""></td></tr><tr><td class=""><p>F.V.C. 20944 O C.C. 265</p></td><td class=""><input id="productos_56" name="productos_56" type="number" disabled=""></td><td class=""><input id="productos_57" name="productos_57" type="number" disabled=""></td><td class=""><input id="productos_58" name="productos_58" type="number" disabled=""></td><td><input id="productos_59" name="productos_59" type="text" disabled=""></td></tr><tr><td class=""><p>F.V.C. 21577 O C.C. 23007</p></td><td class=""><input id="productos_60" name="productos_60" type="number" disabled=""></td><td class=""><input id="productos_61" name="productos_61" type="number" disabled=""></td><td class=""><input id="productos_62" name="productos_62" type="number" disabled=""></td><td><input id="productos_63" name="productos_63" type="text" disabled=""></td></tr><tr><td class=""><p>F.V.C. 22077 O C.C. 23008</p></td><td class=""><input id="productos_64" name="productos_64" type="number" disabled=""></td><td class=""><input id="productos_65" name="productos_65" type="number" disabled=""></td><td class=""><input id="productos_66" name="productos_66" type="number" disabled=""></td><td><input id="productos_67" name="productos_67" type="text" disabled=""></td></tr><tr><td class=""><p>C.C. 23001</p></td><td class=""><input id="productos_68" name="productos_68" type="number" disabled=""></td><td class=""><input id="productos_69" name="productos_69" type="number" disabled=""></td><td class=""><input id="productos_70" name="productos_70" type="number" disabled=""></td><td><input id="productos_71" name="productos_71" type="text" disabled=""></td></tr><tr><td class=""><p>C.C. 75</p></td><td class=""><input id="productos_72" name="productos_72" type="number" disabled=""></td><td class=""><input id="productos_73" name="productos_73" type="number" disabled=""></td><td class=""><input id="productos_74" name="productos_74" type="number" disabled=""></td><td><input id="productos_75" name="productos_75" type="text" disabled=""></td></tr><tr><td><input id="productos_76" name="productos_76" type="text" disabled=""></td><td class=""><input id="productos_77" name="productos_77" type="number" disabled=""></td><td class=""><input id="productos_78" name="productos_78" type="number" disabled=""></td><td class=""><input id="productos_79" name="productos_79" type="number" disabled=""></td><td><input id="productos_80" name="productos_80" type="text" disabled=""></td></tr></tbody></table></div><div class="formato ui-state-default ui-sortable-handle" id="element-8"><label>Observaciones</label><textarea id="observaciones" name="observaciones" type="text" disabled="" style="margin-left: 0px; margin-right: 0px; width: 398px;"></textarea></div><div class="formato ui-state-default ui-sortable-handle" style="width: 100%;" id="element-9"><label>Datos de aprobación</label></div><div class="formato form-group ui-state-default ui-sortable-handle" id="element-10"><label>Fecha de aprobación</label><input id="fecha_de_aprobacion" name="fecha_de_aprobacion" type="date" min="2015-06-13" max="2017-06-13" disabled=""></div><div class="formato form-group ui-state-default" id="element-11"><label>Operario de aprobación</label><input id="operario_de_aprobacion" name="operario_de_aprobacion" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ,.-/ \\s]{1,30}" title="Digite sólo letras" disabled=""></div><div class="formato ui-state-default ui-sortable-handle" id="element-12"><label>Turno de aprobación</label><br> <input type="radio" id="turno_de_aprobacion-0" name="turno_de_aprobacion" value="10-6" disabled=""><p>10-6</p><input type="radio" id="turno_de_aprobacion-1" name="turno_de_aprobacion" value="6-2" disabled=""><p>6-2</p><input type="radio" id="turno_de_aprobacion-2" name="turno_de_aprobacion" value="2-10" disabled=""><p>2-10</p></div><div class="formato form-group ui-state-default" id="element-13"><label>Código de aprobación</label><input id="codigo_de_aprobacion" name="codigo_de_aprobacion" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ,.-/ \\s]{1,30}" title="Digite sólo letras" disabled=""></div><div class="formato ui-state-default ui-sortable-handle" id="element-14"><label>Aplicación</label><br><input id="aplicacion-0" type="checkbox" name="aplicacion-0" value="Patín" disabled=""><p>Patín</p><input id="aplicacion-1" type="checkbox" name="aplicacion-1" value="Pistola" disabled=""><p>Pistola</p></div><div class="formato ui-state-default ui-sortable-handle" id="element-15"><label>Horno</label><br><input type="radio" id="horno-0" name="horno" value="1" disabled=""><p>1</p> <input type="radio" id="horno-1" name="horno" value="2" disabled=""><p>2</p><input type="radio" id="horno-2" name="horno" value="3" disabled=""><p>3</p><input type="radio" id="horno-3" name="horno" value="4" disabled=""><p>4</p></div><div class="formato ui-state-default ui-sortable-handle" style="width:100%;" id="element-16"><label>Naturaleza del cambio: Actualizar documentos SGC 00.940.056</label></div>\n\n\n');
+('RES-1715', 'Control de productos coloreados por dispersión', 'Versión 2', 'Preparación de esmaltes', 'Félix García', 'Tabla', 2, '\n        <table id="encabezado" class="ui-sortable-handle">\n            <tbody><tr>\n                <td><h3> Nombre: Control de productos coloreados por dispersión</h3></td>\n                <td><h3> Código: RES-1715 </h3></td>                    \n                <td><img class="img-responsive" src="../util/images/corporativo/logo_ceramica.png" alt="Cerámica Italia"></td>\n            </tr>\n        </tbody></table>\n    <div class="formato form-group ui-state-default ui-sortable-handle" id="element-0"><label>Fecha<p class="requerido">*</p></label><input id="fecha" name="fecha" type="date" min="2015-06-13" max="2017-06-13" disabled="" required=""></div><div class="formato form-group ui-state-default ui-sortable-handle" id="element-1"><label>Operador<p class="requerido">*</p></label><input id="operador" name="operador" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ,.-/ \\s]{1,30}" title="Digite sólo letras" disabled="" required=""></div><div class="formato ui-state-default ui-sortable-handle" id="element-2"><label>Turno</label><br> <input type="radio" id="turno-0" name="turno" value="10-6" disabled=""><p>10-6</p><input type="radio" id="turno-1" name="turno" value="6-2" disabled=""><p>6-2</p><input type="radio" id="turno-2" name="turno" value="2-10" disabled=""><p>2-10</p></div><div class="formato form-group ui-state-default ui-sortable-handle" id="element-3"><label>Referencia esmalte sin color</label><input id="referencia_esmalte_sin_color" name="referencia_esmalte_sin_color" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ,.-/ \\s]{1,30}" title="Digite sólo letras" disabled=""></div><div class="formato form-group ui-state-default ui-sortable-handle" id="element-4"><label>Cantidad/tanques</label><input id="cantidadtanques" name="cantidadtanques" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ,.-/ \\s]{1,30}" title="Digite sólo letras" disabled=""></div><div class="formato form-group ui-state-default ui-sortable-handle" id="element-5"><label>Referencia esmalte a colorear</label><input id="referencia_esmalte_a_colorear" name="referencia_esmalte_a_colorear" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ,.-/ \\s]{1,30}" title="Digite sólo letras" disabled=""></div><div class="formato  form-group ui-state-default ui-sortable-handle" id="element-6"><label>Número de tanques</label><input id="numero_de_tanques" name="numero_de_tanques" type="number" length="15" step="any" disabled=""></div><div class="ui-state-default formato ui-sortable-handle" id="element-7"><label>Productos</label><table id="productos"><thead><tr><td class=""><p>Referencia</p></td><td class=""><p>Cantidad Kg</p></td><td class=""><p>Ajuste Kg</p></td><td class=""><p>Ajuste Kg</p></td><td class=""><p>Lote</p></td></tr></thead><tbody><tr><td class=""><input id="productos_0" name="productos_0" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite solo carácteres alfanuméricos" disabled=""></td><td class=""><input id="productos_1" name="productos_1" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite solo carácteres alfanuméricos" disabled=""></td><td class=""><input id="productos_2" name="productos_2" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite solo carácteres alfanuméricos" disabled=""></td><td class=""><input id="productos_3" name="productos_3" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite solo carácteres alfanuméricos" disabled=""></td><td class=""><input id="productos_4" name="productos_4" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite solo carácteres alfanuméricos" disabled=""></td></tr><tr><td class=""><input id="productos_5" name="productos_5" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="productos_6" name="productos_6" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="productos_7" name="productos_7" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="productos_8" name="productos_8" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="productos_9" name="productos_9" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td></tr><tr><td><input id="productos_10" name="productos_10" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="productos_11" name="productos_11" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="productos_12" name="productos_12" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="productos_13" name="productos_13" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="productos_14" name="productos_14" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td></tr><tr><td><input id="productos_15" name="productos_15" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="productos_16" name="productos_16" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="productos_17" name="productos_17" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="productos_18" name="productos_18" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="productos_19" name="productos_19" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td></tr><tr><td><input id="productos_20" name="productos_20" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="productos_21" name="productos_21" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="productos_22" name="productos_22" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="productos_23" name="productos_23" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="productos_24" name="productos_24" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td></tr><tr><td><input id="productos_25" name="productos_25" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="productos_26" name="productos_26" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="productos_27" name="productos_27" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="productos_28" name="productos_28" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="productos_29" name="productos_29" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td></tr><tr><td><input id="productos_30" name="productos_30" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="productos_31" name="productos_31" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="productos_32" name="productos_32" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="productos_33" name="productos_33" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="productos_34" name="productos_34" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td></tr><tr><td><input id="productos_35" name="productos_35" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="productos_36" name="productos_36" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="productos_37" name="productos_37" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="productos_38" name="productos_38" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="productos_39" name="productos_39" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td></tr><tr><td><input id="productos_40" name="productos_40" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="productos_41" name="productos_41" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="productos_42" name="productos_42" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="productos_43" name="productos_43" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="productos_44" name="productos_44" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td></tr><tr><td><input id="productos_45" name="productos_45" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="productos_46" name="productos_46" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="productos_47" name="productos_47" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="productos_48" name="productos_48" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="productos_49" name="productos_49" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td></tr><tr><td><input id="productos_50" name="productos_50" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="productos_51" name="productos_51" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="productos_52" name="productos_52" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="productos_53" name="productos_53" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="productos_54" name="productos_54" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td></tr><tr><td><input id="productos_55" name="productos_55" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="productos_56" name="productos_56" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="productos_57" name="productos_57" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="productos_58" name="productos_58" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="productos_59" name="productos_59" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td></tr><tr><td><input id="productos_60" name="productos_60" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="productos_61" name="productos_61" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="productos_62" name="productos_62" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="productos_63" name="productos_63" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="productos_64" name="productos_64" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td></tr><tr><td><input id="productos_65" name="productos_65" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="productos_66" name="productos_66" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="productos_67" name="productos_67" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="productos_68" name="productos_68" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="productos_69" name="productos_69" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td></tr><tr><td><input id="productos_70" name="productos_70" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="productos_71" name="productos_71" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="productos_72" name="productos_72" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="productos_73" name="productos_73" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="productos_74" name="productos_74" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td></tr><tr><td><input id="productos_75" name="productos_75" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="productos_76" name="productos_76" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="productos_77" name="productos_77" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="productos_78" name="productos_78" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="productos_79" name="productos_79" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td></tr></tbody></table></div><div class="formato ui-state-default ui-sortable-handle" id="element-8"><label>Observaciones</label><textarea id="observaciones" name="observaciones" type="text" disabled="" style="margin-left: 0px; margin-right: 0px; width: 398px;"></textarea></div><div class="formato ui-state-default ui-sortable-handle" style="width: 100%;" id="element-9"><label>Datos de aprobación</label></div><div class="formato form-group ui-state-default ui-sortable-handle" id="element-10"><label>Fecha de aprobación</label><input id="fecha_de_aprobacion" name="fecha_de_aprobacion" type="date" min="2015-06-13" max="2017-06-13" disabled=""></div><div class="formato form-group ui-state-default ui-sortable-handle" id="element-11"><label>Operario de aprobación</label><input id="operario_de_aprobacion" name="operario_de_aprobacion" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ,.-/ \\s]{1,30}" title="Digite sólo letras" disabled=""></div><div class="formato ui-state-default ui-sortable-handle" id="element-12"><label>Turno de aprobación</label><br> <input type="radio" id="turno_de_aprobacion-0" name="turno_de_aprobacion" value="10-6" disabled=""><p>10-6</p><input type="radio" id="turno_de_aprobacion-1" name="turno_de_aprobacion" value="6-2" disabled=""><p>6-2</p><input type="radio" id="turno_de_aprobacion-2" name="turno_de_aprobacion" value="2-10" disabled=""><p>2-10</p></div><div class="formato form-group ui-state-default ui-sortable-handle" id="element-13"><label>Código de aprobación</label><input id="codigo_de_aprobacion" name="codigo_de_aprobacion" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ,.-/ \\s]{1,30}" title="Digite sólo letras" disabled=""></div><div class="formato ui-state-default ui-sortable-handle" id="element-14"><label>Aplicación</label><br><input id="aplicacion-0" type="checkbox" name="aplicacion-0" value="Patín" disabled=""><p>Patín</p><input id="aplicacion-1" type="checkbox" name="aplicacion-1" value="Pistola" disabled=""><p>Pistola</p></div><div class="formato ui-state-default ui-sortable-handle" id="element-15"><label>Horno</label><br><input type="radio" id="horno-0" name="horno" value="1" disabled=""><p>1</p> <input type="radio" id="horno-1" name="horno" value="2" disabled=""><p>2</p><input type="radio" id="horno-2" name="horno" value="3" disabled=""><p>3</p><input type="radio" id="horno-3" name="horno" value="4" disabled=""><p>4</p></div><div class="formato ui-state-default ui-sortable-handle isSelected" style="width:100%;" id="element-16"><label>Naturaleza del cambio: Actualizar documentos SGC 00.940.056</label></div>\n\n\n\n');
 INSERT INTO `formato` (`cod_formato`, `nombre`, `version`, `procedimiento`, `jefe_procedimiento`, `descripcion_contenido`, `frecuencia_uso`, `codigo_html`) VALUES
 ('RES-1720', 'Orden de producción de serigrafías', 'Versión 2', 'Preparación esmalte', 'Victor González', 'Tabla', 2, '\n        <table id="encabezado" class="ui-sortable-handle">\n            <tbody><tr>\n                <td><h3> Nombre: Orden de producción de serigrafías</h3></td>\n                <td><h3> Código: RES-1720 </h3></td>                    \n                <td><img class="img-responsive" src="../util/images/corporativo/logo_ceramica.png" alt="Cerámica Italia"></td>\n            </tr>\n        </tbody></table><div class="formato form-group ui-state-default ui-sortable-handle" id="element-0"><label>Orden de producción<p class="requerido">*</p></label><input id="orden_de_produccion" name="orden_de_produccion" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ,.-/ \\s]{1,30}" title="Digite sólo letras" disabled="" required=""></div>\n    <div class="formato form-group ui-state-default ui-sortable-handle" id="element-1"><label>Fecha<p class="requerido">*</p></label><input id="fecharegistro" name="fecharegistro" type="date" min="2015-07-05" max="2017-07-05" disabled="" required=""></div><div class="formato form-group ui-state-default ui-sortable-handle" id="element-2"><label>Operador de cargue<p class="requerido">*</p></label><input id="operador_de_cargue" name="operador_de_cargue" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ,.-/ \\s]{1,30}" title="Digite sólo letras" disabled="" required=""></div><div class="formato form-group ui-state-default ui-sortable-handle" id="element-3"><label>Producto<p class="requerido">*</p></label><input id="producto" name="producto" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ,.-/ \\s]{1,30}" title="Digite sólo letras" disabled="" required=""></div><div class="formato ui-state-default ui-sortable-handle" id="element-4"><label>Revestimiento molino</label><br><input type="radio" id="revestimiento_molino-0" name="revestimiento_molino" value="bien" disabled=""><p>bien</p> <input type="radio" id="revestimiento_molino-1" name="revestimiento_molino" value="mal" disabled=""><p>mal</p></div><div class="formato ui-state-default ui-sortable-handle" id="element-5"><label>Lavado de molino</label><br><input id="lavado_de_molino-0" type="checkbox" name="lavado_de_molino-0" value="si" disabled=""><p>si</p><input id="lavado_de_molino-1" type="checkbox" name="lavado_de_molino-1" value="no" disabled=""><p>no</p></div><div class="formato form-group ui-state-default ui-sortable-handle" id="element-6"><label>Tiempo de molienda<p class="requerido">*</p></label><input id="tiempo_de_molienda" name="tiempo_de_molienda" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ,.-/ \\s]{1,30}" title="Digite sólo letras" disabled="" required=""></div><div class="formato form-group ui-state-default ui-sortable-handle" id="element-7"><label>Hora inicio</label><input id="hora_inicio" name="hora_inicio" type="time" disabled=""></div><div class="formato form-group ui-state-default ui-sortable-handle" id="element-8"><label>Hora parada</label><input id="hora_parada" name="hora_parada" type="time" disabled=""></div><div class="formato ui-state-default ui-sortable-handle" id="element-9"><label>Molino</label><br><input type="radio" id="molino-0" name="molino" value="7" disabled=""><p>7</p> <input type="radio" id="molino-1" name="molino" value="8" disabled=""><p>8</p><input type="radio" id="molino-2" name="molino" value="9" disabled=""><p>9</p></div><div class="formato ui-state-default ui-sortable-handle" style="width: 100%;" id="element-10"><label></label></div><div class="ui-state-default formato ui-sortable-handle" id="element-11"><label>Tabla de componentes</label><table id="tabla_de_componentes"><thead><tr><td class=""><p>Componentes</p></td><td class=""><p>Ref.</p></td><td class=""><p>Kg. a cargar</p></td><td class=""><p>Kg. cargados</p></td><td class=""><p>Lote</p></td></tr></thead><tbody><tr><td class=""><select name="select_tabla_de_componentes_0" id="select_tabla_de_componentes_0"><option value="Frita">Frita</option><option value="Color">Color</option><option value=" Vehículo"> Vehículo</option><option value=" Tinta pelika"> Tinta pelika</option><option value=" Espesante"> Espesante</option><option value=" Agua"> Agua</option></select></td><td class=""><input id="tabla_de_componentes_0" name="tabla_de_componentes_0" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite solo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_1" name="tabla_de_componentes_1" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_2" name="tabla_de_componentes_2" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_3" name="tabla_de_componentes_3" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td></tr><tr><td class=""><select name="select_tabla_de_componentes_1" id="select_tabla_de_componentes_1"><option value="Frita">Frita</option><option value="Color">Color</option><option value=" Vehículo"> Vehículo</option><option value=" Tinta pelika"> Tinta pelika</option><option value=" Espesante"> Espesante</option><option value=" Agua"> Agua</option></select></td><td class=""><input id="tabla_de_componentes_4" name="tabla_de_componentes_4" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite solo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_5" name="tabla_de_componentes_5" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_6" name="tabla_de_componentes_6" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_7" name="tabla_de_componentes_7" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td></tr><tr><td class=""><select name="select_tabla_de_componentes_2" id="select_tabla_de_componentes_2"><option value="Frita">Frita</option><option value="Color">Color</option><option value=" Vehículo"> Vehículo</option><option value=" Tinta pelika"> Tinta pelika</option><option value=" Espesante"> Espesante</option><option value=" Agua"> Agua</option></select></td><td class=""><input id="tabla_de_componentes_8" name="tabla_de_componentes_8" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite solo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_9" name="tabla_de_componentes_9" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_10" name="tabla_de_componentes_10" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_11" name="tabla_de_componentes_11" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td></tr><tr><td class=""><select name="select_tabla_de_componentes_3" id="select_tabla_de_componentes_3"><option value="Frita">Frita</option><option value="Color">Color</option><option value=" Vehículo"> Vehículo</option><option value=" Tinta pelika"> Tinta pelika</option><option value=" Espesante"> Espesante</option><option value=" Agua"> Agua</option></select></td><td class=""><input id="tabla_de_componentes_12" name="tabla_de_componentes_12" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite solo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_13" name="tabla_de_componentes_13" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_14" name="tabla_de_componentes_14" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_15" name="tabla_de_componentes_15" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td></tr><tr><td class=""><select name="select_tabla_de_componentes_4" id="select_tabla_de_componentes_4"><option value="Frita">Frita</option><option value="Color">Color</option><option value=" Vehículo"> Vehículo</option><option value=" Tinta pelika"> Tinta pelika</option><option value=" Espesante"> Espesante</option><option value=" Agua"> Agua</option></select></td><td class=""><input id="tabla_de_componentes_16" name="tabla_de_componentes_16" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite solo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_17" name="tabla_de_componentes_17" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_18" name="tabla_de_componentes_18" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_19" name="tabla_de_componentes_19" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td></tr><tr><td class=""><select name="select_tabla_de_componentes_5" id="select_tabla_de_componentes_5"><option value="Frita">Frita</option><option value="Color">Color</option><option value=" Vehículo"> Vehículo</option><option value=" Tinta pelika"> Tinta pelika</option><option value=" Espesante"> Espesante</option><option value=" Agua"> Agua</option></select></td><td class=""><input id="tabla_de_componentes_20" name="tabla_de_componentes_20" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite solo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_21" name="tabla_de_componentes_21" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_22" name="tabla_de_componentes_22" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_23" name="tabla_de_componentes_23" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td></tr><tr><td class=""><select name="select_tabla_de_componentes_6" id="select_tabla_de_componentes_6"><option value="Frita">Frita</option><option value="Color">Color</option><option value=" Vehículo"> Vehículo</option><option value=" Tinta pelika"> Tinta pelika</option><option value=" Espesante"> Espesante</option><option value=" Agua"> Agua</option></select></td><td class=""><input id="tabla_de_componentes_24" name="tabla_de_componentes_24" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite solo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_25" name="tabla_de_componentes_25" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_26" name="tabla_de_componentes_26" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_27" name="tabla_de_componentes_27" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td></tr><tr><td class=""><select name="select_tabla_de_componentes_7" id="select_tabla_de_componentes_7"><option value="Frita">Frita</option><option value="Color">Color</option><option value=" Vehículo"> Vehículo</option><option value=" Tinta pelika"> Tinta pelika</option><option value=" Espesante"> Espesante</option><option value=" Agua"> Agua</option></select></td><td class=""><input id="tabla_de_componentes_28" name="tabla_de_componentes_28" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite solo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_29" name="tabla_de_componentes_29" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_30" name="tabla_de_componentes_30" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_31" name="tabla_de_componentes_31" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td></tr><tr><td class=""><select name="select_tabla_de_componentes_8" id="select_tabla_de_componentes_8"><option value="Frita">Frita</option><option value="Color">Color</option><option value=" Vehículo"> Vehículo</option><option value=" Tinta pelika"> Tinta pelika</option><option value=" Espesante"> Espesante</option><option value=" Agua"> Agua</option></select></td><td class=""><input id="tabla_de_componentes_32" name="tabla_de_componentes_32" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite solo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_33" name="tabla_de_componentes_33" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_34" name="tabla_de_componentes_34" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_35" name="tabla_de_componentes_35" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td></tr><tr><td class=""><select name="select_tabla_de_componentes_9" id="select_tabla_de_componentes_9"><option value="Frita">Frita</option><option value="Color">Color</option><option value=" Vehículo"> Vehículo</option><option value=" Tinta pelika"> Tinta pelika</option><option value=" Espesante"> Espesante</option><option value=" Agua"> Agua</option></select></td><td class=""><input id="tabla_de_componentes_36" name="tabla_de_componentes_36" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite solo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_37" name="tabla_de_componentes_37" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_38" name="tabla_de_componentes_38" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_39" name="tabla_de_componentes_39" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td></tr><tr><td class=""><select name="select_tabla_de_componentes_10" id="select_tabla_de_componentes_10"><option value="Frita">Frita</option><option value="Color">Color</option><option value=" Vehículo"> Vehículo</option><option value=" Tinta pelika"> Tinta pelika</option><option value=" Espesante"> Espesante</option><option value=" Agua"> Agua</option></select></td><td class=""><input id="tabla_de_componentes_40" name="tabla_de_componentes_40" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite solo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_41" name="tabla_de_componentes_41" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_42" name="tabla_de_componentes_42" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_43" name="tabla_de_componentes_43" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td></tr><tr><td class=""><select name="select_tabla_de_componentes_11" id="select_tabla_de_componentes_11"><option value="Frita">Frita</option><option value="Color">Color</option><option value=" Vehículo"> Vehículo</option><option value=" Tinta pelika"> Tinta pelika</option><option value=" Espesante"> Espesante</option><option value=" Agua"> Agua</option></select></td><td class=""><input id="tabla_de_componentes_44" name="tabla_de_componentes_44" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite solo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_45" name="tabla_de_componentes_45" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_46" name="tabla_de_componentes_46" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_47" name="tabla_de_componentes_47" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td></tr><tr><td class=""><select name="select_tabla_de_componentes_12" id="select_tabla_de_componentes_12"><option value="Frita">Frita</option><option value="Color">Color</option><option value=" Vehículo"> Vehículo</option><option value=" Tinta pelika"> Tinta pelika</option><option value=" Espesante"> Espesante</option><option value=" Agua"> Agua</option></select></td><td class=""><input id="tabla_de_componentes_48" name="tabla_de_componentes_48" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite solo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_49" name="tabla_de_componentes_49" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_50" name="tabla_de_componentes_50" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_51" name="tabla_de_componentes_51" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td></tr><tr><td class=""><input id="tabla_de_componentes_52" name="tabla_de_componentes_52" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite solo carácteres alfanuméricos" disabled=""></td><td class=""><input id="tabla_de_componentes_53" name="tabla_de_componentes_53" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite solo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_54" name="tabla_de_componentes_54" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_55" name="tabla_de_componentes_55" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_56" name="tabla_de_componentes_56" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td></tr><tr><td class=""><input id="tabla_de_componentes_57" name="tabla_de_componentes_57" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite solo carácteres alfanuméricos" disabled=""></td><td class=""><input id="tabla_de_componentes_58" name="tabla_de_componentes_58" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite solo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_59" name="tabla_de_componentes_59" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_60" name="tabla_de_componentes_60" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_61" name="tabla_de_componentes_61" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td></tr><tr><td class=""><input id="tabla_de_componentes_62" name="tabla_de_componentes_62" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite solo carácteres alfanuméricos" disabled=""></td><td class=""><input id="tabla_de_componentes_63" name="tabla_de_componentes_63" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite solo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_64" name="tabla_de_componentes_64" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_65" name="tabla_de_componentes_65" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_66" name="tabla_de_componentes_66" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td></tr><tr><td class=""><input id="tabla_de_componentes_67" name="tabla_de_componentes_67" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite solo carácteres alfanuméricos" disabled=""></td><td class=""><input id="tabla_de_componentes_68" name="tabla_de_componentes_68" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite solo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_69" name="tabla_de_componentes_69" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_70" name="tabla_de_componentes_70" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_71" name="tabla_de_componentes_71" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td></tr><tr><td class=""><input id="tabla_de_componentes_72" name="tabla_de_componentes_72" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite solo carácteres alfanuméricos" disabled=""></td><td class=""><input id="tabla_de_componentes_73" name="tabla_de_componentes_73" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite solo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_74" name="tabla_de_componentes_74" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_75" name="tabla_de_componentes_75" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_76" name="tabla_de_componentes_76" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td></tr><tr><td class=""><input id="tabla_de_componentes_77" name="tabla_de_componentes_77" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite solo carácteres alfanuméricos" disabled=""></td><td class=""><input id="tabla_de_componentes_78" name="tabla_de_componentes_78" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite solo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_79" name="tabla_de_componentes_79" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_80" name="tabla_de_componentes_80" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_81" name="tabla_de_componentes_81" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td></tr><tr><td class=""><input id="tabla_de_componentes_82" name="tabla_de_componentes_82" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite solo carácteres alfanuméricos" disabled=""></td><td class=""><input id="tabla_de_componentes_83" name="tabla_de_componentes_83" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite solo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_84" name="tabla_de_componentes_84" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_85" name="tabla_de_componentes_85" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_86" name="tabla_de_componentes_86" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td></tr><tr><td class=""><input id="tabla_de_componentes_87" name="tabla_de_componentes_87" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite solo carácteres alfanuméricos" disabled=""></td><td class=""><input id="tabla_de_componentes_88" name="tabla_de_componentes_88" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite solo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_89" name="tabla_de_componentes_89" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_90" name="tabla_de_componentes_90" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_91" name="tabla_de_componentes_91" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td></tr><tr><td><input id="tabla_de_componentes_92" name="tabla_de_componentes_92" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td class=""><input id="tabla_de_componentes_93" name="tabla_de_componentes_93" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite solo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_94" name="tabla_de_componentes_94" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_95" name="tabla_de_componentes_95" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_96" name="tabla_de_componentes_96" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td></tr><tr><td class=""><p>Total</p></td><td class=""><input id="tabla_de_componentes_97" name="tabla_de_componentes_97" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite solo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_98" name="tabla_de_componentes_98" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_99" name="tabla_de_componentes_99" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td><input id="tabla_de_componentes_100" name="tabla_de_componentes_100" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td></tr></tbody></table></div><div class="formato ui-state-default ui-sortable-handle" id="element-12"><label>Observaciones</label><textarea id="observaciones" name="observaciones" type="text" disabled="" style="margin-left: 0px; margin-right: 0px; width: 348px;"></textarea></div><div class="formato ui-state-default ui-sortable-handle" style="width:100%;" id="element-13"><label>Datos de ajuste</label></div><div class="formato form-group ui-state-default ui-sortable-handle" id="element-14"><label>Fecha de ajuste</label><input id="fecha_de_ajuste" name="fecha_de_ajuste" type="date" min="2015-07-05" max="2017-07-05" disabled=""></div><div class="formato form-group ui-state-default ui-sortable-handle" id="element-38"><label>Operador de ajuste</label><input id="operador_de_ajuste" name="operador_de_ajuste" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ,.-/ \\s]{1,30}" title="Digite sólo letras" disabled=""></div><div class="formato form-group ui-state-default ui-sortable-handle" id="element-39"><label>Quien toma condiciones</label><input id="quien_toma_condiciones" name="quien_toma_condiciones" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ,.-/ \\s]{1,30}" title="Digite sólo letras" disabled=""></div><div class="formato form-group ui-state-default ui-sortable-handle" id="element-17"><label>Hora de ajuste</label><input id="hora_de_ajuste" name="hora_de_ajuste" type="time" disabled=""></div><div class="ui-state-default formato ui-sortable-handle" id="element-18"><label>Condiciones de ajuste</label><table id="condiciones_de_ajuste"><thead><tr><td class=""><p>Parámetros</p></td><td class=""><p>Objetivo</p></td><td class=""><p>1a parada</p></td><td class=""><p>Quedó</p></td></tr></thead><tbody><tr><td class=""><p>Densidad (gr/100cc)</p></td><td class=""><input id="condiciones_de_ajuste_0" name="condiciones_de_ajuste_0" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite solo carácteres alfanuméricos" disabled=""></td><td><input id="condiciones_de_ajuste_1" name="condiciones_de_ajuste_1" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td class=""><input id="condiciones_de_ajuste_2" name="condiciones_de_ajuste_2" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite solo carácteres alfanuméricos" disabled=""></td></tr><tr><td class=""><p>Viscocidad (seg)</p></td><td class=""><input id="condiciones_de_ajuste_3" name="condiciones_de_ajuste_3" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite solo carácteres alfanuméricos" disabled=""></td><td><input id="condiciones_de_ajuste_4" name="condiciones_de_ajuste_4" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td class=""><input id="condiciones_de_ajuste_5" name="condiciones_de_ajuste_5" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite solo carácteres alfanuméricos" disabled=""></td></tr><tr><td class=""><p>Residuo (malla 500)</p></td><td class=""><input id="condiciones_de_ajuste_6" name="condiciones_de_ajuste_6" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite solo carácteres alfanuméricos" disabled=""></td><td><input id="condiciones_de_ajuste_7" name="condiciones_de_ajuste_7" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ., s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled=""></td><td class=""><input id="condiciones_de_ajuste_8" name="condiciones_de_ajuste_8" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite solo carácteres alfanuméricos" disabled=""></td></tr></tbody></table></div><div class="ui-state-default formato ui-sortable-handle" id="element-19"><label>Aditivos agregados al ajuste</label><table id="aditivos_agregados_al_ajuste"><thead><tr><td class=""><p>Componente</p></td><td class=""><p>Total</p></td></tr></thead><tbody><tr><td class=""><p>Vehículo (LT)</p></td><td class=""><input id="aditivos_agregados_al_ajuste_0" name="aditivos_agregados_al_ajuste_0" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite solo carácteres alfanuméricos" disabled=""></td></tr><tr><td class=""><p>Frita (Kg)</p></td><td class=""><input id="aditivos_agregados_al_ajuste_1" name="aditivos_agregados_al_ajuste_1" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite solo carácteres alfanuméricos" disabled=""></td></tr><tr><td class=""><p>Caolin (Kg)</p></td><td class=""><input id="aditivos_agregados_al_ajuste_2" name="aditivos_agregados_al_ajuste_2" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite solo carácteres alfanuméricos" disabled=""></td></tr><tr><td class=""><p>Color</p></td><td class=""><input id="aditivos_agregados_al_ajuste_3" name="aditivos_agregados_al_ajuste_3" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite solo carácteres alfanuméricos" disabled=""></td></tr><tr><td class=""><p>Color</p></td><td class=""><input id="aditivos_agregados_al_ajuste_4" name="aditivos_agregados_al_ajuste_4" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite solo carácteres alfanuméricos" disabled=""></td></tr><tr><td class=""><p>Bentonita</p></td><td class=""><input id="aditivos_agregados_al_ajuste_5" name="aditivos_agregados_al_ajuste_5" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite solo carácteres alfanuméricos" disabled=""></td></tr></tbody></table></div><div class="formato ui-state-default ui-sortable-handle" id="element-20"><label>Observaciones ajuste</label><textarea id="observaciones_ajuste" name="observaciones_ajuste" type="text" disabled="" style="margin: 0px; width: 313px; height: 46px;"></textarea></div><div class="formato ui-state-default ui-sortable-handle" style="width:100%;" id="element-21"><label>Datos aprobación</label></div><div class="formato form-group ui-state-default ui-sortable-handle" id="element-22"><label>Fecha de aprobación</label><input id="fecha_de_aprobacion" name="fecha_de_aprobacion" type="date" min="2015-07-05" max="2017-07-05" disabled=""></div><div class="formato form-group ui-state-default ui-sortable-handle" id="element-40"><label>Quien aprueba</label><input id="quien_aprueba" name="quien_aprueba" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ,.-/ \\s]{1,30}" title="Digite sólo letras" disabled=""></div><div class="formato form-group ui-state-default ui-sortable-handle" id="element-41"><label>Código de aprobación</label><input id="codigo_de_aprobacion" name="codigo_de_aprobacion" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ,.-/ \\s]{1,30}" title="Digite sólo letras" disabled=""></div><div class="formato ui-state-default ui-sortable-handle" id="element-25"><label>Quema de horno</label><br><input type="radio" id="quema_de_horno-0" name="quema_de_horno" value="1" disabled=""><p>1</p> <input type="radio" id="quema_de_horno-1" name="quema_de_horno" value="2" disabled=""><p>2</p><input type="radio" id="quema_de_horno-2" name="quema_de_horno" value="3" disabled=""><p>3</p><input type="radio" id="quema_de_horno-3" name="quema_de_horno" value="4" disabled=""><p>4</p></div><div class="formato ui-state-default ui-sortable-handle" id="element-26"><label>Resultados</label><br><input type="radio" id="resultados-0" name="resultados" value="Conf." disabled=""><p>Conf.</p> <input type="radio" id="resultados-1" name="resultados" value="No conf." disabled=""><p>No conf.</p></div><div class="formato ui-state-default ui-sortable-handle" style="width:100%;" id="element-27"><label>Datos de no conformidad</label></div><div class="formato ui-state-default ui-sortable-handle" id="element-28"><label>Descripción</label><textarea id="descripcion" name="descripcion" type="text" disabled="" style="margin: 0px; width: 332px; height: 46px;"></textarea></div><div class="formato ui-state-default ui-sortable-handle" id="element-29"><label>Se descargó el molino</label><br><input type="radio" id="se_descargo_el_molino-0" name="se_descargo_el_molino" value="si" disabled=""><p>si</p> <input type="radio" id="se_descargo_el_molino-1" name="se_descargo_el_molino" value="no" disabled=""><p>no</p></div><div class="formato ui-state-default ui-sortable-handle" id="element-30"><label>Se marcó tanque</label><br><input type="radio" id="se_marco_tanque-0" name="se_marco_tanque" value="Si" disabled=""><p>Si</p> <input type="radio" id="se_marco_tanque-1" name="se_marco_tanque" value="No" disabled=""><p>No</p></div><div class="formato ui-state-default ui-sortable-handle" style="width:100%;" id="element-31"><label>Datos de descargue</label></div><div class="formato form-group ui-state-default ui-sortable-handle" id="element-32"><label>Fecha de descargue</label><input id="fecha_de_descargue" name="fecha_de_descargue" type="date" min="2015-07-05" max="2017-07-05" disabled=""></div><div class="formato form-group ui-state-default ui-sortable-handle" id="element-42"><label>Quien descarga</label><input id="quien_descarga" name="quien_descarga" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ,.-/ \\s]{1,30}" title="Digite sólo letras" disabled=""></div><div class="formato ui-state-default ui-sortable-handle" id="element-34"><label>descarga</label><br><input type="radio" id="descarga-0" name="descarga" value="Si" disabled=""><p>Si</p> <input type="radio" id="descarga-1" name="descarga" value="No" disabled=""><p>No</p></div><div class="ui-state-default formato ui-sortable-handle" id="element-35"><label>Condiciones de descargue</label><table id="condiciones_de_descargue"><thead><tr><td class=""><p>Parámetros</p></td><td class=""><p>Datos</p></td></tr></thead><tbody><tr><td class=""><p>Densidad (gr/100cc)</p></td><td class=""><input id="condiciones_de_descargue_0" name="condiciones_de_descargue_0" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite solo carácteres alfanuméricos" disabled=""></td></tr><tr><td class=""><p>Viscosidad (seg)</p></td><td class=""><input id="condiciones_de_descargue_1" name="condiciones_de_descargue_1" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite solo carácteres alfanuméricos" disabled=""></td></tr><tr><td class=""><p>Residuo (malla 500)</p></td><td class=""><input id="condiciones_de_descargue_2" name="condiciones_de_descargue_2" type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ s]{1,30}" title="Digite solo carácteres alfanuméricos" disabled=""></td></tr></tbody></table></div><div class="formato ui-state-default ui-sortable-handle" id="element-36"><label>Observaciones descargue</label><textarea id="observaciones_descargue" name="observaciones_descargue" type="text" disabled="" style="margin: 0px 18px 0px 0px; width: 272px; height: 62px;"></textarea></div><div class="formato ui-state-default ui-sortable-handle isSelected" style="width: 100%;" id="element-37"><label>Naturaleza del cambio: Actualización de documentos SGC 00.940.056</label></div>\n\n\n');
 INSERT INTO `formato` (`cod_formato`, `nombre`, `version`, `procedimiento`, `jefe_procedimiento`, `descripcion_contenido`, `frecuencia_uso`, `codigo_html`) VALUES
@@ -65,11 +122,10 @@ INSERT INTO `formato` (`cod_formato`, `nombre`, `version`, `procedimiento`, `jef
 -- Estructura de tabla para la tabla `frecuencia_formato`
 --
 
-CREATE TABLE IF NOT EXISTS `frecuencia_formato` (
+CREATE TABLE `frecuencia_formato` (
   `id` int(11) NOT NULL,
   `descripcion` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
-  `tiempo_modificacion` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
+  `tiempo_modificacion` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -91,16 +147,13 @@ INSERT INTO `frecuencia_formato` (`id`, `descripcion`, `tiempo_modificacion`) VA
 -- Estructura de tabla para la tabla `historial_usuario_formato`
 --
 
-CREATE TABLE IF NOT EXISTS `historial_usuario_formato` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `historial_usuario_formato` (
+  `id` int(11) NOT NULL,
   `id_usuario` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `id_formato` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `fecha` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `accion` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `usuario` (`id_usuario`),
-  KEY `formato` (`id_formato`) USING BTREE
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=38 ;
+  `accion` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `historial_usuario_formato`
@@ -126,16 +179,15 @@ INSERT INTO `historial_usuario_formato` (`id`, `id_usuario`, `id_formato`, `fech
 -- Estructura de tabla para la tabla `info_res-1710`
 --
 
-CREATE TABLE IF NOT EXISTS `info_res-1710` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `info_res-1710` (
+  `id` int(11) NOT NULL,
   `fecha_registro_sistema` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `fecha_formato_diligenciado` date NOT NULL,
   `usuario` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `estado` tinyint(4) NOT NULL,
   `informacion` text CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
-  `observaciones` text CHARACTER SET utf8 COLLATE utf8_spanish_ci,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+  `observaciones` text CHARACTER SET utf8 COLLATE utf8_spanish_ci
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -143,16 +195,22 @@ CREATE TABLE IF NOT EXISTS `info_res-1710` (
 -- Estructura de tabla para la tabla `info_res-1715`
 --
 
-CREATE TABLE IF NOT EXISTS `info_res-1715` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `info_res-1715` (
+  `id` int(11) NOT NULL,
   `fecha_registro_sistema` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `fecha_formato_diligenciado` date NOT NULL,
   `usuario` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `estado` tinyint(4) NOT NULL,
   `informacion` text CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
-  `observaciones` text CHARACTER SET utf8 COLLATE utf8_spanish_ci,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+  `observaciones` text CHARACTER SET utf8 COLLATE utf8_spanish_ci
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `info_res-1715`
+--
+
+INSERT INTO `info_res-1715` (`id`, `fecha_registro_sistema`, `fecha_formato_diligenciado`, `usuario`, `estado`, `informacion`, `observaciones`) VALUES
+(1, '2016-08-19 20:42:26', '2016-07-28', 'super', 0, 'fecha=2016-07-28&operador=Rolando&turno=6-2&referencia_esmalte_sin_color=Satin&cantidadtanques=1310&referencia_esmalte_a_colorear=Satin&productos_0=AL.3249&productos_1=18.28&observaciones=20064797&fecha_de_aprobacion=2016-08-19&', '');
 
 -- --------------------------------------------------------
 
@@ -160,16 +218,15 @@ CREATE TABLE IF NOT EXISTS `info_res-1715` (
 -- Estructura de tabla para la tabla `info_res-1720`
 --
 
-CREATE TABLE IF NOT EXISTS `info_res-1720` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `info_res-1720` (
+  `id` int(11) NOT NULL,
   `fecha_registro_sistema` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `fecha_formato_diligenciado` date NOT NULL,
   `usuario` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `estado` tinyint(4) NOT NULL,
   `informacion` text CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
-  `observaciones` text CHARACTER SET utf8 COLLATE utf8_spanish_ci,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
+  `observaciones` text CHARACTER SET utf8 COLLATE utf8_spanish_ci
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `info_res-1720`
@@ -186,16 +243,15 @@ INSERT INTO `info_res-1720` (`id`, `fecha_registro_sistema`, `fecha_formato_dili
 -- Estructura de tabla para la tabla `info_rho-1500`
 --
 
-CREATE TABLE IF NOT EXISTS `info_rho-1500` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `info_rho-1500` (
+  `id` int(11) NOT NULL,
   `fecha_registro_sistema` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `fecha_formato_diligenciado` date NOT NULL,
   `usuario` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `estado` tinyint(4) NOT NULL,
   `informacion` text CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
-  `observaciones` text CHARACTER SET utf8 COLLATE utf8_spanish_ci,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+  `observaciones` text CHARACTER SET utf8 COLLATE utf8_spanish_ci
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -203,16 +259,15 @@ CREATE TABLE IF NOT EXISTS `info_rho-1500` (
 -- Estructura de tabla para la tabla `info_rle-1400`
 --
 
-CREATE TABLE IF NOT EXISTS `info_rle-1400` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `info_rle-1400` (
+  `id` int(11) NOT NULL,
   `fecha_registro_sistema` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `fecha_formato_diligenciado` date NOT NULL,
   `usuario` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `estado` tinyint(4) NOT NULL,
   `informacion` text CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
-  `observaciones` text CHARACTER SET utf8 COLLATE utf8_spanish_ci,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+  `observaciones` text CHARACTER SET utf8 COLLATE utf8_spanish_ci
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -220,16 +275,15 @@ CREATE TABLE IF NOT EXISTS `info_rle-1400` (
 -- Estructura de tabla para la tabla `info_rle-1407`
 --
 
-CREATE TABLE IF NOT EXISTS `info_rle-1407` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `info_rle-1407` (
+  `id` int(11) NOT NULL,
   `fecha_registro_sistema` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `fecha_formato_diligenciado` date NOT NULL,
   `usuario` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `estado` tinyint(4) NOT NULL,
   `informacion` text CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
-  `observaciones` text CHARACTER SET utf8 COLLATE utf8_spanish_ci,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+  `observaciones` text CHARACTER SET utf8 COLLATE utf8_spanish_ci
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -237,16 +291,15 @@ CREATE TABLE IF NOT EXISTS `info_rle-1407` (
 -- Estructura de tabla para la tabla `info_rle-1411`
 --
 
-CREATE TABLE IF NOT EXISTS `info_rle-1411` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `info_rle-1411` (
+  `id` int(11) NOT NULL,
   `fecha_registro_sistema` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `fecha_formato_diligenciado` date NOT NULL,
   `usuario` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `estado` tinyint(4) NOT NULL,
   `informacion` text CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
-  `observaciones` text CHARACTER SET utf8 COLLATE utf8_spanish_ci,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+  `observaciones` text CHARACTER SET utf8 COLLATE utf8_spanish_ci
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -254,16 +307,15 @@ CREATE TABLE IF NOT EXISTS `info_rle-1411` (
 -- Estructura de tabla para la tabla `info_rmo-1100`
 --
 
-CREATE TABLE IF NOT EXISTS `info_rmo-1100` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `info_rmo-1100` (
+  `id` int(11) NOT NULL,
   `fecha_registro_sistema` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `fecha_formato_diligenciado` date NOT NULL,
   `usuario` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `estado` tinyint(4) NOT NULL,
   `informacion` text CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
-  `observaciones` text CHARACTER SET utf8 COLLATE utf8_spanish_ci,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=38 ;
+  `observaciones` text CHARACTER SET utf8 COLLATE utf8_spanish_ci
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `info_rmo-1100`
@@ -293,16 +345,15 @@ INSERT INTO `info_rmo-1100` (`id`, `fecha_registro_sistema`, `fecha_formato_dili
 -- Estructura de tabla para la tabla `info_rpp-1902`
 --
 
-CREATE TABLE IF NOT EXISTS `info_rpp-1902` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `info_rpp-1902` (
+  `id` int(11) NOT NULL,
   `fecha_registro_sistema` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `fecha_formato_diligenciado` date NOT NULL,
   `usuario` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `estado` tinyint(4) NOT NULL,
   `informacion` text CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
-  `observaciones` text CHARACTER SET utf8 COLLATE utf8_spanish_ci,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+  `observaciones` text CHARACTER SET utf8 COLLATE utf8_spanish_ci
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -310,16 +361,15 @@ CREATE TABLE IF NOT EXISTS `info_rpp-1902` (
 -- Estructura de tabla para la tabla `info_rpr-1300`
 --
 
-CREATE TABLE IF NOT EXISTS `info_rpr-1300` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `info_rpr-1300` (
+  `id` int(11) NOT NULL,
   `fecha_registro_sistema` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `fecha_formato_diligenciado` date NOT NULL,
   `usuario` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `estado` tinyint(4) NOT NULL,
   `informacion` text CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
-  `observaciones` text CHARACTER SET utf8 COLLATE utf8_spanish_ci,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+  `observaciones` text CHARACTER SET utf8 COLLATE utf8_spanish_ci
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -327,16 +377,15 @@ CREATE TABLE IF NOT EXISTS `info_rpr-1300` (
 -- Estructura de tabla para la tabla `info_test`
 --
 
-CREATE TABLE IF NOT EXISTS `info_test` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `info_test` (
+  `id` int(11) NOT NULL,
   `fecha_registro_sistema` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `fecha_formato_diligenciado` date NOT NULL,
   `usuario` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `estado` tinyint(4) NOT NULL,
   `informacion` text CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
-  `observaciones` text CHARACTER SET utf8 COLLATE utf8_spanish_ci,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=13 ;
+  `observaciones` text CHARACTER SET utf8 COLLATE utf8_spanish_ci
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `info_test`
@@ -354,30 +403,117 @@ INSERT INTO `info_test` (`id`, `fecha_registro_sistema`, `fecha_formato_diligenc
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `jefe_director`
+--
+
+CREATE TABLE `jefe_director` (
+  `id_jefe` int(11) NOT NULL,
+  `nombre_jefe` varchar(50) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `jefe_director`
+--
+
+INSERT INTO `jefe_director` (`id_jefe`, `nombre_jefe`) VALUES
+(1, 'Félix García'),
+(2, 'Víctor González'),
+(3, 'Fabián Ríos'),
+(4, 'Hellar Gutiérrez'),
+(5, 'Jaime Poveda'),
+(6, 'Duvin Blanco'),
+(7, 'Isley Espitia'),
+(8, 'Carlos Jauregui'),
+(9, 'Félix García'),
+(10, 'Víctor González'),
+(11, 'Fabián Ríos'),
+(12, 'Hellar Gutiérrez'),
+(13, 'Jaime Poveda'),
+(14, 'Duvin Blanco'),
+(15, 'Isley Espitia'),
+(16, 'Carlos Jauregui');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `modificaciones_formato`
 --
 
-CREATE TABLE IF NOT EXISTS `modificaciones_formato` (
+CREATE TABLE `modificaciones_formato` (
   `fecha_modificacion` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `id_usuario` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `id_formato` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `detalle_modificacion` text CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `version_formato` varchar(50) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
-  `html` text CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
-  PRIMARY KEY (`fecha_modificacion`,`id_usuario`,`id_formato`),
-  KEY `id_formato` (`id_formato`),
-  KEY `id_usuario` (`id_usuario`) USING BTREE
+  `html` text CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Disparadores `modificaciones_formato`
 --
-DROP TRIGGER IF EXISTS `actualizacion_formato`;
-DELIMITER //
-CREATE TRIGGER `actualizacion_formato` AFTER INSERT ON `modificaciones_formato`
- FOR EACH ROW UPDATE `formato` SET `version`=new.version_formato,`codigo_html`=new.html WHERE  `cod_formato`=new.id_formato
-//
+DELIMITER $$
+CREATE TRIGGER `actualizacion_formato` AFTER INSERT ON `modificaciones_formato` FOR EACH ROW UPDATE `formato` SET `version`=new.version_formato,`codigo_html`=new.html WHERE  `cod_formato`=new.id_formato
+$$
 DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `procedimiento`
+--
+
+CREATE TABLE `procedimiento` (
+  `id_procedimiento` int(11) NOT NULL,
+  `descripcion_procedimiento` varchar(50) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `procedimiento`
+--
+
+INSERT INTO `procedimiento` (`id_procedimiento`, `descripcion_procedimiento`) VALUES
+(1, 'Preparación pasta'),
+(2, 'Preparación de engobes, esmaltes y serigrafías'),
+(3, 'Suministro de insumos en líneas de esmaltado'),
+(4, 'Prensado y secado'),
+(5, 'Engobado y esmaltado'),
+(6, 'Decorado'),
+(7, 'Decorado rotocolor'),
+(8, 'Decoración digital'),
+(9, 'Operación máquina de cargue'),
+(10, 'Elaboración pantallas serigráficas'),
+(11, 'Preparación pasta'),
+(12, 'Preparación de engobes, esmaltes y serigrafías'),
+(13, 'Suministro de insumos en líneas de esmaltado'),
+(14, 'Prensado y secado'),
+(15, 'Engobado y esmaltado'),
+(16, 'Decorado'),
+(17, 'Decorado rotocolor'),
+(18, 'Decoración digital'),
+(19, 'Operación máquina de cargue'),
+(20, 'Elaboración pantallas serigráficas'),
+(21, 'Cargue de hornos'),
+(22, 'Cocción'),
+(23, 'Selección'),
+(24, 'Exploración y manejo de licencias mineras'),
+(25, 'Control calidad mat. primas geológicas exploración'),
+(26, 'Control calidad mat. primas geológicas explotación'),
+(27, 'Operación minera'),
+(28, 'Inspección y aprobación de producto terminado'),
+(29, 'Plan de inspección producto terminado en lab.');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tabla maestra tipo`
+--
+
+CREATE TABLE `tabla maestra tipo` (
+  `id` int(11) NOT NULL,
+  `codigo` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `descripcion` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `tipo` varchar(50) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -385,11 +521,10 @@ DELIMITER ;
 -- Estructura de tabla para la tabla `tipo_usuario`
 --
 
-CREATE TABLE IF NOT EXISTS `tipo_usuario` (
-  `id_tipo` int(1) NOT NULL AUTO_INCREMENT,
-  `descripcion_tipo` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
-  PRIMARY KEY (`id_tipo`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
+CREATE TABLE `tipo_usuario` (
+  `id_tipo` int(1) NOT NULL,
+  `descripcion_tipo` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `tipo_usuario`
@@ -407,7 +542,7 @@ INSERT INTO `tipo_usuario` (`id_tipo`, `descripcion_tipo`) VALUES
 -- Estructura de tabla para la tabla `usuario`
 --
 
-CREATE TABLE IF NOT EXISTS `usuario` (
+CREATE TABLE `usuario` (
   `codigo_usuario` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `nombre_usuario` varchar(50) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `apellido_usuario` varchar(50) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
@@ -420,10 +555,7 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `rol_usuario` int(1) NOT NULL,
   `estado_usuario` tinyint(1) NOT NULL,
   `fecha_registro` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `caducidad_usuario` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  PRIMARY KEY (`codigo_usuario`) USING BTREE,
-  UNIQUE KEY `cedula_usuario` (`cedula_usuario`),
-  KEY `rol_usuario` (`rol_usuario`)
+  `caducidad_usuario` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -450,14 +582,11 @@ INSERT INTO `usuario` (`codigo_usuario`, `nombre_usuario`, `apellido_usuario`, `
 -- Estructura de tabla para la tabla `usuario_formato`
 --
 
-CREATE TABLE IF NOT EXISTS `usuario_formato` (
+CREATE TABLE `usuario_formato` (
   `id_usuario` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `id_formato` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `fecha_accion` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `accion` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
-  PRIMARY KEY (`id_usuario`,`id_formato`),
-  KEY `id_usuario` (`id_usuario`),
-  KEY `id_formato` (`id_formato`) USING BTREE
+  `accion` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -481,14 +610,257 @@ INSERT INTO `usuario_formato` (`id_usuario`, `id_formato`, `fecha_accion`, `acci
 --
 -- Disparadores `usuario_formato`
 --
-DROP TRIGGER IF EXISTS `historial_cambios`;
-DELIMITER //
-CREATE TRIGGER `historial_cambios` AFTER UPDATE ON `usuario_formato`
- FOR EACH ROW INSERT INTO  `historial_usuario_formato` (`id_usuario`,`id_formato`,`fecha`,`accion`)
+DELIMITER $$
+CREATE TRIGGER `historial_cambios` AFTER UPDATE ON `usuario_formato` FOR EACH ROW INSERT INTO  `historial_usuario_formato` (`id_usuario`,`id_formato`,`fecha`,`accion`)
 VALUES (OLD.id_usuario, OLD.id_formato, OLD.fecha_accion, OLD.accion)
-//
+$$
 DELIMITER ;
 
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `contenido`
+--
+ALTER TABLE `contenido`
+  ADD PRIMARY KEY (`id_contenido`);
+
+--
+-- Indices de la tabla `direccion`
+--
+ALTER TABLE `direccion`
+  ADD PRIMARY KEY (`id_direccion`);
+
+--
+-- Indices de la tabla `formato`
+--
+ALTER TABLE `formato`
+  ADD PRIMARY KEY (`cod_formato`),
+  ADD KEY `frecuencia_uso` (`frecuencia_uso`);
+
+--
+-- Indices de la tabla `frecuencia_formato`
+--
+ALTER TABLE `frecuencia_formato`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `historial_usuario_formato`
+--
+ALTER TABLE `historial_usuario_formato`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `usuario` (`id_usuario`),
+  ADD KEY `formato` (`id_formato`) USING BTREE;
+
+--
+-- Indices de la tabla `info_res-1710`
+--
+ALTER TABLE `info_res-1710`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `info_res-1715`
+--
+ALTER TABLE `info_res-1715`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `info_res-1720`
+--
+ALTER TABLE `info_res-1720`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `info_rho-1500`
+--
+ALTER TABLE `info_rho-1500`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `info_rle-1400`
+--
+ALTER TABLE `info_rle-1400`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `info_rle-1407`
+--
+ALTER TABLE `info_rle-1407`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `info_rle-1411`
+--
+ALTER TABLE `info_rle-1411`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `info_rmo-1100`
+--
+ALTER TABLE `info_rmo-1100`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `info_rpp-1902`
+--
+ALTER TABLE `info_rpp-1902`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `info_rpr-1300`
+--
+ALTER TABLE `info_rpr-1300`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `info_test`
+--
+ALTER TABLE `info_test`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `jefe_director`
+--
+ALTER TABLE `jefe_director`
+  ADD PRIMARY KEY (`id_jefe`);
+
+--
+-- Indices de la tabla `modificaciones_formato`
+--
+ALTER TABLE `modificaciones_formato`
+  ADD PRIMARY KEY (`fecha_modificacion`,`id_usuario`,`id_formato`),
+  ADD KEY `id_formato` (`id_formato`),
+  ADD KEY `id_usuario` (`id_usuario`) USING BTREE;
+
+--
+-- Indices de la tabla `procedimiento`
+--
+ALTER TABLE `procedimiento`
+  ADD PRIMARY KEY (`id_procedimiento`);
+
+--
+-- Indices de la tabla `tabla maestra tipo`
+--
+ALTER TABLE `tabla maestra tipo`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `tipo_usuario`
+--
+ALTER TABLE `tipo_usuario`
+  ADD PRIMARY KEY (`id_tipo`);
+
+--
+-- Indices de la tabla `usuario`
+--
+ALTER TABLE `usuario`
+  ADD PRIMARY KEY (`codigo_usuario`) USING BTREE,
+  ADD UNIQUE KEY `cedula_usuario` (`cedula_usuario`),
+  ADD KEY `rol_usuario` (`rol_usuario`);
+
+--
+-- Indices de la tabla `usuario_formato`
+--
+ALTER TABLE `usuario_formato`
+  ADD PRIMARY KEY (`id_usuario`,`id_formato`),
+  ADD KEY `id_usuario` (`id_usuario`),
+  ADD KEY `id_formato` (`id_formato`) USING BTREE;
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `contenido`
+--
+ALTER TABLE `contenido`
+  MODIFY `id_contenido` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+--
+-- AUTO_INCREMENT de la tabla `direccion`
+--
+ALTER TABLE `direccion`
+  MODIFY `id_direccion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+--
+-- AUTO_INCREMENT de la tabla `historial_usuario_formato`
+--
+ALTER TABLE `historial_usuario_formato`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+--
+-- AUTO_INCREMENT de la tabla `info_res-1710`
+--
+ALTER TABLE `info_res-1710`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `info_res-1715`
+--
+ALTER TABLE `info_res-1715`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT de la tabla `info_res-1720`
+--
+ALTER TABLE `info_res-1720`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT de la tabla `info_rho-1500`
+--
+ALTER TABLE `info_rho-1500`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `info_rle-1400`
+--
+ALTER TABLE `info_rle-1400`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `info_rle-1407`
+--
+ALTER TABLE `info_rle-1407`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `info_rle-1411`
+--
+ALTER TABLE `info_rle-1411`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `info_rmo-1100`
+--
+ALTER TABLE `info_rmo-1100`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+--
+-- AUTO_INCREMENT de la tabla `info_rpp-1902`
+--
+ALTER TABLE `info_rpp-1902`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `info_rpr-1300`
+--
+ALTER TABLE `info_rpr-1300`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `info_test`
+--
+ALTER TABLE `info_test`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+--
+-- AUTO_INCREMENT de la tabla `jefe_director`
+--
+ALTER TABLE `jefe_director`
+  MODIFY `id_jefe` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+--
+-- AUTO_INCREMENT de la tabla `procedimiento`
+--
+ALTER TABLE `procedimiento`
+  MODIFY `id_procedimiento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+--
+-- AUTO_INCREMENT de la tabla `tabla maestra tipo`
+--
+ALTER TABLE `tabla maestra tipo`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `tipo_usuario`
+--
+ALTER TABLE `tipo_usuario`
+  MODIFY `id_tipo` int(1) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- Restricciones para tablas volcadas
 --

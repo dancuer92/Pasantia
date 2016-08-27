@@ -488,8 +488,8 @@ class Negocio {
             //Se guarda la observación de la modificación
             $observaciones.=' El registro ha sido modificado por el usuario ' . $usuario;
 
-            //Se valida si e usuario es supervisor para sobrescribir el registro y si está dentro del rango de días permitidos para su modificación
-            if ($tipo === 'supervisor' && $estado < 2) {
+            //Se valida si el usuario es supervisor para sobrescribir el registro y si está dentro del rango de días permitidos para su modificación
+            if ($tipo === 'supervisor' && $estado < 5) {
                 //Se modifica el registro
                 $flag = $this->info->modificarRegistroFormato($fechaFormato, $usuario, $formato, $info2, $observaciones);
                 //se valida que el usuario haya sido registrado
@@ -498,7 +498,8 @@ class Negocio {
                 }
             } else {
                 //Si el usuario no es supervisor, se valida si es el mismo usuario encargado del primer registro y que esté dentro del rango de días permitidos
-                if ($usuario === $user && $estado < 2) {
+//                if ($usuario === $user && $estado < 2) {
+                if ($usuario === $user && $estado < 5) {
                     //Se modifica el registro
                     $flag = $this->info->modificarRegistroFormato($fechaFormato, $usuario, $formato, $info2, $observaciones);
                     //Se valida la operación de modificación
@@ -510,7 +511,7 @@ class Negocio {
                     if ($usuario !== $user) {
                         return 'el formato no puede ser modificado.<br>No puede modificar el formato porque usted no lo ha diligenciado inicialmente';
                     }
-                    if ($estado >= 2) {
+                    if ($estado >= 5) {
                         return 'el formato no puede ser modificado.<br>El registro ya fue modificado anteriormente';
                     }
                 }

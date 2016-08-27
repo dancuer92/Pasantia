@@ -6,8 +6,11 @@
 
 
 $(document).ready(function () {
+    //Se visualiza el formato
     verFormato('analizar');
 });
+
+//Se crea un arreglo con la información
 var datos = new Array();
 function mostrarForm() {
     var fechaIni = $('#fechaInicio').val();
