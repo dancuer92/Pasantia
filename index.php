@@ -44,7 +44,7 @@ and open the template in the editor.
         <?php
         $ruta = "vista/util/images/corporativo/";
         include 'vista/index/footer.php';
-        ?>
+        ?>        
 
         <!--  Scripts-->
         <script src="vista/util/js/jquery-2.1.4.min.js"></script>
@@ -52,7 +52,7 @@ and open the template in the editor.
         <script src="vista/util/js/init.js"></script>
         <script src="vista/util/js/toastr.js"></script>
         <script type="text/javascript">
-            
+
 
             /**
              * Acción para enviar el formulario de inicio de sesión de un usuario
@@ -66,26 +66,28 @@ and open the template in the editor.
             function initUser() {
                 var nombre = $('#nombre').val();
                 var pass = $('#password').val();
+                $("#loading").show();
 
                 $.post("controlador/Sesion_controller.php", {nombre: nombre, pass: pass},
                 function (mensaje) {
                     var msj;
-                    switch(mensaje){
+                    switch (mensaje) {
                         case '-1':
-                            msj='Nombre de usuario o contraseña incorrectos';
+                            msj = 'Nombre de usuario o contraseña incorrectos';
                             break;
                         case '0':
-                            msj='Usuario inactivo en el sistema';
+                            msj = 'Usuario inactivo en el sistema';
                             break;
                         case '1':
-                            location.href="vista/index.php";
-                            msj='Inicio de sesión exitoso';
+                            location.href = "vista/index.php";
+                            msj = 'Inicio de sesión exitoso';
                             break;
                         case '2':
-                            msj='Su contraseña ha caducado';
+                            msj = 'Su contraseña ha caducado';
                             break;
                     }
                     toastr["info"](msj);
+                    $("#loading").hide();
                 });
 
 

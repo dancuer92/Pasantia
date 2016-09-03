@@ -30,7 +30,13 @@
             <a class="modal-action modal-close waves-effect waves-red btn-flat hoverable colorFlat">Cancelar
                 <i class="material-icons right">cancel</i></a>
             <!--<a class="modal-trigger" href="#modalCambioPass">Reestablecer contraseña</a>-->
-        </div>        
+        </div>  
+
+
+
+        <div id="loading" class="progress" style="display: none;">
+            <div class="indeterminate" ></div>
+        </div>
     </form>
 </div>
 

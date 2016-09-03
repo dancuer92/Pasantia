@@ -481,18 +481,19 @@ class Negocio {
             $u = explode('-', $reg);
             $estado = (int) $u[1];
             $user = $u[0];
+            $obs = $u[2];
 
             //Se valida y se comprime la nueva información
             $info2 = $this->validarInformacion($info);
 //            echo $info2;
             //Se guarda la observación de la modificación
-            $observaciones.=' El registro ha sido modificado por el usuario ' . $usuario;
+            $obs.=' El registro ha sido modificado por el usuario ' . $usuario.'. '.$observaciones;
 
             //Se valida si el usuario es supervisor para sobrescribir el registro y si está dentro del rango de días permitidos para su modificación
 //            if ($tipo === 'supervisor' && $estado < 5) { // linea hecha para que funcione con un usuario operario y un usuario supervisor. se elimina el condicional siguiente
             if ($estado < 4) {
                 //Se modifica el registro
-                $flag = $this->info->modificarRegistroFormato($fechaFormato, $usuario, $formato, $info2, $observaciones);
+                $flag = $this->info->modificarRegistroFormato($fechaFormato, $usuario, $formato, $info2, $obs);
                 return 'El registro ha sido modificado'; //se retorna el mensaje de éxito
                 
                 //se valida que el registro haya sido modificado

@@ -61,7 +61,13 @@ if ($_SESSION["tipo"] !== "supervisor" && $_SESSION["tipo"] !== "operario") {
                     var nombre = $(this).attr("name");
                     var valorNuevo = $(this).val();
                     if (valorNuevo !== valorAnterior) {
-                        var observacion = " Se ha actualizado el campo: " + nombre + ", cuyo valor anterior es: " + valorAnterior + ", y su valor actual es: " + valorNuevo;
+                        if(valorAnterior===''){
+                            valorAnterior='NULO';
+                        }
+                        if(valorNuevo===''){
+                            valorNuevo='NULO';
+                        }
+                        var observacion = " Se ha actualizado el campo: " + nombre + ", cuyo valor anterior es: " + valorAnterior + ", y su valor actual es: " + valorNuevo+". ";
                         observaciones+= observaciones + observacion;
                         sessionStorage.setItem('observaciones', observacion);
 //                        console.log(observacion);

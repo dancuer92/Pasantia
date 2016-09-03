@@ -163,7 +163,7 @@ class Informacion_dao {
         $mensaje = '';
         $formato = strtolower($formato);
 
-        $sql = "SELECT `usuario`, `estado` FROM `info_$formato` WHERE `fecha_registro_sistema`=?;";
+        $sql = "SELECT `usuario`, `estado`, `observaciones` FROM `info_$formato` WHERE `fecha_registro_sistema`=?;";
 
         if (!$sentencia = $this->mysqli->prepare($sql)) {
             $mensaje.=$this->mysqli->error;
@@ -174,9 +174,9 @@ class Informacion_dao {
         }
 
         if ($sentencia->execute()) {
-            $sentencia->bind_result($usuario,$estado);
+            $sentencia->bind_result($usuario,$estado, $observaciones);
             while ($sentencia->fetch()) {
-                $mensaje = $usuario.'-'.$estado;
+                $mensaje = $usuario.'-'.$estado.'-'.$observaciones;
             }
         }
         $sentencia->close();
