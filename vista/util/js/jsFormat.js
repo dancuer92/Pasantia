@@ -239,7 +239,9 @@ function guardarDiligenciaFormato(opcion, info) {
         var observaciones = sessionStorage.getItem('observaciones');
         console.log(observaciones);
         if (observaciones === '') {
-            observaciones = 'El registro ha sido guardado por el usuario: '+ sessionStorage.getItem('user');
+            var firstInputName=$('#visualizarFormato input:first').attr('name');
+            var firstInputVal=$('#visualizarFormato input:first').val();
+            observaciones = firstInputName+': '+firstInputVal+'. El registro ha sido guardado por el usuario: '+ sessionStorage.getItem('user');
         }
         //Si la opción es registrar
         if (opcion === 'registrar') {
