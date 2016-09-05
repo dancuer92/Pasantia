@@ -225,7 +225,7 @@ function diligenciarFormato(cod) {
  * @param {type} info
  * @returns {undefined}
  */
-function DiligenciaFormato(opcion, info) {
+function guardarDiligenciaFormato(opcion, info) {
     //Se toma el código del marcelo
     var formato = sessionStorage.getItem('formato');
     //se validan los campos que son requeridos

@@ -48,5 +48,12 @@ and open the template in the editor.
         include './user/scripts.php';
         ?>
 
+        <script>
+            $(document).ready(function () {
+//                consultarCaducidad();
+                $(".button-collapse").sideNav();
+            });
+        </script>
+
     </body> 
 </html>
