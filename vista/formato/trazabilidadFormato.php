@@ -6,6 +6,7 @@ if ($_SESSION["tipo"] !== "supervisor") {
     header("Location: ../../index.php");
     exit();
 }
+include '../../controlador/sesion/seguridadTiempo.php';
 ?>
 
 <html>

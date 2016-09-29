@@ -54,7 +54,7 @@ class Usuario_dao {
         //EJECUTAMOS LA CONSULTA
         if (!$sentencia->execute()) {
             print $this->mysqli->error;
-            die("Falló la ejecucion de la consulta");
+            die("Falló la consulta a la base de datos");
         }
         if ($sentencia->execute()) {
             $sentencia->bind_result($nombre_usuario, $apellido_usuario, $codigo_usuario, $rol_usuario, $estado_usuario, $caducidad_usuario);

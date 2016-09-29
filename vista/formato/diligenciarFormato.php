@@ -6,6 +6,7 @@ if ($_SESSION["tipo"] !== "supervisor" && $_SESSION["tipo"] !== "operario") {
     header("Location: ../../index.php");
     exit();
 }
+include '../../controlador/sesion/seguridadTiempo.php';
 ?>
 
 <html>
@@ -58,11 +59,13 @@ if ($_SESSION["tipo"] !== "supervisor" && $_SESSION["tipo"] !== "operario") {
                     </div>
                     <div class="modal-body">
                         <p>Haga clic en CANCELAR si desea realizar algún cambio.<br>
-                            Una vez hecho clic en ACEPTAR, tiene permiso para realizar un cambio antes de 24 horas.</p>
+                            Una vez hecho clic en ACEPTAR, tiene permiso para realizar modificaciones durante el turno</p>
                     </div>
                     <div class="modal-footer">
-                        <a type="button" class="btn btn-default" data-dismiss="modal">CANCELAR</a>
-                        <a type="button" class="btn btn-danger" onclick="guardarDiligenciaFormato('registrar', '');">ACEPTAR</a>
+                        <!--<a type="button" class="btn btn-default" data-dismiss="modal">CANCELAR</a>-->
+                        <button class="btn btn-default" data-dismiss="modal">CANCELAR</button>
+                        <!--<a type="button" class="btn btn-danger" onclick="guardarDiligenciaFormato('registrar', '');">ACEPTAR</a>-->
+                        <button form="visualizarFormato" class="btn btn-danger" onclick="guardarDiligenciaFormato('registrar', '');">ACEPTAR</button>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->

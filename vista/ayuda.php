@@ -6,6 +6,7 @@ if ($_SESSION["estado"] !== "activo") {
     header("Location: ../index.php");
     exit();
 }
+include '../../controlador/sesion/seguridadTiempo.php';
 ?>
 <!DOCTYPE html>
 <!--

@@ -10,47 +10,78 @@ $(document).ready(function () {
     verFormato('analizar');
 });
 
-//Se crea un arreglo con la información
+
 var datos = new Array();
+
+/**
+ * Se crea una matriz con la información traída desde la base de datos en el que las filas representan cada registro
+ * y en el que las columnas representan la fecha de registro y la información que contiene el registro.
+ * @returns {undefined}
+ */
 function mostrarForm() {
+    //Se establece un rango de fechas    
     var fechaIni = $('#fechaInicio').val();
     var fechaFin = $('#fechaFin').val();
+    //Se toma una clave, pertenece a un campo del formato
     var clave = $(this).attr('name');
+    //Formato seleccionado
     var formato = sessionStorage.getItem('formato');
+    //Condicional para validar que las fechas sean validas
     if (fechaFin < fechaIni) {
         toastr["error"]('Fecha de finalización mayor que la fecha de inicio');
     }
     else {
+        
+        //Declaración del arreglo y visualización de los campos de informacion del formato
         var d = new Array();
         $('#visualizarFormato').show();
+        //Acceso a los datos del servidor
         $.post("../../controlador/Formato_controller.php", {formato: formato, clave: clave, inicio: fechaIni, fin: fechaFin, opcion: "trazabilidadFormato"},
-        function (mensaje) {
+        function (mensaje) {            
             $('#resultado').html('');
+            
+            //Guardar en la matriz el resultado de la bd que consiste en una cadena parseada por || para separar registros
             var matriz = mensaje.split("||");
             var index;
+            //Se recorre la matriz para guardar un vector con dos campos para guardar la fecha y la información del registro respectivamente
             for (index in matriz) {
+                //Función split del registro para separarlo de la fecha
                 var arr = matriz[index].split("~");
+                //Inicialización de la cadena de información del registro
                 var i = arr[1];
+                //Se separa la información por campos de información que pertenecen al formato.
                 var info = i.split("&");
-                var index2;
+                var index2;                
+                //Inicialización del array asociativo en el que se va a guardar la información
                 var arregloInfo = new Array();
+                //Recorrer todas las claves del registro
                 for (index2 in info) {
+                    //Separar los campos de información del formato para rescatar el nombre del campo y el valor del mismo
                     var dato = info[index2].split("=");
                     var clave = dato[0];
                     var valor = dato[1];
+                    //Asignar la propiedad y el valor de la propiedad del array asociativo que en definitiva tendrá todas las claves como propiedades del array
                     arregloInfo[clave] = valor;
                 }
+                
+                //Se agrega el arreglo en el que se representa la fecha en su primera casilla y el arreglo asociativo en su segunda respectivamente
 //                                        console.log(arregloInfo);
                 d[i] = new Array(arr[0], arregloInfo);
             }
         });
+        //Se asigna la matriz temporal a la matriz global
         datos = d;
     }
 
 }
 ;
 
-
+/**
+ * 
+ * @param {type} param1
+ * @param {type} param2
+ * @param {type} param3
+ */
 $('#visualizarFormato').on('click', 'input[type="button"],select', function () {
 //                            console.log(datos);
     var input = $(this);

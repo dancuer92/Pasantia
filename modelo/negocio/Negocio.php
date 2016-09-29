@@ -35,7 +35,7 @@ class Negocio {
     public function iniciar_sesion($nombre, $password) {
         //realiza la consulta por el código y la contraseña
         $usuario = $this->usuario->iniciar_sesion($nombre, $password);
-        if($usuario->codigo_usuario==''){
+        if($usuario->codigo_usuario=='' || $usuario->codigo_usuario==null){
             return (-1);
         }
         
@@ -52,6 +52,7 @@ class Negocio {
                 $_SESSION['codigo'] = $usuario->codigo_usuario;
                 $_SESSION['estado'] = $usuario->estado_usuario;
                 $_SESSION['tipo'] = $usuario->tipo_usuario;                
+                $_SESSION['ultimoAcceso'] = $fechaSistema;                
                 return 1;
             }
             else{

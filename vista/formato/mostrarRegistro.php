@@ -7,6 +7,7 @@ if ($_SESSION["tipo"] !== "supervisor" && $_SESSION["tipo"] !== "operario") {
     header("Location: ../../index.php");
     exit();
 }
+include '../../controlador/sesion/seguridadTiempo.php';
 ?>
 <html>
     <head>        
@@ -28,8 +29,8 @@ if ($_SESSION["tipo"] !== "supervisor" && $_SESSION["tipo"] !== "operario") {
             <div class="container center">   
                 <form id="visualizarFormato" >
                 </form>
-                <button id="modificarRegistro"type="button" class="btn btn-danger btn-lg center-block" onclick="modificarDiligenciaFormato();">MODIFICAR</button>
-                <button id="guardarRegistro" type="button" class="btn btn-danger btn-lg center-block" onclick="guardarMR();">GUARDAR</button>
+                <button id="modificarRegistro" class="btn btn-danger btn-lg center-block" onclick="modificarDiligenciaFormato();">MODIFICAR</button>
+                <button id="guardarRegistro" class="btn btn-danger btn-lg center-block" onclick="guardarMR();">GUARDAR</button>
             </div>
             <div id="res1"></div>
         </main>
@@ -56,7 +57,7 @@ if ($_SESSION["tipo"] !== "supervisor" && $_SESSION["tipo"] !== "operario") {
                     console.log(valorAnterior);
                 });
 
-                $("#visualizarFormato").on('blur', 'input', function () {
+                $("#visualizarFormato").on('change', 'input', function () {
                     var observaciones=sessionStorage.getItem('observaciones');
                     var nombre = $(this).attr("name");
                     var valorNuevo = $(this).val();
@@ -70,7 +71,7 @@ if ($_SESSION["tipo"] !== "supervisor" && $_SESSION["tipo"] !== "operario") {
                         var observacion = " Se ha actualizado el campo: " + nombre + ", cuyo valor anterior es: " + valorAnterior + ", y su valor actual es: " + valorNuevo+". ";
                         observaciones+= observaciones + observacion;
                         sessionStorage.setItem('observaciones', observacion);
-//                        console.log(observacion);
+                        console.log(observacion);
                     }
                 });
 

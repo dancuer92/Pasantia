@@ -159,6 +159,26 @@ function guardarModificacionFormato() {
 }
 
 /**
+ * Se modifica un dato o una característica del formato en la BD
+ * @returns {undefined}
+ */
+function cambiarDatoFormato() {
+    //Se toman los valores del nombre del campo y el valor del campo
+    var campo = $('#listaDatos').val();
+    var valor= $('#valorNuevoCaracteristica').val();
+    console.log(campo);
+    console.log(valor);
+    //se valida que el campo no sea vacío
+    if (valor.length >0 && campo!==null) {
+        console.log('Campo: ' + valor+ "\t Valor:"+ valor);
+        toastr["info"]('Campo: ' + valor+ "\t Valor:"+ valor);
+    }
+    else {
+        toastr["info"]('No se ha diligenciado algún dato');
+    }
+}
+
+/**
  * Se redirecciona para mostrar el historial del formato
  * @param {type} cod
  * @returns {undefined}
@@ -239,9 +259,9 @@ function guardarDiligenciaFormato(opcion, info) {
         var observaciones = sessionStorage.getItem('observaciones');
         console.log(observaciones);
         if (observaciones === '') {
-            var firstInputName=$('#visualizarFormato input:first').attr('name');
-            var firstInputVal=$('#visualizarFormato input:first').val();
-            observaciones = firstInputName+': '+firstInputVal+'. El registro ha sido guardado por el usuario: '+ sessionStorage.getItem('user');
+            var firstInputName = $('#visualizarFormato input:first').attr('name');
+            var firstInputVal = $('#visualizarFormato input:first').val();
+            observaciones = firstInputName + ': ' + firstInputVal + '. El registro ha sido guardado por el usuario: ' + sessionStorage.getItem('user');
         }
         //Si la opción es registrar
         if (opcion === 'registrar') {
@@ -456,10 +476,10 @@ function cargarRegistro() {
             //Si es de tipo checkbox o una lista
             $(name).prop('checked', true);
             $(name).prop('selected', true);
-            
+
             //Si es de tipo radio
-//            var radio = 'input[value=' + div[1] + ']';
-//            $(radio).prop('checked', true);
+            var radio = 'input[value="' + div[1] + '"]';
+            $(radio).prop('checked', true);
 
         }
     });
@@ -530,11 +550,11 @@ function verDiligenciar() {
         day = "0" + day;
     //Se actualiza la fecha y hora de hoy
     var today = year + "-" + month + "-" + day;
-    var hora= hour+":"+min;
+    var hora = hour + ":" + min;
     //Se actualizan todos los input
     $('input[type="date"]').val(today);
     $('input[type="time"]').val(hora);
-    var user=sessionStorage.getItem('user');
+    var user = sessionStorage.getItem('user');
     $('#nombre').val(user);
     $('#operario').val(user);
     $('#operador').val(user);

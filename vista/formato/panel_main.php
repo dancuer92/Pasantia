@@ -5,7 +5,7 @@
             <ul id="myTabs" class="nav nav-tabs" role="tablist">
                 <li  role="presentation" class="active"><a id="pestañaElementos" href="#elementos" aria-controls="elementos" role="tab" data-toggle="tab">Elementos</a></li>
                 <li  role="presentation"><a id="pestañaPropiedades" href="#propiedades" aria-controls="propiedades" role="tab" data-toggle="tab">Propiedades</a></li>
-                <li role="presentation"><a id="pestañaFormulario" href="#formulario" aria-controls="formulario" role="tab" data-toggle="tab">Formulario</a></li>
+                <li role="presentation"><a id="pestañaFormulario" href="#formulario" aria-controls="formulario" role="tab" data-toggle="tab">Formato</a></li>
             </ul>
 
 
@@ -48,11 +48,26 @@
                     <div>
                         <label>Detalle de la modificación</label>
                         <textarea type="text" class="form-control" id="detForm" placeholder="Indique aquí la naturaleza del cambio y demas detalles de la modificación del contenido."></textarea>
+                        <br><br><br><br>
+                        <label>Datos del formato</label><br>
+                        <p>En esta sección puede cambiar las características del formato. Tener en cuenta las Mayúsculas y las tildes</p>
+                        <br><br>
+                        <select id="listaDatos" class="form-control">
+                            <option selected disabled>Seleccionar característica</option>
+                            <option value="codigo">Código</option>
+                            <option value="nombre">Nombre</option>
+                            <option value="procedimiento">Procedimiento</option>
+                            <option value="jefe">Jefe procedimiento</option>
+                            <option value="version">Versión</option>
+                        </select>
+                        <input type="text" class="form-control" id="valorNuevoCaracteristica" placeholder="Nuevo valor" />
+                        <br>
+                        <button id="cambiarDato" class="btn btn-default  btn-block" onclick="cambiarDatoFormato();">Cambiar dato</button>
                     </div>                    
-                </div>
+                </div>                
             </div>
 
-        </div>               
+        </div>        
     </div>
     <div class="col-lg-8 col-sm-12 col-md-12 divMayor" id="formBuilder">
         <table id="encabezado">
@@ -64,5 +79,5 @@
                 </tr>
             </thead>
         </table>
-    </div>    
+    </div>      
 </div>
