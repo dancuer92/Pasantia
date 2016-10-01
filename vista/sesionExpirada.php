@@ -24,7 +24,9 @@
                             <h1 class="center"> Sesión Expirada</h1>
                             <h5 class="black-text center">La sesión de usuario ha expirado, por favor vuelva a ingresar</h5>
 
-                            <p class="grey-text center">Paila</p>
+                            <p class="grey-text center"><a href="../index.php" class="brand-logo waves-effect waves-light">VOLVER</a></p>
+                            
+
                         </div>
                     </div>            
                 </div>

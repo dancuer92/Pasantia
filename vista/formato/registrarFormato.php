@@ -6,12 +6,12 @@
                 <div class="row">
                     <div class="input-field col s12 m12 l6">
                         <i class="material-icons prefix">info_outline</i>
-                        <input id="codigoFormato" name="codigoFormato" type="text" maxlength="50" length="50" class="validate" pattern="[/-\w]{1,50}" title="Digite un código válido"required>
+                        <input id="codigoFormato" name="codigoFormato" type="text" maxlength="50" length="50" class="validate" pattern="[0-9A-ZÑ\-]{1,50}" title="Digite un código válido"required>
                         <label for="codigoFormato">Código del formato</label>                           
                     </div>
                     <div class="input-field col s12 m12 l6">
                         <i class="material-icons prefix">info_outline</i>
-                        <input id="nombreFormato" name="nombreFormato" type="text" maxlength="50" length="50" class="validate" pattern="[a-zA-zñÑáÁéÉíÍóÓúÚüÜ \s]{1,50}" title="Digite sólo letras" required>
+                        <input id="nombreFormato" name="nombreFormato" type="text" maxlength="50" length="50" class="validate" pattern="[a-zA-ZñÑáÁéÉíÍóÓúÚüÜ \s]{1,50}" title="Digite sólo letras" required>
                         <label for="nombreFormato">Nombre del formato</label>                           
                     </div>
                     <div class="input-field col s12 m12 l6">

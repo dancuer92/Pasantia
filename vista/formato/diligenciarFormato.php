@@ -65,7 +65,8 @@ include '../../controlador/sesion/seguridadTiempo.php';
                         <!--<a type="button" class="btn btn-default" data-dismiss="modal">CANCELAR</a>-->
                         <button class="btn btn-default" data-dismiss="modal">CANCELAR</button>
                         <!--<a type="button" class="btn btn-danger" onclick="guardarDiligenciaFormato('registrar', '');">ACEPTAR</a>-->
-                        <button form="visualizarFormato" class="btn btn-danger" onclick="guardarDiligenciaFormato('registrar', '');">ACEPTAR</button>
+                        <!--<button form="visualizarFormato" class="btn btn-danger" onclick="guardarDiligenciaFormato('registrar', '');">ACEPTAR</button>-->
+                        <button class="btn btn-danger" onclick="guardarDiligenciaFormato('registrar', '');">ACEPTAR</button>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->

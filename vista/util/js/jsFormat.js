@@ -296,7 +296,7 @@ function opcRegistrar(formato, observaciones) {
     function (mensaje) {
         //Se guarda el mensaje y se redirecciona a la tabla de registros
         sessionStorage.setItem('mensaje', mensaje);
-        location.href = ('mostrarRegistrosFormato.php');
+        window.location.href = ('mostrarRegistrosFormato.php');
     });
 }
 

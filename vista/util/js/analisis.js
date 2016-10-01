@@ -31,15 +31,15 @@ function mostrarForm() {
         toastr["error"]('Fecha de finalización mayor que la fecha de inicio');
     }
     else {
-        
+
         //Declaración del arreglo y visualización de los campos de informacion del formato
         var d = new Array();
         $('#visualizarFormato').show();
         //Acceso a los datos del servidor
         $.post("../../controlador/Formato_controller.php", {formato: formato, clave: clave, inicio: fechaIni, fin: fechaFin, opcion: "trazabilidadFormato"},
-        function (mensaje) {            
+        function (mensaje) {
             $('#resultado').html('');
-            
+
             //Guardar en la matriz el resultado de la bd que consiste en una cadena parseada por || para separar registros
             var matriz = mensaje.split("||");
             var index;
@@ -51,7 +51,7 @@ function mostrarForm() {
                 var i = arr[1];
                 //Se separa la información por campos de información que pertenecen al formato.
                 var info = i.split("&");
-                var index2;                
+                var index2;
                 //Inicialización del array asociativo en el que se va a guardar la información
                 var arregloInfo = new Array();
                 //Recorrer todas las claves del registro
@@ -63,7 +63,7 @@ function mostrarForm() {
                     //Asignar la propiedad y el valor de la propiedad del array asociativo que en definitiva tendrá todas las claves como propiedades del array
                     arregloInfo[clave] = valor;
                 }
-                
+
                 //Se agrega el arreglo en el que se representa la fecha en su primera casilla y el arreglo asociativo en su segunda respectivamente
 //                                        console.log(arregloInfo);
                 d[i] = new Array(arr[0], arregloInfo);
@@ -172,11 +172,12 @@ $('#visualizarFormato').on('click', 'table', function () {
 
 
     pintarGrafica();
+    acomodarTabla();
 })
 
 function pintarGrafica() {
     $('#res1 table').each(function (i) {
-        var id="tabla_"+i;
+        var id = "tabla_" + i;
         $('#chart-container').append('<div id="tabla_' + i + '"></div>');
         $(this).convertToFusionCharts({
 //            type: "mscolumn2d",
@@ -196,6 +197,32 @@ function pintarGrafica() {
                 theme: "fint"
             }
         });
+    });
+}
+
+function acomodarTabla() {
+    $('#fila0').DataTable({
+        responsive: true,
+        order: [[0, "desc"]],
+        language: {
+            processing: "Procesando",
+            lengthMenu: "Mostrar _MENU_ registros por página",
+            zeroRecords: "Registros no encontrados",
+            info: "Mostrar página _PAGE_ de _PAGES_",
+            infoEmpty: "No hay registros disponibles",
+            infoFiltered: "(Búsqueda realizada en _MAX_ registros)",
+            search: "Buscar",
+            paginate: {
+                first: "Primero",
+                last: "Último",
+                next: "Siguiente",
+                previous: "Anterior"
+            },
+            oAria: {
+                sortAscending: ": Activar para ordenar la columna de manera ascendente",
+                sortDescending: ": Activar para ordenar la columna de manera descendente"
+            }
+        }
     });
 }
 

@@ -15,7 +15,8 @@ include '../../controlador/sesion/seguridadTiempo.php';
 
         <?php
         include 'head.php';
-        ?>        
+        ?>       
+        <link rel="stylesheet" href="../util/css/datatables.css" type="text/css">
     </head>
     <body>
         <!-- Encabezado-->
@@ -82,5 +83,6 @@ include '../../controlador/sesion/seguridadTiempo.php';
         <script type="text/javascript" src="../util/js/fusioncharts.js"></script>
         <script type="text/javascript" src="../util/js/fusioncharts-jquery-plugin.js"></script>
         <script type="text/javascript" src="../util/js/analisis.js"></script>
+        <script type="text/javascript" src="../util/js/datatables.js"></script>
     </body>
 </html>
