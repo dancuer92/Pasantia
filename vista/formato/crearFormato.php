@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <?php
 //echo $_SESSION["tipo"];
 //Validamos si existe realmente una sesión activa o no 

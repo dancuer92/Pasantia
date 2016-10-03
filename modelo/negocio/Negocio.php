@@ -35,10 +35,10 @@ class Negocio {
     public function iniciar_sesion($nombre, $password) {
         //realiza la consulta por el código y la contraseña
         $usuario = $this->usuario->iniciar_sesion($nombre, $password);
-        if($usuario->codigo_usuario=='' || $usuario->codigo_usuario==null){
+        if ($usuario->codigo_usuario == '' || $usuario->codigo_usuario == null) {
             return (-1);
         }
-        
+
         //Validación usuario activo
         else if ($usuario->estado_usuario == 'activo') {
             //Zona horaria y fecha actual
@@ -51,11 +51,10 @@ class Negocio {
                 $_SESSION['nombre'] = $usuario->nombre_usuario;
                 $_SESSION['codigo'] = $usuario->codigo_usuario;
                 $_SESSION['estado'] = $usuario->estado_usuario;
-                $_SESSION['tipo'] = $usuario->tipo_usuario;                
-                $_SESSION['ultimoAcceso'] = $fechaSistema;                
+                $_SESSION['tipo'] = $usuario->tipo_usuario;
+                $_SESSION['ultimoAcceso'] = $fechaSistema;
                 return 1;
-            }
-            else{
+            } else {
                 return 2;
             }
         } else {
@@ -81,11 +80,11 @@ class Negocio {
      */
     public function registrar_usuario($codigo, $nombre, $apellido, $cedula, $password, $correo, $cargo, $departamento, $telefono, $rol_usuario, $estado) {
         //Zona horaria y fecha actual
-            date_default_timezone_set('America/Bogota');
-            $fechaSistema = strtotime(date('Y/m/d H:i:s', time()));
-            $fechaCaducidad = date('Y-m-d H:i:s',strtotime('+3 months', $fechaSistema));
+        date_default_timezone_set('America/Bogota');
+        $fechaSistema = strtotime(date('Y/m/d H:i:s', time()));
+        $fechaCaducidad = date('Y-m-d H:i:s', strtotime('+3 months', $fechaSistema));
         //Método para realizar el registro de un usuario en la clase que conecta a la BD
-        $usuario = $this->usuario->registrar($codigo, $nombre, $apellido, $cedula, $password, $correo, $cargo, $departamento, $telefono, $rol_usuario, $estado,$fechaCaducidad);
+        $usuario = $this->usuario->registrar($codigo, $nombre, $apellido, $cedula, $password, $correo, $cargo, $departamento, $telefono, $rol_usuario, $estado, $fechaCaducidad);
         //Se valida el resultado de la operación y se retorna el mensaje de respuesta.
         if (!is_null($usuario)) {
             return 'Usuario registrado con éxito';
@@ -488,7 +487,7 @@ class Negocio {
             $info2 = $this->validarInformacion($info);
 //            echo $info2;
             //Se guarda la observación de la modificación
-            $obs.=' El registro ha sido modificado por el usuario ' . $usuario.'. '.$observaciones;
+            $obs.=' El registro ha sido modificado por el usuario ' . $usuario . '. ' . $observaciones;
 
             //Se valida si el usuario es supervisor para sobrescribir el registro y si está dentro del rango de días permitidos para su modificación
 //            if ($tipo === 'supervisor' && $estado < 5) { // linea hecha para que funcione con un usuario operario y un usuario supervisor. se elimina el condicional siguiente
@@ -496,16 +495,15 @@ class Negocio {
                 //Se modifica el registro
                 $flag = $this->info->modificarRegistroFormato($fechaFormato, $usuario, $formato, $info2, $obs);
                 return 'El registro ha sido modificado'; //se retorna el mensaje de éxito
-                
                 //se valida que el registro haya sido modificado
 //                if ($flag > 0) {
 //                    return 'El registro ha sido modificado';
 //                }
             } else {
                 return 'el formato no puede ser modificado.<br>El registro ya fue modificado anteriormente';
-                
-                
-                
+
+
+
 //                //Si el usuario no es supervisor, se valida si es el mismo usuario encargado del primer registro y que esté dentro del rango de días permitidos
 ////                if ($usuario === $user && $estado < 2) { // linea hecha para que funcione con un usuario operario y un usuario supervisor
 //                if ($usuario === $user && $estado < 5) {
@@ -550,6 +548,21 @@ class Negocio {
         } else {
             return $informacion;
         }
+    }
+
+    public function visualizarRegistro($formato, $fecha, $tipo, $codigo) {
+        $html = $this->visualizarFormato($formato, $tipo, $codigo);
+        $datos = $this->verDatos($formato, $fecha);
+        //Se retorna un registro o un mensaje sin el registro encontrado.
+        if (count($datos) == 0) {
+            $info = '<strong> No existe el registro con la fecha ' . $fecha . ' </Strong>';
+        } else {
+            foreach ($datos as $info2) {
+                echo $info2;
+            }
+        }
+        $mensaje=$info2.'###'.$html;
+        return ($mensaje);
     }
 
 }

@@ -165,13 +165,13 @@ function guardarModificacionFormato() {
 function cambiarDatoFormato() {
     //Se toman los valores del nombre del campo y el valor del campo
     var campo = $('#listaDatos').val();
-    var valor= $('#valorNuevoCaracteristica').val();
+    var valor = $('#valorNuevoCaracteristica').val();
     console.log(campo);
     console.log(valor);
     //se valida que el campo no sea vacío
-    if (valor.length >0 && campo!==null) {
-        console.log('Campo: ' + valor+ "\t Valor:"+ valor);
-        toastr["info"]('Campo: ' + valor+ "\t Valor:"+ valor);
+    if (valor.length > 0 && campo !== null) {
+        console.log('Campo: ' + valor + "\t Valor:" + valor);
+        toastr["info"]('Campo: ' + valor + "\t Valor:" + valor);
     }
     else {
         toastr["info"]('No se ha diligenciado algún dato');
@@ -436,31 +436,30 @@ function verDatos(fecha) {
     location.href = ('mostrarRegistro.php');
 }
 
-/**
- * Carga un registro de un formato
- * @returns {undefined}
- */
-function cargarRegistro() {
+
+function cargarRegistro2() {
+//    console.log('metodo cargar registro');
     //Se toma el código del formato y la fecha del registro
     var formato = sessionStorage.getItem('formato');
     var fecha = sessionStorage.getItem('fecha');
-//    console.log(formato, fecha);
 
     //Se visualiza la plantilla del formato 
-    $.post("../../controlador/Formato_controller.php", {formato: formato, opcion: "visualizarFormato"},
-    function (mensaje) {
+    $.post("../../controlador/Formato_controller.php", {formato: formato, fecha: fecha, opcion: "visualizarRegistro"},
+    function (mensaje) { 
+//        console.log('metodo BD');
+        var arr = mensaje.split('###');
+        var html = arr[1];
+        var datos = arr[0];
+//        console.log('pintar el formato');
+
         //Se inactivan algunos campos
-        $('#visualizarFormato').prepend(mensaje);
+        $('#visualizarFormato').prepend(html);
         $('div').css('border-style', 'none');
         $('select').attr('disabled', true);
-    });
-
-    //Se cargan los datos en la plantilla del formato mediante AJAX
-    $.post("../../controlador/Formato_controller.php", {formato: formato, fecha: fecha, opcion: "verDatos"},
-    function (mensaje) {
-//        console.log(mensaje);
+        
+//        console.log('pintar los datos');
         //Se particiona la cadena devuelta por la consulta a la base de datos por el símbolo &
-        var arreglo = mensaje.split('&');
+        var arreglo = datos.split('&');
         //Se recorre ese arreglo
         for (i = 0; i < arreglo.length - 1; i++) {
             //Para cada posición se particiona por el símbolo =
@@ -482,8 +481,62 @@ function cargarRegistro() {
             $(radio).prop('checked', true);
 
         }
+//        console.log('finalización del método');
     });
+
+
+
 }
+
+///**
+// * Carga un registro de un formato Método que presenta error en PC de pasta.
+// * Doble consulta a la BD desde la vista
+// * @returns {undefined}
+// */
+//function cargarRegistro() {
+//    //Se toma el código del formato y la fecha del registro
+//    var formato = sessionStorage.getItem('formato');
+//    var fecha = sessionStorage.getItem('fecha');
+////    console.log(formato, fecha);
+//
+//    //Se visualiza la plantilla del formato 
+//    $.post("../../controlador/Formato_controller.php", {formato: formato, opcion: "visualizarFormato"},
+//    function (mensaje) {
+//        //Se inactivan algunos campos
+//        $('#visualizarFormato').prepend(mensaje);
+//        $('div').css('border-style', 'none');
+//        $('select').attr('disabled', true);
+//    });
+//
+//    //Se cargan los datos en la plantilla del formato mediante AJAX
+//    $.post("../../controlador/Formato_controller.php", {formato: formato, fecha: fecha, opcion: "verDatos"},
+//    function (mensaje) {
+////        console.log(mensaje);
+//        //Se particiona la cadena devuelta por la consulta a la base de datos por el símbolo &
+//        var arreglo = mensaje.split('&');
+//        //Se recorre ese arreglo
+//        for (i = 0; i < arreglo.length - 1; i++) {
+//            //Para cada posición se particiona por el símbolo =
+//            var div = arreglo[i].split('=');
+//            //La clave es la primera posición de ese arreglo y el valor es la segunda
+//            var clave = '#' + div[0];
+//            var valor = div[1];
+//
+//            //Se agrega el valor al input que tenga por nombre la clave
+//            var name = 'input[value="' + div[1] + '"]';
+//            $(clave).val(valor);
+//
+//            //Si es de tipo checkbox o una lista
+//            $(name).prop('checked', true);
+//            $(name).prop('selected', true);
+//
+//            //Si es de tipo radio
+//            var radio = 'input[value="' + div[1] + '"]';
+//            $(radio).prop('checked', true);
+//
+//        }
+//    });
+//}
 
 /**
  * Se redirecciona para visualizar el formato
@@ -693,3 +746,19 @@ function verVersionFormato() {
         $('select').attr('disabled', true);
     });
 }
+
+$('#formRegFormat').submit(function (event) {
+    console.log('entro');
+    $('select').each(function () {
+        console.log($(this).attr('name'));
+        console.log($(this).val());
+        if ($(this).val() === "seleccione") {
+            event.preventDefault();
+            var msj = "Favor seleccionar una opción de " + $(this).attr('name');
+            toastr["error"](msj);
+            $(this).focus();
+            return false;
+        }
+    });
+
+});

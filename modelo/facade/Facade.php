@@ -113,5 +113,10 @@ class Facade {
         $msj=$this->negocio->trazabilidadFormato($formato, $clave, $inicio, $fin);
         return $msj;
     }
+    
+    public function visualizarRegistro($formato, $fecha, $tipo, $codigo){
+        $msj=  $this->negocio->visualizarRegistro($formato, $fecha, $tipo, $codigo);
+        return $msj;
+    }
 
 }

@@ -105,6 +105,13 @@ switch ($option) {
         $fin = $_POST['fin'];
         $formato_controller->trazabilidadFormato($formato, $clave, $inicio, $fin);
         break;
+    case 'visualizarRegistro':
+        $formato = $_POST['formato'];
+        $fecha = $_POST['fecha'];
+        $tipo = $_SESSION['tipo'];
+        $codigo = $_SESSION['codigo'];
+        $formato_controller->visualizarRegistro($formato, $fecha, $tipo, $codigo);
+        break;
 }
 
 /**
@@ -295,12 +302,12 @@ class Formato_controller {
         $mensaje = '';
         //Retorna el listado de los formatos en formato JSON
         $historial = $this->facade->historialFormato($formato);
-        
+
         //Si el archivo no tiene elementos el sistema lanza su respuesta
         if (count($historial) == 0) {
             $mensaje = '<strong> El formato no tiene historial de modificaciones </Strong>';
         } else {
-            
+
             //Se recorre cada elemento y se convierte a código html
             foreach ($historial as $historia) {
                 $array = json_decode($historia, true);
@@ -471,6 +478,11 @@ class Formato_controller {
         //Carga los datos de un formato según un rango de fechas.
         $arreglo = $this->facade->trazabilidadFormato($formato, $clave, $inicio, $fin);
         echo $arreglo;
+    }
+
+    public function visualizarRegistro($formato, $fecha, $tipo, $codigo) {
+        $mensaje = $this->facade->visualizarRegistro($formato, $fecha, $tipo, $codigo);
+        echo $mensaje;
     }
 
 }

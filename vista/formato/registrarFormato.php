@@ -17,7 +17,9 @@
                     <div class="input-field col s12 m12 l6">
 <!--                        <i class="material-icons prefix">content_paste</i>
                         <input id="procedimiento" name="procedimiento" type="text" maxlength="50" length="50" class="validate" pattern="[a-zA-ZñÑáÁéÉíÍóÓúÚüÜ \s]{1,50}" title="Digite sólo letras" required>-->
-                        <select id="procedimiento" name="procedimiento" class="validate" required >                        
+                        <select id="procedimiento" name="procedimiento" class="validate" required >  
+                            <!--<option value="" disabled selected>Seleccione procedimiento</option>-->
+                            <option value="seleccione">Seleccione procedimiento</option>
                             <option value="Preparación pasta" >Preparación pasta</option>
                             <option value="Preparación esmalte">Preparación esmalte</option>                        
                             <option value="Líneas de ensamble">Líneas de ensamble</option>                        
@@ -31,7 +33,9 @@
                     <div class="input-field col s12 m12 l6">
 <!--                        <i class="material-icons prefix">supervisor_account</i>
                         <input id="directorProcedimiento" name="directorProcedimiento" type="text" maxlength="50" length="50" class="validate" pattern="[a-zA-ZñÑáÁéÉíÍóÓúÚüÜ \s]{1,50}" title="Digite sólo letras" required>-->
-                        <select id="directorProcedimiento" name="directorProcedimiento" class="validate" required >                        
+                        <select id="directorProcedimiento" name="directorProcedimiento" class="validate" required >     
+                            <!--<option value="" disabled selected>Seleccione director</option>-->
+                            <option value="seleccione">Seleccione director</option>
                             <option value="Félix García" >Félix García</option>
                             <option value="Fabián Ríos" >Fabián Ríos</option>
                             <option value="Víctor González" >Víctor González</option>
@@ -46,7 +50,9 @@
                     <div class="input-field col s12 m12 l6">
 <!--                        <i class="material-icons prefix">list</i>
                         <input id="tipoFormato" name="tipoFormato" type="text" maxlength="50" length="50" class="validate" pattern="[a-zA-zñÑáÁéÉíÍóÓúÚüÜ \s]{1,50}" title="Digite sólo letras" required>-->
-                        <select id="tipoFormato" name="tipoFormato" class="validate" required >                        
+                        <select id="tipoFormato" name="tipoFormato" class="validate" required >
+                            <!--<option value="" disabled selected>Seleccione tipo</option>-->
+                            <option value="seleccione">Seleccione tipo</option>
                             <option value="Campos de entrada" >Campos de entrada</option>
                             <option value="Listas desplegables">Listas desplegables</option>                        
                             <option value="Casillas de opciones">Casillas de opciones</option>                        
@@ -60,7 +66,8 @@
                     </div>  
                     <div class="input-field col s12 m12 l6">   
                         <select id="frecuenciaFormato" name="frecuenciaFormato" class="validate" required >
-                            <option value="" disabled selected>Frecuencia del formato</option>
+                            <!--<option value="" disabled selected>Frecuencia del formato</option>-->
+                            <option value="seleccione">Frecuencia del formato</option>
                             <option value="1">Hora</option>
                             <option value="2">Turno operativo</option>                        
                             <option value="3">Turno administración</option>                        
