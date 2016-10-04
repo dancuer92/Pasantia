@@ -500,6 +500,14 @@ function cargarOpcionesCelda() {
                         <button class="btn btn-default" onclick="cambiarALabel();" style="width:100%">Cambiar a texto</button>\n\
                         <input id="nombreEtiquetaCelda" type="text" class="form-control" placeholder="Nombre celda" onkeyup="cambiarNombreCelda();" />\n\
                     </div>\n\
+                    <p>Por favor hacer clic en el botón para cambiar las entradas de una columna</p><br>\n\
+                    <div class="col-sm-6">\n\
+                        <button class="btn btn-default" onclick="cambiarAInputColumna(\'text\');" style="width:100%">Columna de texto</button>\n\
+                    </div>\n\
+                    <div class="col-sm-6">\n\
+                        <button class="btn btn-default" onclick="cambiarAInputColumna(\'number\');" style="width:100%">Columna numérica</button>\n\
+                        Rango de la columna<input id="rangoCol" type="text" class="form-control" placeholder="mínimo-máximo" onchange="cambiarRangoCol();"/>\n\
+                    </div>\n\
                     <p>Por favor hacer clic en el botón para cambiar el campo a una entrada de texto o números</p><br>\n\
                     <div class="col-sm-6">\n\
                         <button class="btn btn-default" onclick="cambiarAInput(\'text\');" style="width:100%">Entrada de texto</button>\n\
@@ -559,16 +567,94 @@ function cambiarAInput(tipo) {
     var input = '<input id="' + titulo + '_n" name="' + titulo + '_n" type="' + tipo + '" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ \s]{1,30}" title="Digite solo carácteres alfanuméricos" disabled></td>';
     celda.append(input);
     if (tipo === 'number') {
-        $(celda).children("input").removeAttr("length");
+        $(celda).children("input").attr("length", "10");
         $(celda).children("input").removeAttr("pattern");
-        $(celda).children("input").removeAttr("title");
-        
-        
+        $(celda).children("input").attr("title", "Digite solo números");
+        $(celda).children("input").attr("min", "0");
+        $(celda).children("input").attr("max", "");
+        $(celda).children("input").attr("step", "any");
+
+
 //    if (tipo === 'text') {
 //        $(celda).children("input").attr("length", "30");
 //        $(celda).children("input").attr("pattern", "[a-zA-ZñÑáÁéÉíÍóÓúÚüÜ\s]{1,30}");
 //        $(celda).children("input").attr("title", "Digite sólo letras");
     }
+    //Se renombran los input de la tabla.
+    cambiarNombreCeldas(titulo);
+    cambiarNombreSelect('#' + titulo + ' select', titulo);
+}
+
+/**
+ * Se cambia el contenido de la columna en general según sea su tipo (texto o números)
+ * @param {type} tipo, es el tipo de entrada de texto ya sea alfanumérica o numérica
+ * @returns {undefined}
+ */
+function cambiarAInputColumna(tipo) {
+    //Se toma la columna de la celda en la que se trabaja
+    var col = $('.hover');
+    //se toma el indice de la celda seleccionada
+    var index = col.index();
+    //se busca el nombre de la tabla
+    var titulo = col.parents('table').attr('id');
+    //Se agrega el elemento correspondiente a un input
+    var input = '<input id="' + titulo + '_n" name="' + titulo + '_n" type="' + tipo + '" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ \s]{1,30}" title="Digite solo carácteres alfanuméricos" disabled></td>';
+
+    $('#' + titulo + ' tr').each(function (i) {
+        if (i > 0) {
+            var fila = $(this);
+            var celda = fila.children('td:eq(' + index + ')');
+            celda.html(input);
+            if (tipo === 'number') {
+                $(celda).children("input").attr("length", "10");
+                $(celda).children("input").removeAttr("pattern");
+                $(celda).children("input").attr("title", "Digite solo números");
+                $(celda).children("input").attr("min", "0");
+                $(celda).children("input").attr("max", "");
+                $(celda).children("input").attr("step", "any");
+            }
+        }
+    });
+    //Se renombran los input de la tabla.
+    cambiarNombreCeldas(titulo);
+    cambiarNombreSelect('#' + titulo + ' select', titulo);
+
+}
+
+function cambiarRangoCol() {
+    //Se toma los valores del rango
+    var rango = $('#rangoCol').val();
+    //Se parsea para obtener los valores maximos y minimos
+    var rangos = rango.split('-');
+    var min = '';
+    var max = '';
+    //se confirma si se tiene rango maximo
+    if (rangos.length > 1) {
+        max = rangos[1];
+    }
+    min = rangos[0];
+
+    //se toma la columna de la celda seleccionada
+    var col = $('.hover');
+    //se busca el nombre de la tabla
+    var titulo = col.parents('table').attr('id');
+    //se toma el indice de la celda
+    var index = col.index();
+    //Se recorren todas las filas
+    $('#' + titulo + ' tr').each(function (i) {
+        //Se valida que no sea la primera fila
+        if (i > 0) {
+            var fila = $(this);
+            var celda = fila.children('td:eq(' + index + ')');
+            if (celda.children("input").attr('type') === 'number') {
+                console.log(min, max);
+                celda.children("input").attr("min", min);
+                celda.children("input").attr("max", max);
+                console.log(celda.children("input").attr("min"));
+                console.log(celda.children("input").attr("max"));
+            }
+        }
+    });
     //Se renombran los input de la tabla.
     cambiarNombreCeldas(titulo);
     cambiarNombreSelect('#' + titulo + ' select', titulo);
@@ -657,18 +743,46 @@ function cambiarNombreSelect(tabla, titulo) {
  * @param {type} titulo
  * @returns {undefined}
  */
-function cambiarNombreCeldas(titulo) {
+function cambiarNombreCeldas(titulo_tabla) {
+    //Se crea un arreglo que almacena los nombres de las columnas
+    var tituloCol = new Array();
+
+
     //Se toma el nombre de la tabla
-    var tabla = '#' + titulo + ' input';
-    //Se recorren todos los input de la tabla
+    var tabla = '#' + titulo_tabla + ' thead tr td';
+    //Se recorren la fila del encabezado de la tabla por columnas
     $(tabla).each(function (i) {
-        //Se toma el input actual
-        var input = $(this);
-        //Se actualiza el nombre del input con el nombre de la tabla mas el identificador de la celda
-        var nombre = titulo + "_" + i;
-        $(input).attr('id', nombre);
-        $(input).attr('name', nombre);
+        //se toma la columna en a que está
+        var col = $(this);
+        //Se obtiene el texto de la columna que será el id y el name de las inferiores
+        var titulo_col = col.children('p').text();
+        //Se guarda el titulo en el arreglo
+        tituloCol[i] = titulo_col;
     });
+
+    //Se recorren todas las celdas
+    $('#' + titulo_tabla + ' tbody tr td').each(function (i) {
+        //Se toma la celda actual
+        var celda = $(this);
+        //Se saca el indice de la celda actual (orden de derecha a izquierda empezando por cero
+        var index = celda.index();
+        //se toma el indice de la fila
+        var fila = celda.parents('tr').index();
+        //se toma el titulo (corresponde al encabezado de la fila mas el numero de fila
+        var titulo = (tituloCol[index] + '_' + fila);
+        //Se cambian los atributos id y name del input
+        celda.children('input').attr('name', titulo);
+        celda.children('input').attr('id', titulo);
+    });
+
+
+//    //Esta seccion es para dejar los id y name de los input de la tabla con el nombre de la tabla   
+//    //Se toma el input actual
+//    var input = $(this);
+//    //Se actualiza el nombre del input con el nombre de la tabla mas el identificador de la celda
+//    var nombre = titulo + "_" + i;
+//    $(input).attr('id', nombre);
+//    $(input).attr('name', nombre);
 }
 
 /**
@@ -729,6 +843,8 @@ function cambiarOpciones() {
     var cadena = $('#opcionesLista').val();
     var opciones = cadena.split(",");
     var opc;
+    $('.hover').children('select').html('');
+    $('.hover').children('select').append('<option value=""></option>');
     for (opc in opciones) {
         var opcion = '<option value="' + opciones[opc] + '">' + opciones[opc] + '</option>';
         $('.hover').children('select').append(opcion);
@@ -741,10 +857,10 @@ function cambiarOpciones() {
  */
 function cambiarOpcionesSplit(tipo) {
     var cadena = $('#opcionesLista2').val();
-    cadena= cadena.replace(/,/g, "|");
-    cadena= cadena.replace(/,,/g, "|");
-    cadena= cadena.replace(/, ,/g, "|");
-    cadena= cadena.replace(/,$/, "");
+    cadena = cadena.replace(/,/g, "|");
+    cadena = cadena.replace(/,,/g, "|");
+    cadena = cadena.replace(/, ,/g, "|");
+    cadena = cadena.replace(/,$/, "");
     console.log(cadena);
     var opciones = cadena.split("|");
     var opc;
@@ -760,21 +876,21 @@ function cambiarOpcionesSplit(tipo) {
     tipo = div.attr('type');
     var name = div.attr('name');
     if (tipo === 'radio') {
-        var opcion='';
+        var opcion = '';
         var i = div.length;
         for (opc in opciones) {
-            opcion += '<input type="radio" id="' + name + '-' + i + '"  name="' + name + '" value="'+opciones[opc]+'" disabled/><p>'+opciones[opc]+'</p>';
+            opcion += '<input type="radio" id="' + name + '-' + i + '"  name="' + name + '" value="' + opciones[opc] + '" disabled/><p>' + opciones[opc] + '</p>';
             i++;
         }
         $('.isSelected').append(opcion);
         $('.isSelected').click();
     }
     else if (tipo === 'checkbox') {
-        var opcion='';
+        var opcion = '';
         var i = div.length;
-        var id=name.split('-');
+        var id = name.split('-');
         for (opc in opciones) {
-            opcion += '<input id="' + id[0] + '-' + i + '" type="checkbox" name="' + id[0] + '-' + i + '" value="'+opciones[opc]+'" disabled/><p>'+opciones[opc]+'</p>';
+            opcion += '<input id="' + id[0] + '-' + i + '" type="checkbox" name="' + id[0] + '-' + i + '" value="' + opciones[opc] + '" disabled/><p>' + opciones[opc] + '</p>';
             i++;
         }
         $('.isSelected').append(opcion);
@@ -923,7 +1039,7 @@ function agregarColumna() {
         }
         //Se adiciona una celda que pertenezca al cuerpo de la tabla.
         else {
-            $(this).append('<td><input id="' + nomTabla + '_' + (i - 1) + '_' + c +  '" name="' + nomTabla + '_' + (i - 1) + '_' + c + ' "type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ \s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled></td>');
+            $(this).append('<td><input id="' + nomTabla + '_' + (i - 1) + '_' + c + '" name="' + nomTabla + '_' + (i - 1) + '_' + c + ' "type="text" length="30" pattern="[0-9a-zA-ZñÑáÁéÉíÍóÓúÚüÜ.,/ \s]{1,30}" title="Digite sólo carácteres alfanuméricos" disabled></td>');
         }
     });
     cambiarNombreCeldas(nomTabla);

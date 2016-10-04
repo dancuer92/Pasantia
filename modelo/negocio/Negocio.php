@@ -494,11 +494,11 @@ class Negocio {
             if ($estado < 4) {
                 //Se modifica el registro
                 $flag = $this->info->modificarRegistroFormato($fechaFormato, $usuario, $formato, $info2, $obs);
-                return 'El registro ha sido modificado'; //se retorna el mensaje de éxito
+//                return 'El registro ha sido modificado'; //se retorna el mensaje de éxito
                 //se valida que el registro haya sido modificado
-//                if ($flag > 0) {
-//                    return 'El registro ha sido modificado';
-//                }
+                if ($flag > 0) {
+                    return 'El registro ha sido modificado';
+                }
             } else {
                 return 'el formato no puede ser modificado.<br>El registro ya fue modificado anteriormente';
 
