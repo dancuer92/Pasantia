@@ -253,7 +253,7 @@ class Formato_dao {
                 $this->formato->crear($cod_formato, $nombre, $version, $procedimiento, $jefe_procedimiento, $descripcion_contenido, $frecuencia_uso, $codigo_html);
                 $formatos[] = $this->formato->toJSON();
             }
-        }      
+        }
         $sentencia->close();
 //        $this->mysqli->close();
         return $formatos;
@@ -321,7 +321,7 @@ class Formato_dao {
         $this->mysqli->close();
         return $dias;
     }
-    
+
     /**
      * método que permite ver el contenido de una version anterior del formato
      * @param type $formato
@@ -329,7 +329,7 @@ class Formato_dao {
      * @return type
      */
     public function verVersionformato($formato, $version) {
-        $html='';
+        $html = '';
         $sql = "SELECT `html` FROM `modificaciones_formato` WHERE `id_formato`=? AND `version_formato`=?";
 
         if (!$sentencia = $this->mysqli->prepare($sql)) {
@@ -345,10 +345,25 @@ class Formato_dao {
             while ($sentencia->fetch()) {
                 $html = $codigo_html;
             }
-        }  
+        }
         $sentencia->close();
         $this->mysqli->close();
         return $html;
+    }
+
+    public function modificarDatosFormato($formato, $clave, $valor) {
+        $sql = "UPDATE formato f SET f." . $clave . "=? WHERE f.cod_formato=? ;";
+
+        if (!$sentencia = $this->mysqli->prepare($sql)) {
+            $mensaje.= $this->mysqli->error;
+        }
+        if (!$sentencia->bind_param("ss", $valor, $formato)) {
+            $mensaje.= $this->mysqli->error;
+        }
+        $mensaje = $sentencia->execute();
+        $sentencia->close();
+        $this->mysqli->close();
+        return $mensaje;
     }
 
 }

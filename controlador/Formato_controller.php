@@ -64,6 +64,12 @@ switch ($option) {
         $html = $_POST['html'];
         $formato_controller->modificarFormato($usuario, $formato, $detalle, $html);
         break;
+    case 'modificarDatosFormato':
+        $formato=$_POST['formato'];
+        $clave=$_POST['clave'];
+        $valor=$_POST['valor'];
+        $formato_controller->modificarDatosFormato($formato,$clave,$valor);
+        break;
     case 'historialFormato':
         $formato = $_POST['formato'];
         $formato_controller->historialFormato($formato);
@@ -480,8 +486,27 @@ class Formato_controller {
         echo $arreglo;
     }
 
+    /**
+     * Metodo poara visualizar un registro de un formato un solo desde la vista
+     * @param type $formato
+     * @param type $fecha
+     * @param type $tipo
+     * @param type $codigo
+     */
     public function visualizarRegistro($formato, $fecha, $tipo, $codigo) {
+        //Carga la plantilla del formato y los datos del registro.
         $mensaje = $this->facade->visualizarRegistro($formato, $fecha, $tipo, $codigo);
+        echo $mensaje;
+    }
+    
+    /**
+     * metodo para modificar los datos proncipales de un formato en la tabla formato de la base de datos
+     * @param type $formato
+     * @param type $clave
+     * @param type $valor
+     */
+    public function modificarDatosFormato($formato, $clave, $valor) {
+        $mensaje = $this->facade->modificarDatosFormato($formato,$clave,$valor);
         echo $mensaje;
     }
 

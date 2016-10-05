@@ -50,19 +50,11 @@
                         <textarea type="text" class="form-control" id="detForm" placeholder="Indique aquí la naturaleza del cambio y demas detalles de la modificación del contenido."></textarea>
                         <br><br><br><br>
                         <label>Datos del formato</label><br>
-                        <p>En esta sección puede cambiar las características del formato. Tener en cuenta las Mayúsculas y las tildes</p>
-                        <br><br>
-                        <select id="listaDatos" class="form-control">
-                            <option selected disabled>Seleccionar característica</option>
-                            <option value="codigo">Código</option>
-                            <option value="nombre">Nombre</option>
-                            <option value="procedimiento">Procedimiento</option>
-                            <option value="jefe">Jefe procedimiento</option>
-                            <option value="version">Versión</option>
-                        </select>
-                        <input type="text" class="form-control" id="valorNuevoCaracteristica" placeholder="Nuevo valor" />
+                        <p>En esta sección puede cambiar las características del formato. Hacer clic para abrir el formulario</p>
+                        <br><br>                        
+<!--                        <input type="text" class="form-control" id="valorNuevoCaracteristica" placeholder="Nuevo valor" />-->
                         <br>
-                        <button id="cambiarDato" class="btn btn-default  btn-block" onclick="cambiarDatoFormato();">Cambiar dato</button>
+                        <button id="cambiarDato" class="btn btn-default  btn-block" data-toggle="modal" data-target="#myModal" onclick="cargarAdvertencia();">Cambiar datos principales</button>
                     </div>                    
                 </div>                
             </div>
@@ -81,3 +73,5 @@
         </table>
     </div>      
 </div>
+
+<?php include './modalCambioDatos.php';?>

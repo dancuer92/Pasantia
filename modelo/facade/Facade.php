@@ -118,5 +118,10 @@ class Facade {
         $msj=  $this->negocio->visualizarRegistro($formato, $fecha, $tipo, $codigo);
         return $msj;
     }
+    
+    public function modificarDatosFormato($formato,$clave,$valor){
+        $msj=  $this->negocio->modificarDatosFormato($formato,$clave,$valor);
+        return $msj;
+    }
 
 }

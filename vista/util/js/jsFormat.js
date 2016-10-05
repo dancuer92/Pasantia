@@ -162,20 +162,61 @@ function guardarModificacionFormato() {
  * Se modifica un dato o una característica del formato en la BD
  * @returns {undefined}
  */
-function cambiarDatoFormato() {
-    //Se toman los valores del nombre del campo y el valor del campo
-    var campo = $('#listaDatos').val();
-    var valor = $('#valorNuevoCaracteristica').val();
-    console.log(campo);
-    console.log(valor);
-    //se valida que el campo no sea vacío
-    if (valor.length > 0 && campo !== null) {
-        console.log('Campo: ' + valor + "\t Valor:" + valor);
-        toastr["info"]('Campo: ' + valor + "\t Valor:" + valor);
+function guardarDatoFormato(clave, id) {
+    $('#detForm').val('Actualización de los datos principales del formato');
+    var input = $('#' + id);
+    var valor = input.val();
+//    console.log(valor);
+
+
+    //Se toma el dominio del input
+    var patron = input.attr('pattern');
+    //se toma la descripción del input
+    var titulo = input.attr('title');
+    //Se convierte a expresión regular el dominio
+    var re = new RegExp(patron);
+    //se obtiene la validación
+    var requerido = (re.test(valor));
+    console.log(requerido);
+
+    if(valor!==''&& requerido){
+        var formato = sessionStorage.getItem('formato');
+        $.post("../../controlador/Formato_controller.php", {formato: formato, clave: clave, valor: valor, opcion: 'modificarDatosFormato'},
+        function (mensaje) {
+            console.log(mensaje);            
+            toastr['info'](mensaje);
+        });
+    }else{
+        input.focus();
+        toastr['error'](titulo);
     }
-    else {
-        toastr["info"]('No se ha diligenciado algún dato');
-    }
+
+
+
+
+
+
+//    //Se toman los valores del nombre del campo y el valor del campo
+//    var campo = $('#listaDatos').val();
+//    var valor = $('#valorNuevoCaracteristica').val();
+//    console.log(campo);
+//    console.log(valor);
+//    //se valida que el campo no sea vacío
+//    if (valor.length > 0 && campo !== null) {
+//        console.log('Campo: ' + valor + "\t Valor:" + valor);
+//        toastr["info"]('Campo: ' + valor + "\t Valor:" + valor);
+//    }
+//    else {
+//        toastr["info"]('No se ha diligenciado algún dato');
+//    }
+}
+
+/**
+ * Advertencia en el momento de cambiar los datos del formato.
+ * @returns {undefined}
+ */
+function cargarAdvertencia() {
+    toastr['warning']('Los datos existentes aquí son críticos, por lo tanto tenga claro lo que desea cambiar. Esto puede afectar la información consignada en el formato anteriormente');
 }
 
 /**
@@ -445,7 +486,7 @@ function cargarRegistro2() {
 
     //Se visualiza la plantilla del formato 
     $.post("../../controlador/Formato_controller.php", {formato: formato, fecha: fecha, opcion: "visualizarRegistro"},
-    function (mensaje) { 
+    function (mensaje) {
 //        console.log('metodo BD');
         var arr = mensaje.split('###');
         var html = arr[1];
@@ -456,7 +497,7 @@ function cargarRegistro2() {
         $('#visualizarFormato').prepend(html);
         $('div').css('border-style', 'none');
         $('select').attr('disabled', true);
-        
+
 //        console.log('pintar los datos');
         //Se particiona la cadena devuelta por la consulta a la base de datos por el símbolo &
         var arreglo = datos.split('&');

@@ -67,7 +67,7 @@
                     <div class="input-field col s12 m12 l6">   
                         <select id="frecuenciaFormato" name="frecuenciaFormato" class="validate" required >
                             <!--<option value="" disabled selected>Frecuencia del formato</option>-->
-                            <option value="seleccione">Frecuencia del formato</option>
+                            <option value="seleccione">Seleccione fecuencia</option>
                             <option value="1">Hora</option>
                             <option value="2">Turno operativo</option>                        
                             <option value="3">Turno administración</option>                        
@@ -76,6 +76,7 @@
                             <option value="6">Ocasional</option>                        
                             <option value="7">Libre</option>                        
                         </select>
+                        <label for="frecuenciaFormato">Frecuencia de uso</label>
                     </div>
                     <div class="input-field col s12 m12 l12">
                         <i class="material-icons prefix">description</i>

@@ -215,4 +215,20 @@ class Informacion_dao {
         return $informacion;
     }
 
+    /**
+     * Cambia el nombre
+     * @param type $nuevoNombre
+     */
+    public function cambiarNombreTablaInfo($formato, $nuevoNombre){
+        $mensaje = '';
+        $new = strtolower($nuevoNombre);
+        $sql = "Rename table info_$formato to info_$new;";
+        $mensaje=$this->mysqli->query($sql);
+        if (!$mensaje) {
+            return $this->mysqli->error;
+        }
+
+        $this->mysqli->close();
+        return $mensaje; 
+    }
 }

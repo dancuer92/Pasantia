@@ -550,8 +550,19 @@ class Negocio {
         }
     }
 
+    /**
+     * metodo que permite cargar la plantilla con los datos de un registro para visualizarlos en la pantalla.
+     * inicialmente el metodo se encarga de cargar la plantilla y despues de adjuntar los datos en una cadena separada por ###
+     * @param type $formato
+     * @param type $fecha
+     * @param type $tipo
+     * @param type $codigo
+     * @return type
+     */
     public function visualizarRegistro($formato, $fecha, $tipo, $codigo) {
+        //Cargar el codigo html del formato
         $html = $this->visualizarFormato($formato, $tipo, $codigo);
+        //cargar los datos del registro del formato
         $datos = $this->verDatos($formato, $fecha);
         //Se retorna un registro o un mensaje sin el registro encontrado.
         if (count($datos) == 0) {
@@ -561,8 +572,33 @@ class Negocio {
                 echo $info2;
             }
         }
+        //concatenacion de los datos y la plantilla
         $mensaje=$info2.'###'.$html;
         return ($mensaje);
+    }
+    
+    /**
+     * 
+     * @param type $formato
+     * @param type $clave
+     * @param type $valor
+     */
+    public function modificarDatosFormato($formato,$clave,$valor){       
+        $rename=true;
+        if($clave=='cod_formato'){
+            $rename=$this->info->cambiarNombreTablaInfo($formato,$valor);            
+            if(!$rename){
+                return 'Error actualizando la tabla de información del formato';
+            }
+        }
+        if($rename){
+            $exec=  $this->formato->modificarDatosFormato($formato,$clave,$valor);
+            if($exec){
+                return 'Dato actualizado correctamente';
+            }
+        }
+        return 'El dato no ha podido ser actualizado';        
+        
     }
 
 }

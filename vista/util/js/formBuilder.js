@@ -755,7 +755,9 @@ function cambiarNombreCeldas(titulo_tabla) {
         //se toma la columna en a que está
         var col = $(this);
         //Se obtiene el texto de la columna que será el id y el name de las inferiores
-        var titulo_col = col.children('p').text();
+        var cadena = col.children('p').text();
+        //Se valida que el nombre sea correcto
+        var titulo_col=validarNombreTitulo(cadena);
         //Se guarda el titulo en el arreglo
         tituloCol[i] = titulo_col;
     });
@@ -769,7 +771,8 @@ function cambiarNombreCeldas(titulo_tabla) {
         //se toma el indice de la fila
         var fila = celda.parents('tr').index();
         //se toma el titulo (corresponde al encabezado de la fila mas el numero de fila
-        var titulo = (tituloCol[index] + '_' + fila);
+        var titulo = (titulo_tabla+'_'+tituloCol[index] + '_' + fila);
+        
         //Se cambian los atributos id y name del input
         celda.children('input').attr('name', titulo);
         celda.children('input').attr('id', titulo);
@@ -783,6 +786,31 @@ function cambiarNombreCeldas(titulo_tabla) {
 //    var nombre = titulo + "_" + i;
 //    $(input).attr('id', nombre);
 //    $(input).attr('name', nombre);
+}
+
+/**
+ * Método para validar el titulo de un campo de la tabla
+ * @param {type} titulo, tomando la referencia del encabezado de la columna
+ * @returns {unresolved}
+ */
+function validarNombreTitulo(titulo){
+    titulo = titulo.toLowerCase();
+    titulo = titulo.replace(/[áàäâå]/g, 'a');
+    titulo = titulo.replace(/[éèëê]/g, 'e');
+    titulo = titulo.replace(/[íìïî]/g, 'i');
+    titulo = titulo.replace(/[óòöô]/g, 'o');
+    titulo = titulo.replace(/[úùüû]/g, 'u');
+    titulo = titulo.replace(/[ñ]/g, 'n');
+    titulo = titulo.replace(/[ç]/g, 'c');
+    titulo = titulo.replace(/[%]/g, 'porcent');
+    titulo = titulo.replace(/[#]/g, 'no');
+    titulo = titulo.replace(/[°]/g, 'temp');
+    titulo = titulo.replace(/[']/g, '');
+    titulo = titulo.replace(/[(]/g, '');
+    titulo = titulo.replace(/[)]/g, '');
+    titulo = titulo.replace(/[^a-z0-9\s]/g, '');
+    titulo = titulo.replace(/ /g, "_");
+    return titulo;
 }
 
 /**
