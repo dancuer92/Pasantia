@@ -102,78 +102,179 @@ $('#visualizarFormato').on('click', 'input[type="button"],select', function () {
 });
 
 
-$('#visualizarFormato').on('click', 'table', function () {
+$('#visualizarFormato').on('click', 'table td', function () {
     $('#res1').html('');
-    var tabla = '#' + $(this).attr('id') + ' tr';
-    var msj = "";
-    var nombreTabla = '';
+    var columna = $(this);
+    var tabla = columna.parents('table');
+    var tabla_name = tabla.attr('id');
+    var col0 = $('#' + tabla_name + ' tr td:eq(0)').text();
+    var col1 = columna.text();
+    var texto = validarNombreTitulo(col1);
 
-    $(tabla).each(function (i) {
-        var fila = $(this);
-        if (!fila.has('input').length) {
-            nombreTabla = 'fila' + i;
-            msj = '<table id="' + nombreTabla + '" class="table-bordered table-hover">\n\
-                    <thead></thead><tbody></tbody></table>';
+    console.log(tabla_name);
+
+    
+    $('#' + tabla.attr('id') + ' tr').each(function (i) {
+        if (i === 0) {
+            var msj = '<table id="pintar_' + tabla_name + '" class="table-bordered table-hover"><thead><tr><td>Fecha del registro</td><td>' + col0 + '</td><td>' + col1 + '</td></tr></thead><tbody></tbody></table>';
             $('#res1').append(msj);
-//            var encabezado = '<tr><td>Fecha sistema</td>';
-            var encabezado = '<tr>';
+        }
+        var fila = $(this);
+        for (var d in datos) {
+            var flag = false;
+            var row = '<tr><td>' + (datos[d][0]) + '</td>';
+            
             $(fila).children('td').each(function () {
                 var td = $(this);
                 var col = td.text();
                 if (col !== '') {
-                    encabezado += '<td>' + col + '</td>';
+                    row += '<td>' + col + '</td>';
                 }
-            });
-            encabezado += '</tr>';
-            $('#fila' + i + ' thead').append(encabezado);
-
-//            console.log(encabezado);
-
-        }
-        else {
-//            console.log('fila: ' + i);
-//            console.log(datos);
-
-            for (var d in datos) {
-//                console.log(d);
-                var flag = false;
-//                var row = '<tr><td>' + (datos[d][0]) + '</td>';
-                var row = '<tr>';
-//                console.log(datos[d][1]);
-                $(fila).children('td').each(function () {
-                    var td = $(this);
-                    var col = td.text();
-//                    console.log(td.html());
-                    if (col !== '') {
-                        row += '<td>' + col + '</td>';
-                    }
-                    else {
+                else {                    
                         var input = td.children('input').attr('name');
-//                        console.log(input);
                         var valor = (datos[d][1][input]);
-//                        console.log(valor);
                         if (valor !== undefined) {
                             flag = true;
-//                            console.log(flag);
                         }
                         else {
                             valor = '';
                         }
                         row += '<td>' + valor + '</td > ';
+//                    }
+
+
+
+                    var x = td.children().first();
+                    if (x.is('input')) {
+                        var input = x.attr('name');
+                        if (input.includes(texto)) {
+                            var valor = (datos[d][1][input]);
+                            if (valor !== undefined) {
+                                flag = true;
+                            }
+                            else {
+                                valor = '';
+                            }
+                            row += '<td>' + valor + '</td > ';
+                        }
                     }
-                });
-                row += '</tr>';
-                if (flag) {
-                    $('#' + nombreTabla + ' tbody').append(row);
+                    if (x.is('select')) {
+                        var input = x.val();
+                        row += '<td>' + valor + '</td > ';
+                    }
                 }
+            });
+            row += '</tr>';
+            if (flag) {
+                $('#pintar_' + tabla_name + ' tbody').append(row);
             }
         }
+
     });
+    acomodarTabla(tabla_name);
+});
 
 
-    pintarGrafica();
-    acomodarTabla();
-})
+
+
+/**Método funcional para imprimir toda la tabla según un rango de fechas.
+*Presenta una tabla con la libreria datatable y sin grafica.
+*/
+//$('#visualizarFormato').on('click', 'table', function () {
+//    $('#res1').html('');
+//    var tabla = '#' + $(this).attr('id') + ' tr';
+//    var msj = "";
+//    var nombreTabla = '';
+//
+//    $(tabla).each(function (i) {
+//        var fila = $(this);
+//        if (!fila.has('input').length) {
+//            nombreTabla = 'fila' + i;
+//            msj = '<table id="' + nombreTabla + '" class="table-bordered table-hover">\n\
+//                    <thead></thead><tbody></tbody></table>';
+//            $('#res1').append(msj);
+////            var encabezado = '<tr><td>Fecha sistema</td>';
+//            var encabezado = '<tr>';
+//            $(fila).children('td').each(function () {
+//                var td = $(this);
+//                var col = td.text();
+//                if (col !== '') {
+//                    encabezado += '<td>' + col + '</td>';
+//                }
+//            });
+//            encabezado += '</tr>';
+//            $('#fila' + i + ' thead').append(encabezado);
+//
+////            console.log(encabezado);
+//
+//        }
+//        else {
+////            console.log('fila: ' + i);
+////            console.log(datos);
+//
+//            for (var d in datos) {
+////                console.log(d);
+//                var flag = false;
+////                var row = '<tr><td>' + (datos[d][0]) + '</td>';
+//                var row = '<tr>';
+////                console.log(datos[d][1]);
+//                $(fila).children('td').each(function () {
+//                    var td = $(this);
+//                    var col = td.text();
+////                    console.log(td.html());
+//                    if (col !== '') {
+//                        row += '<td>' + col + '</td>';
+//                    }
+//                    else {
+//                        var input = td.children('input').attr('name');
+////                        console.log(input);
+//                        var valor = (datos[d][1][input]);
+////                        console.log(valor);
+//                        if (valor !== undefined) {
+//                            flag = true;
+////                            console.log(flag);
+//                        }
+//                        else {
+//                            valor = '';
+//                        }
+//                        row += '<td>' + valor + '</td > ';
+//                    }
+//                });
+//                row += '</tr>';
+//                if (flag) {
+//                    $('#' + nombreTabla + ' tbody').append(row);
+//                }
+//            }
+//        }
+//    });
+//
+//
+//    //pintarGrafica();
+//    acomodarTabla();
+//});
+
+
+
+function validarNombreTitulo(titulo) {
+    titulo = titulo.toLowerCase();
+    titulo = titulo.replace(/[áàäâå]/g, 'a');
+    titulo = titulo.replace(/[éèëê]/g, 'e');
+    titulo = titulo.replace(/[íìïî]/g, 'i');
+    titulo = titulo.replace(/[óòöô]/g, 'o');
+    titulo = titulo.replace(/[úùüû]/g, 'u');
+    titulo = titulo.replace(/[ñ]/g, 'n');
+    titulo = titulo.replace(/[ç]/g, 'c');
+    titulo = titulo.replace(/[%]/g, 'porcent');
+    titulo = titulo.replace(/[#]/g, 'no');
+    titulo = titulo.replace(/[°]/g, 'temp');
+    titulo = titulo.replace(/[']/g, '');
+    titulo = titulo.replace(/[(]/g, '');
+    titulo = titulo.replace(/[)]/g, '');
+    titulo = titulo.replace(/[^a-z0-9\s]/g, '');
+    titulo = titulo.replace(/ /g, "_");
+    return titulo;
+}
+
 
 function pintarGrafica() {
     $('#res1 table').each(function (i) {
@@ -200,8 +301,8 @@ function pintarGrafica() {
     });
 }
 
-function acomodarTabla() {
-    $('#fila0').DataTable({
+function acomodarTabla(tabla) {
+    $('#pintar_'+tabla).DataTable({
         responsive: true,
         order: [[0, "desc"]],
         language: {

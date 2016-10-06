@@ -708,6 +708,18 @@ function verAnalizar() {
         //Se crea un nuevo elemento con el nombre del input eliminado
         $(div).append('<input id="' + name + '" name="' + name + '" type="button"/>');
     });
+    
+    //Si tiene una tabla
+    $('#visualizarFormato table').each(function(){
+        var table=$(this);
+        var columnas='';
+        table.children('tbody').hide();
+//        table.children('thead td').each(function(){
+//            var name=$(this).text();
+//            var columna='<input id="' + name + '" name="' + name + '" type="button"/>';
+//            columnas+=columna;
+//        });
+    });
 
 }
 
