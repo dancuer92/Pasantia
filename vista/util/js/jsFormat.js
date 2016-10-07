@@ -298,6 +298,8 @@ function guardarDiligenciaFormato(opcion, info) {
         $('#myModal').modal('hide');
         //Se toman las observaciones por el usuario o por defecto del sistema
         var observaciones = sessionStorage.getItem('observaciones');
+        var camposClave=valoresCamposClave();
+        console.log(camposClave);
         console.log(observaciones);
         if (observaciones === '') {
             var firstInputName = $('#visualizarFormato input:first').attr('name');
@@ -306,7 +308,7 @@ function guardarDiligenciaFormato(opcion, info) {
         }
         //Si la opción es registrar
         if (opcion === 'registrar') {
-            opcRegistrar(formato, observaciones);
+            opcRegistrar(formato, camposClave, observaciones);
         }
         //Si la opcion es modificar el registro de un formato
         if (opcion === 'modificar') {
@@ -315,13 +317,24 @@ function guardarDiligenciaFormato(opcion, info) {
     }
 }
 
+function valoresCamposClave(){
+    var campos='';
+    $('#visualizacionFormato .camposClave').each(function (){
+        var campo=$(this);
+        var name=campo.attr('name');
+        console.log(name);
+        var valor=campo.val();
+        console.log(valor);
+    });
+}
+
 /**
  * Opcion para guardar un nuevo registro
  * @param {type} formato
  * @param {type} observaciones
  * @returns {undefined}
  */
-function opcRegistrar(formato, observaciones) {
+function opcRegistrar(formato, camposClave, observaciones) {
     //Se toma la información del formato
     var info = $('#visualizarFormato').serialize();
 //    console.log(info);

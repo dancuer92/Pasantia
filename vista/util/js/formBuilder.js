@@ -118,6 +118,28 @@ $(document).ready(function () {
             div.children('input').removeAttr('required');
             div.children('label').children('p').remove();
         }
+    });
+    
+    
+    //Modificar la opción si es un campo clave 
+    $('#campoClave').change(function () {
+        //se selecciona el div que será obligatorio
+        var div = $('.isSelected');
+        var tipo = div.children('input').attr('type');
+        //se verifica si es obligatorio
+        if (this.checked) {
+            //se verifica sino son radios o checkbox para que no creen conflicto sobre los otros input
+            if (tipo !== 'radio' || tipo !== 'checkbox') {
+                //se adiciona un identificador oculto al input o select para comprobar si es campo clave
+                div.children('input').addClass('campoClave');
+                div.children('select').addClass('campoClave');
+            }
+        }
+        else {
+            //sino es obligatorio y tiene la clase campoClave se elimina y se retira el identificador oculto del input o select
+            div.children('input').removeClass('campoClave');
+            div.children('select').removeClass('campoClave');
+        }
     })
 
 });
@@ -254,6 +276,7 @@ function mostrarConfiguraciones(div) {
     $('#eliminar').show();
     $('#celdas').hide();
     $('#opciones').hide();
+    $('#campoClave').hide();
 
     var elemento = div;
 
@@ -266,7 +289,9 @@ function mostrarConfiguraciones(div) {
     //carga la opcion si es requerido o no.
     if (elemento.children().is('input')) {
         $('#requerido').show();
+        $('#campoClave').show();
         $('#obligatorio').removeAttr('checked');
+        $('#campoClave').removeAttr('checked');
     }
 
     if (tipo === 'number') {
@@ -278,15 +303,18 @@ function mostrarConfiguraciones(div) {
     if (tipo === 'checkbox' || tipo === 'radio') {
         $('#opciones').show();
         $('#requerido').hide();
+        $('#campoClave').hide();
         cargarOpciones(elemento);
     }
 
     //carga las opciones para una lista desplegable
     if (elemento.children().is('select')) {
-        cargarOpcionesSelect(elemento);
+        cargarOpcionesSelect(elemento);        
         $('#opciones').show();
-        $('#requerido').show();
+        $('#requerido').show();        
         $('#requerido').hide();
+        $('#campoClave').show();
+        $('#campoClave').removeAttr('checked');
     }
 
     //carga las opciones para una tabla
@@ -311,6 +339,7 @@ function mostrarConfiguraciones(div) {
         });
         cargarOpcionesTabla();
         $('#requerido').hide();
+        $('#campoClave').hide();
         $('#opciones').show();
     }
 
@@ -319,6 +348,7 @@ function mostrarConfiguraciones(div) {
 //        console.log('enlace creado');
         cargarOpcionesLink();
         $('#requerido').hide();
+        $('#campoClave').hide();
         $('#titulo').hide();
         $('#opciones').show();
     }
@@ -334,6 +364,7 @@ function ocultarConfiguraciones() {
     $('#opciones').hide();
     $('#celdas').hide();
     $('#eliminar').hide();
+    $('#campoClave').hide();
 }
 
 /**

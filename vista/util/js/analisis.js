@@ -84,174 +84,182 @@ function mostrarForm() {
  */
 $('#visualizarFormato').on('click', 'input[type="button"],select', function () {
 //                            console.log(datos);
+    $('#resultado').html('');
+    var arregloInfo = new Array();
     var input = $(this);
     var label = input.parent('div').children('label').text();
+    var id = validarNombreTitulo(label);
     var clave = input.attr('name');
-    var mensaje = '<h3>Se ha seleccionado ' + label + ' para su análisis</h3><br>\n\
-                                        <h4>Registros dentro del rango de fechas</h4><br>\n\
-                                        <h5>Fecha del registro    ..................... Valor del registro</h5>';
-    var arregloInfo = new Array();
+    var titulo = '<h3>Se ha seleccionado ' + label + ' para su análisis</h3><br>\n\
+                                        <h4>Registros dentro del rango de fechas</h4><br>';
+    $('#resultado').append(titulo);
+    
+    var tabla='<table id="' + id+ '" class="table-bordered table-hover"><thead><tr><th>Fecha del registro</th><th>Valor del registro</th></tr></thead><tbody></tbody></table>';
+    $('#resultado').append(tabla);
     for (var index in datos) {
-//                                arregloInfo = datos[index][1];
         arregloInfo[index] = new Array(datos[index][0], datos[index][1][clave]);
-        mensaje += datos[index][0] + '..................' + datos[index][1][clave] + '<br>';
+        var fila = '<tr><td>'+datos[index][0] + '</td><td>' + datos[index][1][clave] + '</td></tr>';
+        $('#'+id+' tbody').append(fila);
     }
-    $('#resultado').html(mensaje + '<br>*Si existe un registro que coincida con la misma fecha sin tener en cuenta la hora y el mismo valor,\n\
-                                        solo se mostrará un solo cuadro en la gráfica de línea del tiempo.');
+    var mensaje='<br>*Si existe un registro que coincida con la misma fecha sin tener en cuenta la hora y el mismo valor,\n\
+                                        solo se mostrará un solo cuadro en la gráfica de línea del tiempo.';
+    $('#resultado').append(mensaje);
+    acomodarTabla('resultado table');
     timeLine(label, arregloInfo);
 });
 
 
-$('#visualizarFormato').on('click', 'table td', function () {
-    $('#res1').html('');
-    var columna = $(this);
-    var tabla = columna.parents('table');
-    var tabla_name = tabla.attr('id');
-    var col0 = $('#' + tabla_name + ' tr td:eq(0)').text();
-    var col1 = columna.text();
-    var texto = validarNombreTitulo(col1);
-
-    console.log(tabla_name);
-
-    
-    $('#' + tabla.attr('id') + ' tr').each(function (i) {
-        if (i === 0) {
-            var msj = '<table id="pintar_' + tabla_name + '" class="table-bordered table-hover"><thead><tr><td>Fecha del registro</td><td>' + col0 + '</td><td>' + col1 + '</td></tr></thead><tbody></tbody></table>';
-            $('#res1').append(msj);
-        }
-        var fila = $(this);
-        for (var d in datos) {
-            var flag = false;
-            var row = '<tr><td>' + (datos[d][0]) + '</td>';
-            
-            $(fila).children('td').each(function () {
-                var td = $(this);
-                var col = td.text();
-                if (col !== '') {
-                    row += '<td>' + col + '</td>';
-                }
-                else {                    
-                        var input = td.children('input').attr('name');
-                        var valor = (datos[d][1][input]);
-                        if (valor !== undefined) {
-                            flag = true;
-                        }
-                        else {
-                            valor = '';
-                        }
-                        row += '<td>' + valor + '</td > ';
-//                    }
-
-
-
-                    var x = td.children().first();
-                    if (x.is('input')) {
-                        var input = x.attr('name');
-                        if (input.includes(texto)) {
-                            var valor = (datos[d][1][input]);
-                            if (valor !== undefined) {
-                                flag = true;
-                            }
-                            else {
-                                valor = '';
-                            }
-                            row += '<td>' + valor + '</td > ';
-                        }
-                    }
-                    if (x.is('select')) {
-                        var input = x.val();
-                        row += '<td>' + valor + '</td > ';
-                    }
-                }
-            });
-            row += '</tr>';
-            if (flag) {
-                $('#pintar_' + tabla_name + ' tbody').append(row);
-            }
-        }
-
-    });
-    acomodarTabla(tabla_name);
-});
-
-
-
-
-/**Método funcional para imprimir toda la tabla según un rango de fechas.
-*Presenta una tabla con la libreria datatable y sin grafica.
-*/
-//$('#visualizarFormato').on('click', 'table', function () {
+//$('#visualizarFormato').on('click', 'table td', function () {
 //    $('#res1').html('');
-//    var tabla = '#' + $(this).attr('id') + ' tr';
-//    var msj = "";
-//    var nombreTabla = '';
+//    var columna = $(this);
+//    var tabla = columna.parents('table');
+//    var tabla_name = tabla.attr('id');
+//    var col0 = $('#' + tabla_name + ' tr td:eq(0)').text();
+//    var col1 = columna.text();
+//    var texto = validarNombreTitulo(col1);
 //
-//    $(tabla).each(function (i) {
-//        var fila = $(this);
-//        if (!fila.has('input').length) {
-//            nombreTabla = 'fila' + i;
-//            msj = '<table id="' + nombreTabla + '" class="table-bordered table-hover">\n\
-//                    <thead></thead><tbody></tbody></table>';
+//    console.log(tabla_name);
+//
+//    
+//    $('#' + tabla.attr('id') + ' tr').each(function (i) {
+//        if (i === 0) {
+//            var msj = '<table id="pintar_' + tabla_name + '" class="table-bordered table-hover"><thead><tr><td>Fecha del registro</td><td>' + col0 + '</td><td>' + col1 + '</td></tr></thead><tbody></tbody></table>';
 //            $('#res1').append(msj);
-////            var encabezado = '<tr><td>Fecha sistema</td>';
-//            var encabezado = '<tr>';
+//        }
+//        var fila = $(this);
+//        for (var d in datos) {
+//            var flag = false;
+//            var row = '<tr><td>' + (datos[d][0]) + '</td>';
+//            
 //            $(fila).children('td').each(function () {
 //                var td = $(this);
 //                var col = td.text();
 //                if (col !== '') {
-//                    encabezado += '<td>' + col + '</td>';
+//                    row += '<td>' + col + '</td>';
 //                }
-//            });
-//            encabezado += '</tr>';
-//            $('#fila' + i + ' thead').append(encabezado);
-//
-////            console.log(encabezado);
-//
-//        }
-//        else {
-////            console.log('fila: ' + i);
-////            console.log(datos);
-//
-//            for (var d in datos) {
-////                console.log(d);
-//                var flag = false;
-////                var row = '<tr><td>' + (datos[d][0]) + '</td>';
-//                var row = '<tr>';
-////                console.log(datos[d][1]);
-//                $(fila).children('td').each(function () {
-//                    var td = $(this);
-//                    var col = td.text();
-////                    console.log(td.html());
-//                    if (col !== '') {
-//                        row += '<td>' + col + '</td>';
-//                    }
-//                    else {
+//                else {                    
 //                        var input = td.children('input').attr('name');
-////                        console.log(input);
 //                        var valor = (datos[d][1][input]);
-////                        console.log(valor);
 //                        if (valor !== undefined) {
 //                            flag = true;
-////                            console.log(flag);
 //                        }
 //                        else {
 //                            valor = '';
 //                        }
 //                        row += '<td>' + valor + '</td > ';
+////                    }
+//
+//
+//
+//                    var x = td.children().first();
+//                    if (x.is('input')) {
+//                        var input = x.attr('name');
+//                        if (input.includes(texto)) {
+//                            var valor = (datos[d][1][input]);
+//                            if (valor !== undefined) {
+//                                flag = true;
+//                            }
+//                            else {
+//                                valor = '';
+//                            }
+//                            row += '<td>' + valor + '</td > ';
+//                        }
 //                    }
-//                });
-//                row += '</tr>';
-//                if (flag) {
-//                    $('#' + nombreTabla + ' tbody').append(row);
+//                    if (x.is('select')) {
+//                        var input = x.val();
+//                        row += '<td>' + valor + '</td > ';
+//                    }
 //                }
+//            });
+//            row += '</tr>';
+//            if (flag) {
+//                $('#pintar_' + tabla_name + ' tbody').append(row);
 //            }
 //        }
+//
 //    });
-//
-//
-//    //pintarGrafica();
-//    acomodarTabla();
+//    acomodarTabla(tabla_name);
 //});
+
+
+
+
+/**Método funcional para imprimir toda la tabla según un rango de fechas.
+ *Presenta una tabla con la libreria datatable y sin grafica.
+ */
+$('#visualizarFormato').on('click', 'table', function () {
+    $('#resultado').html('');
+    $('#chart-container').html('');
+    var tabla = '#' + $(this).attr('id') + ' tr';
+    var msj = "";
+    var nombreTabla = '';
+
+    $(tabla).each(function (i) {
+        var fila = $(this);
+        if (!fila.has('input').length) {
+            nombreTabla = 'fila' + i;
+            msj = '<table id="' + nombreTabla + '" class="table-bordered table-hover">\n\
+                    <thead></thead><tbody></tbody></table>';
+            $('#resultado').append(msj);
+//            var encabezado = '<tr><td>Fecha sistema</td>';
+            var encabezado = '<tr><td>Fecha del registro</td>';
+            $(fila).children('td').each(function () {
+                var td = $(this);
+                var col = td.text();
+                if (col !== '') {
+                    encabezado += '<td>' + col + '</td>';
+                }
+            });
+            encabezado += '</tr>';
+            $('#fila' + i + ' thead').append(encabezado);
+
+//            console.log(encabezado);
+
+        }
+        else {
+//            console.log('fila: ' + i);
+//            console.log(datos);
+
+            for (var d in datos) {
+//                console.log(d);
+                var flag = false;
+                var row = '<tr><td>' + (datos[d][0]) + '</td>';
+//                var row = '<tr>';
+//                console.log(datos[d][1]);
+                $(fila).children('td').each(function () {
+                    var td = $(this);
+                    var col = td.text();
+//                    console.log(td.html());
+                    if (col !== '') {
+                        row += '<td>' + col + '</td>';
+                    }
+                    else {
+                        var input = td.children('input').attr('name');
+//                        console.log(input);
+                        var valor = (datos[d][1][input]);
+//                        console.log(valor);
+                        if (valor !== undefined) {
+                            flag = true;
+//                            console.log(flag);
+                        }
+                        else {
+                            valor = '';
+                        }
+                        row += '<td>' + valor + '</td > ';
+                    }
+                });
+                row += '</tr>';
+                if (flag) {
+                    $('#' + nombreTabla + ' tbody').append(row);
+                }
+            }
+        }
+    });
+
+
+    //pintarGrafica();
+    acomodarTabla(nombreTabla);
+});
 
 
 
@@ -277,7 +285,7 @@ function validarNombreTitulo(titulo) {
 
 
 function pintarGrafica() {
-    $('#res1 table').each(function (i) {
+    $('#resultado table').each(function (i) {
         var id = "tabla_" + i;
         $('#chart-container').append('<div id="tabla_' + i + '"></div>');
         $(this).convertToFusionCharts({
@@ -302,9 +310,9 @@ function pintarGrafica() {
 }
 
 function acomodarTabla(tabla) {
-    $('#pintar_'+tabla).DataTable({
+    $('#' + tabla).DataTable({
         responsive: true,
-        order: [[0, "desc"]],
+        order: [[0, "desc"]],        
         language: {
             processing: "Procesando",
             lengthMenu: "Mostrar _MENU_ registros por página",
@@ -366,7 +374,7 @@ function timeLine(titulo, info) {
 //                            console.log(categoria);
 
     var process = '[';
-    for (var p in procesos) {
+    for (var p in procesos) {        
         process += '{"label": "' + procesos[p] + '","id": "' + procesos[p] + '"},';
     }
     process += ']';
@@ -397,7 +405,8 @@ function timeLine(titulo, info) {
                 "scrollPadding": "4",
                 "scrollHeight": "20",
                 "scrollBtnWidth": "25",
-                "scrollBtnPadding": "5"
+                "scrollBtnPadding": "5",
+                exportEnabled:"1"
             },
             "categories": [{
                     "category": categorias
