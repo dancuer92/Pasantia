@@ -276,7 +276,7 @@ function mostrarConfiguraciones(div) {
     $('#eliminar').show();
     $('#celdas').hide();
     $('#opciones').hide();
-    $('#campoClave').hide();
+    $('#clave').hide();
 
     var elemento = div;
 
@@ -289,7 +289,7 @@ function mostrarConfiguraciones(div) {
     //carga la opcion si es requerido o no.
     if (elemento.children().is('input')) {
         $('#requerido').show();
-        $('#campoClave').show();
+        $('#clave').show();
         $('#obligatorio').removeAttr('checked');
         $('#campoClave').removeAttr('checked');
     }
@@ -303,7 +303,7 @@ function mostrarConfiguraciones(div) {
     if (tipo === 'checkbox' || tipo === 'radio') {
         $('#opciones').show();
         $('#requerido').hide();
-        $('#campoClave').hide();
+        $('#clave').hide();
         cargarOpciones(elemento);
     }
 
@@ -313,7 +313,7 @@ function mostrarConfiguraciones(div) {
         $('#opciones').show();
         $('#requerido').show();        
         $('#requerido').hide();
-        $('#campoClave').show();
+        $('#clave').show();
         $('#campoClave').removeAttr('checked');
     }
 
@@ -339,7 +339,7 @@ function mostrarConfiguraciones(div) {
         });
         cargarOpcionesTabla();
         $('#requerido').hide();
-        $('#campoClave').hide();
+        $('#clave').hide();
         $('#opciones').show();
     }
 
@@ -348,7 +348,7 @@ function mostrarConfiguraciones(div) {
 //        console.log('enlace creado');
         cargarOpcionesLink();
         $('#requerido').hide();
-        $('#campoClave').hide();
+        $('#clave').hide();
         $('#titulo').hide();
         $('#opciones').show();
     }
@@ -364,7 +364,7 @@ function ocultarConfiguraciones() {
     $('#opciones').hide();
     $('#celdas').hide();
     $('#eliminar').hide();
-    $('#campoClave').hide();
+    $('#clave').hide();
 }
 
 /**

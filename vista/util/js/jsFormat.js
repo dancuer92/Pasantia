@@ -306,26 +306,26 @@ function guardarDiligenciaFormato(opcion, info) {
             var firstInputVal = $('#visualizarFormato input:first').val();
             observaciones = firstInputName + ': ' + firstInputVal + '. El registro ha sido guardado por el usuario: ' + sessionStorage.getItem('user');
         }
-        //Si la opción es registrar
-        if (opcion === 'registrar') {
-            opcRegistrar(formato, camposClave, observaciones);
-        }
-        //Si la opcion es modificar el registro de un formato
-        if (opcion === 'modificar') {
-            opcModificar(formato, observaciones, info);
-        }
+//        //Si la opción es registrar
+//        if (opcion === 'registrar') {
+//            opcRegistrar(formato, camposClave, observaciones);
+//        }
+//        //Si la opcion es modificar el registro de un formato
+//        if (opcion === 'modificar') {
+//            opcModificar(formato, observaciones, info);
+//        }
     }
 }
 
 function valoresCamposClave(){
     var campos='';
-    $('#visualizacionFormato .camposClave').each(function (){
+    $('.campoClave').each(function (){
         var campo=$(this);
         var name=campo.attr('name');
-        console.log(name);
         var valor=campo.val();
-        console.log(valor);
+        campos+=name+'='+valor+'\n';
     });
+    return campos;
 }
 
 /**

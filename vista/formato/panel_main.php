@@ -39,7 +39,7 @@
                         <label>Este campo será obligatorio</label><input id="obligatorio" type="checkbox"/> 
                     </div>
                     <div id="clave">
-                        <label>Este campo será campo clave para la busqueda de un registro</label><input id="campoClave" type="checkbox"/> 
+                        <label>Este será un campo clave para la busqueda de un registro</label><input id="campoClave" type="checkbox"/> 
                     </div>
                     <div id="opciones"></div>
                     <div id="celdas"></div>
