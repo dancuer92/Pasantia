@@ -179,14 +179,14 @@ function guardarDatoFormato(clave, id) {
     var requerido = (re.test(valor));
     console.log(requerido);
 
-    if(valor!==''&& requerido){
+    if (valor !== '' && requerido) {
         var formato = sessionStorage.getItem('formato');
         $.post("../../controlador/Formato_controller.php", {formato: formato, clave: clave, valor: valor, opcion: 'modificarDatosFormato'},
         function (mensaje) {
-            console.log(mensaje);            
+            console.log(mensaje);
             toastr['info'](mensaje);
         });
-    }else{
+    } else {
         input.focus();
         toastr['error'](titulo);
     }
@@ -298,7 +298,7 @@ function guardarDiligenciaFormato(opcion, info) {
         $('#myModal').modal('hide');
         //Se toman las observaciones por el usuario o por defecto del sistema
         var observaciones = sessionStorage.getItem('observaciones');
-        var camposClave=valoresCamposClave();
+        var camposClave = valoresCamposClave();
         console.log(camposClave);
         console.log(observaciones);
         if (observaciones === '') {
@@ -322,18 +322,18 @@ function guardarDiligenciaFormato(opcion, info) {
  * si el formato no tiene campos clave se guarda la fecha y hora del registro
  * @returns {String} cadena de texto con los campos clave y su respectivo valor separados por ;
  */
-function valoresCamposClave(){
-    var campos='';
-    $('.campoClave').each(function (){
-        var campo=$(this);
-        var name=campo.attr('name');
-        var valor=campo.val();
-        campos+=name+'='+valor+';\n';
+function valoresCamposClave() {
+    var campos = '';
+    $('.campoClave').each(function () {
+        var campo = $(this);
+        var name = campo.attr('name');
+        var valor = campo.val();
+        campos += name + '=' + valor + ';\n';
     });
-    if(campos===''){
+    if (campos === '') {
         var f = new Date();
-        var fecha_registro = f.getFullYear() + "-" + (f.getMonth() + 1) + "-" + f.getDate()+" "+f.getHours()+":"+f.getMinutes()+":"+f.getSeconds();
-        campos='fecha_registro='+fecha_registro;
+        var fecha_registro = f.getFullYear() + "-" + (f.getMonth() + 1) + "-" + f.getDate() + " " + f.getHours() + ":" + f.getMinutes() + ":" + f.getSeconds();
+        campos = 'fecha_registro=' + fecha_registro;
     }
     return campos;
 }
@@ -357,12 +357,23 @@ function opcRegistrar(formato, camposClave, observaciones) {
         fechaFormato = f.getFullYear() + "-" + (f.getMonth() + 1) + "-" + f.getDate();
     }
     //Se llama el método por AJAX
-    $.post('../../controlador/Formato_controller.php', {formato: formato, fechaFormato: fechaFormato, camposClave:camposClave, observaciones: observaciones, info: info, opcion: 'diligenciarFormato'},
-    function (mensaje) {
-        toastr["info"](mensaje);
-        //Se guarda el mensaje y se redirecciona a la tabla de registros
-//        sessionStorage.setItem('mensaje', mensaje);
-//        window.location.href = ('mostrarRegistrosFormato.php');
+    $.post('../../controlador/Formato_controller.php', {formato: formato, fechaFormato: fechaFormato, camposClave: camposClave, observaciones: observaciones, info: info, opcion: 'diligenciarFormato'},
+    function (msj) {
+        var mensaje=msj;
+        console.log(mensaje);
+        if (mensaje == 1) {
+            console.log('entra al case 1');
+            //Se guarda el mensaje y se redirecciona a la tabla de registros
+            sessionStorage.setItem('mensaje', '¡La información ha sido registrada con éxito!');
+            window.location.href = ('mostrarRegistrosFormato.php');
+        }
+        else if (mensaje == 0) {
+            console.log('entra case 0');
+            toastr["error"]('Favor revisar si el registro ha sido creado anteriormente teniendo en cuenta los campos clave');
+            toastr["info"]('Dirigirse a mostrar registros');
+            $('.campoClave').css('border-color', 'red');
+            $('#res1').html('Favor revisar si el registro ha sido creado anteriormente teniendo en cuenta los campos clave<br>Dirigirse a mostrar registros');
+        }
     });
 }
 
@@ -379,7 +390,7 @@ function opcModificar(formato, camposClave, observaciones, info) {
     var fecha = sessionStorage.getItem('fecha');
     console.log(info);
     //Se ejecuta la modificación en la BD
-    $.post('../../controlador/Formato_controller.php', {formato: formato, fechaFormato: fecha, camposClave:camposClave, observaciones: observaciones, info: info, opcion: 'modificarRegistroFormato'},
+    $.post('../../controlador/Formato_controller.php', {formato: formato, fechaFormato: fecha, camposClave: camposClave, observaciones: observaciones, info: info, opcion: 'modificarRegistroFormato'},
     function (mensaje) {
         //Se muestra el mensaje de retorno
         $('#res1').html(mensaje);
@@ -734,11 +745,11 @@ function verAnalizar() {
         //Se crea un nuevo elemento con el nombre del input eliminado
         $(div).append('<input id="' + name + '" name="' + name + '" type="button"/>');
     });
-    
+
     //Si tiene una tabla
-    $('#visualizarFormato table').each(function(){
-        var table=$(this);
-        var columnas='';
+    $('#visualizarFormato table').each(function () {
+        var table = $(this);
+        var columnas = '';
         table.children('tbody').hide();
 //        table.children('thead td').each(function(){
 //            var name=$(this).text();
@@ -754,6 +765,10 @@ function verAnalizar() {
  * @returns {undefined}
  */
 function modificarDiligenciaFormato() {
+    //Buscar campos en la tabla de usuario_información
+    
+    
+    
     //Se activan los campos para que el formato sea escribible
     $('input').attr('disabled', false);
     $('textarea').attr('disabled', false);

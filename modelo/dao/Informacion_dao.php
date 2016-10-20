@@ -48,18 +48,45 @@ class Informacion_dao {
             $mensaje.=$this->mysqli->error;
         }
 
-        if (!$sentencia->bind_param("ssisss",$fecha_formato, $usuario, $estado, $info, $observaciones, $camposClave)) {
+        if (!$sentencia->bind_param("ssisss", $fecha_formato, $usuario, $estado, $info, $observaciones, $camposClave)) {
             echo $this->mysqli->error;
         }
 
         if ($sentencia->execute()) {
-            $this->info->crear('', $fecha_formato, $usuario, $estado, $info, $observaciones, $camposClave,'','');
+            $this->info->crear('', $fecha_formato, $usuario, $estado, $info, $observaciones, $camposClave, '', '');
         } else {
             $this->info = null;
         }
+//        $sentencia->close();
+//        $this->mysqli->close();
+        return $this->info;
+    }
+
+    /**
+     * Mètodo que guarda la información digitada por un usuario con el fin de evitar que pueda modificar la información de otro usuario.
+     * @param type $usuario nombre del usuario en sesión
+     * @param type $formato
+     * @param type $fechaformato
+     * @param type $info
+     * @return type
+     */
+    public function guardarInfoUsuario($usuario, $formato, $fechaformato, $info) {
+        $mensaje = 'OK';
+        $sql = "INSERT INTO `usuario_informacion`(`id_usuario`, `id_formato`, `id_registro`, `campos_digitados`) VALUES (?,?,CURRENT_TIMESTAMP,?)";
+
+        if (!$sentencia = $this->mysqli->prepare($sql)) {
+            $mensaje = $this->mysqli->error;
+        }
+
+        if (!$sentencia->bind_param("sss", $usuario, $formato, $info)) {
+            $mensaje = $this->mysqli->error;
+        }
+        if (!$sentencia->execute()) {
+            $mensaje = $this->mysqli->error;
+        }
         $sentencia->close();
         $this->mysqli->close();
-        return $this->info;
+        return $mensaje;
     }
 
     /**
@@ -82,7 +109,7 @@ class Informacion_dao {
         if ($sentencia->execute()) {
             $sentencia->bind_result($fecha_sistema, $fecha_formato, $usuario, $estado, $info, $observaciones, $camposClave);
             while ($sentencia->fetch()) {
-                $this->info->crear($fecha_sistema, $fecha_formato, $usuario, $estado, $info, $observaciones, $camposClave,'','');
+                $this->info->crear($fecha_sistema, $fecha_formato, $usuario, $estado, $info, $observaciones, $camposClave, '', '');
                 $informacion[] = $this->info->toJSON();
             }
         }
@@ -121,7 +148,7 @@ class Informacion_dao {
         $this->mysqli->close();
         return $this->info;
     }
-    
+
     /**
      * Método que permite modificar el contenido de un registro de un formato
      * @param type $fecha_formato
@@ -131,7 +158,7 @@ class Informacion_dao {
      * @param type $observaciones
      * @return type
      */
-    public function modificarRegistroFormato($fecha_formato, $usuario, $formato, $info, $observaciones, $camposClave){
+    public function modificarRegistroFormato($fecha_formato, $usuario, $formato, $info, $observaciones, $camposClave) {
         $sql = "UPDATE `info_$formato` SET `estado`=`estado`+1,`informacion`=?,`observaciones`=?, `campos_clave`=?"
                 . " WHERE `fecha_registro_sistema`=?";
         $filas = 0;
@@ -152,7 +179,7 @@ class Informacion_dao {
         $this->mysqli->close();
         return $filas;
     }
-    
+
     /**
      * Método que permite buscar un registro de un formato por la fecha de creación en el sistema.
      * @param type $formato
@@ -174,16 +201,16 @@ class Informacion_dao {
         }
 
         if ($sentencia->execute()) {
-            $sentencia->bind_result($usuario,$estado, $observaciones);
+            $sentencia->bind_result($usuario, $estado, $observaciones);
             while ($sentencia->fetch()) {
-                $mensaje = $usuario.'-'.$estado.'-'.$observaciones;
+                $mensaje = $usuario . '-' . $estado . '-' . $observaciones;
             }
         }
         $sentencia->close();
 //        $this->mysqli->close();
         return $mensaje;
     }
-    
+
     /**
      * Busca los registros dentro de un rango de fechas.
      * @param type $formato
@@ -193,7 +220,7 @@ class Informacion_dao {
      */
     public function mostrarInfoFechas($formato, $inicio, $fin) {
         $mensaje = '';
-        $informacion='';
+        $informacion = '';
         $formato2 = strtolower($formato);
 //        echo $formato;
 
@@ -202,12 +229,12 @@ class Informacion_dao {
         if (!$sentencia = $this->mysqli->prepare($sql)) {
             $mensaje.=$this->mysqli->error;
         }
-        
+
 
         if ($sentencia->execute()) {
             $sentencia->bind_result($fecha_sistema, $info);
             while ($sentencia->fetch()) {
-                $informacion.=$fecha_sistema."~".$info."||";
+                $informacion.=$fecha_sistema . "~" . $info . "||";
             }
         }
         $sentencia->close();
@@ -219,16 +246,17 @@ class Informacion_dao {
      * Cambia el nombre
      * @param type $nuevoNombre
      */
-    public function cambiarNombreTablaInfo($formato, $nuevoNombre){
+    public function cambiarNombreTablaInfo($formato, $nuevoNombre) {
         $mensaje = '';
         $new = strtolower($nuevoNombre);
         $sql = "Rename table info_$formato to info_$new;";
-        $mensaje=$this->mysqli->query($sql);
+        $mensaje = $this->mysqli->query($sql);
         if (!$mensaje) {
             return $this->mysqli->error;
         }
 
         $this->mysqli->close();
-        return $mensaje; 
+        return $mensaje;
     }
+
 }

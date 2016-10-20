@@ -379,9 +379,10 @@ class Negocio {
         $informacion = $this->info->guardarInfo($fechaFormato, $usuario, $formato, $info2, $observaciones, $camposClave);
         //se valida la ejecución de la consulta para retornar el mensaje
         if (!is_null($informacion)) {
-            $msj = 'Información registrada con éxito';
+            $this->info->guardarInfoUsuario($usuario,$formato,$fechaFormato,$info2);
+            $msj = 1;
         } else {
-            $msj = 'Favor revisar la información de los campos clave';
+            $msj = 0;
         }
         return $msj;
     }
