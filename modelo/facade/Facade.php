@@ -84,8 +84,8 @@ class Facade {
         return $msj;
     }
     
-    public function diligenciarFormato($fechaFormato, $usuario, $formato, $info,$observaciones){
-        $msj=$this->negocio->diligenciarFormato($fechaFormato, $usuario, $formato, $info,$observaciones);
+    public function diligenciarFormato($fechaFormato, $usuario, $formato, $info,$observaciones, $camposClave){
+        $msj=$this->negocio->diligenciarFormato($fechaFormato, $usuario, $formato, $info,$observaciones, $camposClave);
         return $msj;
     }
     
@@ -99,8 +99,8 @@ class Facade {
         return $msj;
     }
     
-    public function modificarRegistroFormato($fechaFormato, $usuario, $formato, $info,$observaciones, $tipo){
-        $msj=$this->negocio->modificarRegistroFormato($fechaFormato, $usuario, $formato, $info,$observaciones, $tipo);
+    public function modificarRegistroFormato($fechaFormato, $usuario, $formato, $info, $observaciones, $camposClave, $tipo){
+        $msj=$this->negocio->modificarRegistroFormato($fechaFormato, $usuario, $formato, $info, $observaciones, $camposClave, $tipo);
         return $msj;
     }
     

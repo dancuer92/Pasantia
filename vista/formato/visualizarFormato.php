@@ -6,7 +6,7 @@ if (!isset($_SESSION["tipo"])) {
     header("Location: ../../index.php");
     exit();
 }
-include '../../controlador/sesion/seguridadTiempo.php';
+//include '../../controlador/sesion/seguridadTiempo.php';
 ?>
 <html>
     <head>        

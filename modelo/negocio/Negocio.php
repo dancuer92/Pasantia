@@ -358,7 +358,7 @@ class Negocio {
      * @param type $observaciones
      * @return string
      */
-    public function diligenciarFormato($fechaFormato, $usuario, $formato, $info, $observaciones) {
+    public function diligenciarFormato($fechaFormato, $usuario, $formato, $info, $observaciones, $camposClave) {
         $msj = '';
         //Se valida la información ingresada
         $info2 = $this->validarInformacion($info);
@@ -376,12 +376,12 @@ class Negocio {
         }
 
         //Se guarda la información en la BD
-        $informacion = $this->info->guardarInfo($fechaFormato, $usuario, $formato, $info2, $observaciones);
+        $informacion = $this->info->guardarInfo($fechaFormato, $usuario, $formato, $info2, $observaciones, $camposClave);
         //se valida la ejecución de la consulta para retornar el mensaje
         if (!is_null($informacion)) {
             $msj = 'Información registrada con éxito';
         } else {
-            $msj = 'La información no ha sido registrada en el sistema';
+            $msj = 'Favor revisar la información de los campos clave';
         }
         return $msj;
     }
@@ -454,7 +454,7 @@ class Negocio {
      * @param type $tipo
      * @return string
      */
-    public function modificarRegistroFormato($fechaFormato, $usuario, $formato, $info, $observaciones, $tipo) {
+    public function modificarRegistroFormato($fechaFormato, $usuario, $formato, $info, $observaciones, $camposClave, $tipo) {
 
         //Se buscan los días máximo de modificación del formato
         $f = (int) $this->formato->buscarDiasModificacion($formato);
@@ -493,7 +493,7 @@ class Negocio {
 //            if ($tipo === 'supervisor' && $estado < 5) { // linea hecha para que funcione con un usuario operario y un usuario supervisor. se elimina el condicional siguiente
             if ($estado < 4) {
                 //Se modifica el registro
-                $flag = $this->info->modificarRegistroFormato($fechaFormato, $usuario, $formato, $info2, $obs);
+                $flag = $this->info->modificarRegistroFormato($fechaFormato, $usuario, $formato, $info2, $obs, $camposClave);
 //                return 'El registro ha sido modificado'; //se retorna el mensaje de éxito
                 //se valida que el registro haya sido modificado
                 if ($flag > 0) {

@@ -119,11 +119,15 @@ class Formato_dao {
                     `usuario` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
                     `estado` tinyint(4) NOT NULL,
                     `informacion` text COLLATE utf8_spanish_ci NOT NULL,
-                    `observaciones` text COLLATE utf8_spanish_ci
+                    `observaciones` text COLLATE utf8_spanish_ci,
+                    `campos_clave` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
+                    `fechas_modificaciones` text COLLATE utf8_spanish_ci NULL,
+                    `usuarios_modificaciones` text COLLATE utf8_spanish_ci NULL
                 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
                 ALTER TABLE `info_$formato`
                     ADD PRIMARY KEY (`id`),
+                    ADD UNIQUE (`campos_clave`),
                     MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;";
 //        echo $sql;
         if (!$this->mysqli->multi_query($sql)) {

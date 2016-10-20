@@ -7,7 +7,7 @@ if ($_SESSION["estado"] !== "activo") {
     header("Location: ../index.php");
     exit();
 }
-include '../controlador/sesion/seguridadTiempo.php';
+//include '../controlador/sesion/seguridadTiempo.php';
 ?>
 <!--
 To change this license header, choose License Headers in Project Properties.

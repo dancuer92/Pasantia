@@ -38,22 +38,22 @@ class Informacion_dao {
      * @param type $observaciones
      * @return type
      */
-    public function guardarInfo($fecha_formato, $usuario, $cod_formato, $info, $observaciones) {
+    public function guardarInfo($fecha_formato, $usuario, $cod_formato, $info, $observaciones, $camposClave) {
         $mensaje = '';
         $estado = 0;
         $formato = strtolower($cod_formato);
-        $sql = "INSERT INTO `info_$formato`(`id`, `fecha_registro_sistema`, `fecha_formato_diligenciado`, `usuario`, `estado`, `informacion`, `observaciones`) VALUES (null,CURRENT_TIMESTAMP,?,?,?,?,?);";
+        $sql = "INSERT INTO `info_$formato`(`id`, `fecha_registro_sistema`, `fecha_formato_diligenciado`, `usuario`, `estado`, `informacion`, `observaciones`, `campos_clave`) VALUES (null,CURRENT_TIMESTAMP,?,?,?,?,?,?);";
 
         if (!$sentencia = $this->mysqli->prepare($sql)) {
             $mensaje.=$this->mysqli->error;
         }
 
-        if (!$sentencia->bind_param("ssiss",$fecha_formato, $usuario, $estado, $info, $observaciones)) {
+        if (!$sentencia->bind_param("ssisss",$fecha_formato, $usuario, $estado, $info, $observaciones, $camposClave)) {
             echo $this->mysqli->error;
         }
 
         if ($sentencia->execute()) {
-            $this->info->crear('', $fecha_formato, $usuario, $estado, $info, $observaciones);
+            $this->info->crear('', $fecha_formato, $usuario, $estado, $info, $observaciones, $camposClave,'','');
         } else {
             $this->info = null;
         }
@@ -73,16 +73,16 @@ class Informacion_dao {
         $formato = strtolower($formato);
 //        echo $formato;
 
-        $sql = "SELECT `fecha_registro_sistema`, `fecha_formato_diligenciado`, `usuario`, `estado`, `informacion`, `observaciones` FROM `info_$formato` ;";
+        $sql = "SELECT `fecha_registro_sistema`, `fecha_formato_diligenciado`, `usuario`, `estado`, `informacion`, `observaciones`, `campos_clave` FROM `info_$formato` ;";
 
         if (!$sentencia = $this->mysqli->prepare($sql)) {
             $mensaje.=$this->mysqli->error;
         }
 
         if ($sentencia->execute()) {
-            $sentencia->bind_result($fecha_sistema, $fecha_formato, $usuario, $estado, $info, $observaciones);
+            $sentencia->bind_result($fecha_sistema, $fecha_formato, $usuario, $estado, $info, $observaciones, $camposClave);
             while ($sentencia->fetch()) {
-                $this->info->crear($fecha_sistema, $fecha_formato, $usuario, $estado, $info, $observaciones);
+                $this->info->crear($fecha_sistema, $fecha_formato, $usuario, $estado, $info, $observaciones, $camposClave,'','');
                 $informacion[] = $this->info->toJSON();
             }
         }
@@ -131,8 +131,8 @@ class Informacion_dao {
      * @param type $observaciones
      * @return type
      */
-    public function modificarRegistroFormato($fecha_formato, $usuario, $formato, $info, $observaciones){
-        $sql = "UPDATE `info_$formato` SET `usuario`=?,`estado`=`estado`+1,`informacion`=?,`observaciones`=?"
+    public function modificarRegistroFormato($fecha_formato, $usuario, $formato, $info, $observaciones, $camposClave){
+        $sql = "UPDATE `info_$formato` SET `estado`=`estado`+1,`informacion`=?,`observaciones`=?, `campos_clave`=?"
                 . " WHERE `fecha_registro_sistema`=?";
         $filas = 0;
 
@@ -140,7 +140,7 @@ class Informacion_dao {
             echo $this->mysqli->error;
         }
 
-        if (!$sentencia->bind_param("ssss", $usuario, $info, $observaciones, $fecha_formato)) {
+        if (!$sentencia->bind_param("ssss", $info, $observaciones, $camposClave, $fecha_formato)) {
             echo $this->mysqli->error;
         }
 

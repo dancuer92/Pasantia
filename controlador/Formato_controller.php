@@ -77,10 +77,11 @@ switch ($option) {
     case 'diligenciarFormato':
         $formato = $_POST['formato'];
         $fechaFormato = $_POST['fechaFormato'];
+        $camposClave = $_POST['camposClave'];
         $observaciones = $_POST['observaciones'];
         $info = $_POST['info'];
         $usuario = $_SESSION['codigo'];
-        $formato_controller->diligenciarFormato($fechaFormato, $usuario, $formato, $info, $observaciones);
+        $formato_controller->diligenciarFormato($fechaFormato, $usuario, $formato, $info, $observaciones, $camposClave);
         break;
     case 'mostrarRegistrosFormato':
         $formato = $_POST['formato'];
@@ -95,9 +96,10 @@ switch ($option) {
         $formato = $_POST['formato'];
         $fechaFormato = $_POST['fechaFormato'];
         $observaciones = $_POST['observaciones'];
+        $camposClave = $_POST['camposClave'];
         $info = $_POST['info'];
         $usuario = $_SESSION['codigo'];
-        $formato_controller->modificarRegistroFormato($fechaFormato, $usuario, $formato, $info, $observaciones);
+        $formato_controller->modificarRegistroFormato($fechaFormato, $usuario, $formato, $info, $observaciones, $camposClave);
         break;
     case 'verVersionFormato':
         $formato = $_POST['formato'];
@@ -365,10 +367,10 @@ class Formato_controller {
      * @param type $info
      * @param type $observaciones
      */
-    public function diligenciarFormato($fechaFormato, $usuario, $formato, $info, $observaciones) {
+    public function diligenciarFormato($fechaFormato, $usuario, $formato, $info, $observaciones, $camposClave) {
         $mensaje = '';
         //Guardar el diligenciamiento de un formato
-        $mensaje = $this->facade->diligenciarFormato($fechaFormato, $usuario, $formato, $info, $observaciones);
+        $mensaje = $this->facade->diligenciarFormato($fechaFormato, $usuario, $formato, $info, $observaciones, $camposClave);
         echo $mensaje;
     }
 
@@ -395,9 +397,10 @@ class Formato_controller {
                 $usuario = $array["usuario"];
                 $estado = $array["estado"];
                 $observaciones = $array["observaciones"];
+                $campos_clave = $array["campos_clave"];
 
                 // permite esquematizar los resultados en una tabla html
-                $mensaje .= $this->listar($fecha, $fechaFormato, $usuario, $estado, $observaciones);
+                $mensaje .= $this->listar($fecha, $fechaFormato, $usuario, $estado, $observaciones, $campos_clave);
             }
             $mensaje = str_replace("&", "'", $mensaje);
         }
@@ -415,12 +418,13 @@ class Formato_controller {
      * @param type $observaciones
      * @return string
      */
-    public function listar($fecha, $fechaFormato, $usuario, $estado, $observaciones) {
+    public function listar($fecha, $fechaFormato, $usuario, $estado, $observaciones, $campos_clave) {
         $mensaje = '<tr>'
                 . '<td>' . $fecha . '</td>'
                 . '<td>' . $usuario . '</td>'
                 . '<td>' . $fechaFormato . '</td>'
                 . '<td>' . $estado . '</td>'
+                . '<td>' . $campos_clave . '</td>'
                 . '<td>' . $observaciones . '</td>'
                 . '<td>'
                 . '<a class="hoverable" onclick="verDatos(&' . $fecha . '&)"> Ver</a>'
@@ -457,10 +461,10 @@ class Formato_controller {
      * @param type $info
      * @param type $observaciones
      */
-    public function modificarRegistroFormato($fechaFormato, $usuario, $formato, $info, $observaciones) {
+    public function modificarRegistroFormato($fechaFormato, $usuario, $formato, $info, $observaciones, $camposClave) {
         $tipo = $_SESSION['tipo'];
         //Guarda la información nueva en el sistema
-        $mensaje = $this->facade->modificarRegistroFormato($fechaFormato, $usuario, $formato, $info, $observaciones, $tipo);
+        $mensaje = $this->facade->modificarRegistroFormato($fechaFormato, $usuario, $formato, $info, $observaciones, $camposClave, $tipo);
         echo $mensaje;
     }
 

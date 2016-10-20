@@ -14,6 +14,9 @@ class Informacion_dto {
     var $estado;
     var $informacion;
     var $observaciones;
+    var $campos_clave;
+    var $fechas_modificaciones;
+    var $usuarios_modificaciones;
 
     public function __construct() {
         
@@ -42,6 +45,18 @@ class Informacion_dto {
     function getObservaciones() {
         return $this->observaciones;
     }
+    
+    function getCampos_clave() {
+        return $this->campos_clave;
+    }
+    
+    function getFechas_modificaciones() {
+        return $this->fechas_modificaciones;
+    }
+    
+    function getUsuarios_modificaciones() {
+        return $this->usuarios_modificaciones;
+    }
 
     function setFecha_sistema($fecha) {
         $this->fecha_sistema = $fecha;
@@ -62,14 +77,33 @@ class Informacion_dto {
     function setInformacion($info) {
         $this->informacion = $info;
     }
+    
+    function setObservaciones($obs) {
+        $this->observaciones = $obs;
+    }
+    
+    function setCampos_clave($campos) {
+        $this->campos_clave = $campos;
+    }
+    
+    function setFechas_modificaciones($fechas_modificaciones) {
+        $this->fechas_modificaciones = $fechas_modificaciones;
+    }
+    
+    function setUsuarios_modificaciones($usuarios_modifiaciones) {
+        $this->usuarios_modificaciones = $usuarios_modifiaciones;
+    }
 
-    function crear($fecha_sistema, $fecha_formato, $usuario, $estado, $info, $observaciones) {
+    function crear($fecha_sistema, $fecha_formato, $usuario, $estado, $info, $observaciones, $campos_clave, $fechas_modificaciones, $usuarios_modificaciones) {
         $this->fecha_sistema = $fecha_sistema;
         $this->fecha_formato = $fecha_formato;
         $this->usuario = $usuario;
         $this->estado = $estado;
         $this->informacion = $info;
         $this->observaciones = $observaciones;
+        $this->campos_clave = $campos_clave;
+        $this->fechas_modificaciones = $fechas_modificaciones;
+        $this->usuarios_modificaciones = $usuarios_modificaciones;
     }
 
     public function toJSON() {
@@ -86,7 +120,10 @@ class Informacion_dto {
             "usuario" => $this->usuario,
             "estado" => $this->estado,
             "informacion" => $this->informacion,
-            "observaciones" => $this->observaciones);
+            "observaciones" => $this->observaciones,
+            "campos_clave" => $this->campos_clave,
+            "fechas_modificaiones" => $this->fechas_modificaciones,
+            "usuarios_modificaciones" => $this->usuarios_modificaciones);
         $json = json_encode($arr);
         return $json;
     }

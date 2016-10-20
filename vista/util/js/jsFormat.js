@@ -306,31 +306,42 @@ function guardarDiligenciaFormato(opcion, info) {
             var firstInputVal = $('#visualizarFormato input:first').val();
             observaciones = firstInputName + ': ' + firstInputVal + '. El registro ha sido guardado por el usuario: ' + sessionStorage.getItem('user');
         }
-//        //Si la opción es registrar
-//        if (opcion === 'registrar') {
-//            opcRegistrar(formato, camposClave, observaciones);
-//        }
-//        //Si la opcion es modificar el registro de un formato
-//        if (opcion === 'modificar') {
-//            opcModificar(formato, observaciones, info);
-//        }
+        //Si la opción es registrar
+        if (opcion === 'registrar') {
+            opcRegistrar(formato, camposClave, observaciones);
+        }
+        //Si la opcion es modificar el registro de un formato
+        if (opcion === 'modificar') {
+            opcModificar(formato, camposClave, observaciones, info);
+        }
     }
 }
 
+/**
+ * Método que devuelve los valores del campo clave para anexarlos a la BD como clave única
+ * si el formato no tiene campos clave se guarda la fecha y hora del registro
+ * @returns {String} cadena de texto con los campos clave y su respectivo valor separados por ;
+ */
 function valoresCamposClave(){
     var campos='';
     $('.campoClave').each(function (){
         var campo=$(this);
         var name=campo.attr('name');
         var valor=campo.val();
-        campos+=name+'='+valor+'\n';
+        campos+=name+'='+valor+';\n';
     });
+    if(campos===''){
+        var f = new Date();
+        var fecha_registro = f.getFullYear() + "-" + (f.getMonth() + 1) + "-" + f.getDate()+" "+f.getHours()+":"+f.getMinutes()+":"+f.getSeconds();
+        campos='fecha_registro='+fecha_registro;
+    }
     return campos;
 }
 
 /**
  * Opcion para guardar un nuevo registro
  * @param {type} formato
+ * @param {type} camposClave
  * @param {type} observaciones
  * @returns {undefined}
  */
@@ -346,27 +357,29 @@ function opcRegistrar(formato, camposClave, observaciones) {
         fechaFormato = f.getFullYear() + "-" + (f.getMonth() + 1) + "-" + f.getDate();
     }
     //Se llama el método por AJAX
-    $.post('../../controlador/Formato_controller.php', {formato: formato, fechaFormato: fechaFormato, observaciones: observaciones, info: info, opcion: 'diligenciarFormato'},
+    $.post('../../controlador/Formato_controller.php', {formato: formato, fechaFormato: fechaFormato, camposClave:camposClave, observaciones: observaciones, info: info, opcion: 'diligenciarFormato'},
     function (mensaje) {
+        toastr["info"](mensaje);
         //Se guarda el mensaje y se redirecciona a la tabla de registros
-        sessionStorage.setItem('mensaje', mensaje);
-        window.location.href = ('mostrarRegistrosFormato.php');
+//        sessionStorage.setItem('mensaje', mensaje);
+//        window.location.href = ('mostrarRegistrosFormato.php');
     });
 }
 
 /**
  * Opción para modificar un registro de un formato
  * @param {type} formato
+ * @param {type} camposClave
  * @param {type} observaciones
  * @param {type} info
  * @returns {undefined}
  */
-function opcModificar(formato, observaciones, info) {
+function opcModificar(formato, camposClave, observaciones, info) {
     //Se toma la fecha del sistema que es clave primaria en la base de datos
     var fecha = sessionStorage.getItem('fecha');
     console.log(info);
     //Se ejecuta la modificación en la BD
-    $.post('../../controlador/Formato_controller.php', {formato: formato, fechaFormato: fecha, observaciones: observaciones, info: info, opcion: 'modificarRegistroFormato'},
+    $.post('../../controlador/Formato_controller.php', {formato: formato, fechaFormato: fecha, camposClave:camposClave, observaciones: observaciones, info: info, opcion: 'modificarRegistroFormato'},
     function (mensaje) {
         //Se muestra el mensaje de retorno
         $('#res1').html(mensaje);
