@@ -468,6 +468,7 @@ function adicionarOpcion(idOpcion, name) {
  */
 function cargarOpcionesSelect(div) {
     var msj = '<label>Configuración de opciones</label><br>\n\
+                <p>Dejar una opción en blanco con el fin de que no sea preseleccionada al cargar el formato</p>\n\
                 <button class="btn btn-default" onclick="adicionarOptionSelect();">Adicionar Opcion</button><br>';
     //Función que recorre todas las opciones presentes en el div y adiciona al panel de configuraciones.
     div.find('option').each(function (i) {
@@ -924,7 +925,7 @@ function cambiarOpcionesSplit(tipo) {
     var opciones = cadena.split("|");
     var opc;
     if (tipo === 'lista') {
-        var opcion;
+        var opcion='<option value=""></option>';
         for (opc in opciones) {
             opcion += '<option value="' + opciones[opc] + '">' + opciones[opc] + '</option>';
         }

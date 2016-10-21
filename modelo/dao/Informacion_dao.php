@@ -57,7 +57,7 @@ class Informacion_dao {
         } else {
             $this->info = null;
         }
-//        $sentencia->close();
+        $sentencia->close();
 //        $this->mysqli->close();
         return $this->info;
     }
@@ -243,7 +243,7 @@ class Informacion_dao {
     }
 
     /**
-     * Cambia el nombre
+     * Cambia el nombre de la tabla de informacion del formato, esto se produce por modificar el codigo del formato que está almacenado en la BD
      * @param type $nuevoNombre
      */
     public function cambiarNombreTablaInfo($formato, $nuevoNombre) {
@@ -254,9 +254,31 @@ class Informacion_dao {
         if (!$mensaje) {
             return $this->mysqli->error;
         }
-
         $this->mysqli->close();
         return $mensaje;
+    }
+
+    public function buscarCamposUsuario($usuario, $formato, $fecha) {
+        $mensaje = '';
+        $sql = "SELECT `campos_digitados` FROM `usuario_informacion` WHERE `id_usuario`=? AND `id_formato`=? AND `id_registro`=?;";
+
+        if (!$sentencia = $this->mysqli->prepare($sql)) {
+            $mensaje.=$this->mysqli->error;
+        }
+
+        if (!$sentencia->bind_param("sss", $usuario, $formato, $fecha)) {
+            echo $this->mysqli->error;
+        }
+        
+        if ($sentencia->execute()) {
+            $sentencia->bind_result($campos);
+            while ($sentencia->fetch()) {
+                $mensaje=$campos;
+            }
+        }
+        $sentencia->close();
+        $this->mysqli->close();
+        return $mensaje;        
     }
 
 }

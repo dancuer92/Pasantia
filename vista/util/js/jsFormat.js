@@ -359,7 +359,7 @@ function opcRegistrar(formato, camposClave, observaciones) {
     //Se llama el método por AJAX
     $.post('../../controlador/Formato_controller.php', {formato: formato, fechaFormato: fechaFormato, camposClave: camposClave, observaciones: observaciones, info: info, opcion: 'diligenciarFormato'},
     function (msj) {
-        var mensaje=msj;
+        var mensaje = msj;
         console.log(mensaje);
         if (mensaje == 1) {
             console.log('entra al case 1');
@@ -766,13 +766,48 @@ function verAnalizar() {
  */
 function modificarDiligenciaFormato() {
     //Buscar campos en la tabla de usuario_información
-    
-    
-    
-    //Se activan los campos para que el formato sea escribible
-    $('input').attr('disabled', false);
+    var formato = sessionStorage.getItem('formato');
+    var fecha = sessionStorage.getItem('fecha');
+
+
+    $.post("../../controlador/Formato_controller.php", {formato: formato, fecha: fecha, opcion: "buscarCamposUsuario"},
+    function (mensaje) {
+        if (mensaje !== '') {
+            console.log(mensaje);
+            //Se particiona la cadena devuelta por la consulta a la base de datos por el símbolo &
+            var arreglo = mensaje.split('&');
+            //Se recorre ese arreglo
+            for (i = 0; i < arreglo.length - 1; i++) {
+                //Para cada posición se particiona por el símbolo =
+                var div = arreglo[i].split('=');
+                //La clave es la primera posición de ese arreglo y el valor es la segunda
+                var clave = '#' + div[0];
+                var valor = div[1];
+                //Se agrega el valor al input que tenga por nombre la clave
+//                var name = 'input[value="' + div[1] + '"]';               
+
+                //Activar los campos que el usuario ha diligenciado, los demás no
+                $(clave).attr('disabled', false);
+//                $(name).attr('disabled',false);                        
+            }
+        }
+    });
+
+    $('input').each(function (i) {
+        var input = $(this);
+        if (input.val() === '') {
+            input.attr('disabled', false);
+        }
+    });
+    $('select').each(function (i) {
+        var select = $(this);
+        if (select.val() === '') {
+            select.attr('disabled', false);
+        }
+    });
+
+    //Se activan los campos de tipo textarea
     $('textarea').attr('disabled', false);
-    $('select').attr('disabled', false);
     $('#guardarRegistro').show();
     $('#modificarRegistro').hide();
 }

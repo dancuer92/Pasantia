@@ -90,7 +90,8 @@ function getDropdown() {
     $msj = '<div class="formato ui-state-default ">'
             . '<label>Título de lista desplegable</label>'
             . '<select id="select" name="select">'
-            . '<option value="opcion-1" selected>Option 1</option>'
+            . '<option value="" selected></option>'
+            . '<option value="opcion-1">Option 1</option>'
             . '</select>'
             . '</div>';
     echo $msj;

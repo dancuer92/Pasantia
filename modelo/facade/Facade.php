@@ -123,5 +123,10 @@ class Facade {
         $msj=  $this->negocio->modificarDatosFormato($formato,$clave,$valor);
         return $msj;
     }
+    
+    public function buscarCamposUsuario($usuario,$formato,$fecha){
+        $msj=  $this->negocio->buscarCamposUsuario($usuario,$formato,$fecha);
+        return $msj;
+    }
 
 }

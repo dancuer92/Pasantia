@@ -65,10 +65,10 @@ switch ($option) {
         $formato_controller->modificarFormato($usuario, $formato, $detalle, $html);
         break;
     case 'modificarDatosFormato':
-        $formato=$_POST['formato'];
-        $clave=$_POST['clave'];
-        $valor=$_POST['valor'];
-        $formato_controller->modificarDatosFormato($formato,$clave,$valor);
+        $formato = $_POST['formato'];
+        $clave = $_POST['clave'];
+        $valor = $_POST['valor'];
+        $formato_controller->modificarDatosFormato($formato, $clave, $valor);
         break;
     case 'historialFormato':
         $formato = $_POST['formato'];
@@ -119,6 +119,12 @@ switch ($option) {
         $tipo = $_SESSION['tipo'];
         $codigo = $_SESSION['codigo'];
         $formato_controller->visualizarRegistro($formato, $fecha, $tipo, $codigo);
+        break;
+    case 'buscarCamposUsuario':
+        $formato = $_POST['formato'];
+        $fecha = $_POST['fecha'];
+        $usuario = $_SESSION['codigo'];
+        $formato_controller->buscarCamposUsuario($usuario, $formato, $fecha);
         break;
 }
 
@@ -504,7 +510,7 @@ class Formato_controller {
         $mensaje = $this->facade->visualizarRegistro($formato, $fecha, $tipo, $codigo);
         echo $mensaje;
     }
-    
+
     /**
      * metodo para modificar los datos proncipales de un formato en la tabla formato de la base de datos
      * @param type $formato
@@ -512,7 +518,18 @@ class Formato_controller {
      * @param type $valor
      */
     public function modificarDatosFormato($formato, $clave, $valor) {
-        $mensaje = $this->facade->modificarDatosFormato($formato,$clave,$valor);
+        $mensaje = $this->facade->modificarDatosFormato($formato, $clave, $valor);
+        echo $mensaje;
+    }
+
+    /** 
+     * Método para traer los campos digitados de la base de datos por usuariopara la modificación de los datos
+     * @param type $usuario códgio del usuario que está en la sesión
+     * @param type $formato código del formato trabajado
+     * @param type $fecha es el identificador del registro sobre el cual se está trabajando
+     */
+    public function buscarCamposUsuario($usuario, $formato, $fecha) {
+        $mensaje=$this->facade->buscarCamposUsuario($usuario,$formato,$fecha);
         echo $mensaje;
     }
 

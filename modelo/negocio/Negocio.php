@@ -579,10 +579,10 @@ class Negocio {
     }
     
     /**
-     * 
+     * metodo para modificar los datos principales del formato 
      * @param type $formato
-     * @param type $clave
-     * @param type $valor
+     * @param type $clave dato que se va a cambiar (nombre, codigo, frecuencia, jefes procedimiento, proceso)
+     * @param type $valor valor nuevo del dato a cambiar
      */
     public function modificarDatosFormato($formato,$clave,$valor){       
         $rename=true;
@@ -600,6 +600,20 @@ class Negocio {
         }
         return 'El dato no ha podido ser actualizado';        
         
+    }
+    
+    
+    /**
+     * Método para buscar los campos que el usuario anteriormente había diligenciado.
+     * @param type $usuario código del usuario actualmente en sesión
+     * @param type $formato formato que el usuario trabaja
+     * @param type $fecha fecha y hora del registro consultado.
+     */
+    public function buscarCamposUsuario($usuario,$formato,$fecha){
+        $campos= '';
+        //COnsulta a la BD
+        $campos= $this->info->buscarCamposUsuario($usuario, $formato, $fecha);
+        return $campos;
     }
 
 }
