@@ -53,11 +53,15 @@ if ($_SESSION["tipo"] !== "supervisor" && $_SESSION["tipo"] !== "operario") {
 //                console.log('pendiente de entrar');
                 cargarRegistro2();
 //                console.log('salio del metodo de mostrar')
-                $('#guardarRegistro').hide();                
+                $('#guardarRegistro').hide();
                 sessionStorage.setItem('observaciones', '');
             });
-            
-            $('#visualizarFormato').on('click', 'input', function () {                
+
+            $('#visualizarFormato').on('click', 'input', function () {
+                valorAnterior = $(this).val();
+//                console.log(valorAnterior);
+            });
+            $('#visualizarFormato').on('click', 'select', function () {
                 valorAnterior = $(this).val();
 //                console.log(valorAnterior);
             });
@@ -65,6 +69,7 @@ if ($_SESSION["tipo"] !== "supervisor" && $_SESSION["tipo"] !== "operario") {
             $("#visualizarFormato").on('change', 'input', function () {
                 var observaciones = sessionStorage.getItem('observaciones');
                 var nombre = $(this).attr("name");
+                $(this).addClass('claseModificada');
                 var valorNuevo = $(this).val();
                 if (valorNuevo !== valorAnterior) {
                     if (valorAnterior === '') {
@@ -72,11 +77,25 @@ if ($_SESSION["tipo"] !== "supervisor" && $_SESSION["tipo"] !== "operario") {
                     }
                     if (valorNuevo === '') {
                         valorNuevo = 'NULO';
+                        $(this).removeClass('claseModificada');
                     }
                     var observacion = " Se ha actualizado el campo: " + nombre + ", cuyo valor anterior es: " + valorAnterior + ", y su valor actual es: " + valorNuevo + ". ";
                     observaciones += observaciones + observacion;
                     sessionStorage.setItem('observaciones', observacion);
 //                    console.log(observacion);
+                }
+            });
+            $("#visualizarFormato").on('change', 'select', function () {
+                $(this).addClass('claseModificada');
+                var valorNuevo = $(this).val();
+                if (valorNuevo !== valorAnterior) {
+                    if (valorAnterior === '') {
+                        valorAnterior = 'NULO';
+                    }
+                    if (valorNuevo === '') {
+                        valorNuevo = 'NULO';
+                        $(this).removeClass('claseModificada');
+                    }
                 }
             });
         </script>

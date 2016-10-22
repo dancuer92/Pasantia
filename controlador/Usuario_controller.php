@@ -63,6 +63,10 @@ switch ($opcion) {
         $formato = $_POST['formato'];
         $Usuario_controller->autocompletar_usuario($cod, 'desasignar', $formato);
         break;
+    case "caducidad":
+        $cod = $_SESSION['codigo'];
+        $Usuario_controller->caducidad_usuario($cod);
+        break;
 }
 
 /**
@@ -208,7 +212,7 @@ class Usuario_controller {
         $mensaje2 = str_replace("&", "'", $mensaje);
         echo $mensaje2;
     }
-    
+
     /**
      * Método que permite cambiar la contraseña de un usuario
      * recibe la contraseña anterior, y la nueva contraseña.
@@ -251,6 +255,41 @@ class Usuario_controller {
                         . $array["codigo_usuario"] . '. <strong>Usuario: </strong>' . $array["nombre_usuario"] . ' ' . $array["apellido_usuario"] . '</a>';
             }
         }
+        echo $mensaje;
+    }
+
+    /**
+     * Método para hallar la fecha de caducidad del usuario
+     * @param type $codigo
+     */
+    public function caducidad_usuario($codigo) {
+        //se consulta el usuario en la base de datos.
+        $json = $this->facade->cargar_usuario($codigo);
+        $mensaje = '';
+        if (!is_null($json)) {
+            //Se transforma los datos obtenidos del JSON al código html
+            $array = json_decode($json, true);
+
+            //Zona horaria y fecha actual
+            date_default_timezone_set('America/Bogota');
+            $fechaSistema = date('Y/m/d H:i:s', time());
+
+            //Se toma la fecha actual
+            $ff = new DateTime($array["caducidad_usuario"]);
+            $fs = new DateTime($fechaSistema);
+
+//        echo $ff->format('Y/m/d H:i:s');
+//        echo $fs->format('Y/m/d H:i:s');
+//        Se toma la idferencia entre la fecha actual y la fecha del día de registro de la información
+            $diferencia = $ff->diff($fs);
+            $d = $diferencia->format('%d');
+
+            if ($d <= 5) {
+                $mensaje = '<h5> <strong>Fecha de caducidad de la cuenta: </strong>' . $array["caducidad_usuario"] . '</h5>
+                        <h6>Favor cambiar la contraseña antes de la fecha de caducidad haciendo clic aquí: <a href="./usuario.php?CambiarPassword">cambiar contraseña</a></h6>';
+            }
+        }
+
         echo $mensaje;
     }
 

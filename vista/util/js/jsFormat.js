@@ -386,11 +386,16 @@ function opcRegistrar(formato, camposClave, observaciones) {
  * @returns {undefined}
  */
 function opcModificar(formato, camposClave, observaciones, info) {
+    var infoModificadaUsuario = sessionStorage.getItem('infoMod');
+    sessionStorage.setItem('infoMod','');
+    sessionStorage.removeItem('infoMod');
+    console.log(infoModificadaUsuario);
+    console.log(camposClave);
     //Se toma la fecha del sistema que es clave primaria en la base de datos
     var fecha = sessionStorage.getItem('fecha');
     console.log(info);
     //Se ejecuta la modificación en la BD
-    $.post('../../controlador/Formato_controller.php', {formato: formato, fechaFormato: fecha, camposClave: camposClave, observaciones: observaciones, info: info, opcion: 'modificarRegistroFormato'},
+    $.post('../../controlador/Formato_controller.php', {formato: formato, fechaFormato: fecha, camposClave: camposClave, infoModificadaUsuario:infoModificadaUsuario, observaciones: observaciones, info: info, opcion: 'modificarRegistroFormato'},
     function (mensaje) {
         //Se muestra el mensaje de retorno
         $('#res1').html(mensaje);
@@ -782,23 +787,18 @@ function modificarDiligenciaFormato() {
                 var div = arreglo[i].split('=');
                 //La clave es la primera posición de ese arreglo y el valor es la segunda
                 var clave = '#' + div[0];
-                var valor = div[1];
-                //Se agrega el valor al input que tenga por nombre la clave
-//                var name = 'input[value="' + div[1] + '"]';               
-
                 //Activar los campos que el usuario ha diligenciado, los demás no
-                $(clave).attr('disabled', false);
-//                $(name).attr('disabled',false);                        
+                $(clave).attr('disabled', false);                
             }
         }
     });
 
     $('input').each(function (i) {
         var input = $(this);
-        if (input.val() === '') {
+        if (input.val() === '' || input.attr('type')==='checkbox' || input.attr('type')==='radio') {
             input.attr('disabled', false);
-        }
-    });
+        }        
+    });    
     $('select').each(function (i) {
         var select = $(this);
         if (select.val() === '') {
@@ -818,9 +818,11 @@ function modificarDiligenciaFormato() {
  */
 function guardarMR() {
     //Se obtiene la información del formato
-    var info = $('#visualizarFormato').serialize();
+    var info = $('#visualizarFormato').serialize();  
+    //Se obtiene la modificación de los campos.
+    sessionStorage.setItem('infoMod',$('.claseModificada').serialize());    
 //    console.log(info);
-    //Se inactivan los cmapos, listas y opciones
+    //Se inactivan los campos, listas y opciones
     $('input').attr('disabled', true);
     $('textarea').attr('disabled', true);
     $('select').attr('disabled', true);

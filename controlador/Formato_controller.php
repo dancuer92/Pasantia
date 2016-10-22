@@ -98,8 +98,9 @@ switch ($option) {
         $observaciones = $_POST['observaciones'];
         $camposClave = $_POST['camposClave'];
         $info = $_POST['info'];
+        $infoMod = $_POST['infoMod'];
         $usuario = $_SESSION['codigo'];
-        $formato_controller->modificarRegistroFormato($fechaFormato, $usuario, $formato, $info, $observaciones, $camposClave);
+        $formato_controller->modificarRegistroFormato($fechaFormato, $usuario, $formato, $info, $observaciones, $camposClave, $infoMod);
         break;
     case 'verVersionFormato':
         $formato = $_POST['formato'];
@@ -467,10 +468,10 @@ class Formato_controller {
      * @param type $info
      * @param type $observaciones
      */
-    public function modificarRegistroFormato($fechaFormato, $usuario, $formato, $info, $observaciones, $camposClave) {
+    public function modificarRegistroFormato($fechaFormato, $usuario, $formato, $info, $observaciones, $camposClave,$infoMod) {
         $tipo = $_SESSION['tipo'];
         //Guarda la información nueva en el sistema
-        $mensaje = $this->facade->modificarRegistroFormato($fechaFormato, $usuario, $formato, $info, $observaciones, $camposClave, $tipo);
+        $mensaje = $this->facade->modificarRegistroFormato($fechaFormato, $usuario, $formato, $info, $observaciones, $camposClave, $tipo, $infoMod);
         echo $mensaje;
     }
 

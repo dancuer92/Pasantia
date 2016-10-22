@@ -455,7 +455,7 @@ class Negocio {
      * @param type $tipo
      * @return string
      */
-    public function modificarRegistroFormato($fechaFormato, $usuario, $formato, $info, $observaciones, $camposClave, $tipo) {
+    public function modificarRegistroFormato($fechaFormato, $usuario, $formato, $info, $observaciones, $camposClave, $tipo, $infoMod) {
 
         //Se buscan los días máximo de modificación del formato
         $f = (int) $this->formato->buscarDiasModificacion($formato);

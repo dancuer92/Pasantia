@@ -36,6 +36,7 @@ and open the template in the editor.
             <?php
             include './user/content.php';
             ?>
+            <div id="caducidad"></div>
         </main>
         <!-- Footer de la pagina -->
         <footer>
@@ -49,9 +50,10 @@ and open the template in the editor.
         include './user/scripts.php';
         ?>
 
+        <script type="text/javascript" src="./util/js/jsUser.js"></script>   
         <script>
             $(document).ready(function () {
-//                consultarCaducidad();
+                consultarCaducidad();
                 $(".button-collapse").sideNav();
             });
         </script>

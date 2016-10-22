@@ -38,6 +38,14 @@ $('#modalCambio').submit(function (event) {
     edit('password_usuario', cod);
 });
 
+function consultarCaducidad() {
+    $.post("../controlador/Usuario_controller.php", {opcion: "caducidad"},
+    function (mensaje) {
+        //Muestro el tiempo de caducidad de la cuenta.
+        $('#caducidad').html(mensaje);
+    });
+}
+
 /**
  * método para cargar el perfil de un usuario
  * @returns {undefined}
