@@ -10,6 +10,11 @@ $(document).ready(function () {
     verFormato('analizar');
 });
 
+$("#btnExport").click(function (e) {
+    window.open('data:application/vnd.ms-excel,' + $('#res1').html());
+    e.preventDefault();
+});
+
 
 var datos = new Array();
 
@@ -83,8 +88,14 @@ function mostrarForm() {
  * @param {type} param3
  */
 $('#visualizarFormato').on('click', 'input[type="button"],select', function () {
+    $('#visualizarFormato').hide();
+    $('#verFormato').show();
+    $('#btnExport').show();
+    $('#resultado').show();
+    $('#chart-container').show();
 //                            console.log(datos);
     $('#resultado').html('');
+    $('#res1').html('');
     var arregloInfo = new Array();
     var input = $(this);
     var label = input.parent('div').children('label').text();
@@ -93,21 +104,31 @@ $('#visualizarFormato').on('click', 'input[type="button"],select', function () {
     var titulo = '<h3>Se ha seleccionado ' + label + ' para su análisis</h3><br>\n\
                                         <h4>Registros dentro del rango de fechas</h4><br>';
     $('#resultado').append(titulo);
-    
-    var tabla='<table id="' + id+ '" class="table-bordered table-hover"><thead><tr><th>Fecha del registro</th><th>Valor del registro</th></tr></thead><tbody></tbody></table>';
+
+    var tabla = '<table id="' + id + '" class="table-bordered table-hover"><thead><tr><th>Fecha del registro</th><th>Valor del registro</th></tr></thead><tbody></tbody></table>';
     $('#resultado').append(tabla);
+    $('#res1').append('<table><thead><tr><th>Fecha del registro</th><th>Valor del registro</th></tr></thead><tbody></tbody></table>');
     for (var index in datos) {
         arregloInfo[index] = new Array(datos[index][0], datos[index][1][clave]);
-        var fila = '<tr><td>'+datos[index][0] + '</td><td>' + datos[index][1][clave] + '</td></tr>';
-        $('#'+id+' tbody').append(fila);
+        var fila = '<tr><td>' + datos[index][0] + '</td><td>' + datos[index][1][clave] + '</td></tr>';
+        $('#' + id + ' tbody').append(fila);
+        $('#res1 table tbody').append(fila);
     }
-    var mensaje='<br>*Si existe un registro que coincida con la misma fecha sin tener en cuenta la hora y el mismo valor,\n\
+    var mensaje = '<br>*Si existe un registro que coincida con la misma fecha sin tener en cuenta la hora y el mismo valor,\n\
                                         solo se mostrará un solo cuadro en la gráfica de línea del tiempo.';
-    $('#resultado').append(mensaje);
+    $('#resultado').append(mensaje);    
     acomodarTabla('resultado table');
     timeLine(label, arregloInfo);
+    $('#res1 table').tablesorter({sortList: [[0,1]]});
 });
 
+function mostrarFormato() {
+    $('#visualizarFormato').show();
+    $('#btnExport').hide();
+    $('#resultado').hide();
+    $('#chart-container').hide();
+    $('#verFormato').hide();
+}
 
 //$('#visualizarFormato').on('click', 'table td', function () {
 //    $('#res1').html('');
@@ -188,7 +209,13 @@ $('#visualizarFormato').on('click', 'input[type="button"],select', function () {
  *Presenta una tabla con la libreria datatable y sin grafica.
  */
 $('#visualizarFormato').on('click', 'table', function () {
+    $('#visualizarFormato').hide();
+    $('#verFormato').show();
+    $('#btnExport').show();
+    $('#resultado').show();
+    $('#chart-container').show();
     $('#resultado').html('');
+    $('#res1').html('');
     $('#chart-container').html('');
     var tabla = '#' + $(this).attr('id') + ' tr';
     var msj = "";
@@ -201,17 +228,19 @@ $('#visualizarFormato').on('click', 'table', function () {
             msj = '<table id="' + nombreTabla + '" class="table-bordered table-hover">\n\
                     <thead></thead><tbody></tbody></table>';
             $('#resultado').append(msj);
+            $('#res1').append('<table><thead></thead><tbody></tbody></table>');
 //            var encabezado = '<tr><td>Fecha sistema</td>';
-            var encabezado = '<tr><td>Fecha del registro</td>';
+            var encabezado = '<tr><th>Fecha del registro</th>';
             $(fila).children('td').each(function () {
                 var td = $(this);
                 var col = td.text();
                 if (col !== '') {
-                    encabezado += '<td>' + col + '</td>';
+                    encabezado += '<th>' + col + '</th>';
                 }
             });
             encabezado += '</tr>';
             $('#fila' + i + ' thead').append(encabezado);
+            $('#res1 table thead').append(encabezado);
 
 //            console.log(encabezado);
 
@@ -251,14 +280,16 @@ $('#visualizarFormato').on('click', 'table', function () {
                 row += '</tr>';
                 if (flag) {
                     $('#' + nombreTabla + ' tbody').append(row);
+                    $('#res1 table tbody').append(row);
                 }
             }
         }
     });
 
 
-    //pintarGrafica();
-    acomodarTabla(nombreTabla);
+    //pintarGrafica();    
+    acomodarTabla(nombreTabla);  
+    $('#res1 table').tablesorter({sortList: [[0,1]]});
 });
 
 
@@ -312,7 +343,7 @@ function pintarGrafica() {
 function acomodarTabla(tabla) {
     $('#' + tabla).DataTable({
         responsive: true,
-        order: [[0, "desc"]],        
+        order: [[0, "desc"]],
         language: {
             processing: "Procesando",
             lengthMenu: "Mostrar _MENU_ registros por página",
@@ -374,7 +405,7 @@ function timeLine(titulo, info) {
 //                            console.log(categoria);
 
     var process = '[';
-    for (var p in procesos) {        
+    for (var p in procesos) {
         process += '{"label": "' + procesos[p] + '","id": "' + procesos[p] + '"},';
     }
     process += ']';
@@ -406,7 +437,7 @@ function timeLine(titulo, info) {
                 "scrollHeight": "20",
                 "scrollBtnWidth": "25",
                 "scrollBtnPadding": "5",
-                exportEnabled:"1"
+                exportEnabled: "1"
             },
             "categories": [{
                     "category": categorias
@@ -427,4 +458,4 @@ function timeLine(titulo, info) {
         }
     });
 }
-;
+

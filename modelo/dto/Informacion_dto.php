@@ -110,8 +110,11 @@ class Informacion_dto {
         if($this->estado==0){
             $this->estado='Guardado';
         }
-        else{
+        else if(($this->estado<4)){
             $this->estado='Modificado';
+        }
+        else{
+            $this->estado='Cerrado';
         }
 
         $arr = array(
@@ -122,7 +125,7 @@ class Informacion_dto {
             "informacion" => $this->informacion,
             "observaciones" => $this->observaciones,
             "campos_clave" => $this->campos_clave,
-            "fechas_modificaiones" => $this->fechas_modificaciones,
+            "fechas_modificaciones" => $this->fechas_modificaciones,
             "usuarios_modificaciones" => $this->usuarios_modificaciones);
         $json = json_encode($arr);
         return $json;

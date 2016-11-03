@@ -7,7 +7,7 @@ if ($_SESSION["tipo"] !== "supervisor" && $_SESSION["tipo"] !== "operario") {
     header("Location: ../../index.php");
     exit();
 }
-//include '../../controlador/sesion/seguridadTiempo.php';
+include '../../controlador/sesion/seguridadTiempo.php';
 ?>
 
 <html>
@@ -37,6 +37,8 @@ if ($_SESSION["tipo"] !== "supervisor" && $_SESSION["tipo"] !== "operario") {
                             <th>Fecha del formato</th>
                             <th>Estado del registro</th>
                             <th>Campos clave</th>
+                            <th>Fechas de las modificaciones</th>
+                            <th>Usuarios de las modificaciones</th>
                             <th>Observaciones</th>
                             <th></th>
                         </tr>

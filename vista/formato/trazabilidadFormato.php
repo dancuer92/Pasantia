@@ -6,7 +6,7 @@ if ($_SESSION["tipo"] !== "supervisor") {
     header("Location: ../../index.php");
     exit();
 }
-//include '../../controlador/sesion/seguridadTiempo.php';
+include '../../controlador/sesion/seguridadTiempo.php';
 ?>
 
 <html>
@@ -49,6 +49,7 @@ if ($_SESSION["tipo"] !== "supervisor") {
 
                 <form id="visualizarFormato" hidden>
                 </form>
+                <button id="verFormato" onclick="mostrarFormato();" hidden>Mostrar campos nuevamente</button>
                 <!--<button id="modificarRegistro"type="button" class="btn btn-danger btn-lg center-block" onclick="">MODIFICAR</button>-->
             </div>
 
@@ -61,10 +62,14 @@ if ($_SESSION["tipo"] !== "supervisor") {
                         </div>-->
             <div class="col-lg-12 col-xs-12 col-md-12" id="resultado"></div>
             <br>
-            <div class="col-lg-12 col-xs-12 col-md-12" id="res1"></div>
+            <div class="col-lg-12 col-xs-12 col-md-12">
+                <button id="btnExport" hidden>Exportar la tabla a Excel</button>
+            </div>            
+            <br>
+            <div class="col-lg-12 col-xs-12 col-md-12" id="res1" ></div>
             <br>
             <div id="chart-container" class="col-lg-12 col-xs-12 col-md-12"></div>
-            
+
         </main>
 
         <!-- Pie de pagina-->
@@ -84,5 +89,6 @@ if ($_SESSION["tipo"] !== "supervisor") {
         <script type="text/javascript" src="../util/js/fusioncharts-jquery-plugin.js"></script>
         <script type="text/javascript" src="../util/js/analisis.js"></script>
         <script type="text/javascript" src="../util/js/datatables.js"></script>
+        <script type="text/javascript" src="../util/js/tablesorter.js"></script>
     </body>
 </html>

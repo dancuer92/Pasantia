@@ -14,7 +14,7 @@ $tiempo_transcurrido = $ahora - $fechaGuardada;
 //echo ('diferencia'.$tiempo_transcurrido);
 
 //comparamos el tiempo transcurrido 
-if ($tiempo_transcurrido >=1800 && ($_SESSION["tipo"]==='supervisor' || $_SESSION["tipo"]==='operario')) {
+if ($tiempo_transcurrido >=2700 && ($_SESSION["tipo"]==='supervisor' || $_SESSION["tipo"]==='operario')) {
     //si pasaron 1 minutos o más 
     session_destroy(); // destruyo la sesión 
     header("Location: sesionExpirada.php"); //envío al usuario a la pag. de autenticación 

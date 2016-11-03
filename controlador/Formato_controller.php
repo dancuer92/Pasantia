@@ -405,9 +405,11 @@ class Formato_controller {
                 $estado = $array["estado"];
                 $observaciones = $array["observaciones"];
                 $campos_clave = $array["campos_clave"];
+                $fechas_modificaciones = $array["fechas_modificaciones"];
+                $usuarios_modificaciones = $array["usuarios_modificaciones"];
 
                 // permite esquematizar los resultados en una tabla html
-                $mensaje .= $this->listar($fecha, $fechaFormato, $usuario, $estado, $observaciones, $campos_clave);
+                $mensaje .= $this->listar($fecha, $fechaFormato, $usuario, $estado, $observaciones, $campos_clave,$fechas_modificaciones,$usuarios_modificaciones);
             }
             $mensaje = str_replace("&", "'", $mensaje);
         }
@@ -425,13 +427,15 @@ class Formato_controller {
      * @param type $observaciones
      * @return string
      */
-    public function listar($fecha, $fechaFormato, $usuario, $estado, $observaciones, $campos_clave) {
+    public function listar($fecha, $fechaFormato, $usuario, $estado, $observaciones, $campos_clave,$fechas_modificaciones, $usuarios_modificaciones) {
         $mensaje = '<tr>'
                 . '<td>' . $fecha . '</td>'
                 . '<td>' . $usuario . '</td>'
                 . '<td>' . $fechaFormato . '</td>'
                 . '<td>' . $estado . '</td>'
                 . '<td>' . $campos_clave . '</td>'
+                . '<td>' . $fechas_modificaciones . '</td>'
+                . '<td>' . $usuarios_modificaciones . '</td>'
                 . '<td>' . $observaciones . '</td>'
                 . '<td>'
                 . '<a class="hoverable" onclick="verDatos(&' . $fecha . '&)"> Ver</a>'

@@ -38,22 +38,22 @@ class Informacion_dao {
      * @param type $observaciones
      * @return type
      */
-    public function guardarInfo($fecha_formato, $usuario, $cod_formato, $info, $observaciones, $camposClave) {
+    public function guardarInfo($fecha_sistema, $fecha_formato, $usuario, $cod_formato, $info, $observaciones, $camposClave) {
         $mensaje = '';
         $estado = 0;
         $formato = strtolower($cod_formato);
-        $sql = "INSERT INTO `info_$formato`(`id`, `fecha_registro_sistema`, `fecha_formato_diligenciado`, `usuario`, `estado`, `informacion`, `observaciones`, `campos_clave`) VALUES (null,CURRENT_TIMESTAMP,?,?,?,?,?,?);";
+        $sql = "INSERT INTO `info_$formato`(`id`, `fecha_registro_sistema`, `fecha_formato_diligenciado`, `usuario`, `estado`, `informacion`, `observaciones`, `campos_clave`) VALUES (null,?,?,?,?,?,?,?);";
 
         if (!$sentencia = $this->mysqli->prepare($sql)) {
             $mensaje.=$this->mysqli->error;
         }
 
-        if (!$sentencia->bind_param("ssisss", $fecha_formato, $usuario, $estado, $info, $observaciones, $camposClave)) {
+        if (!$sentencia->bind_param("sssisss", $fecha_sistema, $fecha_formato, $usuario, $estado, $info, $observaciones, $camposClave)) {
             echo $this->mysqli->error;
         }
 
         if ($sentencia->execute()) {
-            $this->info->crear('', $fecha_formato, $usuario, $estado, $info, $observaciones, $camposClave, '', '');
+            $this->info->crear($fecha_sistema, $fecha_formato, $usuario, $estado, $info, $observaciones, $camposClave, '', '');
         } else {
             $this->info = null;
         }
@@ -70,15 +70,15 @@ class Informacion_dao {
      * @param type $info
      * @return type
      */
-    public function guardarInfoUsuario($usuario, $formato, $fechaformato, $info) {
+    public function guardarInfoUsuario($usuario, $formato, $fechaSistema, $info) {
         $mensaje = 'OK';
-        $sql = "INSERT INTO `usuario_informacion`(`id_usuario`, `id_formato`, `id_registro`, `campos_digitados`) VALUES (?,?,CURRENT_TIMESTAMP,?)";
+        $sql = "INSERT INTO `usuario_informacion`(`id_usuario`, `id_formato`, `id_registro`, `campos_digitados`) VALUES (?,?,?,?)";
 
         if (!$sentencia = $this->mysqli->prepare($sql)) {
             $mensaje = $this->mysqli->error;
         }
 
-        if (!$sentencia->bind_param("sss", $usuario, $formato, $info)) {
+        if (!$sentencia->bind_param("ssss", $usuario, $formato, $fechaSistema, $info)) {
             $mensaje = $this->mysqli->error;
         }
         if (!$sentencia->execute()) {
@@ -100,16 +100,16 @@ class Informacion_dao {
         $formato = strtolower($formato);
 //        echo $formato;
 
-        $sql = "SELECT `fecha_registro_sistema`, `fecha_formato_diligenciado`, `usuario`, `estado`, `informacion`, `observaciones`, `campos_clave` FROM `info_$formato` ;";
+        $sql = "SELECT `fecha_registro_sistema`, `fecha_formato_diligenciado`, `usuario`, `estado`, `informacion`, `observaciones`, `campos_clave`,`fechas_modificaciones`,`usuarios_modificaciones` FROM `info_$formato` ;";
 
         if (!$sentencia = $this->mysqli->prepare($sql)) {
             $mensaje.=$this->mysqli->error;
         }
 
         if ($sentencia->execute()) {
-            $sentencia->bind_result($fecha_sistema, $fecha_formato, $usuario, $estado, $info, $observaciones, $camposClave);
+            $sentencia->bind_result($fecha_sistema, $fecha_formato, $usuario, $estado, $info, $observaciones, $camposClave, $fechas_modificaciones, $usuarios_modificaciones);
             while ($sentencia->fetch()) {
-                $this->info->crear($fecha_sistema, $fecha_formato, $usuario, $estado, $info, $observaciones, $camposClave, '', '');
+                $this->info->crear($fecha_sistema, $fecha_formato, $usuario, $estado, $info, $observaciones, $camposClave, $fechas_modificaciones, $usuarios_modificaciones);
                 $informacion[] = $this->info->toJSON();
             }
         }
@@ -152,14 +152,13 @@ class Informacion_dao {
     /**
      * Método que permite modificar el contenido de un registro de un formato
      * @param type $fecha_formato
-     * @param type $usuario
      * @param type $formato
      * @param type $info
      * @param type $observaciones
      * @return type
      */
-    public function modificarRegistroFormato($fecha_formato, $usuario, $formato, $info, $observaciones, $camposClave) {
-        $sql = "UPDATE `info_$formato` SET `estado`=`estado`+1,`informacion`=?,`observaciones`=?, `campos_clave`=?"
+    public function modificarRegistroFormato($fecha_formato, $formato, $info, $observaciones, $camposClave, $fechas_mod, $users_mod) {
+        $sql = "UPDATE `info_$formato` SET `estado`=`estado`+1,`informacion`=?,`observaciones`=?, `campos_clave`=?, `fechas_modificaciones`=?, `usuarios_modificaciones`=? "
                 . " WHERE `fecha_registro_sistema`=?";
         $filas = 0;
 
@@ -167,7 +166,7 @@ class Informacion_dao {
             echo $this->mysqli->error;
         }
 
-        if (!$sentencia->bind_param("ssss", $info, $observaciones, $camposClave, $fecha_formato)) {
+        if (!$sentencia->bind_param("ssssss", $info, $observaciones, $camposClave, $fechas_mod, $users_mod, $fecha_formato)) {
             echo $this->mysqli->error;
         }
 
@@ -176,7 +175,34 @@ class Informacion_dao {
         }
 
         $sentencia->close();
-        $this->mysqli->close();
+//        $this->mysqli->close();
+        return $filas;
+    }
+    
+    /**
+     * Método que cambia el estado del formato a cerrado una vez haya vencido los plazos para realizar una modificación
+     * @param type $fecha_formato fecha del registro
+     * @param type $formato formato trabajado
+     * @return type entero si afecta o no al formato
+     */
+    public function cerrarRegistro($fecha_formato, $formato) {
+        $sql = "UPDATE `info_$formato` SET `estado`=5 WHERE `fecha_registro_sistema`=?";
+        $filas = 0;
+
+        if (!$sentencia = $this->mysqli->prepare($sql)) {
+            echo $this->mysqli->error;
+        }
+
+        if (!$sentencia->bind_param("s", $fecha_formato)) {
+            echo $this->mysqli->error;
+        }
+
+        if ($sentencia->execute()) {
+            $filas = $sentencia->affected_rows;
+        }
+
+        $sentencia->close();
+//        $this->mysqli->close();
         return $filas;
     }
 
@@ -190,7 +216,7 @@ class Informacion_dao {
         $mensaje = '';
         $formato = strtolower($formato);
 
-        $sql = "SELECT `usuario`, `estado`, `observaciones` FROM `info_$formato` WHERE `fecha_registro_sistema`=?;";
+        $sql = "SELECT `usuarios_modificaciones`, `estado`, `observaciones`, `fechas_modificaciones` FROM `info_$formato` WHERE `fecha_registro_sistema`=?;";
 
         if (!$sentencia = $this->mysqli->prepare($sql)) {
             $mensaje.=$this->mysqli->error;
@@ -201,9 +227,9 @@ class Informacion_dao {
         }
 
         if ($sentencia->execute()) {
-            $sentencia->bind_result($usuario, $estado, $observaciones);
+            $sentencia->bind_result($usuarios, $estado, $observaciones, $fechas);
             while ($sentencia->fetch()) {
-                $mensaje = $usuario . '-' . $estado . '-' . $observaciones;
+                $mensaje = $usuarios . '-' . $estado . '-' . $observaciones . '-' . $fechas;
             }
         }
         $sentencia->close();
@@ -258,6 +284,13 @@ class Informacion_dao {
         return $mensaje;
     }
 
+    /**
+     * Busca los campos que el usuario ingresó por primera vez o los que ha modificado en un registro del formato
+     * @param type $usuario usuario en sesión
+     * @param type $formato formato trabajado
+     * @param type $fecha fecha del registro
+     * @return type una cadena con los campos digitados por el usuario.
+     */
     public function buscarCamposUsuario($usuario, $formato, $fecha) {
         $mensaje = '';
         $sql = "SELECT `campos_digitados` FROM `usuario_informacion` WHERE `id_usuario`=? AND `id_formato`=? AND `id_registro`=?;";
@@ -269,16 +302,46 @@ class Informacion_dao {
         if (!$sentencia->bind_param("sss", $usuario, $formato, $fecha)) {
             echo $this->mysqli->error;
         }
-        
+
         if ($sentencia->execute()) {
             $sentencia->bind_result($campos);
             while ($sentencia->fetch()) {
-                $mensaje=$campos;
+                $mensaje = $campos;
             }
         }
         $sentencia->close();
         $this->mysqli->close();
-        return $mensaje;        
+        return $mensaje;
+    }
+    
+    /**
+     * Actualizar los campos digitados por un usuario si ya habia hecho anteriormente una modificación
+     * @param type $usuario usuario en sesion 
+     * @param type $formato formato trabajado
+     * @param type $fecha fecha del registro
+     * @param type $info informacion diligenciada
+     * @return type entero que indica si realiza o no la n¿modificacion.
+     */
+    public function actualizarCamposUsuario($usuario,$formato,$fecha,$info){
+        $sql = "INSERT INTO `usuario_informacion` (`id_usuario`,`id_formato`,`id_registro`,`campos_digitados`) "
+                . "VALUES (?,?,?,?) ON DUPLICATE KEY UPDATE `campos_digitados`=? ;";
+        $filas = 0;
+
+        if (!$sentencia = $this->mysqli->prepare($sql)) {
+            echo $this->mysqli->error;
+        }
+
+        if (!$sentencia->bind_param("sssss", $usuario, $formato, $fecha, $info,$info)) {
+            echo $this->mysqli->error;
+        }
+
+        if ($sentencia->execute()) {
+            $filas = $sentencia->affected_rows;
+        }
+
+        $sentencia->close();
+        $this->mysqli->close();
+        return $filas;
     }
 
 }

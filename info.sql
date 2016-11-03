@@ -46,8 +46,8 @@
 -- Versión del servidor: 10.1.13-MariaDB
 -- Versión de PHP: 5.6.23
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
+-- SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+-- SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -67,10 +67,10 @@ SET time_zone = "+00:00";
 
 
 
--- CREATE TABLE `usuario_informacion` (
+-- CREATE TABLE `pasantia`.`usuario_informacion` (
 --   `id_usuario` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
 --   `id_formato` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
---   `id_registro` int(11) NOT NULL,
+--   `id_registro` TIMESTAMP CURRENT TIMESTAMP NOT NULL,
 --   `campos_digitados` text CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL
 -- ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 -- 
@@ -81,7 +81,7 @@ SET time_zone = "+00:00";
 -- --
 -- -- Indices de la tabla `usuario_informacion`
 -- --
--- ALTER TABLE `usuario_informacion`
+-- ALTER TABLE `pasantia`.`usuario_informacion`
 --   ADD PRIMARY KEY (`id_usuario`,`id_formato`,`id_registro`),
 --   ADD KEY `id_formato` (`id_formato`),
 --   ADD KEY `id_usuario` (`id_usuario`);
@@ -93,7 +93,7 @@ SET time_zone = "+00:00";
 -- --
 -- -- Filtros para la tabla `usuario_informacion`
 -- --
--- ALTER TABLE `usuario_informacion`
+-- ALTER TABLE `pasantia`.`usuario_informacion`
 --   ADD CONSTRAINT `usuario_informacion_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`codigo_usuario`),
 --   ADD CONSTRAINT `usuario_informacion_ibfk_2` FOREIGN KEY (`id_formato`) REFERENCES `formato` (`cod_formato`);
 -- 

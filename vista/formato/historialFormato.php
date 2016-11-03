@@ -5,7 +5,7 @@ if ($_SESSION["tipo"] !== "asistente") {
     header("Location: ../../index.php");
     exit();
 }
-//include '../../controlador/sesion/seguridadTiempo.php';
+include '../../controlador/sesion/seguridadTiempo.php';
 ?>
 <html>
     <head>

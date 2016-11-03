@@ -366,20 +366,21 @@ class Negocio {
         if (is_null($info2)) {
             return 'Por favor ingrese los datos correspondientes al formato';
         }
-        //se verifica la fecha del formato nuevamente en caso de que la recibida sea vacía
-        if ($fechaFormato == '---') {
-            //Zona horaria
+        //Zona horaria
             date_default_timezone_set('America/Bogota');
+            $fechaSistema=date('Y/m/d H:i:s', time());
+        //se verifica la fecha del formato nuevamente en caso de que la recibida sea vacía
+        if ($fechaFormato == '---') {            
             //fecha actual
             $fechaFormato = date('Y/m/d', time());
 //            echo date('Y/m/d H:i:s', time());
         }
 
         //Se guarda la información en la BD
-        $informacion = $this->info->guardarInfo($fechaFormato, $usuario, $formato, $info2, $observaciones, $camposClave);
+        $informacion = $this->info->guardarInfo($fechaSistema, $fechaFormato, $usuario, $formato, $info2, $observaciones, $camposClave);
         //se valida la ejecución de la consulta para retornar el mensaje
         if (!is_null($informacion)) {
-            $this->info->guardarInfoUsuario($usuario,$formato,$fechaFormato,$info2);
+            $this->info->guardarInfoUsuario($usuario,$formato,$fechaSistema,$info2);
             $msj = 1;
         } else {
             $msj = 0;
@@ -481,33 +482,36 @@ class Negocio {
             //Se separa los datos obtenidos
             $u = explode('-', $reg);
             $estado = (int) $u[1];
-            $user = $u[0];
-            $obs = $u[2];
+            $users_mod = $u[0].$usuario.'<br>';
+            $obs = $u[2].$observaciones.'<br>';
+            $fechas_mod = $u[3].$fechaSistema.'<br>';
 
             //Se valida y se comprime la nueva información
             $info2 = $this->validarInformacion($info);
 //            echo $info2;
             //Se guarda la observación de la modificación
-            $obs.=' El registro ha sido modificado por el usuario ' . $usuario . '. ' . $observaciones;
+//            $obs.=' El registro ha sido modificado por el usuario ' . $usuario . '. ' . $observaciones;
 
             //Se valida si el usuario es supervisor para sobrescribir el registro y si está dentro del rango de días permitidos para su modificación
 //            if ($tipo === 'supervisor' && $estado < 5) { // linea hecha para que funcione con un usuario operario y un usuario supervisor. se elimina el condicional siguiente
             if ($estado < 4) {
                 //Se modifica el registro
-                $flag = $this->info->modificarRegistroFormato($fechaFormato, $usuario, $formato, $info2, $obs, $camposClave);
+                $flag = $this->info->modificarRegistroFormato($fechaFormato, $formato, $info2, $obs, $camposClave, $fechas_mod, $users_mod);
 //                return 'El registro ha sido modificado'; //se retorna el mensaje de éxito
                 //se valida que el registro haya sido modificado
                 if ($flag > 0) {
+                    $this->info->actualizarCamposUsuario($usuario, $formato, $fechaFormato, $this->validarInformacion($infoMod));
                     return 'El registro ha sido modificado';
                 }
             } else {
-                return 'el formato no puede ser modificado.<br>El registro ya fue modificado anteriormente';
+                $this->info->cerrarRegistro($fechaFormato, $formato);
+                return 'El registro se encuentra cerrado';
 
 
 
 //                //Si el usuario no es supervisor, se valida si es el mismo usuario encargado del primer registro y que esté dentro del rango de días permitidos
-////                if ($usuario === $user && $estado < 2) { // linea hecha para que funcione con un usuario operario y un usuario supervisor
-//                if ($usuario === $user && $estado < 5) {
+////                if ($usuario === $users_mod && $estado < 2) { // linea hecha para que funcione con un usuario operario y un usuario supervisor
+//                if ($usuario === $users_mod && $estado < 5) {
 //                    //Se modifica el registro
 //                    $flag = $this->info->modificarRegistroFormato($fechaFormato, $usuario, $formato, $info2, $observaciones);
 //                    //Se valida la operación de modificación
@@ -516,7 +520,7 @@ class Negocio {
 //                    }
 //                } else {
 //                    //si la operación no se cumple es por lo siguiente
-//                    if ($usuario !== $user) {
+//                    if ($usuario !== $users_mod) {
 //                        return 'el formato no puede ser modificado.<br>No puede modificar el formato porque usted no lo ha diligenciado inicialmente';
 //                    }
 //                    if ($estado >= 5) {
@@ -525,6 +529,7 @@ class Negocio {
 //                }
             }
         } else {
+            $this->info->cerrarRegistro($fechaFormato, $formato);
             return "el formato no puede ser modificado.<br>Se ha excedido la fecha límite del formato.";
         }
     }

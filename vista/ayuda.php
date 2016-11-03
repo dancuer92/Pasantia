@@ -33,7 +33,25 @@ and open the template in the editor.
         <!--Contenido de la página-->
         <main> 
             <div class="row col s12" >
-                <embed src="manual.pdf" style="width: 100%; height: 1000px;">
+                <?php
+                $src='';
+                $tipo=$_SESSION['tipo'];
+                switch ($tipo){
+                    case 'administrador':
+                        $src='manualAdmin.pdf';
+                        break;
+                    case 'asistente':
+                        $src='manualAsis.pdf';
+                        break;
+                    case 'supervisor':
+                        $src='manualSuper.pdf';
+                        break;
+                    case 'operario':
+                        $src='manualOper.pdf';
+                        break;
+                }
+                ?>
+                <embed src="<?php echo $src?>" style="width: 100%; height: 1000px;">
             </div>            
 
 
@@ -52,7 +70,7 @@ and open the template in the editor.
         <script src="./util/js/jsUser.js"></script>
         <script src="./util/js/jsFormat.js"></script>
         <script>
-            $(document).ready(function () {
+    $(document).ready(function () {
                 autocompletarFormato();
             })
         </script>

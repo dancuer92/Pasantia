@@ -291,21 +291,13 @@ function guardarDiligenciaFormato(opcion, info) {
     var formato = sessionStorage.getItem('formato');
     //se validan los campos que son requeridos
     var requeridos = validarRequeridos();
-    console.log(requeridos);
     //Se guarda la información
     if (requeridos) {
         //se oculta el modal
         $('#myModal').modal('hide');
         //Se toman las observaciones por el usuario o por defecto del sistema
         var observaciones = sessionStorage.getItem('observaciones');
-        var camposClave = valoresCamposClave();
-        console.log(camposClave);
-        console.log(observaciones);
-        if (observaciones === '') {
-            var firstInputName = $('#visualizarFormato input:first').attr('name');
-            var firstInputVal = $('#visualizarFormato input:first').val();
-            observaciones = firstInputName + ': ' + firstInputVal + '. El registro ha sido guardado por el usuario: ' + sessionStorage.getItem('user');
-        }
+        var camposClave = valoresCamposClave();        
         //Si la opción es registrar
         if (opcion === 'registrar') {
             opcRegistrar(formato, camposClave, observaciones);
@@ -328,7 +320,7 @@ function valoresCamposClave() {
         var campo = $(this);
         var name = campo.attr('name');
         var valor = campo.val();
-        campos += name + '=' + valor + ';\n';
+        campos += name + '=' + valor + '<br>';
     });
     if (campos === '') {
         var f = new Date();
@@ -360,15 +352,12 @@ function opcRegistrar(formato, camposClave, observaciones) {
     $.post('../../controlador/Formato_controller.php', {formato: formato, fechaFormato: fechaFormato, camposClave: camposClave, observaciones: observaciones, info: info, opcion: 'diligenciarFormato'},
     function (msj) {
         var mensaje = msj;
-        console.log(mensaje);
         if (mensaje == 1) {
-            console.log('entra al case 1');
             //Se guarda el mensaje y se redirecciona a la tabla de registros
             sessionStorage.setItem('mensaje', '¡La información ha sido registrada con éxito!');
             window.location.href = ('mostrarRegistrosFormato.php');
         }
         else if (mensaje == 0) {
-            console.log('entra case 0');
             toastr["error"]('Favor revisar si el registro ha sido creado anteriormente teniendo en cuenta los campos clave');
             toastr["info"]('Dirigirse a mostrar registros');
             $('.campoClave').css('border-color', 'red');
@@ -387,15 +376,14 @@ function opcRegistrar(formato, camposClave, observaciones) {
  */
 function opcModificar(formato, camposClave, observaciones, info) {
     var infoModificadaUsuario = sessionStorage.getItem('infoMod');
-    sessionStorage.setItem('infoMod','');
+    sessionStorage.setItem('infoMod', '');
     sessionStorage.removeItem('infoMod');
     console.log(infoModificadaUsuario);
-    console.log(camposClave);
     //Se toma la fecha del sistema que es clave primaria en la base de datos
     var fecha = sessionStorage.getItem('fecha');
     console.log(info);
     //Se ejecuta la modificación en la BD
-    $.post('../../controlador/Formato_controller.php', {formato: formato, fechaFormato: fecha, camposClave: camposClave, infoModificadaUsuario:infoModificadaUsuario, observaciones: observaciones, info: info, opcion: 'modificarRegistroFormato'},
+    $.post('../../controlador/Formato_controller.php', {formato: formato, fechaFormato: fecha, camposClave: camposClave, infoMod: infoModificadaUsuario, observaciones: observaciones, info: info, opcion: 'modificarRegistroFormato'},
     function (mensaje) {
         //Se muestra el mensaje de retorno
         $('#res1').html(mensaje);
@@ -457,7 +445,6 @@ function valorNoVacio(input) {
     var valor = $(input).val();
     //se toma el tipo del input
     var type = $(input).attr('type');
-    console.log(type);
     //Se toma el dominio del input
     var patron = $(input).attr('pattern');
     //se toma la descripción del input
@@ -554,6 +541,9 @@ function cargarRegistro2() {
             //Se agrega el valor al input que tenga por nombre la clave
             var name = 'input[value="' + div[1] + '"]';
             $(clave).val(valor);
+            if($(clave).is('input')){
+                $(clave).attr('value',valor);
+            }
 
             //Si es de tipo checkbox o una lista
             $(name).prop('checked', true);
@@ -787,18 +777,20 @@ function modificarDiligenciaFormato() {
                 var div = arreglo[i].split('=');
                 //La clave es la primera posición de ese arreglo y el valor es la segunda
                 var clave = '#' + div[0];
+                var valor = div[1];
                 //Activar los campos que el usuario ha diligenciado, los demás no
-                $(clave).attr('disabled', false);                
+                $(clave).attr('disabled', false);
+                $(clave).addClass('claseModificada');
             }
         }
     });
 
     $('input').each(function (i) {
         var input = $(this);
-        if (input.val() === '' || input.attr('type')==='checkbox' || input.attr('type')==='radio') {
+        if (input.val() === '' || input.attr('type') === 'checkbox' || input.attr('type') === 'radio') {
             input.attr('disabled', false);
-        }        
-    });    
+        }
+    });
     $('select').each(function (i) {
         var select = $(this);
         if (select.val() === '') {
@@ -817,11 +809,19 @@ function modificarDiligenciaFormato() {
  * @returns {undefined}
  */
 function guardarMR() {
+    //Se activan los campos, listas y opciones
+    $('input').attr('disabled', false);
+    $('textarea').attr('disabled', false);
+    $('select').attr('disabled', false);
+    
     //Se obtiene la información del formato
-    var info = $('#visualizarFormato').serialize();  
+    var info = $('#visualizarFormato').serialize();
     //Se obtiene la modificación de los campos.
-    sessionStorage.setItem('infoMod',$('.claseModificada').serialize());    
-//    console.log(info);
+    var infoMod=$('.claseModificada').serialize();
+    sessionStorage.setItem('infoMod',infoMod );
+    console.log(info);
+    console.log(infoMod);
+    
     //Se inactivan los campos, listas y opciones
     $('input').attr('disabled', true);
     $('textarea').attr('disabled', true);
