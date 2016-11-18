@@ -10,7 +10,7 @@ $(document).ready(function () {
     verFormato('analizar');
 });
 
-$("#btnExport").click(function (e) {
+$("#btnExportTablaGeneral").click(function (e) {
     window.open('data:application/vnd.ms-excel,' + $('#res1').html());
     e.preventDefault();
 });
@@ -90,7 +90,7 @@ function mostrarForm() {
 $('#visualizarFormato').on('click', 'input[type="button"],select', function () {
     $('#visualizarFormato').hide();
     $('#verFormato').show();
-    $('#btnExport').show();
+    $('#btnExportTablaGeneral').show();
     $('#resultado').show();
     $('#chart-container').show();
 //                            console.log(datos);
@@ -108,116 +108,168 @@ $('#visualizarFormato').on('click', 'input[type="button"],select', function () {
     var tabla = '<table id="' + id + '" class="table-bordered table-hover"><thead><tr><th>Fecha del registro</th><th>Valor del registro</th></tr></thead><tbody></tbody></table>';
     $('#resultado').append(tabla);
     $('#res1').append('<table><thead><tr><th>Fecha del registro</th><th>Valor del registro</th></tr></thead><tbody></tbody></table>');
+    var camposClave = encabezadoCamposClave('th');
+    $('#resultado thead tr').append(camposClave);
+    $('#res1 thead tr').append(camposClave);
     for (var index in datos) {
         arregloInfo[index] = new Array(datos[index][0], datos[index][1][clave]);
-        var fila = '<tr><td>' + datos[index][0] + '</td><td>' + datos[index][1][clave] + '</td></tr>';
+        var fila = '<tr><td>' + datos[index][0] + '</td><td>' + datos[index][1][clave] + '</td>';
+        fila += cuerpoCamposClave(index) + '</tr>';
         $('#' + id + ' tbody').append(fila);
         $('#res1 table tbody').append(fila);
     }
     var mensaje = '<br>*Si existe un registro que coincida con la misma fecha sin tener en cuenta la hora y el mismo valor,\n\
                                         solo se mostrará un solo cuadro en la gráfica de línea del tiempo.';
-    $('#resultado').append(mensaje);    
+    $('#resultado').append(mensaje);
     acomodarTabla('resultado table');
     timeLine(label, arregloInfo);
-    $('#res1 table').tablesorter({sortList: [[0,1]]});
+    $('#res1 table').tablesorter({sortList: [[0, 1]]});
 });
+
+
+function encabezadoCamposClave(tipo) {
+    var camposClave = sessionStorage.getItem('camposClave');
+    var cc = camposClave.split('-');
+    var campo = '';
+    var enc;
+    for (campo in cc) {
+        if (cc[campo] !== '') {
+            enc += '<' + tipo + '>' + cc[campo] + '</' + tipo + '>';
+        }
+    }
+    return enc;
+}
+
+function cuerpoCamposClave(index) {
+    var camposClave = sessionStorage.getItem('camposClave');
+    var cc = camposClave.split('-');
+    var campo = '';
+    var col;
+    for (campo in cc) {
+        var clave = cc[campo];
+        if (clave !== '') {
+            col += '<td>' + datos[index][1][clave] + '</td>';
+        }
+    }
+    return col;
+}
+
 
 function mostrarFormato() {
     $('#visualizarFormato').show();
-    $('#btnExport').hide();
+    $('#btnExportTablaGeneral').hide();
     $('#resultado').hide();
+    $('#res1').hide();
+    $('#res2').hide();
     $('#chart-container').hide();
     $('#verFormato').hide();
 }
 
-//$('#visualizarFormato').on('click', 'table td', function () {
-//    $('#res1').html('');
-//    var columna = $(this);
-//    var tabla = columna.parents('table');
-//    var tabla_name = tabla.attr('id');
-//    var col0 = $('#' + tabla_name + ' tr td:eq(0)').text();
-//    var col1 = columna.text();
-//    var texto = validarNombreTitulo(col1);
-//
-//    console.log(tabla_name);
-//
-//    
-//    $('#' + tabla.attr('id') + ' tr').each(function (i) {
-//        if (i === 0) {
-//            var msj = '<table id="pintar_' + tabla_name + '" class="table-bordered table-hover"><thead><tr><td>Fecha del registro</td><td>' + col0 + '</td><td>' + col1 + '</td></tr></thead><tbody></tbody></table>';
-//            $('#res1').append(msj);
-//        }
-//        var fila = $(this);
-//        for (var d in datos) {
-//            var flag = false;
+
+$('#visualizarFormato').on('click', 'table td', function () {
+    $('#res2').html('');
+    var columna = $(this);
+    var tabla = columna.parents('table');
+    var tabla_name = tabla.attr('id');
+    var col0 = $('#' + tabla_name + ' tr td:eq(0)').text();
+    var col1 = columna.text();
+    var texto = validarNombreTitulo(col1);
+    var index = columna.index();
+
+
+
+    $('#' + tabla.attr('id') + ' tr').each(function (i) {
+        if (i === 0) {
+//            var msj = '<table id="pintar_' + tabla_name + '" class="table-bordered table-hover"><thead><tr><td>' + col0 + '</td><td>' + col1 + '</td><td>Fecha del registro</td></tr></thead><tbody></tbody></table>';
+            var msj = '<table id="pintar_' + tabla_name + '" class="table-bordered table-hover"><thead><tr><td>' + col0 + '</td><td>' + col1 + '</td></tr></thead><tbody></tbody></table>';
+            $('#res2').append(msj);
+            var camposClave = encabezadoCamposClave('td');
+            $('#res2 thead tr').append(camposClave);
+        }
+        var fila = $(this);
+        for (var d in datos) {
+            var flag = false;
+            var row = '<tr>';
 //            var row = '<tr><td>' + (datos[d][0]) + '</td>';
-//            
-//            $(fila).children('td').each(function () {
-//                var td = $(this);
-//                var col = td.text();
-//                if (col !== '') {
-//                    row += '<td>' + col + '</td>';
-//                }
-//                else {                    
-//                        var input = td.children('input').attr('name');
-//                        var valor = (datos[d][1][input]);
-//                        if (valor !== undefined) {
-//                            flag = true;
-//                        }
-//                        else {
-//                            valor = '';
-//                        }
-//                        row += '<td>' + valor + '</td > ';
-////                    }
-//
-//
-//
-//                    var x = td.children().first();
-//                    if (x.is('input')) {
-//                        var input = x.attr('name');
-//                        if (input.includes(texto)) {
-//                            var valor = (datos[d][1][input]);
-//                            if (valor !== undefined) {
-//                                flag = true;
-//                            }
-//                            else {
-//                                valor = '';
-//                            }
-//                            row += '<td>' + valor + '</td > ';
-//                        }
-//                    }
-//                    if (x.is('select')) {
-//                        var input = x.val();
-//                        row += '<td>' + valor + '</td > ';
-//                    }
-//                }
-//            });
-//            row += '</tr>';
-//            if (flag) {
-//                $('#pintar_' + tabla_name + ' tbody').append(row);
-//            }
-//        }
-//
-//    });
-//    acomodarTabla(tabla_name);
-//});
+
+            $(fila).children('td').each(function () {
+                var td = $(this);
+                var index2 = td.index();
+                var col = td.text();
+                console.log(col);
+                if (col !== '') {
+                    row += '<td>' + col + '</td>';
+                }
+                else {
+                    if (index2 === index || index2 === 0) {
+                        var input = td.children('input').attr('name');
+                        var valor = (datos[d][1][input]);
+                        if (valor !== undefined) {
+                            flag = true;
+                        }
+                        else {
+                            valor = '';
+                        }
+                        if (index2 === 0) {
+                            valor += '<br>' + (datos[d][0]);
+                        }
+                        row += '<td>' + valor + '</td > ';
+
+                        var x = td.children().first();
+                        if (x.is('input')) {
+                            var input = x.attr('name');
+                            if (input.includes(texto)) {
+                                var valor = (datos[d][1][input]);
+                                if (valor !== undefined) {
+                                    flag = true;
+                                }
+                                else {
+                                    valor = '';
+                                }
+                                row += '<td>' + valor + '</td > ';
+                            }
+                        }
+                        if (x.is('select')) {
+                            var input = x.val();
+                            row += '<td>' + valor + '</td > ';
+                        }
+                    }
+
+                }
+            });
+            row += cuerpoCamposClave(d)+'</tr>';
+            if (flag) {
+                $('#pintar_' + tabla_name + ' tbody').append(row);
+            }
+        }
+
+    });
+    tablaCompleta(tabla_name);
+    pintarGrafica();
+    acomodarTabla('pintar_' + tabla_name);
+    $('#res2 table').tablesorter({sortList: [[0, 1]]});
+
+});
 
 
 
-
-/**Método funcional para imprimir toda la tabla según un rango de fechas.
+/**
+ *Método funcional para imprimir toda la tabla según un rango de fechas.
  *Presenta una tabla con la libreria datatable y sin grafica.
+ *@param {type} tabla_name nombre de la tabla a trabajar
  */
-$('#visualizarFormato').on('click', 'table', function () {
+//$('#visualizarFormato').on('click', 'table', function () {
+function tablaCompleta(tabla_name) {
+    console.log(tabla_name);
     $('#visualizarFormato').hide();
     $('#verFormato').show();
-    $('#btnExport').show();
+    $('#btnExportTablaGeneral').show();
     $('#resultado').show();
     $('#chart-container').show();
     $('#resultado').html('');
     $('#res1').html('');
     $('#chart-container').html('');
-    var tabla = '#' + $(this).attr('id') + ' tr';
+    var tabla = '#' + tabla_name + ' tr';
     var msj = "";
     var nombreTabla = '';
 
@@ -241,6 +293,9 @@ $('#visualizarFormato').on('click', 'table', function () {
             encabezado += '</tr>';
             $('#fila' + i + ' thead').append(encabezado);
             $('#res1 table thead').append(encabezado);
+            var camposClave = encabezadoCamposClave('th');
+            $('#fila' + i + ' thead tr').append(camposClave);
+            $('#res1 table thead tr').append(camposClave);
 
 //            console.log(encabezado);
 
@@ -277,7 +332,7 @@ $('#visualizarFormato').on('click', 'table', function () {
                         row += '<td>' + valor + '</td > ';
                     }
                 });
-                row += '</tr>';
+                row += cuerpoCamposClave(d)+'</tr>';
                 if (flag) {
                     $('#' + nombreTabla + ' tbody').append(row);
                     $('#res1 table tbody').append(row);
@@ -288,9 +343,14 @@ $('#visualizarFormato').on('click', 'table', function () {
 
 
     //pintarGrafica();    
-    acomodarTabla(nombreTabla);  
-    $('#res1 table').tablesorter({sortList: [[0,1]]});
-});
+    acomodarTabla(nombreTabla);
+    $('#res1 table').tablesorter({sortList: [[0, 1]]});
+}
+;
+//});
+
+
+
 
 
 
@@ -316,14 +376,17 @@ function validarNombreTitulo(titulo) {
 
 
 function pintarGrafica() {
-    $('#resultado table').each(function (i) {
+    $('#res2 table').each(function (i) {
         var id = "tabla_" + i;
         $('#chart-container').append('<div id="tabla_' + i + '"></div>');
         $(this).convertToFusionCharts({
 //            type: "mscolumn2d",
+//            type: "column2d",
 //            type: "scrollstackedcolumn2d",
 //            type: "scrollColumn2d",
-            type: "scrollstackedcolumn2d",
+//            type: "msline",
+//            type: "scrollline2d",
+            type: "scrollColumn2d",
             width: "100%",
             height: "350",
             dataFormat: "htmltable",

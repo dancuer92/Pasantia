@@ -63,10 +63,12 @@ include '../../controlador/sesion/seguridadTiempo.php';
             <div class="col-lg-12 col-xs-12 col-md-12" id="resultado"></div>
             <br>
             <div class="col-lg-12 col-xs-12 col-md-12">
-                <button id="btnExport" hidden>Exportar la tabla a Excel</button>
+                <button id="btnExportTablaGeneral" hidden>Exportar la tabla a Excel</button>
             </div>            
             <br>
-            <div class="col-lg-12 col-xs-12 col-md-12" id="res1" ></div>
+            <div class="col-lg-12 col-xs-12 col-md-12" id="res1" hidden></div>
+            <br>
+            <div class="col-lg-12 col-xs-12 col-md-12" id="res2" ></div>
             <br>
             <div id="chart-container" class="col-lg-12 col-xs-12 col-md-12"></div>
 

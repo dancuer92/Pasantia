@@ -693,6 +693,13 @@ function verDiligenciar() {
  * @returns {undefined}
  */
 function verAnalizar() {
+    //Se buscan los campos clave del formato
+    var camposClave='';
+    $('.campoClave').each(function(){
+        camposClave+=$(this).attr('name')+'-';
+    });
+    //se almacenan los campos clave
+    sessionStorage.setItem('camposClave',camposClave);
     //Se habilitan los input para que sean seleccionables y se convierten a tipo button
     $('#visualizarFormato [disabled]').removeAttr('disabled');
     $('#visualizarFormato input[type="text"]').attr("type", "button");
@@ -730,6 +737,11 @@ function verAnalizar() {
         //Se desaparece de la plantilla
         $(this).parent().remove();
     });
+    //si el input es tipo time
+    $('#visualizarFormato input[type="time"]').each(function () {
+        //Se desaparece de la plantilla
+        $(this).parent().remove();
+    });
     //Si es una lista 
     $('#visualizarFormato select').each(function () {
         //Se toma el nombre y el padre del elemento 
@@ -746,6 +758,7 @@ function verAnalizar() {
         var table = $(this);
         var columnas = '';
         table.children('tbody').hide();
+//        $(table).prev().append('<input id="' + table.attr('id') + '" name="' + table.attr('id') + '" type="button"/>');
 //        table.children('thead td').each(function(){
 //            var name=$(this).text();
 //            var columna='<input id="' + name + '" name="' + name + '" type="button"/>';
@@ -764,7 +777,7 @@ function modificarDiligenciaFormato() {
     var formato = sessionStorage.getItem('formato');
     var fecha = sessionStorage.getItem('fecha');
 
-
+    //método para buscar los campos modificables por un usuario
     $.post("../../controlador/Formato_controller.php", {formato: formato, fecha: fecha, opcion: "buscarCamposUsuario"},
     function (mensaje) {
         if (mensaje !== '') {
@@ -785,14 +798,21 @@ function modificarDiligenciaFormato() {
         }
     });
 
+    //Habilitar los campos de tipo checkbox, radio y time para que sean editables
     $('input').each(function (i) {
+        //se toma el input
         var input = $(this);
-        if (input.val() === '' || input.attr('type') === 'checkbox' || input.attr('type') === 'radio') {
+        // si es vacio o cualquier tipo diferente al text o number
+        if (input.val() === '' || input.attr('type') === 'checkbox' || input.attr('type') === 'radio' || input.attr('type')==='time') {
+            //deshabilitar
             input.attr('disabled', false);
         }
     });
+    //Habilitar los select que no tengan valores todavía
     $('select').each(function (i) {
+        //select actual
         var select = $(this);
+        // si es vacio se dehabilita
         if (select.val() === '') {
             select.attr('disabled', false);
         }
@@ -878,16 +898,25 @@ function verVersionFormato() {
     });
 }
 
+/**
+ * Validación de listas en el formulario para registrar un formato nuevo
+ * @param {type} param
+ */
+
 $('#formRegFormat').submit(function (event) {
     console.log('entro');
+    //recorre cada lista desplegable
     $('select').each(function () {
         console.log($(this).attr('name'));
         console.log($(this).val());
+        //Si el valor es vacío retorna el mensaje que indicca cuál lista falta por seleccionar
         if ($(this).val() === "seleccione") {
+            //Se corta el evento del submit
             event.preventDefault();
             var msj = "Favor seleccionar una opción de " + $(this).attr('name');
             toastr["error"](msj);
             $(this).focus();
+            //Se rompe el ciclo que recorre los select
             return false;
         }
     });
