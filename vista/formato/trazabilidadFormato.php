@@ -28,27 +28,28 @@ include '../../controlador/sesion/seguridadTiempo.php';
         <main>
             <h1 class="titulo"><i class="material-icons prefix" style="font-size: 43px">timeline</i> Trazabilidad del formato</h1>
             <div class="col-lg-12 col-xs-12 col-md-12 center">
-                <div class="form-inline" id="fechas">
-                    <?php
-                    date_default_timezone_set('America/Bogota');
-                    $fechaMin = date("Y-m-d", mktime(0, 0, 0, date("m"), date("d"), date("Y") - 1));
-                    $fechaAct = date("Y-m-d", mktime(0, 0, 0, date("m"), date("d"), date("Y")));
-                    ?>
-                    <div class="form-group">
-                        <label>Fecha de inicio del análisis</label>
-                        <input type="date" id="fechaInicio" name="fechaInicio" min="<?php echo$fechaMin ?>" max="<?php echo $fechaAct ?>" value="<?php echo $fechaAct ?>"/>
+                <form id="formTraz" method="POST" action="trazabilidadFormato_1.php">
+                    <div class="form-inline" id="fechas">
+                        <?php
+                        date_default_timezone_set('America/Bogota');
+                        $fechaMin = date("Y-m-d", mktime(0, 0, 0, date("m"), date("d"), date("Y") - 1));
+                        $fechaAct = date("Y-m-d", mktime(0, 0, 0, date("m"), date("d"), date("Y")));
+                        ?>
+                        <div class="form-group">
+                            <label>Fecha de inicio del análisis</label>
+                            <input type="date" id="fechaInicio" name="fechaInicio" min="<?php echo$fechaMin ?>" max="<?php echo $fechaAct ?>" value="<?php echo $fechaAct ?>" required/>
+                        </div>
+                        <div class="form-group">
+                            <label>Fecha de finalización del análisis</label>
+                            <input type="date" id="fechaFin" name="fechaFin" min="<?php echo$fechaMin ?>" max="<?php echo $fechaAct ?>" value="<?php echo $fechaAct ?>" required/>
+                        </div>
+                        <br>
+                        <input type="button" onclick="mostrarForm();" value="Consultar"></input> 
+                        <button id="trazabilidadaCompletaRegistros" form="formTraz" type="submit">Trazabilidad completa de los registros</button>
                     </div>
-                    <div class="form-group">
-                        <label>Fecha de finalización del análisis</label>
-                        <input type="date" id="fechaFin" name="fechaFin" min="<?php echo$fechaMin ?>" max="<?php echo $fechaAct ?>" value="<?php echo $fechaAct ?>"/>
-                    </div>
-                    <button onclick="mostrarForm();">Consultar</button>
-                </div>
-
-
-
+                </form>                
                 <form id="visualizarFormato" hidden>
-                </form>
+                </form>                
                 <button id="verFormato" onclick="mostrarFormato();" hidden>Mostrar campos nuevamente</button>
                 <!--<button id="modificarRegistro"type="button" class="btn btn-danger btn-lg center-block" onclick="">MODIFICAR</button>-->
             </div>
@@ -92,5 +93,15 @@ include '../../controlador/sesion/seguridadTiempo.php';
         <script type="text/javascript" src="../util/js/analisis.js"></script>
         <script type="text/javascript" src="../util/js/datatables.js"></script>
         <script type="text/javascript" src="../util/js/tablesorter.js"></script>
+        <script type="text/javascript">
+                    $(document).ready(function () {
+                        //Se visualiza el formato
+                        verFormato('analizar');
+                    });
+                    $("#btnExportTablaGeneral").click(function (e) {
+                        window.open('data:application/vnd.ms-excel,' + $('#res1').html());
+                        e.preventDefault();
+                    });
+        </script>
     </body>
 </html>

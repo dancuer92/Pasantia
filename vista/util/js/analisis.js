@@ -5,14 +5,18 @@
  */
 
 
-$(document).ready(function () {
-    //Se visualiza el formato
-    verFormato('analizar');
-});
 
-$("#btnExportTablaGeneral").click(function (e) {
-    window.open('data:application/vnd.ms-excel,' + $('#res1').html());
-    e.preventDefault();
+$('#formTraz').submit(function (event) {
+    //Se establece un rango de fechas    
+    var fechaIni = $('#fechaInicio').val();
+    var fechaFin = $('#fechaFin').val();
+    //Condicional para validar que las fechas sean validas
+    if (fechaFin < fechaIni) {
+        //Se corta el evento del submit
+        event.preventDefault();
+        $('#fechaFin').focus();
+        toastr["error"]('Fecha de finalización mayor que la fecha de inicio');
+    }
 });
 
 
@@ -237,7 +241,7 @@ $('#visualizarFormato').on('click', 'table td', function () {
 
                 }
             });
-            row += cuerpoCamposClave(d)+'</tr>';
+            row += cuerpoCamposClave(d) + '</tr>';
             if (flag) {
                 $('#pintar_' + tabla_name + ' tbody').append(row);
             }
@@ -332,7 +336,7 @@ function tablaCompleta(tabla_name) {
                         row += '<td>' + valor + '</td > ';
                     }
                 });
-                row += cuerpoCamposClave(d)+'</tr>';
+                row += cuerpoCamposClave(d) + '</tr>';
                 if (flag) {
                     $('#' + nombreTabla + ' tbody').append(row);
                     $('#res1 table tbody').append(row);
@@ -350,7 +354,51 @@ function tablaCompleta(tabla_name) {
 //});
 
 
+function trazabilidadCompleta() {
+    $('#ver').hide();
+    $('input[type="checkbox"]').attr('checked', true);
+    $('input[type="radio"]').attr('checked', true);
+    $('#visualizarFormato table').remove();
+    var cad = $('#visualizarFormato').serialize();
+    console.log(cad);
+    var campos = cad.split('&');
+    var i = '';
+    $('#divRes').append('<table><thead></thead><tbody></tbody></table');
+    var encabezadoResultado = '<tr><th>Fecha de sistema</th>';
+    for (i in campos) {
+        var campo = campos[i].split('=');
+        var clave = campo[0];
+        encabezadoResultado += '<th>' + clave + '</th>';
+    }
+    encabezadoResultado += '</tr>';
+    $('#tableRes thead').append(encabezadoResultado);    
+    $('#divRes table thead').append(encabezadoResultado);    
+    llenarCuerpoTablaTrazabilidadCompleta();
+    acomodarTabla('tableRes');
+    $('#divRes table').tablesorter({sortList: [[0, 1]]});
+}
 
+function llenarCuerpoTablaTrazabilidadCompleta() {
+    for (var i in datos) {
+        var fila = '<tr><td>' + datos[i][0] + '</td>';
+        $('#tableRes thead tr th').each(function (j) {
+            if (j !== 0) {
+                var clave = $(this).text();
+                var valor = datos[i][1][clave];
+                console.log(valor);
+                if (valor === null || valor === '' || valor==='undefined') {
+                    valor = '';
+                }
+                var col = '<td>' + valor + '</td>';
+                fila += col;
+            }
+        });
+        fila += '</tr>';
+        $('#tableRes tbody').append(fila);
+        $('#divRes table tbody').append(fila);
+    }
+
+}
 
 
 

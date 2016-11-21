@@ -713,9 +713,9 @@ function verAnalizar() {
         //Si el input tiene el mismo nombre del radio anterior
         if (input.attr('name') === opcion.attr('name')) {
             //Se remueve el texto que lo acompaña
-            input.next('p').remove();
+            input.next('p').hide();
 //            y se remueve el input
-            input.remove();
+            input.hide();
         }
         //Si el input es de tipo botón
         else {
@@ -724,23 +724,23 @@ function verAnalizar() {
         }
         //Actualizo el valor
         opcion.attr('value', '');
-        opcion.next('p').remove();
+        opcion.next('p').hide();
     });
     //Se recorre cada checkbox
     $('#visualizarFormato input[type="checkbox"]').each(function () {
         //Se remueve el contenido de texto que tiene el input
-        $(this).next('p').remove();
+        $(this).next('p').hide();
         $(this).attr("type", "button");
     });
     //Si el input es de tipo date
     $('#visualizarFormato input[type="date"]').each(function () {
         //Se desaparece de la plantilla
-        $(this).parent().remove();
+        $(this).parent().hide();
     });
     //si el input es tipo time
     $('#visualizarFormato input[type="time"]').each(function () {
         //Se desaparece de la plantilla
-        $(this).parent().remove();
+        $(this).parent().hide();
     });
     //Si es una lista 
     $('#visualizarFormato select').each(function () {
@@ -748,7 +748,7 @@ function verAnalizar() {
         var name = $(this).attr('name');
         var div = $(this).parent();
         //Se remueve el elemento
-        $(this).remove();
+        $(this).hide();
         //Se crea un nuevo elemento con el nombre del input eliminado
         $(div).append('<input id="' + name + '" name="' + name + '" type="button"/>');
     });
@@ -920,5 +920,4 @@ $('#formRegFormat').submit(function (event) {
             return false;
         }
     });
-
 });
