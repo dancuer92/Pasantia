@@ -43,7 +43,7 @@ include '../../controlador/sesion/seguridadTiempo.php';
             <div class="col-lg-12 col-xs-12 col-md-12" id="divRes" hidden></div>
             <br>
             <div class="col-lg-12 col-xs-12 col-md-12">
-                <button id="btnExportTablaGeneral">Exportar la tabla a Excel</button>
+                <button id="btnExportTablaGeneral" >Exportar la tabla a Excel</button>
             </div> 
         </main>
 
