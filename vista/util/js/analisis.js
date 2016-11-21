@@ -4,8 +4,6 @@
  * and open the template in the editor.
  */
 
-
-
 $('#formTraz').submit(function (event) {
     //Se establece un rango de fechas    
     var fechaIni = $('#fechaInicio').val();
@@ -18,7 +16,6 @@ $('#formTraz').submit(function (event) {
         toastr["error"]('Fecha de finalización mayor que la fecha de inicio');
     }
 });
-
 
 var datos = new Array();
 
@@ -92,7 +89,6 @@ function mostrarForm() {
  * @param {type} param3
  */
 $('#visualizarFormato').on('click', 'input[type="button"],select', function () {
-    //Validaciones de la vista
     $('#visualizarFormato').hide();
     $('#verFormato').show();
     $('#btnExportTablaGeneral').show();
@@ -110,18 +106,15 @@ $('#visualizarFormato').on('click', 'input[type="button"],select', function () {
     var titulo = '<h3>Se ha seleccionado ' + label + ' para su análisis</h3><br>\n\
                                         <h4>Registros dentro del rango de fechas</h4><br>';
     $('#resultado').append(titulo);
-    
+
     var tabla = '<table id="' + id + '" class="table-bordered table-hover"><thead><tr><th>Fecha del registro</th><th>Valor del registro</th></tr></thead><tbody></tbody></table>';
     $('#resultado').append(tabla);
     $('#res1').append('<table><thead><tr><th>Fecha del registro</th><th>Valor del registro</th></tr></thead><tbody></tbody></table>');
-    var camposClave = encabezadoCamposClave('th');
-    $('#resultado thead tr').append(camposClave);
-    $('#res1 thead tr').append(camposClave);
-    //Recorrido de los datos (registros del formato)
-    for (var index in datos) {        
+//Recorrido de los datos (registros del formato)
+    for (var index in datos) {
         arregloInfo[index] = new Array(datos[index][0], datos[index][1][clave]);
         //creacion de las filas
-        var fila = '<tr><td>' + datos[index][0] + '</td><td>' + datos[index][1][clave] + '</td>';
+        var fila = '<tr><td>' + datos[index][0] + '</td><td>' + datos[index][1][clave] + '</td></tr>';
         //creacion de los campos clave para la fila
         fila += cuerpoCamposClave(index) + '</tr>';
         $('#' + id + ' tbody').append(fila);
@@ -172,10 +165,6 @@ function cuerpoCamposClave(index) {
     return col;
 }
 
-/**
- * Botón de validacion que muestra el formato otra vez.
- * @returns {undefined}
- */
 function mostrarFormato() {
     $('#visualizarFormato').show();
     $('#btnExportTablaGeneral').hide();
@@ -189,7 +178,7 @@ function mostrarFormato() {
 /**
  * Método que al hacer clic sobre una tabla del formato muestra los datos del registro
  */
-$('#visualizarFormato').on('click', 'table td', function () {    
+$('#visualizarFormato').on('click', 'table td', function () {
     $('#res2').html('');
     //columna actual a graficar especificamente
     var columna = $(this);
@@ -220,7 +209,7 @@ $('#visualizarFormato').on('click', 'table td', function () {
             var flag = false;
             var row = '<tr>';
 //            var row = '<tr><td>' + (datos[d][0]) + '</td>';
-            //se recorre cada columna de la tabla del formato
+//se recorre cada columna de la tabla del formato
             $(fila).children('td').each(function () {
                 var td = $(this);
                 //se toma la posicion de la columna recorrida
@@ -234,7 +223,6 @@ $('#visualizarFormato').on('click', 'table td', function () {
                 else {
                     //si la columna cliqueada es igual a cero o igual a la posicion de la columna actual
                     if (index2 === index || index2 === 0) {
-                        //se toma el nombre del input que contiene la celda
                         var input = td.children('input').attr('name');
                         //Se busca en el reigstro de la siguiente forma: 
                         //donde d= es la posicion actual del registro.
@@ -253,12 +241,11 @@ $('#visualizarFormato').on('click', 'table td', function () {
                         }
                         //se crea la columna 
                         row += '<td>' + valor + '</td > ';
-                        
-                        
+
                         var x = td.children().first();
                         //si la primera columna tiene valores de entrada o seleccionables se toma el valor siempre y cuando no sea vacio
                         if (x.is('input')) {
-                            var input = x.attr('name');                           
+                            var input = x.attr('name');
                             if (input.includes(texto)) {
                                 var valor = (datos[d][1][input]);
                                 if (valor !== undefined) {
@@ -279,7 +266,7 @@ $('#visualizarFormato').on('click', 'table td', function () {
                 }
             });
             //se buscan los demas valores de los campos clave a traves del indice d que es la posicion de ese registro en los datos
-            row += cuerpoCamposClave(d) + '</tr>';
+            row += '</tr>';
             //si tiene al menos una columna no vacia se almacena la fila
             if (flag) {
                 $('#pintar_' + tabla_name + ' tbody').append(row);
@@ -299,11 +286,9 @@ $('#visualizarFormato').on('click', 'table td', function () {
 /**
  *Método funcional para imprimir toda la tabla según un rango de fechas.
  *Presenta una tabla con la libreria datatable y sin grafica.
- *@param {type} tabla_name nombre de la tabla a trabajar
  */
 //$('#visualizarFormato').on('click', 'table', function () {
 function tablaCompleta(tabla_name) {
-    //validaciones de la interfaz
     console.log(tabla_name);
     $('#visualizarFormato').hide();
     $('#verFormato').show();
@@ -342,9 +327,6 @@ function tablaCompleta(tabla_name) {
             encabezado += '</tr>';
             $('#fila' + i + ' thead').append(encabezado);
             $('#res1 table thead').append(encabezado);
-            var camposClave = encabezadoCamposClave('th');
-            $('#fila' + i + ' thead tr').append(camposClave);
-            $('#res1 table thead tr').append(camposClave);
 
 //            console.log(encabezado);
 
@@ -352,7 +334,7 @@ function tablaCompleta(tabla_name) {
         else {
 //            console.log('fila: ' + i);
 //            console.log(datos);
-            //se recorren los registros
+//se recorren los registros            
             for (var d in datos) {
 //                console.log(d);
                 //se toma la fecha del sistema del registro
@@ -361,16 +343,15 @@ function tablaCompleta(tabla_name) {
 //                var row = '<tr>';
 //                console.log(datos[d][1]);
                 //Se recorre las demas columnas
-                $(fila).children('td').each(function () {   
+                $(fila).children('td').each(function () {
                     //se toma la columna y si es vacio se pone igual
-                    var td = $(this);
+                     td = $(this);
                     var col = td.text();
 //                    console.log(td.html());
                     if (col !== '') {
                         row += '<td>' + col + '</td>';
                     }
                     else {
-                        
                         //Se pone el valor de la entrada.
                         var input = td.children('input').attr('name');
 //                        console.log(input);
@@ -383,11 +364,11 @@ function tablaCompleta(tabla_name) {
                         else {
                             valor = '';
                         }
-                        row += '<td>' + valor + '</td > ';
+                        //se buscan los valores de los campos clave
+                row += '<td>' + valor + '</td > ';
                     }
                 });
-                //se buscan los valores de los campos clave
-                row += cuerpoCamposClave(d) + '</tr>';
+                row += '</tr>';
                 if (flag) {
                     $('#' + nombreTabla + ' tbody').append(row);
                     $('#res1 table tbody').append(row);
@@ -468,6 +449,7 @@ function llenarCuerpoTablaTrazabilidadCompleta() {
 }
 
 
+
 /**
  * Método que reemplaza el nombre del titulo de una tabla
  * @param {type} titulo
@@ -503,12 +485,9 @@ function pintarGrafica() {
         $('#chart-container').append('<div id="tabla_' + i + '"></div>');
         $(this).convertToFusionCharts({
 //            type: "mscolumn2d",
-//            type: "column2d",
 //            type: "scrollstackedcolumn2d",
 //            type: "scrollColumn2d",
-//            type: "msline",
-//            type: "scrollline2d",
-            type: "scrollColumn2d",
+            type: "scrollstackedcolumn2d",
             width: "100%",
             height: "350",
             dataFormat: "htmltable",
